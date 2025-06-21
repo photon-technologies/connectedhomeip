@@ -16471,6 +16471,92 @@ MTR_PROVISIONALLY_AVAILABLE
 @end
 
 /**
+ * Cluster Midea Air Conditioner Alarm Test
+ *
+ * Attributes and commands for configuring the Midea Air Conditioner alarm.
+ */
+MTR_PROVISIONALLY_AVAILABLE
+@interface MTRBaseClusterMideaAirConditionerAlarmTest : MTRGenericBaseCluster
+
+/**
+ * Command Reset
+ *
+ * This command resets active and latched alarms (if possible).
+ */
+- (void)resetWithParams:(MTRMideaAirConditionerAlarmTestClusterResetParams *)params completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeMaskWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeMaskWithParams:(MTRSubscribeParams *)params
+                 subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                           reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeMaskWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeLatchWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeLatchWithParams:(MTRSubscribeParams *)params
+                  subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                            reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeLatchWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeStateWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeStateWithParams:(MTRSubscribeParams *)params
+                  subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                            reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeStateWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeSupportedWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeSupportedWithParams:(MTRSubscribeParams *)params
+                      subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeSupportedWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeGeneratedCommandListWithCompletion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeGeneratedCommandListWithParams:(MTRSubscribeParams *)params
+                                 subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                           reportHandler:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeGeneratedCommandListWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeAcceptedCommandListWithCompletion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeAcceptedCommandListWithParams:(MTRSubscribeParams *)params
+                                subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                          reportHandler:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeAcceptedCommandListWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeAttributeListWithCompletion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeAttributeListWithParams:(MTRSubscribeParams *)params
+                          subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                    reportHandler:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeAttributeListWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeFeatureMapWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeFeatureMapWithParams:(MTRSubscribeParams *)params
+                       subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                 reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeFeatureMapWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (void)readAttributeClusterRevisionWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+- (void)subscribeAttributeClusterRevisionWithParams:(MTRSubscribeParams *)params
+                            subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                      reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
++ (void)readAttributeClusterRevisionWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
+@end
+
+@interface MTRBaseClusterMideaAirConditionerAlarmTest (Availability)
+
+/**
+ * For all instance methods (reads, writes, commands) that take a completion,
+ * the completion will be called on the provided queue.
+ */
+- (instancetype _Nullable)initWithDevice:(MTRBaseDevice *)device
+                              endpointID:(NSNumber *)endpointID
+                                   queue:(dispatch_queue_t)queue MTR_PROVISIONALLY_AVAILABLE;
+
+@end
+
+/**
  * Cluster Unit Testing
  *
  * The Test Cluster is meant to validate the generated code
@@ -21961,6 +22047,40 @@ typedef NS_ENUM(uint16_t, MTRCommodityMeteringMeasurementType) {
     MTRCommodityMeteringMeasurementTypeElectricalEnergy MTR_PROVISIONALLY_AVAILABLE = 0x0E,
     MTRCommodityMeteringMeasurementTypeReactiveEnergy MTR_PROVISIONALLY_AVAILABLE = 0x0F,
     MTRCommodityMeteringMeasurementTypeApparentEnergy MTR_PROVISIONALLY_AVAILABLE = 0x10,
+} MTR_PROVISIONALLY_AVAILABLE;
+
+typedef NS_OPTIONS(uint32_t, MTRMideaAirConditionerAlarmTestAlarmBitmap) {
+    MTRMideaAirConditionerAlarmTestAlarmBitmapInteriorBoardCommunicationFailure MTR_PROVISIONALLY_AVAILABLE = 0x1,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIndoorMainControlBoardFailure MTR_PROVISIONALLY_AVAILABLE = 0x2,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIndoorOutdoorBoardCommunicationFailure MTR_PROVISIONALLY_AVAILABLE = 0x4,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapZeroCrossingDetectionFailure MTR_PROVISIONALLY_AVAILABLE = 0x8,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIndoorBoardFanStallFailure MTR_PROVISIONALLY_AVAILABLE = 0x10,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorCondenserSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x20,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorAmbientTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x40,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorCompressionEngineExhaustTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x80,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorESideFailure MTR_PROVISIONALLY_AVAILABLE = 0x100,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIndoorTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x200,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIndoorEvaporatorTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x400,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorWindSpeedStallFailure MTR_PROVISIONALLY_AVAILABLE = 0x800,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIpmModuleProtection MTR_PROVISIONALLY_AVAILABLE = 0x1000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapVoltageProtection MTR_PROVISIONALLY_AVAILABLE = 0x2000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorCompressorTopTemperatureProtection MTR_PROVISIONALLY_AVAILABLE = 0x4000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOutdoorTemperatureLowProtection MTR_PROVISIONALLY_AVAILABLE = 0x8000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapCompressorPositionProtection MTR_PROVISIONALLY_AVAILABLE = 0x10000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapDisplayBoardESideFault MTR_PROVISIONALLY_AVAILABLE = 0x20000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapOuterPipeTemperatureProtection MTR_PROVISIONALLY_AVAILABLE = 0x40000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapExhaustHighTemperatureProtection MTR_PROVISIONALLY_AVAILABLE = 0x80000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapHeatingAndColdWindProtection MTR_PROVISIONALLY_AVAILABLE = 0x100000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapCurrentProtection MTR_PROVISIONALLY_AVAILABLE = 0x200000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapEvaporatorHighAndLowTemperatureProtection MTR_PROVISIONALLY_AVAILABLE = 0x400000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapCondenserHighAndLowTemperatureProtectionFrequencyLimit MTR_PROVISIONALLY_AVAILABLE = 0x800000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapExhaustHighAndLowTemperatureProtection MTR_PROVISIONALLY_AVAILABLE = 0x1000000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapIndoorOutdoorCommunicationMismatchProtocol MTR_PROVISIONALLY_AVAILABLE = 0x2000000,
+    MTRMideaAirConditionerAlarmTestAlarmBitmapRefrigerantLeakageProtection MTR_PROVISIONALLY_AVAILABLE = 0x4000000,
+} MTR_PROVISIONALLY_AVAILABLE;
+
+typedef NS_OPTIONS(uint32_t, MTRMideaAirConditionerAlarmTestFeature) {
+    MTRMideaAirConditionerAlarmTestFeatureReset MTR_PROVISIONALLY_AVAILABLE = 0x1,
 } MTR_PROVISIONALLY_AVAILABLE;
 
 typedef NS_ENUM(uint8_t, MTRUnitTestingSimple) {

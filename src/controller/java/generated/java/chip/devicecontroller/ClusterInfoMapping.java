@@ -20880,6 +20880,69 @@ public class ClusterInfoMapping {
     }
   }
 
+  public static class DelegatedMideaAirConditionerAlarmTestClusterGeneratedCommandListAttributeCallback implements ChipClusters.MideaAirConditionerAlarmTestCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedMideaAirConditionerAlarmTestClusterAcceptedCommandListAttributeCallback implements ChipClusters.MideaAirConditionerAlarmTestCluster.AcceptedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedMideaAirConditionerAlarmTestClusterAttributeListAttributeCallback implements ChipClusters.MideaAirConditionerAlarmTestCluster.AttributeListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
 
   public static class DelegatedUnitTestingClusterTestSpecificResponseCallback implements ChipClusters.UnitTestingCluster.TestSpecificResponseCallback, DelegatedClusterCallback {
     private ClusterCommandCallback callback;
@@ -22993,6 +23056,10 @@ public class ClusterInfoMapping {
       (ptr, endpointId) -> new ChipClusters.CommodityMeteringCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("commodityMetering", commodityMeteringClusterInfo);
 
+    ClusterInfo mideaAirConditionerAlarmTestClusterInfo = new ClusterInfo(
+      (ptr, endpointId) -> new ChipClusters.MideaAirConditionerAlarmTestCluster(ptr, endpointId), new HashMap<>());
+    clusterMap.put("mideaAirConditionerAlarmTest", mideaAirConditionerAlarmTestClusterInfo);
+
     ClusterInfo unitTestingClusterInfo = new ClusterInfo(
       (ptr, endpointId) -> new ChipClusters.UnitTestingCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("unitTesting", unitTestingClusterInfo);
@@ -23146,6 +23213,7 @@ public class ClusterInfoMapping {
     destination.get("tlsClientManagement").combineCommands(source.get("tlsClientManagement"));
     destination.get("meterIdentification").combineCommands(source.get("meterIdentification"));
     destination.get("commodityMetering").combineCommands(source.get("commodityMetering"));
+    destination.get("mideaAirConditionerAlarmTest").combineCommands(source.get("mideaAirConditionerAlarmTest"));
     destination.get("unitTesting").combineCommands(source.get("unitTesting"));
     destination.get("faultInjection").combineCommands(source.get("faultInjection"));
     destination.get("sampleMei").combineCommands(source.get("sampleMei"));
@@ -31381,6 +31449,27 @@ public class ClusterInfoMapping {
     Map<String, InteractionInfo> commodityMeteringClusterInteractionInfoMap = new LinkedHashMap<>();
 
     commandMap.put("commodityMetering", commodityMeteringClusterInteractionInfoMap);
+
+    Map<String, InteractionInfo> mideaAirConditionerAlarmTestClusterInteractionInfoMap = new LinkedHashMap<>();
+
+    Map<String, CommandParameterInfo> mideaAirConditionerAlarmTestresetCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo mideaAirConditionerAlarmTestresetalarmsCommandParameterInfo = new CommandParameterInfo("alarms", Long.class, Long.class);
+    mideaAirConditionerAlarmTestresetCommandParams.put("alarms",mideaAirConditionerAlarmTestresetalarmsCommandParameterInfo);
+    InteractionInfo mideaAirConditionerAlarmTestresetInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster)
+        .reset((DefaultClusterCallback) callback
+        , (Long)
+        commandArguments.get("alarms")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        mideaAirConditionerAlarmTestresetCommandParams
+    );
+    mideaAirConditionerAlarmTestClusterInteractionInfoMap.put("reset", mideaAirConditionerAlarmTestresetInteractionInfo);
+
+    commandMap.put("mideaAirConditionerAlarmTest", mideaAirConditionerAlarmTestClusterInteractionInfoMap);
 
     Map<String, InteractionInfo> unitTestingClusterInteractionInfoMap = new LinkedHashMap<>();
 

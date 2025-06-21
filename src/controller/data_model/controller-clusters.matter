@@ -11284,6 +11284,69 @@ cluster CommodityMetering = 2823 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
+/** Attributes and commands for configuring the Midea Air Conditioner alarm. */
+cluster MideaAirConditionerAlarmTest = 4294048769 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap64 {
+    kInteriorBoardCommunicationFailure = 0x1;
+    kIndoorMainControlBoardFailure = 0x2;
+    kIndoorOutdoorBoardCommunicationFailure = 0x4;
+    kZeroCrossingDetectionFailure = 0x8;
+    kIndoorBoardFanStallFailure = 0x10;
+    kOutdoorCondenserSensorFailure = 0x20;
+    kOutdoorAmbientTemperatureSensorFailure = 0x40;
+    kOutdoorCompressionEngineExhaustTemperatureSensorFailure = 0x80;
+    kOutdoorESideFailure = 0x100;
+    kIndoorTemperatureSensorFailure = 0x200;
+    kIndoorEvaporatorTemperatureSensorFailure = 0x400;
+    kOutdoorWindSpeedStallFailure = 0x800;
+    kIpmModuleProtection = 0x1000;
+    kVoltageProtection = 0x2000;
+    kOutdoorCompressorTopTemperatureProtection = 0x4000;
+    kOutdoorTemperatureLowProtection = 0x8000;
+    kCompressorPositionProtection = 0x10000;
+    kDisplayBoardESideFault = 0x20000;
+    kOuterPipeTemperatureProtection = 0x40000;
+    kExhaustHighTemperatureProtection = 0x80000;
+    kHeatingAndColdWindProtection = 0x100000;
+    kCurrentProtection = 0x200000;
+    kEvaporatorHighAndLowTemperatureProtection = 0x400000;
+    kCondenserHighAndLowTemperatureProtectionFrequencyLimit = 0x800000;
+    kExhaustHighAndLowTemperatureProtection = 0x1000000;
+    kIndoorOutdoorCommunicationMismatchProtocol = 0x2000000;
+    kRefrigerantLeakageProtection = 0x4000000;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
+}
+
 /** The Test Cluster is meant to validate the generated code */
 internal cluster UnitTesting = 4294048773 {
   revision 1; // NOTE: Default/not specifically set

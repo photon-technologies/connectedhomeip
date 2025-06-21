@@ -19251,6 +19251,109 @@ public class ClusterReadMapping {
      
        return result;
     }
+    private static Map<String, InteractionInfo> readMideaAirConditionerAlarmTestInteractionInfo() {
+       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestMaskCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestMaskAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readMaskAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readMideaAirConditionerAlarmTestMaskCommandParams
+        );
+        result.put("readMaskAttribute", readMideaAirConditionerAlarmTestMaskAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestLatchCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestLatchAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readLatchAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readMideaAirConditionerAlarmTestLatchCommandParams
+        );
+        result.put("readLatchAttribute", readMideaAirConditionerAlarmTestLatchAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestStateCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestStateAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readStateAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readMideaAirConditionerAlarmTestStateCommandParams
+        );
+        result.put("readStateAttribute", readMideaAirConditionerAlarmTestStateAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestSupportedCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestSupportedAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readSupportedAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readMideaAirConditionerAlarmTestSupportedCommandParams
+        );
+        result.put("readSupportedAttribute", readMideaAirConditionerAlarmTestSupportedAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readGeneratedCommandListAttribute(
+              (ChipClusters.MideaAirConditionerAlarmTestCluster.GeneratedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedMideaAirConditionerAlarmTestClusterGeneratedCommandListAttributeCallback(),
+          readMideaAirConditionerAlarmTestGeneratedCommandListCommandParams
+        );
+        result.put("readGeneratedCommandListAttribute", readMideaAirConditionerAlarmTestGeneratedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestAcceptedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestAcceptedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readAcceptedCommandListAttribute(
+              (ChipClusters.MideaAirConditionerAlarmTestCluster.AcceptedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedMideaAirConditionerAlarmTestClusterAcceptedCommandListAttributeCallback(),
+          readMideaAirConditionerAlarmTestAcceptedCommandListCommandParams
+        );
+        result.put("readAcceptedCommandListAttribute", readMideaAirConditionerAlarmTestAcceptedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestAttributeListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestAttributeListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readAttributeListAttribute(
+              (ChipClusters.MideaAirConditionerAlarmTestCluster.AttributeListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedMideaAirConditionerAlarmTestClusterAttributeListAttributeCallback(),
+          readMideaAirConditionerAlarmTestAttributeListCommandParams
+        );
+        result.put("readAttributeListAttribute", readMideaAirConditionerAlarmTestAttributeListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestFeatureMapCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestFeatureMapAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readFeatureMapAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readMideaAirConditionerAlarmTestFeatureMapCommandParams
+        );
+        result.put("readFeatureMapAttribute", readMideaAirConditionerAlarmTestFeatureMapAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readMideaAirConditionerAlarmTestClusterRevisionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readMideaAirConditionerAlarmTestClusterRevisionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.MideaAirConditionerAlarmTestCluster) cluster).readClusterRevisionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readMideaAirConditionerAlarmTestClusterRevisionCommandParams
+        );
+        result.put("readClusterRevisionAttribute", readMideaAirConditionerAlarmTestClusterRevisionAttributeInteractionInfo);
+     
+       return result;
+    }
     private static Map<String, InteractionInfo> readUnitTestingInteractionInfo() {
        Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readUnitTestingBooleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readUnitTestingBooleanAttributeInteractionInfo = new InteractionInfo(
@@ -20515,6 +20618,7 @@ public class ClusterReadMapping {
             put("tlsClientManagement", readTlsClientManagementInteractionInfo());
             put("meterIdentification", readMeterIdentificationInteractionInfo());
             put("commodityMetering", readCommodityMeteringInteractionInfo());
+            put("mideaAirConditionerAlarmTest", readMideaAirConditionerAlarmTestInteractionInfo());
             put("unitTesting", readUnitTestingInteractionInfo());
             put("faultInjection", readFaultInjectionInteractionInfo());
             put("sampleMei", readSampleMeiInteractionInfo());}};

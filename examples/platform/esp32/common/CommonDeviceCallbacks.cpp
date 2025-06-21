@@ -39,6 +39,7 @@ DeviceCallbacksDelegate * appDelegate = nullptr;
 
 void CommonDeviceCallbacks::DeviceEventCallback(const ChipDeviceEvent * event, intptr_t arg)
 {
+    ESP_LOGI(TAG, "DeviceEventCallback: %d", event->Type);
     switch (event->Type)
     {
     case DeviceEventType::kBLEDeinitialized:

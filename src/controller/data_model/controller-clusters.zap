@@ -1,6 +1,6 @@
 {
   "fileFormat": 2,
-  "featureLevel": 106,
+  "featureLevel": 107,
   "creator": "zap",
   "keyValuePairs": [
     {
@@ -3311,6 +3311,14 @@
           "code": 2823,
           "mfgCode": null,
           "define": "COMMODITY_METERING_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Midea Air Conditioner Alarm Test",
+          "code": 4294048769,
+          "mfgCode": null,
+          "define": "MIDEA_ALARM_TEST_CLUSTER",
           "side": "client",
           "enabled": 1
         },

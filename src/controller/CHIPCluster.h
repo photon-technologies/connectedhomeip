@@ -228,7 +228,7 @@ public:
     CHIP_ERROR ReadAttribute(void * context, ReadResponseSuccessCallback<typename AttributeInfo::DecodableArgType> successCb,
                              ReadResponseFailureCallback failureCb, bool aIsFabricFiltered = true)
     {
-        return ReadAttribute<typename AttributeInfo::DecodableType, typename AttributeInfo::DecodableArgType>(
+    return ReadAttribute<typename AttributeInfo::DcodableType, typename AttributeInfo::DecodableArgType>(
             context, AttributeInfo::GetClusterId(), AttributeInfo::GetAttributeId(), successCb, failureCb, aIsFabricFiltered);
     }
 
