@@ -146,7 +146,8 @@
         "window-covering.xml",
         "matter-devices.xml",
         "sample-mei-cluster.xml",
-        "zone-management-cluster.xml"
+        "zone-management-cluster.xml",
+        "fresh-ac-error_test_vendor.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {

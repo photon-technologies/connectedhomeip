@@ -94,6 +94,7 @@
 #include <clusters/MeterIdentification/ClusterId.h>
 #include <clusters/MicrowaveOvenControl/ClusterId.h>
 #include <clusters/MicrowaveOvenMode/ClusterId.h>
+#include <clusters/MideaAirConditionerAlarmTest/ClusterId.h>
 #include <clusters/ModeSelect/ClusterId.h>
 #include <clusters/NetworkCommissioning/ClusterId.h>
 #include <clusters/NitrogenDioxideConcentrationMeasurement/ClusterId.h>

@@ -753,6 +753,8 @@ CHIP_ERROR Engine::BuildAndSendSingleReportData(ReadHandler * apReadHandler)
 
     reportBufferMaxSize = apReadHandler->GetReportBufferMaxSize();
 
+    ChipLogDetail(DataManagement, "<RE> Buffer Max Size (%" PRIuPTR " bytes)...", reportBufferMaxSize);
+
     bufHandle = System::PacketBufferHandle::New(reportBufferMaxSize);
     VerifyOrExit(!bufHandle.IsNull(), err = CHIP_ERROR_NO_MEMORY);
 

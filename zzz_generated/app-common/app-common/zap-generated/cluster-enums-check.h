@@ -96,6 +96,7 @@
 #include <clusters/MeterIdentification/EnumsCheck.h>
 #include <clusters/MicrowaveOvenControl/EnumsCheck.h>
 #include <clusters/MicrowaveOvenMode/EnumsCheck.h>
+#include <clusters/MideaAirConditionerAlarmTest/EnumsCheck.h>
 #include <clusters/ModeSelect/EnumsCheck.h>
 #include <clusters/NetworkCommissioning/EnumsCheck.h>
 #include <clusters/NitrogenDioxideConcentrationMeasurement/EnumsCheck.h>

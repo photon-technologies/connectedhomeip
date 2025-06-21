@@ -29,6 +29,8 @@
 #include <lib/core/CHIPCore.h>
 #include <lib/core/CHIPError.h>
 #include <platform/CHIPDeviceLayer.h>
+#include <app/ConcreteAttributePath.h>
+#include <protocols/interaction_model/StatusCode.h>
 
 #include <lib/support/DLLUtil.h>
 
@@ -75,6 +77,9 @@ public:
                                              uint8_t type, uint16_t size, uint8_t * value)
     {}
     virtual ~CHIPDeviceManagerCallbacks() {}
+
+    virtual chip::Protocols::InteractionModel::Status PreAttributeChangeCallback(chip::EndpointId endpointId, chip::ClusterId clusterId,
+        chip::AttributeId attributeId, uint8_t type, uint16_t size, uint8_t *value) = 0;
 };
 
 /**
