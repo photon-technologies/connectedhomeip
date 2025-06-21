@@ -230,6 +230,7 @@ jobs:
                       src/app/zap-templates/zcl/data-model/chip/electrical-energy-measurement-cluster.xml \
                       src/app/zap-templates/zcl/data-model/chip/electrical-power-measurement-cluster.xml \
                       src/app/zap-templates/zcl/data-model/chip/zone-management-cluster.xml \
+                      src/app/zap-templates/zcl/data-model/chip/fresh-ac-error_test_vendor.xml \
                     "
             - name: Build Apps
               run: |

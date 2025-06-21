@@ -319,6 +319,10 @@
 #include <clusters/MicrowaveOvenMode/Commands.ipp>
 #include <clusters/MicrowaveOvenMode/Events.ipp>
 #include <clusters/MicrowaveOvenMode/Structs.ipp>
+#include <clusters/MideaAirConditionerAlarmTest/Attributes.ipp>
+#include <clusters/MideaAirConditionerAlarmTest/Commands.ipp>
+#include <clusters/MideaAirConditionerAlarmTest/Events.ipp>
+#include <clusters/MideaAirConditionerAlarmTest/Structs.ipp>
 #include <clusters/ModeSelect/Attributes.ipp>
 #include <clusters/ModeSelect/Commands.ipp>
 #include <clusters/ModeSelect/Events.ipp>
@@ -1397,6 +1401,13 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
             return true;
         case Clusters::TlsClientManagement::Commands::RemoveEndpoint::Id:
             return true;
+        default:
+            return false;
+        }
+    }
+    case Clusters::MideaAirConditionerAlarmTest::Id: {
+        switch (aCommand)
+        {
         default:
             return false;
         }

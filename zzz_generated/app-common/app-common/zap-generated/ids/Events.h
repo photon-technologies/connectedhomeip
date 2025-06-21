@@ -94,6 +94,7 @@
 #include <clusters/MeterIdentification/EventIds.h>
 #include <clusters/MicrowaveOvenControl/EventIds.h>
 #include <clusters/MicrowaveOvenMode/EventIds.h>
+#include <clusters/MideaAirConditionerAlarmTest/EventIds.h>
 #include <clusters/ModeSelect/EventIds.h>
 #include <clusters/NetworkCommissioning/EventIds.h>
 #include <clusters/NitrogenDioxideConcentrationMeasurement/EventIds.h>

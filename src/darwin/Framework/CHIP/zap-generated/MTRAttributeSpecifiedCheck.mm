@@ -6562,6 +6562,43 @@ static BOOL AttributeIsSpecifiedInCommodityMeteringCluster(AttributeId aAttribut
     }
     }
 }
+static BOOL AttributeIsSpecifiedInMideaAirConditionerAlarmTestCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::MideaAirConditionerAlarmTest;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        return YES;
+    }
+    case Attributes::Latch::Id: {
+        return YES;
+    }
+    case Attributes::State::Id: {
+        return YES;
+    }
+    case Attributes::Supported::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known MideaAirConditionerAlarmTest attribute.
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInUnitTestingCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::UnitTesting;
@@ -7287,6 +7324,9 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::CommodityMetering::Id: {
         return AttributeIsSpecifiedInCommodityMeteringCluster(aAttributeId);
+    }
+    case Clusters::MideaAirConditionerAlarmTest::Id: {
+        return AttributeIsSpecifiedInMideaAirConditionerAlarmTestCluster(aAttributeId);
     }
     case Clusters::UnitTesting::Id: {
         return AttributeIsSpecifiedInUnitTestingCluster(aAttributeId);

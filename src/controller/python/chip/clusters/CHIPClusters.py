@@ -14542,6 +14542,75 @@ class ChipClusters:
             },
         },
     }
+    _MIDEA_AIR_CONDITIONER_ALARM_TEST_CLUSTER_INFO = {
+        "clusterName": "MideaAirConditionerAlarmTest",
+        "clusterId": 0xFFF1FC01,
+        "commands": {
+            0x00000000: {
+                "commandId": 0x00000000,
+                "commandName": "Reset",
+                "args": {
+                    "alarms": "int",
+                },
+            },
+        },
+        "attributes": {
+            0x00000000: {
+                "attributeName": "Mask",
+                "attributeId": 0x00000000,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000001: {
+                "attributeName": "Latch",
+                "attributeId": 0x00000001,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000002: {
+                "attributeName": "State",
+                "attributeId": 0x00000002,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000003: {
+                "attributeName": "Supported",
+                "attributeId": 0x00000003,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF8: {
+                "attributeName": "GeneratedCommandList",
+                "attributeId": 0x0000FFF8,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF9: {
+                "attributeName": "AcceptedCommandList",
+                "attributeId": 0x0000FFF9,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFB: {
+                "attributeName": "AttributeList",
+                "attributeId": 0x0000FFFB,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFC: {
+                "attributeName": "FeatureMap",
+                "attributeId": 0x0000FFFC,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFD: {
+                "attributeName": "ClusterRevision",
+                "attributeId": 0x0000FFFD,
+                "type": "int",
+                "reportable": True,
+            },
+        },
+    }
     _UNIT_TESTING_CLUSTER_INFO = {
         "clusterName": "UnitTesting",
         "clusterId": 0xFFF1FC05,
@@ -15674,6 +15743,7 @@ class ChipClusters:
         0x00000802: _TLS_CLIENT_MANAGEMENT_CLUSTER_INFO,
         0x00000B06: _METER_IDENTIFICATION_CLUSTER_INFO,
         0x00000B07: _COMMODITY_METERING_CLUSTER_INFO,
+        0xFFF1FC01: _MIDEA_AIR_CONDITIONER_ALARM_TEST_CLUSTER_INFO,
         0xFFF1FC05: _UNIT_TESTING_CLUSTER_INFO,
         0xFFF1FC06: _FAULT_INJECTION_CLUSTER_INFO,
         0xFFF1FC20: _SAMPLE_MEI_CLUSTER_INFO,
@@ -15817,6 +15887,7 @@ class ChipClusters:
         "TlsClientManagement": _TLS_CLIENT_MANAGEMENT_CLUSTER_INFO,
         "MeterIdentification": _METER_IDENTIFICATION_CLUSTER_INFO,
         "CommodityMetering": _COMMODITY_METERING_CLUSTER_INFO,
+        "MideaAirConditionerAlarmTest": _MIDEA_AIR_CONDITIONER_ALARM_TEST_CLUSTER_INFO,
         "UnitTesting": _UNIT_TESTING_CLUSTER_INFO,
         "FaultInjection": _FAULT_INJECTION_CLUSTER_INFO,
         "SampleMei": _SAMPLE_MEI_CLUSTER_INFO,

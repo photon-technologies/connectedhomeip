@@ -429,6 +429,9 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeCommodityMeteringID:
         result = @"CommodityMetering";
         break;
+    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+        result = @"MideaAirConditionerAlarmTest";
+        break;
     case MTRClusterIDTypeUnitTestingID:
         result = @"UnitTesting";
         break;
@@ -8992,6 +8995,54 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+
+        switch (attributeID) {
+
+            // Cluster MideaAirConditionerAlarmTest attributes
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeMaskID:
+            result = @"Mask";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeLatchID:
+            result = @"Latch";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeStateID:
+            result = @"State";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeSupportedID:
+            result = @"Supported";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known MideaAirConditionerAlarmTest attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeUnitTestingID:
 
         switch (attributeID) {
@@ -12164,6 +12215,20 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterMideaAirConditionerAlarmTestCommandResetID:
+            result = @"Reset";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeUnitTestingID:
 
         switch (commandID) {
@@ -14037,6 +14102,16 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         break;
 
     case MTRClusterIDTypeCommodityMeteringID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
 
         switch (commandID) {
 
@@ -16011,6 +16086,21 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
     case MTRClusterIDTypeCommodityMeteringID:
 
         switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+
+        switch (eventID) {
+
+            // Cluster MideaAirConditionerAlarmTest events
+        case MTREventIDTypeClusterMideaAirConditionerAlarmTestEventNotifyID:
+            result = @"Notify";
+            break;
 
         default:
             result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];

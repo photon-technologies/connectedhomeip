@@ -319,6 +319,10 @@
 #include <clusters/MicrowaveOvenMode/Commands.h>
 #include <clusters/MicrowaveOvenMode/Events.h>
 #include <clusters/MicrowaveOvenMode/Structs.h>
+#include <clusters/MideaAirConditionerAlarmTest/Attributes.h>
+#include <clusters/MideaAirConditionerAlarmTest/Commands.h>
+#include <clusters/MideaAirConditionerAlarmTest/Events.h>
+#include <clusters/MideaAirConditionerAlarmTest/Structs.h>
 #include <clusters/ModeSelect/Attributes.h>
 #include <clusters/ModeSelect/Commands.h>
 #include <clusters/ModeSelect/Events.h>

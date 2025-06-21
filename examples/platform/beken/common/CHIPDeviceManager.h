@@ -30,6 +30,7 @@
 #include <lib/core/CHIPError.h>
 #include <platform/CHIPDeviceLayer.h>
 
+
 #include <lib/support/DLLUtil.h>
 
 #include <stdarg.h>
@@ -75,6 +76,8 @@ public:
                                              uint8_t type, uint16_t size, uint8_t * value)
     {}
     virtual ~CHIPDeviceManagerCallbacks() {}
+
+    
 };
 
 /**
