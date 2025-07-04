@@ -25,9 +25,9 @@
 # appropriate build specifications from the required component.
 idf_build_get_property(idf_path IDF_PATH)
 
-# if(NOT CHIP_ROOT)
-    # get_filename_component(CHIP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../../.. REALPATH)
-# endif()
+if(NOT CHIP_ROOT)
+    get_filename_component(CHIP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../../.. REALPATH)
+endif()
 
 include(${CMAKE_CURRENT_LIST_DIR}/ota-image.cmake)
 
