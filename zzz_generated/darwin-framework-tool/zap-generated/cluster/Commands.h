@@ -152368,7 +152368,7 @@ public:
 | * AllocatedVideoStreams                                             | 0x000F |
 | * AllocatedAudioStreams                                             | 0x0010 |
 | * AllocatedSnapshotStreams                                          | 0x0011 |
-| * RankedVideoStreamPrioritiesList                                   | 0x0012 |
+| * StreamUsagePriorities                                             | 0x0012 |
 | * SoftRecordingPrivacyModeEnabled                                   | 0x0013 |
 | * SoftLivestreamPrivacyModeEnabled                                  | 0x0014 |
 | * HardPrivacyModeOn                                                 | 0x0015 |
@@ -152578,10 +152578,10 @@ public:
         AddArgument("MaxBitRate", 0, UINT32_MAX, &mRequest.maxBitRate);
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("MinFragmentLen", 0, UINT16_MAX, &mRequest.minFragmentLen);
+        AddArgument("MinKeyFrameInterval", 0, UINT16_MAX, &mRequest.minKeyFrameInterval);
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("MaxFragmentLen", 0, UINT16_MAX, &mRequest.maxFragmentLen);
+        AddArgument("MaxKeyFrameInterval", 0, UINT16_MAX, &mRequest.maxKeyFrameInterval);
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         AddArgument("WatermarkEnabled", 0, 1, &mRequest.watermarkEnabled);
@@ -152632,10 +152632,10 @@ public:
         params.maxBitRate = [NSNumber numberWithUnsignedInt:mRequest.maxBitRate];
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
-        params.minFragmentLen = [NSNumber numberWithUnsignedShort:mRequest.minFragmentLen];
+        params.minKeyFrameInterval = [NSNumber numberWithUnsignedShort:mRequest.minKeyFrameInterval];
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
-        params.maxFragmentLen = [NSNumber numberWithUnsignedShort:mRequest.maxFragmentLen];
+        params.maxKeyFrameInterval = [NSNumber numberWithUnsignedShort:mRequest.maxKeyFrameInterval];
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         if (mRequest.watermarkEnabled.HasValue()) {
@@ -154757,34 +154757,34 @@ public:
 #if MTR_ENABLE_PROVISIONAL
 
 /*
- * Attribute RankedVideoStreamPrioritiesList
+ * Attribute StreamUsagePriorities
  */
-class ReadCameraAvStreamManagementRankedVideoStreamPrioritiesList : public ReadAttribute {
+class ReadCameraAvStreamManagementStreamUsagePriorities : public ReadAttribute {
 public:
-    ReadCameraAvStreamManagementRankedVideoStreamPrioritiesList()
-        : ReadAttribute("ranked-video-stream-priorities-list")
+    ReadCameraAvStreamManagementStreamUsagePriorities()
+        : ReadAttribute("stream-usage-priorities")
     {
     }
 
-    ~ReadCameraAvStreamManagementRankedVideoStreamPrioritiesList()
+    ~ReadCameraAvStreamManagementStreamUsagePriorities()
     {
     }
 
     CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
     {
         constexpr chip::ClusterId clusterId = chip::app::Clusters::CameraAvStreamManagement::Id;
-        constexpr chip::AttributeId attributeId = chip::app::Clusters::CameraAvStreamManagement::Attributes::RankedVideoStreamPrioritiesList::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::CameraAvStreamManagement::Attributes::StreamUsagePriorities::Id;
 
         ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
 
         dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
         __auto_type * cluster = [[MTRBaseClusterCameraAVStreamManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        [cluster readAttributeRankedVideoStreamPrioritiesListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
-            NSLog(@"CameraAVStreamManagement.RankedVideoStreamPrioritiesList response %@", [value description]);
+        [cluster readAttributeStreamUsagePrioritiesWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"CameraAVStreamManagement.StreamUsagePriorities response %@", [value description]);
             if (error == nil) {
                 RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
             } else {
-                LogNSError("CameraAVStreamManagement RankedVideoStreamPrioritiesList read Error", error);
+                LogNSError("CameraAVStreamManagement StreamUsagePriorities read Error", error);
                 RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
             }
             SetCommandExitStatus(error);
@@ -154793,21 +154793,21 @@ public:
     }
 };
 
-class SubscribeAttributeCameraAvStreamManagementRankedVideoStreamPrioritiesList : public SubscribeAttribute {
+class SubscribeAttributeCameraAvStreamManagementStreamUsagePriorities : public SubscribeAttribute {
 public:
-    SubscribeAttributeCameraAvStreamManagementRankedVideoStreamPrioritiesList()
-        : SubscribeAttribute("ranked-video-stream-priorities-list")
+    SubscribeAttributeCameraAvStreamManagementStreamUsagePriorities()
+        : SubscribeAttribute("stream-usage-priorities")
     {
     }
 
-    ~SubscribeAttributeCameraAvStreamManagementRankedVideoStreamPrioritiesList()
+    ~SubscribeAttributeCameraAvStreamManagementStreamUsagePriorities()
     {
     }
 
     CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
     {
         constexpr chip::ClusterId clusterId = chip::app::Clusters::CameraAvStreamManagement::Id;
-        constexpr chip::CommandId attributeId = chip::app::Clusters::CameraAvStreamManagement::Attributes::RankedVideoStreamPrioritiesList::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::CameraAvStreamManagement::Attributes::StreamUsagePriorities::Id;
 
         ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
         dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
@@ -154822,10 +154822,10 @@ public:
         if (mAutoResubscribe.HasValue()) {
             params.resubscribeAutomatically = mAutoResubscribe.Value();
         }
-        [cluster subscribeAttributeRankedVideoStreamPrioritiesListWithParams:params
+        [cluster subscribeAttributeStreamUsagePrioritiesWithParams:params
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
-                NSLog(@"CameraAVStreamManagement.RankedVideoStreamPrioritiesList response %@", [value description]);
+                NSLog(@"CameraAVStreamManagement.StreamUsagePriorities response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -155453,7 +155453,7 @@ public:
 
         dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
         __auto_type * cluster = [[MTRBaseClusterCameraAVStreamManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        [cluster readAttributeViewportWithCompletion:^(MTRCameraAVStreamManagementClusterViewportStruct * _Nullable value, NSError * _Nullable error) {
+        [cluster readAttributeViewportWithCompletion:^(MTRDataTypeViewportStruct * _Nullable value, NSError * _Nullable error) {
             NSLog(@"CameraAVStreamManagement.Viewport response %@", [value description]);
             if (error == nil) {
                 RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
@@ -155493,8 +155493,8 @@ public:
         __auto_type * params = [[MTRWriteParams alloc] init];
         params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
         params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
-        MTRCameraAVStreamManagementClusterViewportStruct * _Nonnull value;
-        value = [MTRCameraAVStreamManagementClusterViewportStruct new];
+        MTRDataTypeViewportStruct * _Nonnull value;
+        value = [MTRDataTypeViewportStruct new];
         value.x1 = [NSNumber numberWithUnsignedShort:mValue.x1];
         value.y1 = [NSNumber numberWithUnsignedShort:mValue.y1];
         value.x2 = [NSNumber numberWithUnsignedShort:mValue.x2];
@@ -155511,8 +155511,8 @@ public:
     }
 
 private:
-    chip::app::Clusters::CameraAvStreamManagement::Structs::ViewportStruct::Type mValue;
-    TypedComplexArgument<chip::app::Clusters::CameraAvStreamManagement::Structs::ViewportStruct::Type> mComplex;
+    chip::app::Clusters::Globals::Structs::ViewportStruct::Type mValue;
+    TypedComplexArgument<chip::app::Clusters::Globals::Structs::ViewportStruct::Type> mComplex;
 };
 
 class SubscribeAttributeCameraAvStreamManagementViewport : public SubscribeAttribute {
@@ -155546,7 +155546,7 @@ public:
         }
         [cluster subscribeAttributeViewportWithParams:params
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
-            reportHandler:^(MTRCameraAVStreamManagementClusterViewportStruct * _Nullable value, NSError * _Nullable error) {
+            reportHandler:^(MTRDataTypeViewportStruct * _Nullable value, NSError * _Nullable error) {
                 NSLog(@"CameraAVStreamManagement.Viewport response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
@@ -158228,7 +158228,7 @@ public:
         params.videoStreamID = [NSNumber numberWithUnsignedShort:mRequest.videoStreamID];
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
-        params.viewport = [MTRCameraAVSettingsUserLevelManagementClusterViewportStruct new];
+        params.viewport = [MTRDataTypeViewportStruct new];
         params.viewport.x1 = [NSNumber numberWithUnsignedShort:mRequest.viewport.x1];
         params.viewport.y1 = [NSNumber numberWithUnsignedShort:mRequest.viewport.y1];
         params.viewport.x2 = [NSNumber numberWithUnsignedShort:mRequest.viewport.x2];
@@ -158255,7 +158255,7 @@ public:
 
 private:
     chip::app::Clusters::CameraAvSettingsUserLevelManagement::Commands::DPTZSetViewport::Type mRequest;
-    TypedComplexArgument<chip::app::Clusters::CameraAvSettingsUserLevelManagement::Structs::ViewportStruct::Type> mComplex_Viewport;
+    TypedComplexArgument<chip::app::Clusters::Globals::Structs::ViewportStruct::Type> mComplex_Viewport;
 };
 
 #endif // MTR_ENABLE_PROVISIONAL
@@ -196046,8 +196046,8 @@ void registerClusterCameraAvStreamManagement(Commands & commands)
         make_unique<SubscribeAttributeCameraAvStreamManagementAllocatedSnapshotStreams>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
-        make_unique<ReadCameraAvStreamManagementRankedVideoStreamPrioritiesList>(), //
-        make_unique<SubscribeAttributeCameraAvStreamManagementRankedVideoStreamPrioritiesList>(), //
+        make_unique<ReadCameraAvStreamManagementStreamUsagePriorities>(), //
+        make_unique<SubscribeAttributeCameraAvStreamManagementStreamUsagePriorities>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadCameraAvStreamManagementSoftRecordingPrivacyModeEnabled>(), //

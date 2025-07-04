@@ -100230,9 +100230,9 @@ public:
                                      completion:completion];
 }
 
-- (void)readAttributeRankedVideoStreamPrioritiesListWithCompletion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion
+- (void)readAttributeStreamUsagePrioritiesWithCompletion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion
 {
-    using TypeInfo = CameraAvStreamManagement::Attributes::RankedVideoStreamPrioritiesList::TypeInfo;
+    using TypeInfo = CameraAvStreamManagement::Attributes::StreamUsagePriorities::TypeInfo;
     [self.device _readKnownAttributeWithEndpointID:self.endpointID
                                          clusterID:@(TypeInfo::GetClusterId())
                                        attributeID:@(TypeInfo::GetAttributeId())
@@ -100241,11 +100241,11 @@ public:
                                         completion:completion];
 }
 
-- (void)subscribeAttributeRankedVideoStreamPrioritiesListWithParams:(MTRSubscribeParams * _Nonnull)params
-                                            subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
-                                                      reportHandler:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))reportHandler
+- (void)subscribeAttributeStreamUsagePrioritiesWithParams:(MTRSubscribeParams * _Nonnull)params
+                                  subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                            reportHandler:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))reportHandler
 {
-    using TypeInfo = CameraAvStreamManagement::Attributes::RankedVideoStreamPrioritiesList::TypeInfo;
+    using TypeInfo = CameraAvStreamManagement::Attributes::StreamUsagePriorities::TypeInfo;
     [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
                                                 clusterID:@(TypeInfo::GetClusterId())
                                               attributeID:@(TypeInfo::GetAttributeId())
@@ -100255,9 +100255,9 @@ public:
                                   subscriptionEstablished:subscriptionEstablished];
 }
 
-+ (void)readAttributeRankedVideoStreamPrioritiesListWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion
++ (void)readAttributeStreamUsagePrioritiesWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSArray * _Nullable value, NSError * _Nullable error))completion
 {
-    using TypeInfo = CameraAvStreamManagement::Attributes::RankedVideoStreamPrioritiesList::TypeInfo;
+    using TypeInfo = CameraAvStreamManagement::Attributes::StreamUsagePriorities::TypeInfo;
     [clusterStateCacheContainer
         _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
                                       clusterID:TypeInfo::GetClusterId()
@@ -100558,7 +100558,7 @@ public:
                                      completion:completion];
 }
 
-- (void)readAttributeViewportWithCompletion:(void (^)(MTRCameraAVStreamManagementClusterViewportStruct * _Nullable value, NSError * _Nullable error))completion
+- (void)readAttributeViewportWithCompletion:(void (^)(MTRDataTypeViewportStruct * _Nullable value, NSError * _Nullable error))completion
 {
     using TypeInfo = CameraAvStreamManagement::Attributes::Viewport::TypeInfo;
     [self.device _readKnownAttributeWithEndpointID:self.endpointID
@@ -100569,11 +100569,11 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeViewportWithValue:(MTRCameraAVStreamManagementClusterViewportStruct * _Nonnull)value completion:(MTRStatusCompletion)completion
+- (void)writeAttributeViewportWithValue:(MTRDataTypeViewportStruct * _Nonnull)value completion:(MTRStatusCompletion)completion
 {
-    [self writeAttributeViewportWithValue:(MTRCameraAVStreamManagementClusterViewportStruct * _Nonnull) value params:nil completion:completion];
+    [self writeAttributeViewportWithValue:(MTRDataTypeViewportStruct * _Nonnull) value params:nil completion:completion];
 }
-- (void)writeAttributeViewportWithValue:(MTRCameraAVStreamManagementClusterViewportStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
+- (void)writeAttributeViewportWithValue:(MTRDataTypeViewportStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
 {
     // Make a copy of params before we go async.
     params = [params copy];
@@ -100602,7 +100602,7 @@ public:
 
 - (void)subscribeAttributeViewportWithParams:(MTRSubscribeParams * _Nonnull)params
                      subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
-                               reportHandler:(void (^)(MTRCameraAVStreamManagementClusterViewportStruct * _Nullable value, NSError * _Nullable error))reportHandler
+                               reportHandler:(void (^)(MTRDataTypeViewportStruct * _Nullable value, NSError * _Nullable error))reportHandler
 {
     using TypeInfo = CameraAvStreamManagement::Attributes::Viewport::TypeInfo;
     [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
@@ -100614,7 +100614,7 @@ public:
                                   subscriptionEstablished:subscriptionEstablished];
 }
 
-+ (void)readAttributeViewportWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(MTRCameraAVStreamManagementClusterViewportStruct * _Nullable value, NSError * _Nullable error))completion
++ (void)readAttributeViewportWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(MTRDataTypeViewportStruct * _Nullable value, NSError * _Nullable error))completion
 {
     using TypeInfo = CameraAvStreamManagement::Attributes::Viewport::TypeInfo;
     [clusterStateCacheContainer
