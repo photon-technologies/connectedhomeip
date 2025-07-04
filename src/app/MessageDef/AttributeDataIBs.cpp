@@ -101,7 +101,7 @@ AttributeDataIB::Builder & AttributeDataIBs::Builder::GetAttributeDataIBBuilder(
     return mAttributeDataIBBuilder;
 }
 
-CHIP_ERROR AttributeDataIBs::Builder::EndOfAttributeDataIBs()
+    CHIP_ERROR AttributeDataIBs::Builder::EndOfAttributeDataIBs()
 {
     EndOfContainer();
 
