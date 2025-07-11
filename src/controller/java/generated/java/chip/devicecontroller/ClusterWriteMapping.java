@@ -3622,6 +3622,30 @@ public class ClusterWriteMapping {
     writeAttributeMap.put("meterIdentification", writeMeterIdentificationInteractionInfo);
     Map<String, InteractionInfo> writeCommodityMeteringInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("commodityMetering", writeCommodityMeteringInteractionInfo);
+    Map<String, InteractionInfo> writeFreshRefrigeratorControllerInteractionInfo = new LinkedHashMap<>();
+    Map<String, CommandParameterInfo> writeFreshRefrigeratorControllerFridgeTemperatureDefaultCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshRefrigeratorControllerfridgeTemperatureDefaultCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Integer.class, 
+            Integer.class 
+        );
+    writeFreshRefrigeratorControllerFridgeTemperatureDefaultCommandParams.put(
+        "value",
+        freshRefrigeratorControllerfridgeTemperatureDefaultCommandParameterInfo
+    );
+    InteractionInfo writeFreshRefrigeratorControllerFridgeTemperatureDefaultAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshRefrigeratorControllerCluster) cluster).writeFridgeTemperatureDefaultAttribute(
+          (DefaultClusterCallback) callback,
+          (Integer) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshRefrigeratorControllerFridgeTemperatureDefaultCommandParams
+    );
+    writeFreshRefrigeratorControllerInteractionInfo.put("writeFridgeTemperatureDefaultAttribute", writeFreshRefrigeratorControllerFridgeTemperatureDefaultAttributeInteractionInfo);
+    writeAttributeMap.put("freshRefrigeratorController", writeFreshRefrigeratorControllerInteractionInfo);
     Map<String, InteractionInfo> writeMideaAirConditionerAlarmTestInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("mideaAirConditionerAlarmTest", writeMideaAirConditionerAlarmTestInteractionInfo);
     Map<String, InteractionInfo> writeUnitTestingInteractionInfo = new LinkedHashMap<>();

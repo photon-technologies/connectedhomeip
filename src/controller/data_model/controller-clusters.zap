@@ -3312,6 +3312,15 @@
           "mfgCode": null,
           "define": "COMMODITY_METERING_CLUSTER",
           "side": "client",
+          "enabled": 1,
+          "apiMaturity": "provisional"
+        },
+        {
+          "name": "Fresh Refrigerator Controller",
+          "code": 367524867,
+          "mfgCode": null,
+          "define": "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER",
+          "side": "client",
           "enabled": 1
         },
         {

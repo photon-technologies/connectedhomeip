@@ -11307,6 +11307,29 @@ provisional cluster CommodityMetering = 2823 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
+/** Attributes for configuring the Fresh Refrigerator Controller. */
+cluster FreshRefrigeratorController = 367524867 {
+  revision 1;
+
+  attribute optional temperature fridgeTemperatureDefault = 0;
+  readonly attribute optional temperature freezerTemperatureDefault = 1;
+  readonly attribute optional temperature fridgePreviousTemperature = 2;
+  readonly attribute optional temperature freezerPreviousTemperature = 3;
+  readonly attribute optional int32u superCoolTime = 4;
+  readonly attribute optional int32u superFreezeTime = 5;
+  readonly attribute optional int32u alarmTime = 6;
+  readonly attribute optional int32u resetTimeout = 7;
+  readonly attribute optional int32u displayActiveTime = 8;
+  readonly attribute optional int32u displayErrorTime = 9;
+  readonly attribute optional boolean compressorState = 10;
+  readonly attribute optional boolean defrostState = 11;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+}
+
 /** Attributes and commands for configuring the Midea Air Conditioner alarm. */
 cluster MideaAirConditionerAlarmTest = 4294048769 {
   revision 1;

@@ -368,6 +368,7 @@
         "WATER_HEATER_MODE_CLUSTER": ["mode-base-server"],
         "WI_FI_NETWORK_DIAGNOSTICS_CLUSTER": [],
         "ZONE_MANAGEMENT_CLUSTER": [],
-        "MIDEA_ALARM_TEST_CLUSTER": ["midea-air-conditioner-alarm-test-server"]
+        "MIDEA_ALARM_TEST_CLUSTER": ["midea-air-conditioner-alarm-test-server"],
+        "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": ["fresh-refrigerator-controller-server"]
     }
 }

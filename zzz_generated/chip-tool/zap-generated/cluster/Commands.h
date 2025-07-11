@@ -172,6 +172,7 @@
 | TlsClientManagement                                                 | 0x0802 |
 | MeterIdentification                                                 | 0x0B06 |
 | CommodityMetering                                                   | 0x0B07 |
+| FreshRefrigeratorController                                         | 0x15E7FC03|
 | MideaAirConditionerAlarmTest                                        | 0xFFF1FC01|
 | UnitTesting                                                         | 0xFFF1FC05|
 | FaultInjection                                                      | 0xFFF1FC06|
@@ -17424,6 +17425,33 @@ private:
 \*----------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------*\
+| Cluster FreshRefrigeratorController                                 | 0x15E7FC03 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * FridgeTemperatureDefault                                          | 0x0000 |
+| * FreezerTemperatureDefault                                         | 0x0001 |
+| * FridgePreviousTemperature                                         | 0x0002 |
+| * FreezerPreviousTemperature                                        | 0x0003 |
+| * SuperCoolTime                                                     | 0x0004 |
+| * SuperFreezeTime                                                   | 0x0005 |
+| * AlarmTime                                                         | 0x0006 |
+| * ResetTimeout                                                      | 0x0007 |
+| * DisplayActiveTime                                                 | 0x0008 |
+| * DisplayErrorTime                                                  | 0x0009 |
+| * CompressorState                                                   | 0x000A |
+| * DefrostState                                                      | 0x000B |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
 | Cluster MideaAirConditionerAlarmTest                                | 0xFFF1FC01 |
 |------------------------------------------------------------------------------|
 | Commands:                                                           |        |
@@ -31154,6 +31182,113 @@ void registerClusterCommodityMetering(Commands & commands, CredentialIssuerComma
 
     commands.RegisterCluster(clusterName, clusterCommands);
 }
+void registerClusterFreshRefrigeratorController(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
+{
+    using namespace chip::app::Clusters::FreshRefrigeratorController;
+
+    const char * clusterName = "FreshRefrigeratorController";
+
+    commands_list clusterCommands = {
+        //
+        // Commands
+        //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig), //
+        //
+        // Attributes
+        //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "fridge-temperature-default", Attributes::FridgeTemperatureDefault::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "freezer-temperature-default", Attributes::FreezerTemperatureDefault::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "fridge-previous-temperature", Attributes::FridgePreviousTemperature::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "freezer-previous-temperature", Attributes::FreezerPreviousTemperature::Id,
+                                   credsIssuerConfig),                                                                     //
+        make_unique<ReadAttribute>(Id, "super-cool-time", Attributes::SuperCoolTime::Id, credsIssuerConfig),               //
+        make_unique<ReadAttribute>(Id, "super-freeze-time", Attributes::SuperFreezeTime::Id, credsIssuerConfig),           //
+        make_unique<ReadAttribute>(Id, "alarm-time", Attributes::AlarmTime::Id, credsIssuerConfig),                        //
+        make_unique<ReadAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                  //
+        make_unique<ReadAttribute>(Id, "display-active-time", Attributes::DisplayActiveTime::Id, credsIssuerConfig),       //
+        make_unique<ReadAttribute>(Id, "display-error-time", Attributes::DisplayErrorTime::Id, credsIssuerConfig),         //
+        make_unique<ReadAttribute>(Id, "compressor-state", Attributes::CompressorState::Id, credsIssuerConfig),            //
+        make_unique<ReadAttribute>(Id, "defrost-state", Attributes::DefrostState::Id, credsIssuerConfig),                  //
+        make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
+        make_unique<WriteAttribute<int16_t>>(Id, "fridge-temperature-default", INT16_MIN, INT16_MAX,
+                                             Attributes::FridgeTemperatureDefault::Id, WriteCommandType::kWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "freezer-temperature-default", INT16_MIN, INT16_MAX,
+                                             Attributes::FreezerTemperatureDefault::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "fridge-previous-temperature", INT16_MIN, INT16_MAX,
+                                             Attributes::FridgePreviousTemperature::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "freezer-previous-temperature", INT16_MIN, INT16_MAX,
+                                             Attributes::FreezerPreviousTemperature::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "super-cool-time", 0, UINT32_MAX, Attributes::SuperCoolTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "super-freeze-time", 0, UINT32_MAX, Attributes::SuperFreezeTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "alarm-time", 0, UINT32_MAX, Attributes::AlarmTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "reset-timeout", 0, UINT32_MAX, Attributes::ResetTimeout::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "display-active-time", 0, UINT32_MAX, Attributes::DisplayActiveTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "display-error-time", 0, UINT32_MAX, Attributes::DisplayErrorTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "compressor-state", 0, 1, Attributes::CompressorState::Id,
+                                          WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "defrost-state", 0, 1, Attributes::DefrostState::Id, WriteCommandType::kForceWrite,
+                                          credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::AttributeId>>>(
+            Id, "attribute-list", Attributes::AttributeList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                  //
+        make_unique<SubscribeAttribute>(Id, "fridge-temperature-default", Attributes::FridgeTemperatureDefault::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "freezer-temperature-default", Attributes::FreezerTemperatureDefault::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "fridge-previous-temperature", Attributes::FridgePreviousTemperature::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "freezer-previous-temperature", Attributes::FreezerPreviousTemperature::Id,
+                                        credsIssuerConfig),                                                                     //
+        make_unique<SubscribeAttribute>(Id, "super-cool-time", Attributes::SuperCoolTime::Id, credsIssuerConfig),               //
+        make_unique<SubscribeAttribute>(Id, "super-freeze-time", Attributes::SuperFreezeTime::Id, credsIssuerConfig),           //
+        make_unique<SubscribeAttribute>(Id, "alarm-time", Attributes::AlarmTime::Id, credsIssuerConfig),                        //
+        make_unique<SubscribeAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                  //
+        make_unique<SubscribeAttribute>(Id, "display-active-time", Attributes::DisplayActiveTime::Id, credsIssuerConfig),       //
+        make_unique<SubscribeAttribute>(Id, "display-error-time", Attributes::DisplayErrorTime::Id, credsIssuerConfig),         //
+        make_unique<SubscribeAttribute>(Id, "compressor-state", Attributes::CompressorState::Id, credsIssuerConfig),            //
+        make_unique<SubscribeAttribute>(Id, "defrost-state", Attributes::DefrostState::Id, credsIssuerConfig),                  //
+        make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<SubscribeAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        //
+        // Events
+        //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+}
 void registerClusterMideaAirConditionerAlarmTest(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
 {
     using namespace chip::app::Clusters::MideaAirConditionerAlarmTest;
@@ -31967,6 +32102,7 @@ void registerClusters(Commands & commands, CredentialIssuerCommands * credsIssue
     registerClusterTlsClientManagement(commands, credsIssuerConfig);
     registerClusterMeterIdentification(commands, credsIssuerConfig);
     registerClusterCommodityMetering(commands, credsIssuerConfig);
+    registerClusterFreshRefrigeratorController(commands, credsIssuerConfig);
     registerClusterMideaAirConditionerAlarmTest(commands, credsIssuerConfig);
     registerClusterUnitTesting(commands, credsIssuerConfig);
     registerClusterFaultInjection(commands, credsIssuerConfig);

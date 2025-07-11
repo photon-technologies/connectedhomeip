@@ -71,6 +71,7 @@
 #include <clusters/FixedLabel/CommandIds.h>
 #include <clusters/FlowMeasurement/CommandIds.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/CommandIds.h>
+#include <clusters/FreshRefrigeratorController/CommandIds.h>
 #include <clusters/GeneralCommissioning/CommandIds.h>
 #include <clusters/GeneralDiagnostics/CommandIds.h>
 #include <clusters/GroupKeyManagement/CommandIds.h>

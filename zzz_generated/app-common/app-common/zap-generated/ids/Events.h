@@ -71,6 +71,7 @@
 #include <clusters/FixedLabel/EventIds.h>
 #include <clusters/FlowMeasurement/EventIds.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/EventIds.h>
+#include <clusters/FreshRefrigeratorController/EventIds.h>
 #include <clusters/GeneralCommissioning/EventIds.h>
 #include <clusters/GeneralDiagnostics/EventIds.h>
 #include <clusters/GroupKeyManagement/EventIds.h>

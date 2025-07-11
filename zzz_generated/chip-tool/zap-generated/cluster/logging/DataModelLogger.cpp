@@ -21825,6 +21825,97 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
         }
         break;
     }
+    case FreshRefrigeratorController::Id: {
+        switch (path.mAttributeId)
+        {
+        case FreshRefrigeratorController::Attributes::FridgeTemperatureDefault::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FridgeTemperatureDefault", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::FreezerTemperatureDefault::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FreezerTemperatureDefault", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::FridgePreviousTemperature::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FridgePreviousTemperature", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::FreezerPreviousTemperature::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FreezerPreviousTemperature", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::SuperCoolTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("SuperCoolTime", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::SuperFreezeTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("SuperFreezeTime", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::AlarmTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("AlarmTime", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::ResetTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ResetTimeout", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::DisplayActiveTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayActiveTime", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::DisplayErrorTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayErrorTime", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::CompressorState::Id: {
+            bool value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("CompressorState", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::DefrostState::Id: {
+            bool value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DefrostState", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::GeneratedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, FreshRefrigeratorController::Id);
+        }
+        case FreshRefrigeratorController::Attributes::AcceptedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, FreshRefrigeratorController::Id);
+        }
+        case FreshRefrigeratorController::Attributes::AttributeList::Id: {
+            chip::app::DataModel::DecodableList<chip::AttributeId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAttributeId("AttributeList", 1, value, FreshRefrigeratorController::Id);
+        }
+        case FreshRefrigeratorController::Attributes::FeatureMap::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FeatureMap", 1, value);
+        }
+        case FreshRefrigeratorController::Attributes::ClusterRevision::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ClusterRevision", 1, value);
+        }
+        }
+        break;
+    }
     case MideaAirConditionerAlarmTest::Id: {
         switch (path.mAttributeId)
         {

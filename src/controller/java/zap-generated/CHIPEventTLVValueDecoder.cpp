@@ -9014,6 +9014,16 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         }
         break;
     }
+    case app::Clusters::FreshRefrigeratorController::Id: {
+        using namespace app::Clusters::FreshRefrigeratorController;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
     case app::Clusters::MideaAirConditionerAlarmTest::Id: {
         using namespace app::Clusters::MideaAirConditionerAlarmTest;
         switch (aPath.mEventId)

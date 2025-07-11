@@ -5146,6 +5146,19 @@ static id _Nullable DecodeEventPayloadForCommodityMeteringCluster(EventId aEvent
     *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeEventPayloadForFreshRefrigeratorControllerCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::FreshRefrigeratorController;
+    switch (aEventId) {
+    default: {
+        // Not a known FreshRefrigeratorController event.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeEventPayloadForMideaAirConditionerAlarmTestCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::MideaAirConditionerAlarmTest;
@@ -5786,6 +5799,9 @@ id _Nullable MTRDecodeEventPayload(const ConcreteEventPath & aPath, TLV::TLVRead
     }
     case Clusters::CommodityMetering::Id: {
         return DecodeEventPayloadForCommodityMeteringCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::FreshRefrigeratorController::Id: {
+        return DecodeEventPayloadForFreshRefrigeratorControllerCluster(aPath.mEventId, aReader, aError);
     }
     case Clusters::MideaAirConditionerAlarmTest::Id: {
         return DecodeEventPayloadForMideaAirConditionerAlarmTestCluster(aPath.mEventId, aReader, aError);

@@ -146,7 +146,8 @@
         "matter-devices.xml",
         "sample-mei-cluster.xml",
         "zone-management-cluster.xml",
-        "fresh-ac-error_test_vendor.xml"
+        "fresh-ac-error_test_vendor.xml",
+        "fresh-refrigerator-controller.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {

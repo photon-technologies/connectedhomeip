@@ -227,6 +227,10 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.ipp>
+#include <clusters/FreshRefrigeratorController/Attributes.ipp>
+#include <clusters/FreshRefrigeratorController/Commands.ipp>
+#include <clusters/FreshRefrigeratorController/Events.ipp>
+#include <clusters/FreshRefrigeratorController/Structs.ipp>
 #include <clusters/GeneralCommissioning/Attributes.ipp>
 #include <clusters/GeneralCommissioning/Commands.ipp>
 #include <clusters/GeneralCommissioning/Events.ipp>

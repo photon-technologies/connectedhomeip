@@ -6580,6 +6580,67 @@ static BOOL AttributeIsSpecifiedInCommodityMeteringCluster(AttributeId aAttribut
     }
     }
 }
+static BOOL AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorController;
+    switch (aAttributeId) {
+    case Attributes::FridgeTemperatureDefault::Id: {
+        return YES;
+    }
+    case Attributes::FreezerTemperatureDefault::Id: {
+        return YES;
+    }
+    case Attributes::FridgePreviousTemperature::Id: {
+        return YES;
+    }
+    case Attributes::FreezerPreviousTemperature::Id: {
+        return YES;
+    }
+    case Attributes::SuperCoolTime::Id: {
+        return YES;
+    }
+    case Attributes::SuperFreezeTime::Id: {
+        return YES;
+    }
+    case Attributes::AlarmTime::Id: {
+        return YES;
+    }
+    case Attributes::ResetTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayActiveTime::Id: {
+        return YES;
+    }
+    case Attributes::DisplayErrorTime::Id: {
+        return YES;
+    }
+    case Attributes::CompressorState::Id: {
+        return YES;
+    }
+    case Attributes::DefrostState::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshRefrigeratorController attribute.
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInMideaAirConditionerAlarmTestCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::MideaAirConditionerAlarmTest;
@@ -7342,6 +7403,9 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::CommodityMetering::Id: {
         return AttributeIsSpecifiedInCommodityMeteringCluster(aAttributeId);
+    }
+    case Clusters::FreshRefrigeratorController::Id: {
+        return AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(aAttributeId);
     }
     case Clusters::MideaAirConditionerAlarmTest::Id: {
         return AttributeIsSpecifiedInMideaAirConditionerAlarmTestCluster(aAttributeId);

@@ -1310,6 +1310,15 @@ static BOOL CommandNeedsTimedInvokeInCommodityMeteringCluster(AttributeId aAttri
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorController;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInMideaAirConditionerAlarmTestCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::MideaAirConditionerAlarmTest;
@@ -1751,6 +1760,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::CommodityMetering::Id: {
         return CommandNeedsTimedInvokeInCommodityMeteringCluster(commandID);
+    }
+    case Clusters::FreshRefrigeratorController::Id: {
+        return CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(commandID);
     }
     case Clusters::MideaAirConditionerAlarmTest::Id: {
         return CommandNeedsTimedInvokeInMideaAirConditionerAlarmTestCluster(commandID);

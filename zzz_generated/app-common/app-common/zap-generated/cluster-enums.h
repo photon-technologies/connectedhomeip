@@ -73,6 +73,7 @@
 #include <clusters/FixedLabel/Enums.h>
 #include <clusters/FlowMeasurement/Enums.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Enums.h>
+#include <clusters/FreshRefrigeratorController/Enums.h>
 #include <clusters/GeneralCommissioning/Enums.h>
 #include <clusters/GeneralDiagnostics/Enums.h>
 #include <clusters/GroupKeyManagement/Enums.h>
