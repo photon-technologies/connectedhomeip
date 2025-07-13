@@ -187,6 +187,42 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace DefrostState
+namespace FridgeErrorMargin {
+struct TypeInfo
+{
+    using Type             = int16_t;
+    using DecodableType    = int16_t;
+    using DecodableArgType = int16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::FridgeErrorMargin::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace FridgeErrorMargin
+namespace FreezerErrorMargin {
+struct TypeInfo
+{
+    using Type             = int16_t;
+    using DecodableType    = int16_t;
+    using DecodableArgType = int16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::FreezerErrorMargin::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace FreezerErrorMargin
+namespace TemperatureErrorTime {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::TemperatureErrorTime::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace TemperatureErrorTime
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -238,6 +274,9 @@ struct TypeInfo
         Attributes::DisplayErrorTime::TypeInfo::DecodableType displayErrorTime                     = static_cast<uint32_t>(0);
         Attributes::CompressorState::TypeInfo::DecodableType compressorState                       = static_cast<bool>(0);
         Attributes::DefrostState::TypeInfo::DecodableType defrostState                             = static_cast<bool>(0);
+        Attributes::FridgeErrorMargin::TypeInfo::DecodableType fridgeErrorMargin                   = static_cast<int16_t>(0);
+        Attributes::FreezerErrorMargin::TypeInfo::DecodableType freezerErrorMargin                 = static_cast<int16_t>(0);
+        Attributes::TemperatureErrorTime::TypeInfo::DecodableType temperatureErrorTime             = static_cast<uint32_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

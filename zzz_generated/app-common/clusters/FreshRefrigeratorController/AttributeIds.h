@@ -60,6 +60,18 @@ namespace DefrostState {
 inline constexpr AttributeId Id = 0x0000000B;
 } // namespace DefrostState
 
+namespace FridgeErrorMargin {
+inline constexpr AttributeId Id = 0x0000000C;
+} // namespace FridgeErrorMargin
+
+namespace FreezerErrorMargin {
+inline constexpr AttributeId Id = 0x0000000D;
+} // namespace FreezerErrorMargin
+
+namespace TemperatureErrorTime {
+inline constexpr AttributeId Id = 0x0000000E;
+} // namespace TemperatureErrorTime
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

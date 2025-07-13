@@ -52892,6 +52892,9 @@ class FreshRefrigeratorController(Cluster):
                 ClusterObjectFieldDescriptor(Label="displayErrorTime", Tag=0x00000009, Type=typing.Optional[uint]),
                 ClusterObjectFieldDescriptor(Label="compressorState", Tag=0x0000000A, Type=typing.Optional[bool]),
                 ClusterObjectFieldDescriptor(Label="defrostState", Tag=0x0000000B, Type=typing.Optional[bool]),
+                ClusterObjectFieldDescriptor(Label="fridgeErrorMargin", Tag=0x0000000C, Type=typing.Optional[int]),
+                ClusterObjectFieldDescriptor(Label="freezerErrorMargin", Tag=0x0000000D, Type=typing.Optional[int]),
+                ClusterObjectFieldDescriptor(Label="temperatureErrorTime", Tag=0x0000000E, Type=typing.Optional[uint]),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -52911,6 +52914,9 @@ class FreshRefrigeratorController(Cluster):
     displayErrorTime: typing.Optional[uint] = None
     compressorState: typing.Optional[bool] = None
     defrostState: typing.Optional[bool] = None
+    fridgeErrorMargin: typing.Optional[int] = None
+    freezerErrorMargin: typing.Optional[int] = None
+    temperatureErrorTime: typing.Optional[uint] = None
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -53109,6 +53115,54 @@ class FreshRefrigeratorController(Cluster):
                 return ClusterObjectFieldDescriptor(Type=typing.Optional[bool])
 
             value: typing.Optional[bool] = None
+
+        @dataclass
+        class FridgeErrorMargin(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC03
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000000C
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[int])
+
+            value: typing.Optional[int] = None
+
+        @dataclass
+        class FreezerErrorMargin(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC03
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000000D
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[int])
+
+            value: typing.Optional[int] = None
+
+        @dataclass
+        class TemperatureErrorTime(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC03
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000000E
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[uint])
+
+            value: typing.Optional[uint] = None
 
         @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):

@@ -22668,6 +22668,21 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostStateID) params:params];
 }
 
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFridgeErrorMarginWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeErrorMarginID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFreezerErrorMarginWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerErrorMarginID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeTemperatureErrorTimeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeTemperatureErrorTimeID) params:params];
+}
+
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID) params:params];

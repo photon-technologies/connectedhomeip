@@ -6620,6 +6620,15 @@ static BOOL AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(AttributeId
     case Attributes::DefrostState::Id: {
         return YES;
     }
+    case Attributes::FridgeErrorMargin::Id: {
+        return YES;
+    }
+    case Attributes::FreezerErrorMargin::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureErrorTime::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

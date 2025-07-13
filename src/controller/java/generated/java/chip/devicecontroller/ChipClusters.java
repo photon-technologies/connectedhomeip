@@ -65672,6 +65672,9 @@ public class ChipClusters {
     private static final long DISPLAY_ERROR_TIME_ATTRIBUTE_ID = 9L;
     private static final long COMPRESSOR_STATE_ATTRIBUTE_ID = 10L;
     private static final long DEFROST_STATE_ATTRIBUTE_ID = 11L;
+    private static final long FRIDGE_ERROR_MARGIN_ATTRIBUTE_ID = 12L;
+    private static final long FREEZER_ERROR_MARGIN_ATTRIBUTE_ID = 13L;
+    private static final long TEMPERATURE_ERROR_TIME_ATTRIBUTE_ID = 14L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -66019,6 +66022,84 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, DEFROST_STATE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readFridgeErrorMarginAttribute(
+        IntegerAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, FRIDGE_ERROR_MARGIN_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, FRIDGE_ERROR_MARGIN_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeFridgeErrorMarginAttribute(
+        IntegerAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, FRIDGE_ERROR_MARGIN_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, FRIDGE_ERROR_MARGIN_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readFreezerErrorMarginAttribute(
+        IntegerAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, FREEZER_ERROR_MARGIN_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, FREEZER_ERROR_MARGIN_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeFreezerErrorMarginAttribute(
+        IntegerAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, FREEZER_ERROR_MARGIN_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, FREEZER_ERROR_MARGIN_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readTemperatureErrorTimeAttribute(
+        LongAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, TEMPERATURE_ERROR_TIME_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, TEMPERATURE_ERROR_TIME_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeTemperatureErrorTimeAttribute(
+        LongAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, TEMPERATURE_ERROR_TIME_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, TEMPERATURE_ERROR_TIME_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

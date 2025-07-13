@@ -60,5 +60,20 @@
       <optionalConform />
     </attribute>
 
+    <attribute side="server" code="0x000C" name="FridgeErrorMargin" define="FRIDGE_ERROR_MARGIN" type="temperature" default="1500">
+      <description>FridgeErrorMargin</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x000D" name="FreezerErrorMargin" define="FREEZER_ERROR_MARGIN" type="temperature" default="1500">
+      <description>FreezerErrorMargin</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x000E" name="TemperatureErrorTime" define="TEMPERATURE_ERROR_TIME" type="int32u" default="3600">
+      <description>TemperatureErrorTime</description>
+      <optionalConform />
+    </attribute>
+
   </cluster>
 </configurator>

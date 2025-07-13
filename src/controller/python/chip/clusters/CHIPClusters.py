@@ -14666,6 +14666,24 @@ class ChipClusters:
                 "type": "bool",
                 "reportable": True,
             },
+            0x0000000C: {
+                "attributeName": "FridgeErrorMargin",
+                "attributeId": 0x0000000C,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000D: {
+                "attributeName": "FreezerErrorMargin",
+                "attributeId": 0x0000000D,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000E: {
+                "attributeName": "TemperatureErrorTime",
+                "attributeId": 0x0000000E,
+                "type": "int",
+                "reportable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,

@@ -71,6 +71,18 @@ namespace DefrostState {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DefrostState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace DefrostState
+namespace FridgeErrorMargin {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgeErrorMargin::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace FridgeErrorMargin
+namespace FreezerErrorMargin {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerErrorMargin::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace FreezerErrorMargin
+namespace TemperatureErrorTime {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(TemperatureErrorTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace TemperatureErrorTime
 
 } // namespace Attributes
 

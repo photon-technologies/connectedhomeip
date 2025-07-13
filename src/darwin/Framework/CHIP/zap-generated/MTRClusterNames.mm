@@ -9075,6 +9075,18 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"DefrostState";
             break;
 
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeErrorMarginID:
+            result = @"FridgeErrorMargin";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerErrorMarginID:
+            result = @"FreezerErrorMargin";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeTemperatureErrorTimeID:
+            result = @"TemperatureErrorTime";
+            break;
+
         case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

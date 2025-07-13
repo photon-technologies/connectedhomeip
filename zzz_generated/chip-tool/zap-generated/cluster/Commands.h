@@ -17442,6 +17442,9 @@ private:
 | * DisplayErrorTime                                                  | 0x0009 |
 | * CompressorState                                                   | 0x000A |
 | * DefrostState                                                      | 0x000B |
+| * FridgeErrorMargin                                                 | 0x000C |
+| * FreezerErrorMargin                                                | 0x000D |
+| * TemperatureErrorTime                                              | 0x000E |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -31213,6 +31216,9 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<ReadAttribute>(Id, "display-error-time", Attributes::DisplayErrorTime::Id, credsIssuerConfig),         //
         make_unique<ReadAttribute>(Id, "compressor-state", Attributes::CompressorState::Id, credsIssuerConfig),            //
         make_unique<ReadAttribute>(Id, "defrost-state", Attributes::DefrostState::Id, credsIssuerConfig),                  //
+        make_unique<ReadAttribute>(Id, "fridge-error-margin", Attributes::FridgeErrorMargin::Id, credsIssuerConfig),       //
+        make_unique<ReadAttribute>(Id, "freezer-error-margin", Attributes::FreezerErrorMargin::Id, credsIssuerConfig),     //
+        make_unique<ReadAttribute>(Id, "temperature-error-time", Attributes::TemperatureErrorTime::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -31247,6 +31253,12 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "defrost-state", 0, 1, Attributes::DefrostState::Id, WriteCommandType::kForceWrite,
                                           credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "fridge-error-margin", INT16_MIN, INT16_MAX, Attributes::FridgeErrorMargin::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "freezer-error-margin", INT16_MIN, INT16_MAX, Attributes::FreezerErrorMargin::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "temperature-error-time", 0, UINT32_MAX, Attributes::TemperatureErrorTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -31275,6 +31287,9 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<SubscribeAttribute>(Id, "display-error-time", Attributes::DisplayErrorTime::Id, credsIssuerConfig),         //
         make_unique<SubscribeAttribute>(Id, "compressor-state", Attributes::CompressorState::Id, credsIssuerConfig),            //
         make_unique<SubscribeAttribute>(Id, "defrost-state", Attributes::DefrostState::Id, credsIssuerConfig),                  //
+        make_unique<SubscribeAttribute>(Id, "fridge-error-margin", Attributes::FridgeErrorMargin::Id, credsIssuerConfig),       //
+        make_unique<SubscribeAttribute>(Id, "freezer-error-margin", Attributes::FreezerErrorMargin::Id, credsIssuerConfig),     //
+        make_unique<SubscribeAttribute>(Id, "temperature-error-time", Attributes::TemperatureErrorTime::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
