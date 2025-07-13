@@ -299,6 +299,8 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "MeterIdentification";
     case chip::app::Clusters::CommodityMetering::Id:
         return "CommodityMetering";
+    case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id:
+        return "FreshRefrigeratorErrorsAlarm";
     case chip::app::Clusters::FreshRefrigeratorController::Id:
         return "FreshRefrigeratorController";
     case chip::app::Clusters::MideaAirConditionerAlarmTest::Id:
@@ -4785,6 +4787,31 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
+    case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Mask::Id:
+            return "Mask";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Latch::Id:
+            return "Latch";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::State::Id:
+            return "State";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Supported::Id:
+            return "Supported";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::FreshRefrigeratorController::Id: {
         switch (id)
         {
@@ -6402,6 +6429,15 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "FindEndpoint";
         case chip::app::Clusters::TlsClientManagement::Commands::RemoveEndpoint::Id:
             return "RemoveEndpoint";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::Id:
+            return "Reset";
         default:
             return "Unknown";
         }

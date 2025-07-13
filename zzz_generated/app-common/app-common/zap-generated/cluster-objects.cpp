@@ -231,6 +231,10 @@
 #include <clusters/FreshRefrigeratorController/Commands.ipp>
 #include <clusters/FreshRefrigeratorController/Events.ipp>
 #include <clusters/FreshRefrigeratorController/Structs.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Attributes.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Commands.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Events.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Structs.ipp>
 #include <clusters/GeneralCommissioning/Attributes.ipp>
 #include <clusters/GeneralCommissioning/Commands.ipp>
 #include <clusters/GeneralCommissioning/Events.ipp>
@@ -1415,6 +1419,13 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
             return true;
         case Clusters::TlsClientManagement::Commands::RemoveEndpoint::Id:
             return true;
+        default:
+            return false;
+        }
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        switch (aCommand)
+        {
         default:
             return false;
         }

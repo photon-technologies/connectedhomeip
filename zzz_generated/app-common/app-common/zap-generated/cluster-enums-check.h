@@ -74,6 +74,7 @@
 #include <clusters/FlowMeasurement/EnumsCheck.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/EnumsCheck.h>
 #include <clusters/FreshRefrigeratorController/EnumsCheck.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/EnumsCheck.h>
 #include <clusters/GeneralCommissioning/EnumsCheck.h>
 #include <clusters/GeneralDiagnostics/EnumsCheck.h>
 #include <clusters/GroupKeyManagement/EnumsCheck.h>

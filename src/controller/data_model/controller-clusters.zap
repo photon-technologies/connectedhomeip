@@ -3316,6 +3316,14 @@
           "apiMaturity": "provisional"
         },
         {
+          "name": "Fresh Refrigerator Errors Alarm",
+          "code": 367524866,
+          "mfgCode": null,
+          "define": "FRESH_REFRIGERATOR_ERRORS_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
           "name": "Fresh Refrigerator Controller",
           "code": 367524867,
           "mfgCode": null,

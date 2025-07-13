@@ -20881,6 +20881,63 @@ static id _Nullable DecodeAttributeValueForCommodityMeteringCluster(AttributeId 
     *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeAttributeValueForFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::FreshRefrigeratorErrorsAlarm;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        using TypeInfo = Attributes::Mask::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    case Attributes::Latch::Id: {
+        using TypeInfo = Attributes::Latch::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    case Attributes::State::Id: {
+        using TypeInfo = Attributes::State::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    case Attributes::Supported::Id: {
+        using TypeInfo = Attributes::Supported::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    default: {
+        // Not a known FreshRefrigeratorErrorsAlarm attribute.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeAttributeValueForFreshRefrigeratorControllerCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::FreshRefrigeratorController;
@@ -23116,6 +23173,9 @@ id _Nullable MTRDecodeAttributeValue(const ConcreteAttributePath & aPath, TLV::T
     }
     case Clusters::CommodityMetering::Id: {
         return DecodeAttributeValueForCommodityMeteringCluster(aPath.mAttributeId, aReader, aError);
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        return DecodeAttributeValueForFreshRefrigeratorErrorsAlarmCluster(aPath.mAttributeId, aReader, aError);
     }
     case Clusters::FreshRefrigeratorController::Id: {
         return DecodeAttributeValueForFreshRefrigeratorControllerCluster(aPath.mAttributeId, aReader, aError);

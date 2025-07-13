@@ -174,6 +174,7 @@
 | TlsClientManagement                                                 | 0x0802 |
 | MeterIdentification                                                 | 0x0B06 |
 | CommodityMetering                                                   | 0x0B07 |
+| FreshRefrigeratorErrorsAlarm                                        | 0x15E7FC02|
 | FreshRefrigeratorController                                         | 0x15E7FC03|
 | MideaAirConditionerAlarmTest                                        | 0xFFF1FC01|
 | UnitTesting                                                         | 0xFFF1FC05|
@@ -175225,6 +175226,848 @@ public:
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
 /*----------------------------------------------------------------------------*\
+| Cluster FreshRefrigeratorErrorsAlarm                                | 0x15E7FC02 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+| * Reset                                                             |   0x00 |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * Mask                                                              | 0x0000 |
+| * Latch                                                             | 0x0001 |
+| * State                                                             | 0x0002 |
+| * Supported                                                         | 0x0003 |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+| * Notify                                                            | 0x0000 |
+\*----------------------------------------------------------------------------*/
+
+#if MTR_ENABLE_PROVISIONAL
+/*
+ * Command Reset
+ */
+class FreshRefrigeratorErrorsAlarmReset : public ClusterCommand {
+public:
+    FreshRefrigeratorErrorsAlarmReset()
+        : ClusterCommand("reset")
+    {
+#if MTR_ENABLE_PROVISIONAL
+        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
+#endif // MTR_ENABLE_PROVISIONAL
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId, commandId, endpointId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRFreshRefrigeratorErrorsAlarmClusterResetParams alloc] init];
+        params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+#if MTR_ENABLE_PROVISIONAL
+        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
+#endif // MTR_ENABLE_PROVISIONAL
+        uint16_t repeatCount = mRepeatCount.ValueOr(1);
+        uint16_t __block responsesNeeded = repeatCount;
+        while (repeatCount--) {
+            [cluster resetWithParams:params completion:
+                    ^(NSError * _Nullable error) {
+                        responsesNeeded--;
+                        if (error != nil) {
+                            mError = error;
+                            LogNSError("Error", error);
+                            RemoteDataModelLogger::LogCommandErrorAsJSON(@(endpointId), @(clusterId), @(commandId), error);
+                        }
+                        if (responsesNeeded == 0) {
+                            SetCommandExitStatus(mError);
+                        }
+                    }];
+        }
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::Type mRequest;
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute Mask
+ */
+class ReadFreshRefrigeratorErrorsAlarmMask : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmMask()
+        : ReadAttribute("mask")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmMask()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Mask::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeMaskWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.Mask response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm Mask read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmMask : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmMask()
+        : SubscribeAttribute("mask")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmMask()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Mask::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeMaskWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.Mask response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute Latch
+ */
+class ReadFreshRefrigeratorErrorsAlarmLatch : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmLatch()
+        : ReadAttribute("latch")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmLatch()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Latch::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLatchWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.Latch response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm Latch read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmLatch : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmLatch()
+        : SubscribeAttribute("latch")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmLatch()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Latch::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLatchWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.Latch response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute State
+ */
+class ReadFreshRefrigeratorErrorsAlarmState : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmState()
+        : ReadAttribute("state")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmState()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::State::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeStateWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.State response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm State read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmState : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmState()
+        : SubscribeAttribute("state")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmState()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::State::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeStateWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.State response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute Supported
+ */
+class ReadFreshRefrigeratorErrorsAlarmSupported : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmSupported()
+        : ReadAttribute("supported")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmSupported()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Supported::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeSupportedWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.Supported response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm Supported read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmSupported : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmSupported()
+        : SubscribeAttribute("supported")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmSupported()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Supported::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeSupportedWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.Supported response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute GeneratedCommandList
+ */
+class ReadFreshRefrigeratorErrorsAlarmGeneratedCommandList : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmGeneratedCommandList()
+        : ReadAttribute("generated-command-list")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeGeneratedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.GeneratedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm GeneratedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmGeneratedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmGeneratedCommandList()
+        : SubscribeAttribute("generated-command-list")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeGeneratedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.GeneratedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AcceptedCommandList
+ */
+class ReadFreshRefrigeratorErrorsAlarmAcceptedCommandList : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmAcceptedCommandList()
+        : ReadAttribute("accepted-command-list")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAcceptedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.AcceptedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm AcceptedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmAcceptedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmAcceptedCommandList()
+        : SubscribeAttribute("accepted-command-list")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAcceptedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.AcceptedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AttributeList
+ */
+class ReadFreshRefrigeratorErrorsAlarmAttributeList : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmAttributeList()
+        : ReadAttribute("attribute-list")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAttributeListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.AttributeList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm AttributeList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmAttributeList : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmAttributeList()
+        : SubscribeAttribute("attribute-list")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAttributeListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.AttributeList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute FeatureMap
+ */
+class ReadFreshRefrigeratorErrorsAlarmFeatureMap : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmFeatureMap()
+        : ReadAttribute("feature-map")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeFeatureMapWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.FeatureMap response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm FeatureMap read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmFeatureMap : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmFeatureMap()
+        : SubscribeAttribute("feature-map")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeFeatureMapWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.FeatureMap response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ClusterRevision
+ */
+class ReadFreshRefrigeratorErrorsAlarmClusterRevision : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorErrorsAlarmClusterRevision()
+        : ReadAttribute("cluster-revision")
+    {
+    }
+
+    ~ReadFreshRefrigeratorErrorsAlarmClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeClusterRevisionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorErrorsAlarm.ClusterRevision response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorErrorsAlarm ClusterRevision read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshRefrigeratorErrorsAlarmClusterRevision : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorErrorsAlarmClusterRevision()
+        : SubscribeAttribute("cluster-revision")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorErrorsAlarmClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorErrorsAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeClusterRevisionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorErrorsAlarm.ClusterRevision response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*----------------------------------------------------------------------------*\
 | Cluster FreshRefrigeratorController                                 | 0x15E7FC03 |
 |------------------------------------------------------------------------------|
 | Commands:                                                           |        |
@@ -175419,6 +176262,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerFreezerTemperatureDefault : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerFreezerTemperatureDefault()
+        : WriteAttribute("freezer-temperature-default")
+    {
+        AddArgument("attr-name", "freezer-temperature-default");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerFreezerTemperatureDefault()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerTemperatureDefault::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeFreezerTemperatureDefaultWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController FreezerTemperatureDefault write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerFreezerTemperatureDefault : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerFreezerTemperatureDefault()
@@ -175502,6 +176386,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshRefrigeratorControllerFridgePreviousTemperature : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerFridgePreviousTemperature()
+        : WriteAttribute("fridge-previous-temperature")
+    {
+        AddArgument("attr-name", "fridge-previous-temperature");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerFridgePreviousTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::FridgePreviousTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeFridgePreviousTemperatureWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController FridgePreviousTemperature write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
 };
 
 class SubscribeAttributeFreshRefrigeratorControllerFridgePreviousTemperature : public SubscribeAttribute {
@@ -175589,6 +176514,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerFreezerPreviousTemperature : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerFreezerPreviousTemperature()
+        : WriteAttribute("freezer-previous-temperature")
+    {
+        AddArgument("attr-name", "freezer-previous-temperature");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerFreezerPreviousTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerPreviousTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeFreezerPreviousTemperatureWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController FreezerPreviousTemperature write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerFreezerPreviousTemperature : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerFreezerPreviousTemperature()
@@ -175672,6 +176638,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshRefrigeratorControllerSuperCoolTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerSuperCoolTime()
+        : WriteAttribute("super-cool-time")
+    {
+        AddArgument("attr-name", "super-cool-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerSuperCoolTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::SuperCoolTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeSuperCoolTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController SuperCoolTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshRefrigeratorControllerSuperCoolTime : public SubscribeAttribute {
@@ -175759,6 +176766,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerSuperFreezeTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerSuperFreezeTime()
+        : WriteAttribute("super-freeze-time")
+    {
+        AddArgument("attr-name", "super-freeze-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerSuperFreezeTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::SuperFreezeTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeSuperFreezeTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController SuperFreezeTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerSuperFreezeTime : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerSuperFreezeTime()
@@ -175842,6 +176890,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshRefrigeratorControllerAlarmTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerAlarmTime()
+        : WriteAttribute("alarm-time")
+    {
+        AddArgument("attr-name", "alarm-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerAlarmTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::AlarmTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeAlarmTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController AlarmTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshRefrigeratorControllerAlarmTime : public SubscribeAttribute {
@@ -175929,6 +177018,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerResetTimeout : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerResetTimeout()
+        : WriteAttribute("reset-timeout")
+    {
+        AddArgument("attr-name", "reset-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerResetTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::ResetTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeResetTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController ResetTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerResetTimeout : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerResetTimeout()
@@ -176014,6 +177144,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerDisplayActiveTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerDisplayActiveTime()
+        : WriteAttribute("display-active-time")
+    {
+        AddArgument("attr-name", "display-active-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerDisplayActiveTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::DisplayActiveTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeDisplayActiveTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController DisplayActiveTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerDisplayActiveTime : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerDisplayActiveTime()
@@ -176097,6 +177268,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshRefrigeratorControllerDisplayErrorTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerDisplayErrorTime()
+        : WriteAttribute("display-error-time")
+    {
+        AddArgument("attr-name", "display-error-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerDisplayErrorTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::DisplayErrorTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeDisplayErrorTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController DisplayErrorTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshRefrigeratorControllerDisplayErrorTime : public SubscribeAttribute {
@@ -176354,6 +177566,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerFridgeErrorMargin : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerFridgeErrorMargin()
+        : WriteAttribute("fridge-error-margin")
+    {
+        AddArgument("attr-name", "fridge-error-margin");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerFridgeErrorMargin()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::FridgeErrorMargin::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeFridgeErrorMarginWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController FridgeErrorMargin write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerFridgeErrorMargin : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerFridgeErrorMargin()
@@ -176439,6 +177692,47 @@ public:
     }
 };
 
+class WriteFreshRefrigeratorControllerFreezerErrorMargin : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerFreezerErrorMargin()
+        : WriteAttribute("freezer-error-margin")
+    {
+        AddArgument("attr-name", "freezer-error-margin");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerFreezerErrorMargin()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerErrorMargin::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeFreezerErrorMarginWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController FreezerErrorMargin write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshRefrigeratorControllerFreezerErrorMargin : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshRefrigeratorControllerFreezerErrorMargin()
@@ -176522,6 +177816,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshRefrigeratorControllerTemperatureErrorTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerTemperatureErrorTime()
+        : WriteAttribute("temperature-error-time")
+    {
+        AddArgument("attr-name", "temperature-error-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerTemperatureErrorTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::TemperatureErrorTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeTemperatureErrorTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController TemperatureErrorTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshRefrigeratorControllerTemperatureErrorTime : public SubscribeAttribute {
@@ -199528,6 +200863,64 @@ void registerClusterCommodityMetering(Commands & commands)
     commands.RegisterCluster(clusterName, clusterCommands);
 #endif // MTR_ENABLE_PROVISIONAL
 }
+void registerClusterFreshRefrigeratorErrorsAlarm(Commands & commands)
+{
+#if MTR_ENABLE_PROVISIONAL
+    using namespace chip::app::Clusters::FreshRefrigeratorErrorsAlarm;
+
+    const char * clusterName = "FreshRefrigeratorErrorsAlarm";
+
+    commands_list clusterCommands = {
+        make_unique<ClusterCommand>(Id), //
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<FreshRefrigeratorErrorsAlarmReset>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+        make_unique<ReadAttribute>(Id), //
+        make_unique<WriteAttribute>(Id), //
+        make_unique<SubscribeAttribute>(Id), //
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmMask>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmMask>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmLatch>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmLatch>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmState>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmState>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmSupported>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmSupported>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmGeneratedCommandList>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmGeneratedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmAcceptedCommandList>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmAcceptedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmAttributeList>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmAttributeList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmFeatureMap>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmFeatureMap>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorErrorsAlarmClusterRevision>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorErrorsAlarmClusterRevision>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+        make_unique<ReadEvent>(Id), //
+        make_unique<SubscribeEvent>(Id), //
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+#endif // MTR_ENABLE_PROVISIONAL
+}
 void registerClusterFreshRefrigeratorController(Commands & commands)
 {
 #if MTR_ENABLE_PROVISIONAL
@@ -199547,38 +200940,47 @@ void registerClusterFreshRefrigeratorController(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerFreezerTemperatureDefault>(), //
+        make_unique<WriteFreshRefrigeratorControllerFreezerTemperatureDefault>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerFreezerTemperatureDefault>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerFridgePreviousTemperature>(), //
+        make_unique<WriteFreshRefrigeratorControllerFridgePreviousTemperature>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerFridgePreviousTemperature>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerFreezerPreviousTemperature>(), //
+        make_unique<WriteFreshRefrigeratorControllerFreezerPreviousTemperature>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerFreezerPreviousTemperature>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerSuperCoolTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerSuperCoolTime>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerSuperCoolTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerSuperFreezeTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerSuperFreezeTime>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerSuperFreezeTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerAlarmTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerAlarmTime>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerAlarmTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerResetTimeout>(), //
+        make_unique<WriteFreshRefrigeratorControllerResetTimeout>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerResetTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerDisplayActiveTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerDisplayActiveTime>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerDisplayActiveTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerDisplayErrorTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerDisplayErrorTime>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerDisplayErrorTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
@@ -199591,14 +200993,17 @@ void registerClusterFreshRefrigeratorController(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerFridgeErrorMargin>(), //
+        make_unique<WriteFreshRefrigeratorControllerFridgeErrorMargin>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerFridgeErrorMargin>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerFreezerErrorMargin>(), //
+        make_unique<WriteFreshRefrigeratorControllerFreezerErrorMargin>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerFreezerErrorMargin>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerTemperatureErrorTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerTemperatureErrorTime>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerTemperatureErrorTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
@@ -200237,6 +201642,7 @@ void registerClusters(Commands & commands)
     registerClusterTlsClientManagement(commands);
     registerClusterMeterIdentification(commands);
     registerClusterCommodityMetering(commands);
+    registerClusterFreshRefrigeratorErrorsAlarm(commands);
     registerClusterFreshRefrigeratorController(commands);
     registerClusterMideaAirConditionerAlarmTest(commands);
     registerClusterUnitTesting(commands);

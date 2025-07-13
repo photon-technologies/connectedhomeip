@@ -11307,25 +11307,67 @@ provisional cluster CommodityMetering = 2823 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
+/** Attributes and commands for configuring the Fresh Refrigerator Errors alarm. */
+cluster FreshRefrigeratorErrorsAlarm = 367524866 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap32 {
+    kFridgeTemperatureSensorFailure = 0x1;
+    kFreezerTemperatureSensorFailure = 0x2;
+    kFanFailure = 0x4;
+    kDefrostTemperatureSensorFailure = 0x8;
+    kFridgeTemperatureOutRange = 0x10;
+    kFreezerTemperatureOutRange = 0x20;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
+}
+
 /** Attributes for configuring the Fresh Refrigerator Controller. */
 cluster FreshRefrigeratorController = 367524867 {
   revision 1;
 
   attribute optional temperature fridgeTemperatureDefault = 0;
-  readonly attribute optional temperature freezerTemperatureDefault = 1;
-  readonly attribute optional temperature fridgePreviousTemperature = 2;
-  readonly attribute optional temperature freezerPreviousTemperature = 3;
-  readonly attribute optional int32u superCoolTime = 4;
-  readonly attribute optional int32u superFreezeTime = 5;
-  readonly attribute optional int32u alarmTime = 6;
-  readonly attribute optional int32u resetTimeout = 7;
-  readonly attribute optional int32u displayActiveTime = 8;
-  readonly attribute optional int32u displayErrorTime = 9;
+  attribute optional temperature freezerTemperatureDefault = 1;
+  attribute optional temperature fridgePreviousTemperature = 2;
+  attribute optional temperature freezerPreviousTemperature = 3;
+  attribute optional int32u superCoolTime = 4;
+  attribute optional int32u superFreezeTime = 5;
+  attribute optional int32u alarmTime = 6;
+  attribute optional int32u resetTimeout = 7;
+  attribute optional int32u displayActiveTime = 8;
+  attribute optional int32u displayErrorTime = 9;
   readonly attribute optional boolean compressorState = 10;
   readonly attribute optional boolean defrostState = 11;
-  readonly attribute optional temperature fridgeErrorMargin = 12;
-  readonly attribute optional temperature freezerErrorMargin = 13;
-  readonly attribute optional int32u temperatureErrorTime = 14;
+  attribute optional temperature fridgeErrorMargin = 12;
+  attribute optional temperature freezerErrorMargin = 13;
+  attribute optional int32u temperatureErrorTime = 14;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

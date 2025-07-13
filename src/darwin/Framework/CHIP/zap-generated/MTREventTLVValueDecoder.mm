@@ -5146,6 +5146,51 @@ static id _Nullable DecodeEventPayloadForCommodityMeteringCluster(EventId aEvent
     *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeEventPayloadForFreshRefrigeratorErrorsAlarmCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::FreshRefrigeratorErrorsAlarm;
+    switch (aEventId) {
+    case Events::Notify::Id: {
+        Events::Notify::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+
+        __auto_type * value = [MTRFreshRefrigeratorErrorsAlarmClusterNotifyEvent new];
+
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedInt:cppValue.active.Raw()];
+            value.active = memberValue;
+        } while (0);
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedInt:cppValue.inactive.Raw()];
+            value.inactive = memberValue;
+        } while (0);
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedInt:cppValue.state.Raw()];
+            value.state = memberValue;
+        } while (0);
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedInt:cppValue.mask.Raw()];
+            value.mask = memberValue;
+        } while (0);
+
+        return value;
+    }
+    default: {
+        // Not a known FreshRefrigeratorErrorsAlarm event.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeEventPayloadForFreshRefrigeratorControllerCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::FreshRefrigeratorController;
@@ -5799,6 +5844,9 @@ id _Nullable MTRDecodeEventPayload(const ConcreteEventPath & aPath, TLV::TLVRead
     }
     case Clusters::CommodityMetering::Id: {
         return DecodeEventPayloadForCommodityMeteringCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        return DecodeEventPayloadForFreshRefrigeratorErrorsAlarmCluster(aPath.mEventId, aReader, aError);
     }
     case Clusters::FreshRefrigeratorController::Id: {
         return DecodeEventPayloadForFreshRefrigeratorControllerCluster(aPath.mEventId, aReader, aError);

@@ -217,6 +217,7 @@ typedef NS_ENUM(uint32_t, MTRClusterIDType) {
     MTRClusterIDTypeTLSClientManagementID MTR_PROVISIONALLY_AVAILABLE = 0x00000802,
     MTRClusterIDTypeMeterIdentificationID MTR_PROVISIONALLY_AVAILABLE = 0x00000B06,
     MTRClusterIDTypeCommodityMeteringID MTR_PROVISIONALLY_AVAILABLE = 0x00000B07,
+    MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC02,
     MTRClusterIDTypeFreshRefrigeratorControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC03,
     MTRClusterIDTypeMideaAirConditionerAlarmTestID MTR_PROVISIONALLY_AVAILABLE = 0xFFF1FC01,
     MTRClusterIDTypeUnitTestingID MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4)) = 0xFFF1FC05,
@@ -4915,6 +4916,17 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterCommodityMeteringAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
     MTRAttributeIDTypeClusterCommodityMeteringAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
 
+    // Cluster FreshRefrigeratorErrorsAlarm attributes
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeSupportedID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
     // Cluster FreshRefrigeratorController attributes
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeTemperatureDefaultID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerTemperatureDefaultID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
@@ -7261,6 +7273,9 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     MTRCommandIDTypeClusterTLSClientManagementCommandFindEndpointResponseID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
     MTRCommandIDTypeClusterTLSClientManagementCommandRemoveEndpointID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
 
+    // Cluster FreshRefrigeratorErrorsAlarm commands
+    MTRCommandIDTypeClusterFreshRefrigeratorErrorsAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
     // Cluster MideaAirConditionerAlarmTest commands
     MTRCommandIDTypeClusterMideaAirConditionerAlarmTestCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
@@ -7860,6 +7875,9 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
 
     // Cluster CommissionerControl events
     MTREventIDTypeClusterCommissionerControlEventCommissioningRequestResultID MTR_AVAILABLE(ios(18.4), macos(15.4), watchos(11.4), tvos(18.4)) = 0x00000000,
+
+    // Cluster FreshRefrigeratorErrorsAlarm events
+    MTREventIDTypeClusterFreshRefrigeratorErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
     // Cluster MideaAirConditionerAlarmTest events
     MTREventIDTypeClusterMideaAirConditionerAlarmTestEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,

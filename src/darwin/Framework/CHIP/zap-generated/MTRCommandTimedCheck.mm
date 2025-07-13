@@ -1310,6 +1310,15 @@ static BOOL CommandNeedsTimedInvokeInCommodityMeteringCluster(AttributeId aAttri
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorErrorsAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::FreshRefrigeratorController;
@@ -1760,6 +1769,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::CommodityMetering::Id: {
         return CommandNeedsTimedInvokeInCommodityMeteringCluster(commandID);
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        return CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(commandID);
     }
     case Clusters::FreshRefrigeratorController::Id: {
         return CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(commandID);

@@ -1407,6 +1407,16 @@ void emberAfCommodityMeteringClusterShutdownCallback(chip::EndpointId endpoint);
 /**
  * @param endpoint    Endpoint that is being initialized
  */
+void emberAfFreshRefrigeratorErrorsAlarmClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
 void emberAfFreshRefrigeratorControllerClusterInitCallback(chip::EndpointId endpoint);
 
 /**
@@ -6748,6 +6758,45 @@ MatterCommodityMeteringClusterServerPreAttributeChangedCallback(const chip::app:
 void emberAfCommodityMeteringClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
+// Fresh Refrigerator Errors Alarm Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshRefrigeratorErrorsAlarmClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshRefrigeratorErrorsAlarmClusterServerAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshRefrigeratorErrorsAlarmClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
 // Fresh Refrigerator Controller Cluster
 //
 
@@ -8203,6 +8252,12 @@ bool emberAfJointFabricAdministratorClusterTransferAnchorCompleteCallback(
 bool emberAfJointFabricAdministratorClusterAnnounceJointFabricAdministratorCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::JointFabricAdministrator::Commands::AnnounceJointFabricAdministrator::DecodableType & commandData);
+/**
+ * @brief Fresh Refrigerator Errors Alarm Cluster Reset Command callback (from client)
+ */
+bool emberAfFreshRefrigeratorErrorsAlarmClusterResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::DecodableType & commandData);
 /**
  * @brief Midea Air Conditioner Alarm Test Cluster Reset Command callback (from client)
  */
