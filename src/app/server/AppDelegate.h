@@ -24,7 +24,7 @@
 
 #include <lib/core/CHIPError.h>
 
-class –`AppDelegate
+class AppDelegate
 {
 public:
     virtual ~AppDelegate() {}
