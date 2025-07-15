@@ -3,7 +3,7 @@
 <configurator>
   <domain name="CHIP"/>
   <bitmap name="AlarmBitmap" type="bitmap64">
-     <cluster code="0xFFF1FC01" />
+     <cluster code="0x15E7FC01" />
     <field name="InteriorBoardCommunicationFailure" mask="0x00000001"/>
       <field name="IndoorMainControlBoardFailure" mask="0x00000002"/>
       <field name="IndoorOutdoorBoardCommunicationFailure" mask="0x00000004"/>
@@ -33,11 +33,11 @@
       <field name="RefrigerantLeakageProtection" mask="0x04000000"/>
   </bitmap>
   <cluster>
-    <name>Midea Air Conditioner Alarm Test</name>
+    <name>Fresh Midea Air Conditioner Alarm</name>
     <domain>FRESH</domain>
     <description>Attributes and commands for configuring the Midea Air Conditioner alarm.</description>
-    <code>0xFFF1FC01</code>
-    <define>MIDEA_ALARM_TEST_CLUSTER</define>
+    <code>0x15E7FC01</code>
+    <define>FRESH_MIDEA_AC_ALARM_CLUSTER</define>
     <client tick="false" init="false">true</client>
     <server tick="false" init="false">true</server>
     <globalAttribute code="0xFFFD" side="either" value="1"/>
