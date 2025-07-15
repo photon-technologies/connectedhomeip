@@ -147,10 +147,10 @@
         "matter-devices.xml",
         "sample-mei-cluster.xml",
         "zone-management-cluster.xml",
-        "fresh-ac-error_test_vendor.xml",
+        "fresh-ac-error-cluster.xml",
         "fresh-refrigerator-controller.xml",
-        "fresh-refrigerator-errors.xml"
-
+        "fresh-refrigerator-errors.xml",
+        "fresh-midea-controller-cluster.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {

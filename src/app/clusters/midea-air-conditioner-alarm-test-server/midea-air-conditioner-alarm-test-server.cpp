@@ -29,54 +29,54 @@
 using namespace chip;
 using namespace chip::app;
 using namespace chip::app::Clusters;
-using namespace chip::app::Clusters::MideaAirConditionerAlarmTest;
-using namespace chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes;
+using namespace chip::app::Clusters::FreshMideaAirConditionerAlarm;
+using namespace chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes;
 using namespace chip::DeviceLayer;
 using chip::Protocols::InteractionModel::Status;
 
-static constexpr size_t kMideaAirConditionerAlarmTestDelegateTableSize =
+static constexpr size_t kFreshMideaAirConditionerAlarmDelegateTableSize =
     MATTER_DM_MIDEA_ALARM_TEST_CLUSTER_SERVER_ENDPOINT_COUNT + CHIP_DEVICE_CONFIG_DYNAMIC_ENDPOINT_COUNT;
 
-static_assert(kMideaAirConditionerAlarmTestDelegateTableSize <= kEmberInvalidEndpointIndex, "Midea Air Conditioner Alarm Delegate table size error");
+static_assert(kFreshMideaAirConditionerAlarmDelegateTableSize <= kEmberInvalidEndpointIndex, "Midea Air Conditioner Alarm Delegate table size error");
 
 namespace chip {
 namespace app {
 namespace Clusters {
-namespace MideaAirConditionerAlarmTest {
+namespace FreshMideaAirConditionerAlarm {
 
-Delegate * gDelegateTable[kMideaAirConditionerAlarmTestDelegateTableSize] = { nullptr };
+Delegate * gDelegateTable[kFreshMideaAirConditionerAlarmDelegateTableSize] = { nullptr };
 
 Delegate * GetDelegate(EndpointId endpoint)
 {
-    uint16_t ep = emberAfGetClusterServerEndpointIndex(endpoint, MideaAirConditionerAlarmTest::Id,
+    uint16_t ep = emberAfGetClusterServerEndpointIndex(endpoint, FreshMideaAirConditionerAlarm::Id,
                                                        MATTER_DM_MIDEA_ALARM_TEST_CLUSTER_SERVER_ENDPOINT_COUNT);
-    return (ep >= kMideaAirConditionerAlarmTestDelegateTableSize ? nullptr : gDelegateTable[ep]);
+    return (ep >= kFreshMideaAirConditionerAlarmDelegateTableSize ? nullptr : gDelegateTable[ep]);
 }
 
 void SetDefaultDelegate(EndpointId endpoint, Delegate * delegate)
 {
-    uint16_t ep = emberAfGetClusterServerEndpointIndex(endpoint, MideaAirConditionerAlarmTest::Id,
+    uint16_t ep = emberAfGetClusterServerEndpointIndex(endpoint, FreshMideaAirConditionerAlarm::Id,
                                                        MATTER_DM_MIDEA_ALARM_TEST_CLUSTER_SERVER_ENDPOINT_COUNT);
     // if endpoint is found
-    if (ep < kMideaAirConditionerAlarmTestDelegateTableSize)
+    if (ep < kFreshMideaAirConditionerAlarmDelegateTableSize)
     {
         gDelegateTable[ep] = delegate;
     }
 }
 
-} // namespace MideaAirConditionerAlarmTest
+} // namespace FreshMideaAirConditionerAlarm
 } // namespace Clusters
 } // namespace app
 } // namespace chip
 
-MideaAirConditionerAlarmTestServer MideaAirConditionerAlarmTestServer::instance;
+FreshMideaAirConditionerAlarmServer FreshMideaAirConditionerAlarmServer::instance;
 
-MideaAirConditionerAlarmTestServer & MideaAirConditionerAlarmTestServer::Instance()
+FreshMideaAirConditionerAlarmServer & FreshMideaAirConditionerAlarmServer::Instance()
 {
     return instance;
 }
 
-Status MideaAirConditionerAlarmTestServer::GetMaskValue(EndpointId endpoint, BitMask<AlarmBitmap> * mask)
+Status FreshMideaAirConditionerAlarmServer::GetMaskValue(EndpointId endpoint, BitMask<AlarmBitmap> * mask)
 {
     Status status = Attributes::Mask::Get(endpoint, mask);
     if (status != Status::Success)
@@ -87,7 +87,7 @@ Status MideaAirConditionerAlarmTestServer::GetMaskValue(EndpointId endpoint, Bit
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::GetLatchValue(EndpointId endpoint, BitMask<AlarmBitmap> * latch)
+Status FreshMideaAirConditionerAlarmServer::GetLatchValue(EndpointId endpoint, BitMask<AlarmBitmap> * latch)
 {
     if (!HasResetFeature(endpoint))
     {
@@ -104,7 +104,7 @@ Status MideaAirConditionerAlarmTestServer::GetLatchValue(EndpointId endpoint, Bi
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::GetStateValue(EndpointId endpoint, BitMask<AlarmBitmap> * state)
+Status FreshMideaAirConditionerAlarmServer::GetStateValue(EndpointId endpoint, BitMask<AlarmBitmap> * state)
 {
     Status status = Attributes::State::Get(endpoint, state);
     if (status != Status::Success)
@@ -115,7 +115,7 @@ Status MideaAirConditionerAlarmTestServer::GetStateValue(EndpointId endpoint, Bi
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::GetSupportedValue(EndpointId endpoint, BitMask<AlarmBitmap> * supported)
+Status FreshMideaAirConditionerAlarmServer::GetSupportedValue(EndpointId endpoint, BitMask<AlarmBitmap> * supported)
 {
     Status status = Attributes::Supported::Get(endpoint, supported);
     if (status != Status::Success)
@@ -125,7 +125,7 @@ Status MideaAirConditionerAlarmTestServer::GetSupportedValue(EndpointId endpoint
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::SetSupportedValue(EndpointId endpoint, const BitMask<AlarmBitmap> supported)
+Status FreshMideaAirConditionerAlarmServer::SetSupportedValue(EndpointId endpoint, const BitMask<AlarmBitmap> supported)
 {
     Status status = Status::Success;
 
@@ -158,7 +158,7 @@ Status MideaAirConditionerAlarmTestServer::SetSupportedValue(EndpointId endpoint
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::SetMaskValue(EndpointId endpoint, const BitMask<AlarmBitmap> mask)
+Status FreshMideaAirConditionerAlarmServer::SetMaskValue(EndpointId endpoint, const BitMask<AlarmBitmap> mask)
 {
     BitMask<AlarmBitmap> supported;
     if (Status::Success != GetSupportedValue(endpoint, &supported) || !supported.HasAll(mask))
@@ -190,7 +190,7 @@ Status MideaAirConditionerAlarmTestServer::SetMaskValue(EndpointId endpoint, con
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::SetLatchValue(EndpointId endpoint, const BitMask<AlarmBitmap> latch)
+Status FreshMideaAirConditionerAlarmServer::SetLatchValue(EndpointId endpoint, const BitMask<AlarmBitmap> latch)
 {
     if (!HasResetFeature(endpoint))
     {
@@ -215,7 +215,7 @@ Status MideaAirConditionerAlarmTestServer::SetLatchValue(EndpointId endpoint, co
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::SetStateValue(EndpointId endpoint, const BitMask<AlarmBitmap> newState, bool ignoreLatchState)
+Status FreshMideaAirConditionerAlarmServer::SetStateValue(EndpointId endpoint, const BitMask<AlarmBitmap> newState, bool ignoreLatchState)
 {
     BitMask<AlarmBitmap> supported;
     BitMask<AlarmBitmap> finalNewState;
@@ -269,7 +269,7 @@ Status MideaAirConditionerAlarmTestServer::SetStateValue(EndpointId endpoint, co
     return status;
 }
 
-Status MideaAirConditionerAlarmTestServer::ResetLatchedAlarms(EndpointId endpoint, const BitMask<AlarmBitmap> alarms)
+Status FreshMideaAirConditionerAlarmServer::ResetLatchedAlarms(EndpointId endpoint, const BitMask<AlarmBitmap> alarms)
 {
     BitMask<AlarmBitmap> supported;
     if (Status::Success != GetSupportedValue(endpoint, &supported) || !supported.HasAll(alarms))
@@ -288,7 +288,7 @@ Status MideaAirConditionerAlarmTestServer::ResetLatchedAlarms(EndpointId endpoin
     return SetStateValue(endpoint, state, true);
 }
 
-bool MideaAirConditionerAlarmTestServer::HasResetFeature(EndpointId endpoint)
+bool FreshMideaAirConditionerAlarmServer::HasResetFeature(EndpointId endpoint)
 {
     uint32_t featureMap = 0;
     if (Attributes::FeatureMap::Get(endpoint, &featureMap) != Status::Success)
@@ -303,7 +303,7 @@ bool MideaAirConditionerAlarmTestServer::HasResetFeature(EndpointId endpoint)
     return false;
 }
 
-void MideaAirConditionerAlarmTestServer::SendNotifyEvent(EndpointId endpointId, BitMask<AlarmBitmap> becameActive, BitMask<AlarmBitmap> becameInactive,
+void FreshMideaAirConditionerAlarmServer::SendNotifyEvent(EndpointId endpointId, BitMask<AlarmBitmap> becameActive, BitMask<AlarmBitmap> becameInactive,
                                             BitMask<AlarmBitmap> newState, BitMask<AlarmBitmap> mask)
 {
     Events::Notify::Type event{ .active = becameActive, .inactive = becameInactive, .state = newState, .mask = mask };
@@ -320,7 +320,7 @@ static Status ModifyEnabledHandler(const app::ConcreteCommandPath & commandPath,
     EndpointId endpoint = commandPath.mEndpointId;
     BitMask<AlarmBitmap> supported;
 
-    if (MideaAirConditionerAlarmTestServer::Instance().GetSupportedValue(endpoint, &supported) != Status::Success)
+    if (FreshMideaAirConditionerAlarmServer::Instance().GetSupportedValue(endpoint, &supported) != Status::Success)
     {
         return Status::Failure;
     }
@@ -334,14 +334,14 @@ static Status ModifyEnabledHandler(const app::ConcreteCommandPath & commandPath,
     // A server that is unable to enable a currently suppressed alarm,
     // or is unable to suppress a currently enabled alarm SHALL respond
     // with a status code of FAILURE
-    Delegate * delegate = MideaAirConditionerAlarmTest::GetDelegate(endpoint);
+    Delegate * delegate = FreshMideaAirConditionerAlarm::GetDelegate(endpoint);
     if (delegate && !(delegate->ModifyEnabledAlarmsCallback(mask)))
     {
         ChipLogProgress(Zcl, "Unable to modify enabled alarms");
         return Status::Failure;
     }
     // The cluster will do this update if delegate.ModifyEnabledAlarmsCallback() returns true.
-    if (MideaAirConditionerAlarmTestServer::Instance().SetMaskValue(endpoint, mask) != Status::Success)
+    if (FreshMideaAirConditionerAlarmServer::Instance().SetMaskValue(endpoint, mask) != Status::Success)
     {
         return Status::Failure;
     }
@@ -352,14 +352,14 @@ static Status ResetHandler(const app::ConcreteCommandPath & commandPath, const B
 {
     EndpointId endpoint = commandPath.mEndpointId;
 
-    if (!MideaAirConditionerAlarmTestServer::Instance().HasResetFeature(endpoint))
+    if (!FreshMideaAirConditionerAlarmServer::Instance().HasResetFeature(endpoint))
     {
         ChipLogProgress(Zcl, "Midea Air Conditioner Alarm feature: Unsupport Reset Command");
         return Status::UnsupportedCommand;
     }
 
     // A server that is unable to reset alarms SHALL respond with a status code of FAILURE
-    Delegate * delegate = MideaAirConditionerAlarmTest::GetDelegate(endpoint);
+    Delegate * delegate = FreshMideaAirConditionerAlarm::GetDelegate(endpoint);
     if (delegate && !(delegate->ResetAlarmsCallback(alarms)))
     {
         ChipLogProgress(Zcl, "Unable to reset alarms");
@@ -367,7 +367,7 @@ static Status ResetHandler(const app::ConcreteCommandPath & commandPath, const B
     }
 
     // The cluster will do this update if delegate.ResetAlarmsCallback() returns true.
-    if (MideaAirConditionerAlarmTestServer::Instance().ResetLatchedAlarms(endpoint, alarms) != Status::Success)
+    if (FreshMideaAirConditionerAlarmServer::Instance().ResetLatchedAlarms(endpoint, alarms) != Status::Success)
     {
         ChipLogProgress(Zcl, "reset alarms fail");
         return Status::Failure;
@@ -375,7 +375,7 @@ static Status ResetHandler(const app::ConcreteCommandPath & commandPath, const B
     return Status::Success;
 }
 
-bool emberAfMideaAirConditionerAlarmTestClusterResetCallback(app::CommandHandler * commandObj, const app::ConcreteCommandPath & commandPath,
+bool emberAfFreshMideaAirConditionerAlarmClusterResetCallback(app::CommandHandler * commandObj, const app::ConcreteCommandPath & commandPath,
                                                 const Commands::Reset::DecodableType & commandData)
 {
     auto & alarms = commandData.alarms;
@@ -386,7 +386,7 @@ bool emberAfMideaAirConditionerAlarmTestClusterResetCallback(app::CommandHandler
     return true;
 }
 
-// bool emberAfMideaAirConditionerAlarmTestClusterModifyEnabledAlarmsCallback(app::CommandHandler * commandObj,
+// bool emberAfFreshMideaAirConditionerAlarmClusterModifyEnabledAlarmsCallback(app::CommandHandler * commandObj,
 //                                                               const app::ConcreteCommandPath & commandPath,
 //                                                               const Commands::ModifyEnabledAlarms::DecodableType & commandData)
 // {
@@ -397,6 +397,6 @@ bool emberAfMideaAirConditionerAlarmTestClusterResetCallback(app::CommandHandler
 //     return true;
 // }
 
-void MatterMideaAirConditionerAlarmTestPluginServerInitCallback() {}
+void MatterFreshMideaAirConditionerAlarmPluginServerInitCallback() {}
 
-void MatterMideaAirConditionerAlarmTestPluginServerShutdownCallback() {}
+void MatterFreshMideaAirConditionerAlarmPluginServerShutdownCallback() {}

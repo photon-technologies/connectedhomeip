@@ -154,10 +154,10 @@
         "WINDOW_COVERING_CLUSTER": [],
         "WI_FI_NETWORK_DIAGNOSTICS_CLUSTER": [],
         "ZONE_MANAGEMENT_CLUSTER": [],
-        "MIDEA_ALARM_TEST_CLUSTER": [],
+        "FRESH_MIDEA_AC_ALARM_CLUSTER": [],
         "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
-        "FRESH_REFRIGERATOR_ERRORS_CLUSTER":[]
-
+        "FRESH_REFRIGERATOR_ERRORS_CLUSTER":[],
+        "FRESH_MIDEA_CONTROLLER_CLUSTER": []
     },
     "ServerDirectories": {
         "ACCESS_CONTROL_CLUSTER": ["access-control-server"],
@@ -371,8 +371,9 @@
         "WATER_HEATER_MODE_CLUSTER": ["mode-base-server"],
         "WI_FI_NETWORK_DIAGNOSTICS_CLUSTER": [],
         "ZONE_MANAGEMENT_CLUSTER": [],
-        "MIDEA_ALARM_TEST_CLUSTER": ["midea-air-conditioner-alarm-test-server"],
+        "FRESH_MIDEA_AC_ALARM_CLUSTER": ["midea-air-conditioner-alarm-test-server"],
         "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
-        "FRESH_REFRIGERATOR_ERRORS_CLUSTER": []
+        "FRESH_REFRIGERATOR_ERRORS_CLUSTER": [],
+        "FRESH_MIDEA_CONTROLLER_CLUSTER": []
     }
 }
