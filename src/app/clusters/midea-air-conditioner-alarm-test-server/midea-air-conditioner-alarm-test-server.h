@@ -29,12 +29,12 @@
  namespace chip {
  namespace app {
  namespace Clusters {
- namespace MideaAirConditionerAlarmTest {
+ namespace FreshMideaAirConditionerAlarm {
  
- class MideaAirConditionerAlarmTestServer
+ class FreshMideaAirConditionerAlarmServer
  {
  public:
-     static MideaAirConditionerAlarmTestServer & Instance();
+     static FreshMideaAirConditionerAlarmServer & Instance();
  
      Protocols::InteractionModel::Status GetMaskValue(EndpointId endpoint, BitMask<AlarmBitmap> * mask);
      Protocols::InteractionModel::Status GetStateValue(EndpointId endpoint, BitMask<AlarmBitmap> * state);
@@ -77,7 +77,7 @@
      bool HasResetFeature(EndpointId endpoint);
  
  private:
-     static MideaAirConditionerAlarmTestServer instance;
+     static FreshMideaAirConditionerAlarmServer instance;
  
      void SendNotifyEvent(EndpointId endpointId, BitMask<AlarmBitmap> becameActive, BitMask<AlarmBitmap> becameInactive,
                           BitMask<AlarmBitmap> newState, BitMask<AlarmBitmap> mask);
@@ -85,7 +85,7 @@
  
  void SetDefaultDelegate(EndpointId endpoint, Delegate * delegate);
  
- } // namespace MideaAirConditionerAlarmTest
+ } // namespace FreshMideaAirConditionerAlarm
  } // namespace Clusters
  } // namespace app
  } // namespace chip

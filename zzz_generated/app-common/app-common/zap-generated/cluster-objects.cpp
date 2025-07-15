@@ -227,6 +227,14 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Attributes.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Commands.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Events.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Structs.ipp>
+#include <clusters/FreshMideaController/Attributes.ipp>
+#include <clusters/FreshMideaController/Commands.ipp>
+#include <clusters/FreshMideaController/Events.ipp>
+#include <clusters/FreshMideaController/Structs.ipp>
 #include <clusters/FreshRefrigeratorController/Attributes.ipp>
 #include <clusters/FreshRefrigeratorController/Commands.ipp>
 #include <clusters/FreshRefrigeratorController/Events.ipp>
@@ -327,10 +335,6 @@
 #include <clusters/MicrowaveOvenMode/Commands.ipp>
 #include <clusters/MicrowaveOvenMode/Events.ipp>
 #include <clusters/MicrowaveOvenMode/Structs.ipp>
-#include <clusters/MideaAirConditionerAlarmTest/Attributes.ipp>
-#include <clusters/MideaAirConditionerAlarmTest/Commands.ipp>
-#include <clusters/MideaAirConditionerAlarmTest/Events.ipp>
-#include <clusters/MideaAirConditionerAlarmTest/Structs.ipp>
 #include <clusters/ModeSelect/Attributes.ipp>
 #include <clusters/ModeSelect/Commands.ipp>
 #include <clusters/ModeSelect/Events.ipp>
@@ -1423,6 +1427,13 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
             return false;
         }
     }
+    case Clusters::FreshMideaAirConditionerAlarm::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
     case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         switch (aCommand)
         {
@@ -1430,7 +1441,7 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
             return false;
         }
     }
-    case Clusters::MideaAirConditionerAlarmTest::Id: {
+    case Clusters::FreshMideaController::Id: {
         switch (aCommand)
         {
         default:

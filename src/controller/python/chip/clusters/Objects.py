@@ -175,9 +175,10 @@ __all__ = [
     "TlsClientManagement",
     "MeterIdentification",
     "CommodityMetering",
+    "FreshMideaAirConditionerAlarm",
     "FreshRefrigeratorErrorsAlarm",
     "FreshRefrigeratorController",
-    "MideaAirConditionerAlarmTest",
+    "FreshMideaController",
     "UnitTesting",
     "FaultInjection",
     "SampleMei",
@@ -52874,6 +52875,257 @@ class CommodityMetering(Cluster):
 
 
 @dataclass
+class FreshMideaAirConditionerAlarm(Cluster):
+    id: typing.ClassVar[int] = 0x15E7FC01
+
+    @ChipUtility.classproperty
+    def descriptor(cls) -> ClusterObjectDescriptor:
+        return ClusterObjectDescriptor(
+            Fields=[
+                ClusterObjectFieldDescriptor(Label="mask", Tag=0x00000000, Type=uint),
+                ClusterObjectFieldDescriptor(Label="latch", Tag=0x00000001, Type=typing.Optional[uint]),
+                ClusterObjectFieldDescriptor(Label="state", Tag=0x00000002, Type=uint),
+                ClusterObjectFieldDescriptor(Label="supported", Tag=0x00000003, Type=uint),
+                ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
+                ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
+                ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
+                ClusterObjectFieldDescriptor(Label="featureMap", Tag=0x0000FFFC, Type=uint),
+                ClusterObjectFieldDescriptor(Label="clusterRevision", Tag=0x0000FFFD, Type=uint),
+            ])
+
+    mask: uint = 0
+    latch: typing.Optional[uint] = None
+    state: uint = 0
+    supported: uint = 0
+    generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
+    acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
+    attributeList: typing.List[uint] = field(default_factory=lambda: [])
+    featureMap: uint = 0
+    clusterRevision: uint = 0
+
+    class Bitmaps:
+        class AlarmBitmap(IntFlag):
+            kInteriorBoardCommunicationFailure = 0x1
+            kIndoorMainControlBoardFailure = 0x2
+            kIndoorOutdoorBoardCommunicationFailure = 0x4
+            kZeroCrossingDetectionFailure = 0x8
+            kIndoorBoardFanStallFailure = 0x10
+            kOutdoorCondenserSensorFailure = 0x20
+            kOutdoorAmbientTemperatureSensorFailure = 0x40
+            kOutdoorCompressionEngineExhaustTemperatureSensorFailure = 0x80
+            kOutdoorESideFailure = 0x100
+            kIndoorTemperatureSensorFailure = 0x200
+            kIndoorEvaporatorTemperatureSensorFailure = 0x400
+            kOutdoorWindSpeedStallFailure = 0x800
+            kIpmModuleProtection = 0x1000
+            kVoltageProtection = 0x2000
+            kOutdoorCompressorTopTemperatureProtection = 0x4000
+            kOutdoorTemperatureLowProtection = 0x8000
+            kCompressorPositionProtection = 0x10000
+            kDisplayBoardESideFault = 0x20000
+            kOuterPipeTemperatureProtection = 0x40000
+            kExhaustHighTemperatureProtection = 0x80000
+            kHeatingAndColdWindProtection = 0x100000
+            kCurrentProtection = 0x200000
+            kEvaporatorHighAndLowTemperatureProtection = 0x400000
+            kCondenserHighAndLowTemperatureProtectionFrequencyLimit = 0x800000
+            kExhaustHighAndLowTemperatureProtection = 0x1000000
+            kIndoorOutdoorCommunicationMismatchProtocol = 0x2000000
+            kRefrigerantLeakageProtection = 0x4000000
+
+        class Feature(IntFlag):
+            kReset = 0x1
+
+    class Commands:
+        @dataclass
+        class Reset(ClusterCommand):
+            cluster_id: typing.ClassVar[int] = 0x15E7FC01
+            command_id: typing.ClassVar[int] = 0x00000000
+            is_client: typing.ClassVar[bool] = True
+            response_type: typing.ClassVar[typing.Optional[str]] = None
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="alarms", Tag=0, Type=uint),
+                    ])
+
+            alarms: uint = 0
+
+    class Attributes:
+        @dataclass
+        class Mask(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000000
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class Latch(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000001
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[uint])
+
+            value: typing.Optional[uint] = None
+
+        @dataclass
+        class State(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000002
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class Supported(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000003
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class GeneratedCommandList(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000FFF8
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.List[uint])
+
+            value: typing.List[uint] = field(default_factory=lambda: [])
+
+        @dataclass
+        class AcceptedCommandList(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000FFF9
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.List[uint])
+
+            value: typing.List[uint] = field(default_factory=lambda: [])
+
+        @dataclass
+        class AttributeList(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000FFFB
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.List[uint])
+
+            value: typing.List[uint] = field(default_factory=lambda: [])
+
+        @dataclass
+        class FeatureMap(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000FFFC
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class ClusterRevision(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000FFFD
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+    class Events:
+        @dataclass
+        class Notify(ClusterEvent):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC01
+
+            @ChipUtility.classproperty
+            def event_id(cls) -> int:
+                return 0x00000000
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="active", Tag=0, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="inactive", Tag=1, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="state", Tag=2, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="mask", Tag=3, Type=uint),
+                    ])
+
+            active: uint = 0
+            inactive: uint = 0
+            state: uint = 0
+            mask: uint = 0
+
+
+@dataclass
 class FreshRefrigeratorErrorsAlarm(Cluster):
     id: typing.ClassVar[int] = 0x15E7FC02
 
@@ -53477,17 +53729,27 @@ class FreshRefrigeratorController(Cluster):
 
 
 @dataclass
-class MideaAirConditionerAlarmTest(Cluster):
-    id: typing.ClassVar[int] = 0xFFF1FC01
+class FreshMideaController(Cluster):
+    id: typing.ClassVar[int] = 0x15E7FC04
 
     @ChipUtility.classproperty
     def descriptor(cls) -> ClusterObjectDescriptor:
         return ClusterObjectDescriptor(
             Fields=[
-                ClusterObjectFieldDescriptor(Label="mask", Tag=0x00000000, Type=uint),
-                ClusterObjectFieldDescriptor(Label="latch", Tag=0x00000001, Type=typing.Optional[uint]),
-                ClusterObjectFieldDescriptor(Label="state", Tag=0x00000002, Type=uint),
-                ClusterObjectFieldDescriptor(Label="supported", Tag=0x00000003, Type=uint),
+                ClusterObjectFieldDescriptor(Label="beep", Tag=0x00000000, Type=bool),
+                ClusterObjectFieldDescriptor(Label="light", Tag=0x00000001, Type=bool),
+                ClusterObjectFieldDescriptor(Label="turboMode", Tag=0x00000002, Type=typing.Optional[bool]),
+                ClusterObjectFieldDescriptor(Label="ecoMode", Tag=0x00000003, Type=typing.Optional[bool]),
+                ClusterObjectFieldDescriptor(Label="frostProtectionMode", Tag=0x00000004, Type=typing.Optional[bool]),
+                ClusterObjectFieldDescriptor(Label="sleepMode", Tag=0x00000005, Type=typing.Optional[bool]),
+                ClusterObjectFieldDescriptor(Label="temperatureUnit", Tag=0x00000006, Type=typing.Optional[FreshMideaController.Enums.TemperatureUnitsEnum]),
+                ClusterObjectFieldDescriptor(Label="cleanState", Tag=0x00000007, Type=typing.Optional[FreshMideaController.Enums.CleanStateEnum]),
+                ClusterObjectFieldDescriptor(Label="offTimer", Tag=0x00000008, Type=bool),
+                ClusterObjectFieldDescriptor(Label="offTimerHours", Tag=0x00000009, Type=uint),
+                ClusterObjectFieldDescriptor(Label="offTimerMinutes", Tag=0x0000000A, Type=uint),
+                ClusterObjectFieldDescriptor(Label="onTimer", Tag=0x0000000B, Type=bool),
+                ClusterObjectFieldDescriptor(Label="onTimerHours", Tag=0x0000000C, Type=uint),
+                ClusterObjectFieldDescriptor(Label="onTimerMinutes", Tag=0x0000000D, Type=uint),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -53495,53 +53757,58 @@ class MideaAirConditionerAlarmTest(Cluster):
                 ClusterObjectFieldDescriptor(Label="clusterRevision", Tag=0x0000FFFD, Type=uint),
             ])
 
-    mask: uint = 0
-    latch: typing.Optional[uint] = None
-    state: uint = 0
-    supported: uint = 0
+    beep: bool = False
+    light: bool = False
+    turboMode: typing.Optional[bool] = None
+    ecoMode: typing.Optional[bool] = None
+    frostProtectionMode: typing.Optional[bool] = None
+    sleepMode: typing.Optional[bool] = None
+    temperatureUnit: typing.Optional[FreshMideaController.Enums.TemperatureUnitsEnum] = None
+    cleanState: typing.Optional[FreshMideaController.Enums.CleanStateEnum] = None
+    offTimer: bool = False
+    offTimerHours: uint = 0
+    offTimerMinutes: uint = 0
+    onTimer: bool = False
+    onTimerHours: uint = 0
+    onTimerMinutes: uint = 0
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
     featureMap: uint = 0
     clusterRevision: uint = 0
 
-    class Bitmaps:
-        class AlarmBitmap(IntFlag):
-            kInteriorBoardCommunicationFailure = 0x1
-            kIndoorMainControlBoardFailure = 0x2
-            kIndoorOutdoorBoardCommunicationFailure = 0x4
-            kZeroCrossingDetectionFailure = 0x8
-            kIndoorBoardFanStallFailure = 0x10
-            kOutdoorCondenserSensorFailure = 0x20
-            kOutdoorAmbientTemperatureSensorFailure = 0x40
-            kOutdoorCompressionEngineExhaustTemperatureSensorFailure = 0x80
-            kOutdoorESideFailure = 0x100
-            kIndoorTemperatureSensorFailure = 0x200
-            kIndoorEvaporatorTemperatureSensorFailure = 0x400
-            kOutdoorWindSpeedStallFailure = 0x800
-            kIpmModuleProtection = 0x1000
-            kVoltageProtection = 0x2000
-            kOutdoorCompressorTopTemperatureProtection = 0x4000
-            kOutdoorTemperatureLowProtection = 0x8000
-            kCompressorPositionProtection = 0x10000
-            kDisplayBoardESideFault = 0x20000
-            kOuterPipeTemperatureProtection = 0x40000
-            kExhaustHighTemperatureProtection = 0x80000
-            kHeatingAndColdWindProtection = 0x100000
-            kCurrentProtection = 0x200000
-            kEvaporatorHighAndLowTemperatureProtection = 0x400000
-            kCondenserHighAndLowTemperatureProtectionFrequencyLimit = 0x800000
-            kExhaustHighAndLowTemperatureProtection = 0x1000000
-            kIndoorOutdoorCommunicationMismatchProtocol = 0x2000000
-            kRefrigerantLeakageProtection = 0x4000000
+    class Enums:
+        class CleanStateEnum(MatterIntEnum):
+            kInactive = 0x00
+            kActive = 0x01
+            # All received enum values that are not listed above will be mapped
+            # to kUnknownEnumValue. This is a helper enum value that should only
+            # be used by code to process how it handles receiving an unknown
+            # enum value. This specific value should never be transmitted.
+            kUnknownEnumValue = 2
 
+        class TemperatureUnitsEnum(MatterIntEnum):
+            kCelsius = 0x00
+            kFahrenheit = 0x01
+            # All received enum values that are not listed above will be mapped
+            # to kUnknownEnumValue. This is a helper enum value that should only
+            # be used by code to process how it handles receiving an unknown
+            # enum value. This specific value should never be transmitted.
+            kUnknownEnumValue = 2
+
+    class Bitmaps:
         class Feature(IntFlag):
-            kReset = 0x1
+            kTurbo = 0x1
+            kEco = 0x2
+            kFrostProtection = 0x4
+            kSleep = 0x8
+            kTemperatureUnit = 0x10
+            kActiveClean = 0x20
 
     class Commands:
         @dataclass
-        class Reset(ClusterCommand):
-            cluster_id: typing.ClassVar[int] = 0xFFF1FC01
+        class Clean(ClusterCommand):
+            cluster_id: typing.ClassVar[int] = 0x15E7FC04
             command_id: typing.ClassVar[int] = 0x00000000
             is_client: typing.ClassVar[bool] = True
             response_type: typing.ClassVar[typing.Optional[str]] = None
@@ -53550,17 +53817,14 @@ class MideaAirConditionerAlarmTest(Cluster):
             def descriptor(cls) -> ClusterObjectDescriptor:
                 return ClusterObjectDescriptor(
                     Fields=[
-                        ClusterObjectFieldDescriptor(Label="alarms", Tag=0, Type=uint),
                     ])
-
-            alarms: uint = 0
 
     class Attributes:
         @dataclass
-        class Mask(ClusterAttributeDescriptor):
+        class Beep(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53568,15 +53832,15 @@ class MideaAirConditionerAlarmTest(Cluster):
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
-                return ClusterObjectFieldDescriptor(Type=uint)
+                return ClusterObjectFieldDescriptor(Type=bool)
 
-            value: uint = 0
+            value: bool = False
 
         @dataclass
-        class Latch(ClusterAttributeDescriptor):
+        class Light(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53584,19 +53848,131 @@ class MideaAirConditionerAlarmTest(Cluster):
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
-                return ClusterObjectFieldDescriptor(Type=typing.Optional[uint])
+                return ClusterObjectFieldDescriptor(Type=bool)
 
-            value: typing.Optional[uint] = None
+            value: bool = False
 
         @dataclass
-        class State(ClusterAttributeDescriptor):
+        class TurboMode(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
                 return 0x00000002
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[bool])
+
+            value: typing.Optional[bool] = None
+
+        @dataclass
+        class EcoMode(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000003
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[bool])
+
+            value: typing.Optional[bool] = None
+
+        @dataclass
+        class FrostProtectionMode(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000004
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[bool])
+
+            value: typing.Optional[bool] = None
+
+        @dataclass
+        class SleepMode(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000005
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[bool])
+
+            value: typing.Optional[bool] = None
+
+        @dataclass
+        class TemperatureUnit(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000006
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[FreshMideaController.Enums.TemperatureUnitsEnum])
+
+            value: typing.Optional[FreshMideaController.Enums.TemperatureUnitsEnum] = None
+
+        @dataclass
+        class CleanState(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000007
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[FreshMideaController.Enums.CleanStateEnum])
+
+            value: typing.Optional[FreshMideaController.Enums.CleanStateEnum] = None
+
+        @dataclass
+        class OffTimer(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000008
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=bool)
+
+            value: bool = False
+
+        @dataclass
+        class OffTimerHours(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000009
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -53605,14 +53981,62 @@ class MideaAirConditionerAlarmTest(Cluster):
             value: uint = 0
 
         @dataclass
-        class Supported(ClusterAttributeDescriptor):
+        class OffTimerMinutes(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000003
+                return 0x0000000A
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class OnTimer(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000000B
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=bool)
+
+            value: bool = False
+
+        @dataclass
+        class OnTimerHours(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000000C
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class OnTimerMinutes(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000000D
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -53624,7 +54048,7 @@ class MideaAirConditionerAlarmTest(Cluster):
         class GeneratedCommandList(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53640,7 +54064,7 @@ class MideaAirConditionerAlarmTest(Cluster):
         class AcceptedCommandList(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53656,7 +54080,7 @@ class MideaAirConditionerAlarmTest(Cluster):
         class AttributeList(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53672,7 +54096,7 @@ class MideaAirConditionerAlarmTest(Cluster):
         class FeatureMap(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53688,7 +54112,7 @@ class MideaAirConditionerAlarmTest(Cluster):
         class ClusterRevision(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
@@ -53702,10 +54126,10 @@ class MideaAirConditionerAlarmTest(Cluster):
 
     class Events:
         @dataclass
-        class Notify(ClusterEvent):
+        class ActiveCleanStarted(ClusterEvent):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
-                return 0xFFF1FC01
+                return 0x15E7FC04
 
             @ChipUtility.classproperty
             def event_id(cls) -> int:
@@ -53715,16 +54139,23 @@ class MideaAirConditionerAlarmTest(Cluster):
             def descriptor(cls) -> ClusterObjectDescriptor:
                 return ClusterObjectDescriptor(
                     Fields=[
-                        ClusterObjectFieldDescriptor(Label="active", Tag=0, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="inactive", Tag=1, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="state", Tag=2, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="mask", Tag=3, Type=uint),
                     ])
 
-            active: uint = 0
-            inactive: uint = 0
-            state: uint = 0
-            mask: uint = 0
+        @dataclass
+        class ActiveCleanEnded(ClusterEvent):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def event_id(cls) -> int:
+                return 0x00000001
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                    ])
 
 
 @dataclass

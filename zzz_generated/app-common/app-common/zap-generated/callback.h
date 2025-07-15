@@ -1407,6 +1407,16 @@ void emberAfCommodityMeteringClusterShutdownCallback(chip::EndpointId endpoint);
 /**
  * @param endpoint    Endpoint that is being initialized
  */
+void emberAfFreshMideaAirConditionerAlarmClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
 void emberAfFreshRefrigeratorErrorsAlarmClusterInitCallback(chip::EndpointId endpoint);
 
 /**
@@ -1427,12 +1437,12 @@ void emberAfFreshRefrigeratorControllerClusterShutdownCallback(chip::EndpointId 
 /**
  * @param endpoint    Endpoint that is being initialized
  */
-void emberAfMideaAirConditionerAlarmTestClusterInitCallback(chip::EndpointId endpoint);
+void emberAfFreshMideaControllerClusterInitCallback(chip::EndpointId endpoint);
 
 /**
  * @param endpoint    Endpoint that is being shutdown
  */
-void emberAfMideaAirConditionerAlarmTestClusterShutdownCallback(chip::EndpointId endpoint);
+void emberAfFreshMideaControllerClusterShutdownCallback(chip::EndpointId endpoint);
 
 /**
  * @param endpoint    Endpoint that is being initialized
@@ -6758,6 +6768,45 @@ MatterCommodityMeteringClusterServerPreAttributeChangedCallback(const chip::app:
 void emberAfCommodityMeteringClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
+// Fresh Midea Air Conditioner Alarm Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshMideaAirConditionerAlarmClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshMideaAirConditionerAlarmClusterServerAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshMideaAirConditionerAlarmClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
 // Fresh Refrigerator Errors Alarm Cluster
 //
 
@@ -6835,29 +6884,28 @@ chip::Protocols::InteractionModel::Status MatterFreshRefrigeratorControllerClust
 void emberAfFreshRefrigeratorControllerClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
-// Midea Air Conditioner Alarm Test Cluster
+// Fresh Midea Controller Cluster
 //
 
 /**
  * @param endpoint    Endpoint that is being initialized
  */
-void emberAfMideaAirConditionerAlarmTestClusterServerInitCallback(chip::EndpointId endpoint);
+void emberAfFreshMideaControllerClusterServerInitCallback(chip::EndpointId endpoint);
 
 /**
  * @param endpoint    Endpoint that is being shutdown
  */
-void MatterMideaAirConditionerAlarmTestClusterServerShutdownCallback(chip::EndpointId endpoint);
+void MatterFreshMideaControllerClusterServerShutdownCallback(chip::EndpointId endpoint);
 
 /**
  * @param endpoint    Endpoint that is being initialized
  */
-void emberAfMideaAirConditionerAlarmTestClusterClientInitCallback(chip::EndpointId endpoint);
+void emberAfFreshMideaControllerClusterClientInitCallback(chip::EndpointId endpoint);
 
 /**
  * @param attributePath Concrete attribute path that changed
  */
-void MatterMideaAirConditionerAlarmTestClusterServerAttributeChangedCallback(
-    const chip::app::ConcreteAttributePath & attributePath);
+void MatterFreshMideaControllerClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
 
 /**
  * @param attributePath Concrete attribute path to be changed
@@ -6865,13 +6913,13 @@ void MatterMideaAirConditionerAlarmTestClusterServerAttributeChangedCallback(
  * @param size          Attribute size
  * @param value         Attribute value
  */
-chip::Protocols::InteractionModel::Status MatterMideaAirConditionerAlarmTestClusterServerPreAttributeChangedCallback(
+chip::Protocols::InteractionModel::Status MatterFreshMideaControllerClusterServerPreAttributeChangedCallback(
     const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
 
 /**
  * @param endpoint  Endpoint that is being served
  */
-void emberAfMideaAirConditionerAlarmTestClusterServerTickCallback(chip::EndpointId endpoint);
+void emberAfFreshMideaControllerClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
 // Unit Testing Cluster
@@ -8253,17 +8301,23 @@ bool emberAfJointFabricAdministratorClusterAnnounceJointFabricAdministratorCallb
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::JointFabricAdministrator::Commands::AnnounceJointFabricAdministrator::DecodableType & commandData);
 /**
+ * @brief Fresh Midea Air Conditioner Alarm Cluster Reset Command callback (from client)
+ */
+bool emberAfFreshMideaAirConditionerAlarmClusterResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::DecodableType & commandData);
+/**
  * @brief Fresh Refrigerator Errors Alarm Cluster Reset Command callback (from client)
  */
 bool emberAfFreshRefrigeratorErrorsAlarmClusterResetCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::DecodableType & commandData);
 /**
- * @brief Midea Air Conditioner Alarm Test Cluster Reset Command callback (from client)
+ * @brief Fresh Midea Controller Cluster Clean Command callback (from client)
  */
-bool emberAfMideaAirConditionerAlarmTestClusterResetCallback(
+bool emberAfFreshMideaControllerClusterCleanCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::MideaAirConditionerAlarmTest::Commands::Reset::DecodableType & commandData);
+    const chip::app::Clusters::FreshMideaController::Commands::Clean::DecodableType & commandData);
 /**
  * @brief Unit Testing Cluster Test Command callback (from client)
  */

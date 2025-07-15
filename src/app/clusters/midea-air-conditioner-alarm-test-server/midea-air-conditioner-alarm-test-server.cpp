@@ -35,7 +35,7 @@ using namespace chip::DeviceLayer;
 using chip::Protocols::InteractionModel::Status;
 
 static constexpr size_t kFreshMideaAirConditionerAlarmDelegateTableSize =
-    MATTER_DM_MIDEA_ALARM_TEST_CLUSTER_SERVER_ENDPOINT_COUNT + CHIP_DEVICE_CONFIG_DYNAMIC_ENDPOINT_COUNT;
+    MATTER_DM_FRESH_MIDEA_AC_ALARM_CLUSTER_SERVER_ENDPOINT_COUNT + CHIP_DEVICE_CONFIG_DYNAMIC_ENDPOINT_COUNT;
 
 static_assert(kFreshMideaAirConditionerAlarmDelegateTableSize <= kEmberInvalidEndpointIndex, "Midea Air Conditioner Alarm Delegate table size error");
 
@@ -49,14 +49,14 @@ Delegate * gDelegateTable[kFreshMideaAirConditionerAlarmDelegateTableSize] = { n
 Delegate * GetDelegate(EndpointId endpoint)
 {
     uint16_t ep = emberAfGetClusterServerEndpointIndex(endpoint, FreshMideaAirConditionerAlarm::Id,
-                                                       MATTER_DM_MIDEA_ALARM_TEST_CLUSTER_SERVER_ENDPOINT_COUNT);
+                                                       MATTER_DM_FRESH_MIDEA_AC_ALARM_CLUSTER_SERVER_ENDPOINT_COUNT);
     return (ep >= kFreshMideaAirConditionerAlarmDelegateTableSize ? nullptr : gDelegateTable[ep]);
 }
 
 void SetDefaultDelegate(EndpointId endpoint, Delegate * delegate)
 {
     uint16_t ep = emberAfGetClusterServerEndpointIndex(endpoint, FreshMideaAirConditionerAlarm::Id,
-                                                       MATTER_DM_MIDEA_ALARM_TEST_CLUSTER_SERVER_ENDPOINT_COUNT);
+                                                       MATTER_DM_FRESH_MIDEA_AC_ALARM_CLUSTER_SERVER_ENDPOINT_COUNT);
     // if endpoint is found
     if (ep < kFreshMideaAirConditionerAlarmDelegateTableSize)
     {

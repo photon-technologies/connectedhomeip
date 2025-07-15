@@ -3622,6 +3622,8 @@ public class ClusterWriteMapping {
     writeAttributeMap.put("meterIdentification", writeMeterIdentificationInteractionInfo);
     Map<String, InteractionInfo> writeCommodityMeteringInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("commodityMetering", writeCommodityMeteringInteractionInfo);
+    Map<String, InteractionInfo> writeFreshMideaAirConditionerAlarmInteractionInfo = new LinkedHashMap<>();
+    writeAttributeMap.put("freshMideaAirConditionerAlarm", writeFreshMideaAirConditionerAlarmInteractionInfo);
     Map<String, InteractionInfo> writeFreshRefrigeratorErrorsAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshRefrigeratorErrorsAlarm", writeFreshRefrigeratorErrorsAlarmInteractionInfo);
     Map<String, InteractionInfo> writeFreshRefrigeratorControllerInteractionInfo = new LinkedHashMap<>();
@@ -3912,8 +3914,162 @@ public class ClusterWriteMapping {
     );
     writeFreshRefrigeratorControllerInteractionInfo.put("writeTemperatureErrorTimeAttribute", writeFreshRefrigeratorControllerTemperatureErrorTimeAttributeInteractionInfo);
     writeAttributeMap.put("freshRefrigeratorController", writeFreshRefrigeratorControllerInteractionInfo);
-    Map<String, InteractionInfo> writeMideaAirConditionerAlarmTestInteractionInfo = new LinkedHashMap<>();
-    writeAttributeMap.put("mideaAirConditionerAlarmTest", writeMideaAirConditionerAlarmTestInteractionInfo);
+    Map<String, InteractionInfo> writeFreshMideaControllerInteractionInfo = new LinkedHashMap<>();
+    Map<String, CommandParameterInfo> writeFreshMideaControllerBeepCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllerbeepCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerBeepCommandParams.put(
+        "value",
+        freshMideaControllerbeepCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerBeepAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeBeepAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerBeepCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeBeepAttribute", writeFreshMideaControllerBeepAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerLightCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllerlightCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerLightCommandParams.put(
+        "value",
+        freshMideaControllerlightCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerLightAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeLightAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerLightCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeLightAttribute", writeFreshMideaControllerLightAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerTurboModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllerturboModeCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerTurboModeCommandParams.put(
+        "value",
+        freshMideaControllerturboModeCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerTurboModeAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeTurboModeAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerTurboModeCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeTurboModeAttribute", writeFreshMideaControllerTurboModeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerEcoModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllerecoModeCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerEcoModeCommandParams.put(
+        "value",
+        freshMideaControllerecoModeCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerEcoModeAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeEcoModeAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerEcoModeCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeEcoModeAttribute", writeFreshMideaControllerEcoModeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerFrostProtectionModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllerfrostProtectionModeCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerFrostProtectionModeCommandParams.put(
+        "value",
+        freshMideaControllerfrostProtectionModeCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerFrostProtectionModeAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeFrostProtectionModeAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerFrostProtectionModeCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeFrostProtectionModeAttribute", writeFreshMideaControllerFrostProtectionModeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerSleepModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllersleepModeCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerSleepModeCommandParams.put(
+        "value",
+        freshMideaControllersleepModeCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerSleepModeAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeSleepModeAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerSleepModeCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeSleepModeAttribute", writeFreshMideaControllerSleepModeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerTemperatureUnitCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllertemperatureUnitCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Integer.class, 
+            Integer.class 
+        );
+    writeFreshMideaControllerTemperatureUnitCommandParams.put(
+        "value",
+        freshMideaControllertemperatureUnitCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerTemperatureUnitAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeTemperatureUnitAttribute(
+          (DefaultClusterCallback) callback,
+          (Integer) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerTemperatureUnitCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeTemperatureUnitAttribute", writeFreshMideaControllerTemperatureUnitAttributeInteractionInfo);
+    writeAttributeMap.put("freshMideaController", writeFreshMideaControllerInteractionInfo);
     Map<String, InteractionInfo> writeUnitTestingInteractionInfo = new LinkedHashMap<>();
     Map<String, CommandParameterInfo> writeUnitTestingBooleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
     CommandParameterInfo unitTestingbooleanCommandParameterInfo =

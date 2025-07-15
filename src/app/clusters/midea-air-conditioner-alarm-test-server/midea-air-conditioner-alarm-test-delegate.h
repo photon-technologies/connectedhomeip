@@ -24,10 +24,10 @@
 namespace chip {
 namespace app {
 namespace Clusters {
-namespace MideaAirConditionerAlarmTest {
+namespace FreshMideaAirConditionerAlarm {
 
 /** @brief
- *  Defines methods for implementing application-specific logic for the MideaAirConditionerAlarmTest Cluster.
+ *  Defines methods for implementing application-specific logic for the FreshMideaAirConditionerAlarm Cluster.
  */
 class Delegate
 {
@@ -61,7 +61,7 @@ protected:
     EndpointId mEndpoint = 0;
 };
 
-} // namespace MideaAirConditionerAlarmTest
+} // namespace FreshMideaAirConditionerAlarm
 } // namespace Clusters
 } // namespace app
 } // namespace chip

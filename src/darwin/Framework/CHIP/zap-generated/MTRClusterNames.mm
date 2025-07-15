@@ -429,14 +429,17 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeCommodityMeteringID:
         result = @"CommodityMetering";
         break;
+    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
+        result = @"FreshMideaAirConditionerAlarm";
+        break;
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
         result = @"FreshRefrigeratorErrorsAlarm";
         break;
     case MTRClusterIDTypeFreshRefrigeratorControllerID:
         result = @"FreshRefrigeratorController";
         break;
-    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
-        result = @"MideaAirConditionerAlarmTest";
+    case MTRClusterIDTypeFreshMideaControllerID:
+        result = @"FreshMideaController";
         break;
     case MTRClusterIDTypeUnitTestingID:
         result = @"UnitTesting";
@@ -9025,6 +9028,54 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
+
+        switch (attributeID) {
+
+            // Cluster FreshMideaAirConditionerAlarm attributes
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeMaskID:
+            result = @"Mask";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeLatchID:
+            result = @"Latch";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeStateID:
+            result = @"State";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeSupportedID:
+            result = @"Supported";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known FreshMideaAirConditionerAlarm attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (attributeID) {
@@ -9165,49 +9216,89 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
-    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+    case MTRClusterIDTypeFreshMideaControllerID:
 
         switch (attributeID) {
 
-            // Cluster MideaAirConditionerAlarmTest attributes
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeMaskID:
-            result = @"Mask";
+            // Cluster FreshMideaController attributes
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeBeepID:
+            result = @"Beep";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeLatchID:
-            result = @"Latch";
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeLightID:
+            result = @"Light";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeStateID:
-            result = @"State";
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeTurboModeID:
+            result = @"TurboMode";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeSupportedID:
-            result = @"Supported";
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeEcoModeID:
+            result = @"EcoMode";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeGeneratedCommandListID:
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeFrostProtectionModeID:
+            result = @"FrostProtectionMode";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeSleepModeID:
+            result = @"SleepMode";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeTemperatureUnitID:
+            result = @"TemperatureUnit";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeCleanStateID:
+            result = @"CleanState";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOffTimerID:
+            result = @"OffTimer";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOffTimerHoursID:
+            result = @"OffTimerHours";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOffTimerMinutesID:
+            result = @"OffTimerMinutes";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerID:
+            result = @"OnTimer";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerHoursID:
+            result = @"OnTimerHours";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerMinutesID:
+            result = @"OnTimerMinutes";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeAcceptedCommandListID:
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeAcceptedCommandListID:
             result = @"AcceptedCommandList";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeAttributeListID:
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeAttributeListID:
             result = @"AttributeList";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeFeatureMapID:
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeFeatureMapID:
             result = @"FeatureMap";
             break;
 
-        case MTRAttributeIDTypeClusterMideaAirConditionerAlarmTestAttributeClusterRevisionID:
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeClusterRevisionID:
             result = @"ClusterRevision";
             break;
 
         default:
-            // Not a known MideaAirConditionerAlarmTest attribute.
+            // Not a known FreshMideaController attribute.
             result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
             break;
         }
@@ -12389,6 +12480,20 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterFreshMideaAirConditionerAlarmCommandResetID:
+            result = @"Reset";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (commandID) {
@@ -12413,12 +12518,12 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
-    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+    case MTRClusterIDTypeFreshMideaControllerID:
 
         switch (commandID) {
 
-        case MTRCommandIDTypeClusterMideaAirConditionerAlarmTestCommandResetID:
-            result = @"Reset";
+        case MTRCommandIDTypeClusterFreshMideaControllerCommandCleanID:
+            result = @"Clean";
             break;
 
         default:
@@ -14309,6 +14414,16 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         }
         break;
 
+    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (commandID) {
@@ -14329,7 +14444,7 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         }
         break;
 
-    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+    case MTRClusterIDTypeFreshMideaControllerID:
 
         switch (commandID) {
 
@@ -16311,6 +16426,21 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         }
         break;
 
+    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
+
+        switch (eventID) {
+
+            // Cluster FreshMideaAirConditionerAlarm events
+        case MTREventIDTypeClusterFreshMideaAirConditionerAlarmEventNotifyID:
+            result = @"Notify";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (eventID) {
@@ -16336,13 +16466,17 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         }
         break;
 
-    case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
+    case MTRClusterIDTypeFreshMideaControllerID:
 
         switch (eventID) {
 
-            // Cluster MideaAirConditionerAlarmTest events
-        case MTREventIDTypeClusterMideaAirConditionerAlarmTestEventNotifyID:
-            result = @"Notify";
+            // Cluster FreshMideaController events
+        case MTREventIDTypeClusterFreshMideaControllerEventActiveCleanStartedID:
+            result = @"ActiveCleanStarted";
+            break;
+
+        case MTREventIDTypeClusterFreshMideaControllerEventActiveCleanEndedID:
+            result = @"ActiveCleanEnded";
             break;
 
         default:

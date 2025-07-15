@@ -1310,6 +1310,15 @@ static BOOL CommandNeedsTimedInvokeInCommodityMeteringCluster(AttributeId aAttri
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshMideaAirConditionerAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::FreshRefrigeratorErrorsAlarm;
@@ -1328,9 +1337,9 @@ static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(Attribut
     }
     }
 }
-static BOOL CommandNeedsTimedInvokeInMideaAirConditionerAlarmTestCluster(AttributeId aAttributeId)
+static BOOL CommandNeedsTimedInvokeInFreshMideaControllerCluster(AttributeId aAttributeId)
 {
-    using namespace Clusters::MideaAirConditionerAlarmTest;
+    using namespace Clusters::FreshMideaController;
     switch (aAttributeId) {
     default: {
         return NO;
@@ -1770,14 +1779,17 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     case Clusters::CommodityMetering::Id: {
         return CommandNeedsTimedInvokeInCommodityMeteringCluster(commandID);
     }
+    case Clusters::FreshMideaAirConditionerAlarm::Id: {
+        return CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(commandID);
+    }
     case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         return CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(commandID);
     }
     case Clusters::FreshRefrigeratorController::Id: {
         return CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(commandID);
     }
-    case Clusters::MideaAirConditionerAlarmTest::Id: {
-        return CommandNeedsTimedInvokeInMideaAirConditionerAlarmTestCluster(commandID);
+    case Clusters::FreshMideaController::Id: {
+        return CommandNeedsTimedInvokeInFreshMideaControllerCluster(commandID);
     }
     case Clusters::UnitTesting::Id: {
         return CommandNeedsTimedInvokeInUnitTestingCluster(commandID);

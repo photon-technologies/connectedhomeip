@@ -73,6 +73,8 @@
 #include <clusters/FixedLabel/EnumsCheck.h>
 #include <clusters/FlowMeasurement/EnumsCheck.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/EnumsCheck.h>
+#include <clusters/FreshMideaAirConditionerAlarm/EnumsCheck.h>
+#include <clusters/FreshMideaController/EnumsCheck.h>
 #include <clusters/FreshRefrigeratorController/EnumsCheck.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/EnumsCheck.h>
 #include <clusters/GeneralCommissioning/EnumsCheck.h>
@@ -98,7 +100,6 @@
 #include <clusters/MeterIdentification/EnumsCheck.h>
 #include <clusters/MicrowaveOvenControl/EnumsCheck.h>
 #include <clusters/MicrowaveOvenMode/EnumsCheck.h>
-#include <clusters/MideaAirConditionerAlarmTest/EnumsCheck.h>
 #include <clusters/ModeSelect/EnumsCheck.h>
 #include <clusters/NetworkCommissioning/EnumsCheck.h>
 #include <clusters/NitrogenDioxideConcentrationMeasurement/EnumsCheck.h>

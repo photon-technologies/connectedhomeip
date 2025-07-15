@@ -2698,13 +2698,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRFreshMideaAirConditionerAlarmClusterResetParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRFreshRefrigeratorErrorsAlarmClusterResetParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
 
 @end
 
-@interface MTRMideaAirConditionerAlarmTestClusterResetParams (InternalMethods)
+@interface MTRFreshMideaControllerClusterCleanParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
 

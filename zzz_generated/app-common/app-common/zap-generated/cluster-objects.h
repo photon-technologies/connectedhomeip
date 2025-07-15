@@ -227,6 +227,14 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.h>
+#include <clusters/FreshMideaAirConditionerAlarm/Attributes.h>
+#include <clusters/FreshMideaAirConditionerAlarm/Commands.h>
+#include <clusters/FreshMideaAirConditionerAlarm/Events.h>
+#include <clusters/FreshMideaAirConditionerAlarm/Structs.h>
+#include <clusters/FreshMideaController/Attributes.h>
+#include <clusters/FreshMideaController/Commands.h>
+#include <clusters/FreshMideaController/Events.h>
+#include <clusters/FreshMideaController/Structs.h>
 #include <clusters/FreshRefrigeratorController/Attributes.h>
 #include <clusters/FreshRefrigeratorController/Commands.h>
 #include <clusters/FreshRefrigeratorController/Events.h>
@@ -327,10 +335,6 @@
 #include <clusters/MicrowaveOvenMode/Commands.h>
 #include <clusters/MicrowaveOvenMode/Events.h>
 #include <clusters/MicrowaveOvenMode/Structs.h>
-#include <clusters/MideaAirConditionerAlarmTest/Attributes.h>
-#include <clusters/MideaAirConditionerAlarmTest/Commands.h>
-#include <clusters/MideaAirConditionerAlarmTest/Events.h>
-#include <clusters/MideaAirConditionerAlarmTest/Structs.h>
 #include <clusters/ModeSelect/Attributes.h>
 #include <clusters/ModeSelect/Commands.h>
 #include <clusters/ModeSelect/Events.h>

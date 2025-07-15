@@ -11413,6 +11413,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRFreshMideaAirConditionerAlarmClusterNotifyEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _active = @(0);
+
+        _inactive = @(0);
+
+        _state = @(0);
+
+        _mask = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaAirConditionerAlarmClusterNotifyEvent alloc] init];
+
+    other.active = self.active;
+    other.inactive = self.inactive;
+    other.state = self.state;
+    other.mask = self.mask;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRFreshRefrigeratorErrorsAlarmClusterNotifyEvent
 - (instancetype)init
 {
@@ -11449,37 +11485,47 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation MTRMideaAirConditionerAlarmTestClusterNotifyEvent
+@implementation MTRFreshMideaControllerClusterActiveCleanStartedEvent
 - (instancetype)init
 {
     if (self = [super init]) {
-
-        _active = @(0);
-
-        _inactive = @(0);
-
-        _state = @(0);
-
-        _mask = @(0);
     }
     return self;
 }
 
 - (id)copyWithZone:(NSZone * _Nullable)zone
 {
-    auto other = [[MTRMideaAirConditionerAlarmTestClusterNotifyEvent alloc] init];
-
-    other.active = self.active;
-    other.inactive = self.inactive;
-    other.state = self.state;
-    other.mask = self.mask;
+    auto other = [[MTRFreshMideaControllerClusterActiveCleanStartedEvent alloc] init];
 
     return other;
 }
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshMideaControllerClusterActiveCleanEndedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaControllerClusterActiveCleanEndedEvent alloc] init];
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
     return descriptionString;
 }
 

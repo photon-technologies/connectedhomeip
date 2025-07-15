@@ -299,12 +299,14 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "MeterIdentification";
     case chip::app::Clusters::CommodityMetering::Id:
         return "CommodityMetering";
+    case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id:
+        return "FreshMideaAirConditionerAlarm";
     case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id:
         return "FreshRefrigeratorErrorsAlarm";
     case chip::app::Clusters::FreshRefrigeratorController::Id:
         return "FreshRefrigeratorController";
-    case chip::app::Clusters::MideaAirConditionerAlarmTest::Id:
-        return "MideaAirConditionerAlarmTest";
+    case chip::app::Clusters::FreshMideaController::Id:
+        return "FreshMideaController";
     case chip::app::Clusters::UnitTesting::Id:
         return "UnitTesting";
     case chip::app::Clusters::FaultInjection::Id:
@@ -4787,6 +4789,31 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
+    case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::Mask::Id:
+            return "Mask";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::Latch::Id:
+            return "Latch";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::State::Id:
+            return "State";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::Supported::Id:
+            return "Supported";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         switch (id)
         {
@@ -4859,26 +4886,46 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
-    case chip::app::Clusters::MideaAirConditionerAlarmTest::Id: {
+    case chip::app::Clusters::FreshMideaController::Id: {
         switch (id)
         {
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::Mask::Id:
-            return "Mask";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::Latch::Id:
-            return "Latch";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::State::Id:
-            return "State";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::Supported::Id:
-            return "Supported";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::GeneratedCommandList::Id:
+        case chip::app::Clusters::FreshMideaController::Attributes::Beep::Id:
+            return "Beep";
+        case chip::app::Clusters::FreshMideaController::Attributes::Light::Id:
+            return "Light";
+        case chip::app::Clusters::FreshMideaController::Attributes::TurboMode::Id:
+            return "TurboMode";
+        case chip::app::Clusters::FreshMideaController::Attributes::EcoMode::Id:
+            return "EcoMode";
+        case chip::app::Clusters::FreshMideaController::Attributes::FrostProtectionMode::Id:
+            return "FrostProtectionMode";
+        case chip::app::Clusters::FreshMideaController::Attributes::SleepMode::Id:
+            return "SleepMode";
+        case chip::app::Clusters::FreshMideaController::Attributes::TemperatureUnit::Id:
+            return "TemperatureUnit";
+        case chip::app::Clusters::FreshMideaController::Attributes::CleanState::Id:
+            return "CleanState";
+        case chip::app::Clusters::FreshMideaController::Attributes::OffTimer::Id:
+            return "OffTimer";
+        case chip::app::Clusters::FreshMideaController::Attributes::OffTimerHours::Id:
+            return "OffTimerHours";
+        case chip::app::Clusters::FreshMideaController::Attributes::OffTimerMinutes::Id:
+            return "OffTimerMinutes";
+        case chip::app::Clusters::FreshMideaController::Attributes::OnTimer::Id:
+            return "OnTimer";
+        case chip::app::Clusters::FreshMideaController::Attributes::OnTimerHours::Id:
+            return "OnTimerHours";
+        case chip::app::Clusters::FreshMideaController::Attributes::OnTimerMinutes::Id:
+            return "OnTimerMinutes";
+        case chip::app::Clusters::FreshMideaController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::AcceptedCommandList::Id:
+        case chip::app::Clusters::FreshMideaController::Attributes::AcceptedCommandList::Id:
             return "AcceptedCommandList";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::AttributeList::Id:
+        case chip::app::Clusters::FreshMideaController::Attributes::AttributeList::Id:
             return "AttributeList";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::FeatureMap::Id:
+        case chip::app::Clusters::FreshMideaController::Attributes::FeatureMap::Id:
             return "FeatureMap";
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Attributes::ClusterRevision::Id:
+        case chip::app::Clusters::FreshMideaController::Attributes::ClusterRevision::Id:
             return "ClusterRevision";
         default:
             return "Unknown";
@@ -6433,6 +6480,15 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Unknown";
         }
     }
+    case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::Id:
+            return "Reset";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         switch (id)
         {
@@ -6442,11 +6498,11 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Unknown";
         }
     }
-    case chip::app::Clusters::MideaAirConditionerAlarmTest::Id: {
+    case chip::app::Clusters::FreshMideaController::Id: {
         switch (id)
         {
-        case chip::app::Clusters::MideaAirConditionerAlarmTest::Commands::Reset::Id:
-            return "Reset";
+        case chip::app::Clusters::FreshMideaController::Commands::Clean::Id:
+            return "Clean";
         default:
             return "Unknown";
         }

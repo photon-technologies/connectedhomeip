@@ -71,6 +71,8 @@
 #include <clusters/FixedLabel/CommandIds.h>
 #include <clusters/FlowMeasurement/CommandIds.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/CommandIds.h>
+#include <clusters/FreshMideaAirConditionerAlarm/CommandIds.h>
+#include <clusters/FreshMideaController/CommandIds.h>
 #include <clusters/FreshRefrigeratorController/CommandIds.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/CommandIds.h>
 #include <clusters/GeneralCommissioning/CommandIds.h>
@@ -96,7 +98,6 @@
 #include <clusters/MeterIdentification/CommandIds.h>
 #include <clusters/MicrowaveOvenControl/CommandIds.h>
 #include <clusters/MicrowaveOvenMode/CommandIds.h>
-#include <clusters/MideaAirConditionerAlarmTest/CommandIds.h>
 #include <clusters/ModeSelect/CommandIds.h>
 #include <clusters/NetworkCommissioning/CommandIds.h>
 #include <clusters/NitrogenDioxideConcentrationMeasurement/CommandIds.h>
