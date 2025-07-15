@@ -148,6 +148,8 @@
         "zone-management-cluster.xml",
         "fresh-ac-error-cluster.xml",
         "fresh-midea-controller-cluster.xml"
+        "fresh-refrigerator-controller.xml",
+        "fresh-refrigerator-errors.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {

@@ -149,6 +149,8 @@ Generally regenerate using one of:
 |       2050 |      0x802 | TlsClientManagement                                     |
 |       2822 |      0xB06 | MeterIdentification                                     |
 |       2823 |      0xB07 | CommodityMetering                                       |
+|  367524866 | 0x15E7FC02 | FreshRefrigeratorErrorsAlarm                            |
+|  367524867 | 0x15E7FC03 | FreshRefrigeratorController                             |
 | 4294048769 | 0xFFF1FC01 | MideaAirConditionerAlarmTest                            |
 | 4294048773 | 0xFFF1FC05 | UnitTesting                                             |
 | 4294048774 | 0xFFF1FC06 | FaultInjection                                          |

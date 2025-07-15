@@ -155,6 +155,8 @@
         "WI_FI_NETWORK_DIAGNOSTICS_CLUSTER": [],
         "ZONE_MANAGEMENT_CLUSTER": [],
         "FRESH_MIDEA_AC_ALARM_CLUSTER": [],
+        "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
+        "FRESH_REFRIGERATOR_ERRORS_CLUSTER":[],
         "FRESH_MIDEA_CONTROLLER_CLUSTER": []
     },
     "ServerDirectories": {
@@ -370,6 +372,8 @@
         "WI_FI_NETWORK_DIAGNOSTICS_CLUSTER": [],
         "ZONE_MANAGEMENT_CLUSTER": [],
         "FRESH_MIDEA_AC_ALARM_CLUSTER": ["midea-air-conditioner-alarm-test-server"],
+        "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
+        "FRESH_REFRIGERATOR_ERRORS_CLUSTER": [],
         "FRESH_MIDEA_CONTROLLER_CLUSTER": []
     }
 }

@@ -47,7 +47,7 @@ limitations under the License.
     <client init="false" tick="false">true</client>
     <server init="false" tick="false">true</server>
     <description>Attributes and commands for selecting a mode from a list of supported options.</description>
-    <globalAttribute side="either" code="0xFFFD" value="2"/>
+    <globalAttribute side="either" code="0xFFFD" value="3"/>
 
     <!-- Base data types -->
     <attribute side="server" code="0x0000" name="SupportedModes" define="SUPPORTED_MODES" type="array" entryType="ModeOptionStruct" length="255">
@@ -71,7 +71,7 @@ limitations under the License.
       <description>
         This command is sent by the device on receipt of the ChangeToModeWithStatus command.
       </description>
-      <arg name="Status"     type="enum8"                   optional="false"/>
+      <arg name="Status" type="enum8" optional="false"/>
       <arg name="StatusText" type="char_string" length="64" optional="true"/>
       <mandatoryConform/>
     </command>

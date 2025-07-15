@@ -227,6 +227,14 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.h>
+#include <clusters/FreshRefrigeratorController/Attributes.h>
+#include <clusters/FreshRefrigeratorController/Commands.h>
+#include <clusters/FreshRefrigeratorController/Events.h>
+#include <clusters/FreshRefrigeratorController/Structs.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Attributes.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Commands.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Events.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Structs.h>
 #include <clusters/GeneralCommissioning/Attributes.h>
 #include <clusters/GeneralCommissioning/Commands.h>
 #include <clusters/GeneralCommissioning/Events.h>

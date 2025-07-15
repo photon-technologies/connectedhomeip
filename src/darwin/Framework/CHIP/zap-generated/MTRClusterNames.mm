@@ -429,6 +429,12 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeCommodityMeteringID:
         result = @"CommodityMetering";
         break;
+    case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
+        result = @"FreshRefrigeratorErrorsAlarm";
+        break;
+    case MTRClusterIDTypeFreshRefrigeratorControllerID:
+        result = @"FreshRefrigeratorController";
+        break;
     case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
         result = @"MideaAirConditionerAlarmTest";
         break;
@@ -9019,6 +9025,146 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
+
+        switch (attributeID) {
+
+            // Cluster FreshRefrigeratorErrorsAlarm attributes
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeMaskID:
+            result = @"Mask";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeLatchID:
+            result = @"Latch";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeStateID:
+            result = @"State";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeSupportedID:
+            result = @"Supported";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known FreshRefrigeratorErrorsAlarm attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshRefrigeratorControllerID:
+
+        switch (attributeID) {
+
+            // Cluster FreshRefrigeratorController attributes
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeTemperatureDefaultID:
+            result = @"FridgeTemperatureDefault";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerTemperatureDefaultID:
+            result = @"FreezerTemperatureDefault";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgePreviousTemperatureID:
+            result = @"FridgePreviousTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerPreviousTemperatureID:
+            result = @"FreezerPreviousTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperCoolTimeID:
+            result = @"SuperCoolTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperFreezeTimeID:
+            result = @"SuperFreezeTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAlarmTimeID:
+            result = @"AlarmTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeResetTimeoutID:
+            result = @"ResetTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayActiveTimeID:
+            result = @"DisplayActiveTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayErrorTimeID:
+            result = @"DisplayErrorTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeCompressorStateID:
+            result = @"CompressorState";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostStateID:
+            result = @"DefrostState";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeErrorMarginID:
+            result = @"FridgeErrorMargin";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerErrorMarginID:
+            result = @"FreezerErrorMargin";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeTemperatureErrorTimeID:
+            result = @"TemperatureErrorTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known FreshRefrigeratorController attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
 
         switch (attributeID) {
@@ -12243,6 +12389,30 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterFreshRefrigeratorErrorsAlarmCommandResetID:
+            result = @"Reset";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshRefrigeratorControllerID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeMideaAirConditionerAlarmTestID:
 
         switch (commandID) {
@@ -14130,6 +14300,26 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         break;
 
     case MTRClusterIDTypeCommodityMeteringID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshRefrigeratorControllerID:
 
         switch (commandID) {
 
@@ -16112,6 +16302,31 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         break;
 
     case MTRClusterIDTypeCommodityMeteringID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
+
+        switch (eventID) {
+
+            // Cluster FreshRefrigeratorErrorsAlarm events
+        case MTREventIDTypeClusterFreshRefrigeratorErrorsAlarmEventNotifyID:
+            result = @"Notify";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshRefrigeratorControllerID:
 
         switch (eventID) {
 

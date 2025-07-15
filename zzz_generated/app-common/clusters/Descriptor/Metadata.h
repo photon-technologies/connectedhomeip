@@ -16,7 +16,7 @@ namespace app {
 namespace Clusters {
 namespace Descriptor {
 
-inline constexpr uint32_t kRevision = 3;
+inline constexpr uint32_t kRevision = 2;
 
 namespace Attributes {
 namespace DeviceTypeList {

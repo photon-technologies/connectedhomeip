@@ -299,6 +299,10 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "MeterIdentification";
     case chip::app::Clusters::CommodityMetering::Id:
         return "CommodityMetering";
+    case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id:
+        return "FreshRefrigeratorErrorsAlarm";
+    case chip::app::Clusters::FreshRefrigeratorController::Id:
+        return "FreshRefrigeratorController";
     case chip::app::Clusters::MideaAirConditionerAlarmTest::Id:
         return "MideaAirConditionerAlarmTest";
     case chip::app::Clusters::UnitTesting::Id:
@@ -4783,6 +4787,78 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
+    case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Mask::Id:
+            return "Mask";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Latch::Id:
+            return "Latch";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::State::Id:
+            return "State";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::Supported::Id:
+            return "Supported";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::FreshRefrigeratorController::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FridgeTemperatureDefault::Id:
+            return "FridgeTemperatureDefault";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerTemperatureDefault::Id:
+            return "FreezerTemperatureDefault";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FridgePreviousTemperature::Id:
+            return "FridgePreviousTemperature";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerPreviousTemperature::Id:
+            return "FreezerPreviousTemperature";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::SuperCoolTime::Id:
+            return "SuperCoolTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::SuperFreezeTime::Id:
+            return "SuperFreezeTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::AlarmTime::Id:
+            return "AlarmTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::ResetTimeout::Id:
+            return "ResetTimeout";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::DisplayActiveTime::Id:
+            return "DisplayActiveTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::DisplayErrorTime::Id:
+            return "DisplayErrorTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::CompressorState::Id:
+            return "CompressorState";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::DefrostState::Id:
+            return "DefrostState";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FridgeErrorMargin::Id:
+            return "FridgeErrorMargin";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerErrorMargin::Id:
+            return "FreezerErrorMargin";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::TemperatureErrorTime::Id:
+            return "TemperatureErrorTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::MideaAirConditionerAlarmTest::Id: {
         switch (id)
         {
@@ -6353,6 +6429,15 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "FindEndpoint";
         case chip::app::Clusters::TlsClientManagement::Commands::RemoveEndpoint::Id:
             return "RemoveEndpoint";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::Id:
+            return "Reset";
         default:
             return "Unknown";
         }

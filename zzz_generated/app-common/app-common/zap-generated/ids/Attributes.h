@@ -71,6 +71,8 @@
 #include <clusters/FixedLabel/AttributeIds.h>
 #include <clusters/FlowMeasurement/AttributeIds.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/AttributeIds.h>
+#include <clusters/FreshRefrigeratorController/AttributeIds.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/AttributeIds.h>
 #include <clusters/GeneralCommissioning/AttributeIds.h>
 #include <clusters/GeneralDiagnostics/AttributeIds.h>
 #include <clusters/GroupKeyManagement/AttributeIds.h>
