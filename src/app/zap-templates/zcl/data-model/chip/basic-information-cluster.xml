@@ -79,7 +79,7 @@ Git: 0.7-summer-2025-ncr-23-g816a9defd
       which apply to the whole Node. Also allows setting user device information such as location.</description>
     <client init="false" tick="false">true</client>
     <server init="false" tick="false">true</server>
-    <globalAttribute side="either" code="0xFFFD" value="5"/>
+    <globalAttribute side="either" code="0xFFFD" value="4"/>
     <attribute side="server" code="0" name="DataModelRevision" define="DATA_MODEL_REVISION" type="int16u"/>
     <attribute side="server" code="1" name="VendorName" define="VENDOR_NAME" type="char_string" length="32"/>
     <attribute side="server" code="2" name="VendorID" define="VENDOR_ID" type="vendor_id"/>
