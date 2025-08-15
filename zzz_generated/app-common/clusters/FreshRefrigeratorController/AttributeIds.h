@@ -72,6 +72,14 @@ namespace TemperatureErrorTime {
 inline constexpr AttributeId Id = 0x0000000E;
 } // namespace TemperatureErrorTime
 
+namespace FridgeDoorState {
+inline constexpr AttributeId Id = 0x0000000F;
+} // namespace FridgeDoorState
+
+namespace FreezerDoorState {
+inline constexpr AttributeId Id = 0x00000010;
+} // namespace FreezerDoorState
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

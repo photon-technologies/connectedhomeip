@@ -73,6 +73,10 @@ namespace chip
 
                     bool GetDefrostState() const;
 
+                    bool GetFridgeDoorState() const;
+
+                    bool GetFreezerDoorState() const;
+
                     // Setters
                     CHIP_ERROR SetDefaultFridgeTemperature(int16_t temp);
 
@@ -104,6 +108,10 @@ namespace chip
 
                     CHIP_ERROR SetDefrostState(bool state);
 
+                    CHIP_ERROR SetFridgeDoorState(bool state);
+
+                    CHIP_ERROR SetFreezerDoorState(bool state);
+
                 private:
                     EndpointId mEndpointId;
                     ClusterId mClusterId;
@@ -122,6 +130,8 @@ namespace chip
                     uint32_t mTemperatureErrorTime = 3600; // 1 hour
                     bool mCompressorState = false;
                     bool mDefrostState = false;
+                    bool mFridgeDoorState = false;
+                    bool mFreezerDoorState = false;
 
                     // AttributeAccessInterface
                     CHIP_ERROR Read(const ConcreteReadAttributePath &aPath, AttributeValueEncoder &aEncoder) override;
@@ -130,20 +140,38 @@ namespace chip
 
 
                     CHIP_ERROR SetDefaultFridgeTemperature(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetDefaultFreezerTemperature(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetPreviousFridgeTemperature(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetPreviousFreezerTemperature(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetSuperCoolTime(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetSuperFreezeTime(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetAlarmTime(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetResetTimeout(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetDisplayActiveTime(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetDisplayErrorTime(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetFridgeErrorMargin(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetFreezerErrorMargin(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetTemperatureErrorTime(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetCompressorState(AttributeValueDecoder &aDecoder);
+
                     CHIP_ERROR SetDefrostState(AttributeValueDecoder &aDecoder);
+
+                    CHIP_ERROR SetFridgeDoorState(AttributeValueDecoder &aDecoder);
+
+                    CHIP_ERROR SetFreezerDoorState(AttributeValueDecoder &aDecoder);
                 };
             } // namespace FreshRefrigeratorController
         } // namespace Clusters

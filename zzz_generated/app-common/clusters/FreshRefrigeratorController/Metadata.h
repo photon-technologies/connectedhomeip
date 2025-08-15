@@ -22,46 +22,46 @@ namespace Attributes {
 namespace FridgeTemperatureDefault {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgeTemperatureDefault::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
-                                                          Access::Privilege::kOperate);
+                                                          std::nullopt);
 } // namespace FridgeTemperatureDefault
 namespace FreezerTemperatureDefault {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerTemperatureDefault::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
-                                                          Access::Privilege::kOperate);
+                                                          std::nullopt);
 } // namespace FreezerTemperatureDefault
 namespace FridgePreviousTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgePreviousTemperature::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
-                                                          Access::Privilege::kOperate);
+                                                          std::nullopt);
 } // namespace FridgePreviousTemperature
 namespace FreezerPreviousTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerPreviousTemperature::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
-                                                          Access::Privilege::kOperate);
+                                                          std::nullopt);
 } // namespace FreezerPreviousTemperature
 namespace SuperCoolTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(SuperCoolTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace SuperCoolTime
 namespace SuperFreezeTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(SuperFreezeTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace SuperFreezeTime
 namespace AlarmTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(AlarmTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace AlarmTime
 namespace ResetTimeout {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ResetTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace ResetTimeout
 namespace DisplayActiveTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayActiveTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace DisplayActiveTime
 namespace DisplayErrorTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayErrorTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace DisplayErrorTime
 namespace CompressorState {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(CompressorState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
@@ -73,16 +73,24 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(DefrostState::Id, BitF
 } // namespace DefrostState
 namespace FridgeErrorMargin {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgeErrorMargin::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace FridgeErrorMargin
 namespace FreezerErrorMargin {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerErrorMargin::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace FreezerErrorMargin
 namespace TemperatureErrorTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(TemperatureErrorTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+                                                          Access::Privilege::kView, std::nullopt);
 } // namespace TemperatureErrorTime
+namespace FridgeDoorState {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgeDoorState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace FridgeDoorState
+namespace FreezerDoorState {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerDoorState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace FreezerDoorState
 
 } // namespace Attributes
 

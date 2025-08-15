@@ -223,6 +223,30 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace TemperatureErrorTime
+namespace FridgeDoorState {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::FridgeDoorState::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace FridgeDoorState
+namespace FreezerDoorState {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::FreezerDoorState::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace FreezerDoorState
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -277,6 +301,8 @@ struct TypeInfo
         Attributes::FridgeErrorMargin::TypeInfo::DecodableType fridgeErrorMargin                   = static_cast<int16_t>(0);
         Attributes::FreezerErrorMargin::TypeInfo::DecodableType freezerErrorMargin                 = static_cast<int16_t>(0);
         Attributes::TemperatureErrorTime::TypeInfo::DecodableType temperatureErrorTime             = static_cast<uint32_t>(0);
+        Attributes::FridgeDoorState::TypeInfo::DecodableType fridgeDoorState                       = static_cast<bool>(0);
+        Attributes::FreezerDoorState::TypeInfo::DecodableType freezerDoorState                     = static_cast<bool>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

@@ -6703,6 +6703,12 @@ static BOOL AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(AttributeId
     case Attributes::TemperatureErrorTime::Id: {
         return YES;
     }
+    case Attributes::FridgeDoorState::Id: {
+        return YES;
+    }
+    case Attributes::FreezerDoorState::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

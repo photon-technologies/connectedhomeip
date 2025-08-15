@@ -109323,34 +109323,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeFridgeTemperatureDefaultWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeFridgeTemperatureDefaultWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeFridgeTemperatureDefaultWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::FridgeTemperatureDefault::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.shortValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeFridgeTemperatureDefaultWithParams:(MTRSubscribeParams * _Nonnull)params
                                      subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                                reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -109385,34 +109357,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeFreezerTemperatureDefaultWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeFreezerTemperatureDefaultWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeFreezerTemperatureDefaultWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::FreezerTemperatureDefault::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.shortValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeFreezerTemperatureDefaultWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -109451,34 +109395,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeFridgePreviousTemperatureWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeFridgePreviousTemperatureWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeFridgePreviousTemperatureWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::FridgePreviousTemperature::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.shortValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeFridgePreviousTemperatureWithParams:(MTRSubscribeParams * _Nonnull)params
                                       subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                                 reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -109513,34 +109429,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeFreezerPreviousTemperatureWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeFreezerPreviousTemperatureWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeFreezerPreviousTemperatureWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::FreezerPreviousTemperature::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.shortValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeFreezerPreviousTemperatureWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -109579,34 +109467,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeSuperCoolTimeWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeSuperCoolTimeWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeSuperCoolTimeWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::SuperCoolTime::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeSuperCoolTimeWithParams:(MTRSubscribeParams * _Nonnull)params
                           subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                     reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -109641,34 +109501,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeSuperFreezeTimeWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeSuperFreezeTimeWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeSuperFreezeTimeWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::SuperFreezeTime::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeSuperFreezeTimeWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -109707,34 +109539,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeAlarmTimeWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeAlarmTimeWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeAlarmTimeWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::AlarmTime::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeAlarmTimeWithParams:(MTRSubscribeParams * _Nonnull)params
                       subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                 reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -109769,34 +109573,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeResetTimeoutWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeResetTimeoutWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeResetTimeoutWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::ResetTimeout::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeResetTimeoutWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -109835,34 +109611,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeDisplayActiveTimeWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeDisplayActiveTimeWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeDisplayActiveTimeWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::DisplayActiveTime::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeDisplayActiveTimeWithParams:(MTRSubscribeParams * _Nonnull)params
                               subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                         reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -109897,34 +109645,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeDisplayErrorTimeWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeDisplayErrorTimeWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeDisplayErrorTimeWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::DisplayErrorTime::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeDisplayErrorTimeWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -110035,34 +109755,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeFridgeErrorMarginWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeFridgeErrorMarginWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeFridgeErrorMarginWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::FridgeErrorMargin::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.shortValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeFridgeErrorMarginWithParams:(MTRSubscribeParams * _Nonnull)params
                               subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                         reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -110097,34 +109789,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeFreezerErrorMarginWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeFreezerErrorMarginWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeFreezerErrorMarginWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::FreezerErrorMargin::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.shortValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeFreezerErrorMarginWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -110163,34 +109827,6 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeTemperatureErrorTimeWithValue:(NSNumber * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeTemperatureErrorTimeWithValue:(NSNumber * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeTemperatureErrorTimeWithValue:(NSNumber * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshRefrigeratorController::Attributes::TemperatureErrorTime::TypeInfo;
-        TypeInfo::Type cppValue;
-          cppValue = value.unsignedIntValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
 - (void)subscribeAttributeTemperatureErrorTimeWithParams:(MTRSubscribeParams * _Nonnull)params
                                  subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                            reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
@@ -110208,6 +109844,78 @@ public:
 + (void)readAttributeTemperatureErrorTimeWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
 {
     using TypeInfo = FreshRefrigeratorController::Attributes::TemperatureErrorTime::TypeInfo;
+    [clusterStateCacheContainer
+        _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
+                                      clusterID:TypeInfo::GetClusterId()
+                                    attributeID:TypeInfo::GetAttributeId()
+                                          queue:queue
+                                     completion:completion];
+}
+
+- (void)readAttributeFridgeDoorStateWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshRefrigeratorController::Attributes::FridgeDoorState::TypeInfo;
+    [self.device _readKnownAttributeWithEndpointID:self.endpointID
+                                         clusterID:@(TypeInfo::GetClusterId())
+                                       attributeID:@(TypeInfo::GetAttributeId())
+                                            params:nil
+                                             queue:self.callbackQueue
+                                        completion:completion];
+}
+
+- (void)subscribeAttributeFridgeDoorStateWithParams:(MTRSubscribeParams * _Nonnull)params
+                            subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                      reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
+{
+    using TypeInfo = FreshRefrigeratorController::Attributes::FridgeDoorState::TypeInfo;
+    [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
+                                                clusterID:@(TypeInfo::GetClusterId())
+                                              attributeID:@(TypeInfo::GetAttributeId())
+                                                   params:params
+                                                    queue:self.callbackQueue
+                                            reportHandler:reportHandler
+                                  subscriptionEstablished:subscriptionEstablished];
+}
+
++ (void)readAttributeFridgeDoorStateWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshRefrigeratorController::Attributes::FridgeDoorState::TypeInfo;
+    [clusterStateCacheContainer
+        _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
+                                      clusterID:TypeInfo::GetClusterId()
+                                    attributeID:TypeInfo::GetAttributeId()
+                                          queue:queue
+                                     completion:completion];
+}
+
+- (void)readAttributeFreezerDoorStateWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshRefrigeratorController::Attributes::FreezerDoorState::TypeInfo;
+    [self.device _readKnownAttributeWithEndpointID:self.endpointID
+                                         clusterID:@(TypeInfo::GetClusterId())
+                                       attributeID:@(TypeInfo::GetAttributeId())
+                                            params:nil
+                                             queue:self.callbackQueue
+                                        completion:completion];
+}
+
+- (void)subscribeAttributeFreezerDoorStateWithParams:(MTRSubscribeParams * _Nonnull)params
+                             subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                       reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
+{
+    using TypeInfo = FreshRefrigeratorController::Attributes::FreezerDoorState::TypeInfo;
+    [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
+                                                clusterID:@(TypeInfo::GetClusterId())
+                                              attributeID:@(TypeInfo::GetAttributeId())
+                                                   params:params
+                                                    queue:self.callbackQueue
+                                            reportHandler:reportHandler
+                                  subscriptionEstablished:subscriptionEstablished];
+}
+
++ (void)readAttributeFreezerDoorStateWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshRefrigeratorController::Attributes::FreezerDoorState::TypeInfo;
     [clusterStateCacheContainer
         _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
                                       clusterID:TypeInfo::GetClusterId()

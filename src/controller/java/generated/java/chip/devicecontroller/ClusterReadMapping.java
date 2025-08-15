@@ -19678,6 +19678,28 @@ public class ClusterReadMapping {
           readFreshRefrigeratorControllerTemperatureErrorTimeCommandParams
         );
         result.put("readTemperatureErrorTimeAttribute", readFreshRefrigeratorControllerTemperatureErrorTimeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshRefrigeratorControllerFridgeDoorStateCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshRefrigeratorControllerFridgeDoorStateAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshRefrigeratorControllerCluster) cluster).readFridgeDoorStateAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readFreshRefrigeratorControllerFridgeDoorStateCommandParams
+        );
+        result.put("readFridgeDoorStateAttribute", readFreshRefrigeratorControllerFridgeDoorStateAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshRefrigeratorControllerFreezerDoorStateCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshRefrigeratorControllerFreezerDoorStateAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshRefrigeratorControllerCluster) cluster).readFreezerDoorStateAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readFreshRefrigeratorControllerFreezerDoorStateCommandParams
+        );
+        result.put("readFreezerDoorStateAttribute", readFreshRefrigeratorControllerFreezerDoorStateAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshRefrigeratorControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshRefrigeratorControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

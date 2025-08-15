@@ -4872,6 +4872,10 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "FreezerErrorMargin";
         case chip::app::Clusters::FreshRefrigeratorController::Attributes::TemperatureErrorTime::Id:
             return "TemperatureErrorTime";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FridgeDoorState::Id:
+            return "FridgeDoorState";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::FreezerDoorState::Id:
+            return "FreezerDoorState";
         case chip::app::Clusters::FreshRefrigeratorController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshRefrigeratorController::Attributes::AcceptedCommandList::Id:
