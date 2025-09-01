@@ -9236,6 +9236,14 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"TemperatureErrorTime";
             break;
 
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeDoorStateID:
+            result = @"FridgeDoorState";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerDoorStateID:
+            result = @"FreezerDoorState";
+            break;
+
         case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

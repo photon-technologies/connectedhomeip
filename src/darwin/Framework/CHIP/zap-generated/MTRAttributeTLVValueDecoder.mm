@@ -21242,6 +21242,28 @@ static id _Nullable DecodeAttributeValueForFreshRefrigeratorControllerCluster(At
         value = [NSNumber numberWithUnsignedInt:cppValue];
         return value;
     }
+    case Attributes::FridgeDoorState::Id: {
+        using TypeInfo = Attributes::FridgeDoorState::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::FreezerDoorState::Id: {
+        using TypeInfo = Attributes::FreezerDoorState::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
     default: {
         // Not a known FreshRefrigeratorController attribute.
         break;

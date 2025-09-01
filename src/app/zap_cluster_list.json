@@ -373,7 +373,7 @@
         "WI_FI_NETWORK_DIAGNOSTICS_CLUSTER": [],
         "ZONE_MANAGEMENT_CLUSTER": [],
         "FRESH_MIDEA_AC_ALARM_CLUSTER": ["midea-air-conditioner-alarm-test-server"],
-        "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
+        "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": ["fresh-refrigerator-controller-server"],
         "FRESH_REFRIGERATOR_ERRORS_CLUSTER": [],
         "FRESH_MIDEA_CONTROLLER_CLUSTER": [],
         "PHOTON_SMART_CLUSTER": ["photon-smart-server"]
