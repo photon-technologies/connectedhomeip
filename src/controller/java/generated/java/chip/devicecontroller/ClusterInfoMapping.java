@@ -20942,6 +20942,111 @@ public class ClusterInfoMapping {
     }
   }
 
+  public static class DelegatedPhotonSmartClusterHomeIdAttributeCallback implements ChipClusters.PhotonSmartCluster.HomeIdAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(@Nullable String value) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "String");
+      responseValues.put(commandResponseInfo, value);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonSmartClusterMqttConfigAttributeCallback implements ChipClusters.PhotonSmartCluster.MqttConfigAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(ChipStructs.PhotonSmartClusterPhotonMQTTStruct value) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "ChipStructs.PhotonSmartClusterPhotonMQTTStruct");
+      responseValues.put(commandResponseInfo, value);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonSmartClusterGeneratedCommandListAttributeCallback implements ChipClusters.PhotonSmartCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonSmartClusterAcceptedCommandListAttributeCallback implements ChipClusters.PhotonSmartCluster.AcceptedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonSmartClusterAttributeListAttributeCallback implements ChipClusters.PhotonSmartCluster.AttributeListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
   public static class DelegatedFreshMideaAirConditionerAlarmClusterGeneratedCommandListAttributeCallback implements ChipClusters.FreshMideaAirConditionerAlarmCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
     private ClusterCommandCallback callback;
     @Override
@@ -21122,6 +21227,27 @@ public class ClusterInfoMapping {
       Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
       CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
       responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshMideaControllerClusterOutdoorTemperatureAttributeCallback implements ChipClusters.FreshMideaControllerCluster.OutdoorTemperatureAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(@Nullable Integer value) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "Integer");
+      responseValues.put(commandResponseInfo, value);
       callback.onSuccess(responseValues);
     }
 
@@ -23307,6 +23433,10 @@ public class ClusterInfoMapping {
       (ptr, endpointId) -> new ChipClusters.CommodityMeteringCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("commodityMetering", commodityMeteringClusterInfo);
 
+    ClusterInfo photonSmartClusterInfo = new ClusterInfo(
+      (ptr, endpointId) -> new ChipClusters.PhotonSmartCluster(ptr, endpointId), new HashMap<>());
+    clusterMap.put("photonSmart", photonSmartClusterInfo);
+
     ClusterInfo freshMideaAirConditionerAlarmClusterInfo = new ClusterInfo(
       (ptr, endpointId) -> new ChipClusters.FreshMideaAirConditionerAlarmCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("freshMideaAirConditionerAlarm", freshMideaAirConditionerAlarmClusterInfo);
@@ -23476,6 +23606,7 @@ public class ClusterInfoMapping {
     destination.get("tlsClientManagement").combineCommands(source.get("tlsClientManagement"));
     destination.get("meterIdentification").combineCommands(source.get("meterIdentification"));
     destination.get("commodityMetering").combineCommands(source.get("commodityMetering"));
+    destination.get("photonSmart").combineCommands(source.get("photonSmart"));
     destination.get("freshMideaAirConditionerAlarm").combineCommands(source.get("freshMideaAirConditionerAlarm"));
     destination.get("freshRefrigeratorErrorsAlarm").combineCommands(source.get("freshRefrigeratorErrorsAlarm"));
     destination.get("freshRefrigeratorController").combineCommands(source.get("freshRefrigeratorController"));
@@ -31745,6 +31876,44 @@ public class ClusterInfoMapping {
 
     commandMap.put("commodityMetering", commodityMeteringClusterInteractionInfoMap);
 
+    Map<String, InteractionInfo> photonSmartClusterInteractionInfoMap = new LinkedHashMap<>();
+
+    Map<String, CommandParameterInfo> photonSmartrebootCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo photonSmartrebootrebootAfterCommandParameterInfo = new CommandParameterInfo("rebootAfter", Integer.class, Integer.class);
+    photonSmartrebootCommandParams.put("rebootAfter",photonSmartrebootrebootAfterCommandParameterInfo);
+    InteractionInfo photonSmartrebootInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster)
+        .reboot((DefaultClusterCallback) callback
+        , (Integer)
+        commandArguments.get("rebootAfter")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        photonSmartrebootCommandParams
+    );
+    photonSmartClusterInteractionInfoMap.put("reboot", photonSmartrebootInteractionInfo);
+
+    Map<String, CommandParameterInfo> photonSmartfactoryResetCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo photonSmartfactoryResetresetAfterCommandParameterInfo = new CommandParameterInfo("resetAfter", Integer.class, Integer.class);
+    photonSmartfactoryResetCommandParams.put("resetAfter",photonSmartfactoryResetresetAfterCommandParameterInfo);
+    InteractionInfo photonSmartfactoryResetInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster)
+        .factoryReset((DefaultClusterCallback) callback
+        , (Integer)
+        commandArguments.get("resetAfter")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        photonSmartfactoryResetCommandParams
+    );
+    photonSmartClusterInteractionInfoMap.put("factoryReset", photonSmartfactoryResetInteractionInfo);
+
+    commandMap.put("photonSmart", photonSmartClusterInteractionInfoMap);
+
     Map<String, InteractionInfo> freshMideaAirConditionerAlarmClusterInteractionInfoMap = new LinkedHashMap<>();
 
     Map<String, CommandParameterInfo> freshMideaAirConditionerAlarmresetCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
@@ -31804,6 +31973,18 @@ public class ClusterInfoMapping {
         freshMideaControllercleanCommandParams
     );
     freshMideaControllerClusterInteractionInfoMap.put("clean", freshMideaControllercleanInteractionInfo);
+
+    Map<String, CommandParameterInfo> freshMideaControllercancelCleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    InteractionInfo freshMideaControllercancelCleanInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster)
+        .cancelClean((DefaultClusterCallback) callback
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        freshMideaControllercancelCleanCommandParams
+    );
+    freshMideaControllerClusterInteractionInfoMap.put("cancelClean", freshMideaControllercancelCleanInteractionInfo);
 
     commandMap.put("freshMideaController", freshMideaControllerClusterInteractionInfoMap);
 

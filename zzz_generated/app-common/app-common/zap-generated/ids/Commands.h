@@ -110,6 +110,7 @@
 #include <clusters/OvenCavityOperationalState/CommandIds.h>
 #include <clusters/OvenMode/CommandIds.h>
 #include <clusters/OzoneConcentrationMeasurement/CommandIds.h>
+#include <clusters/PhotonSmart/CommandIds.h>
 #include <clusters/Pm10ConcentrationMeasurement/CommandIds.h>
 #include <clusters/Pm1ConcentrationMeasurement/CommandIds.h>
 #include <clusters/Pm25ConcentrationMeasurement/CommandIds.h>

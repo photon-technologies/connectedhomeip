@@ -6580,6 +6580,40 @@ static BOOL AttributeIsSpecifiedInCommodityMeteringCluster(AttributeId aAttribut
     }
     }
 }
+static BOOL AttributeIsSpecifiedInPhotonSmartCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::PhotonSmart;
+    switch (aAttributeId) {
+    case Attributes::HomeId::Id: {
+        return YES;
+    }
+    case Attributes::ShouldReboot::Id: {
+        return YES;
+    }
+    case Attributes::MqttConfig::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known PhotonSmart attribute.
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::FreshMideaAirConditionerAlarm;
@@ -6768,6 +6802,15 @@ static BOOL AttributeIsSpecifiedInFreshMideaControllerCluster(AttributeId aAttri
         return YES;
     }
     case Attributes::OnTimerMinutes::Id: {
+        return YES;
+    }
+    case Attributes::PlasmaMode::Id: {
+        return YES;
+    }
+    case Attributes::OutdoorTemperature::Id: {
+        return YES;
+    }
+    case Attributes::ErrorCode::Id: {
         return YES;
     }
     case Attributes::GeneratedCommandList::Id: {
@@ -7516,6 +7559,9 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::CommodityMetering::Id: {
         return AttributeIsSpecifiedInCommodityMeteringCluster(aAttributeId);
+    }
+    case Clusters::PhotonSmart::Id: {
+        return AttributeIsSpecifiedInPhotonSmartCluster(aAttributeId);
     }
     case Clusters::FreshMideaAirConditionerAlarm::Id: {
         return AttributeIsSpecifiedInFreshMideaAirConditionerAlarmCluster(aAttributeId);

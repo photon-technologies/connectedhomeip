@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<configurator>
+  <domain name="CHIP"/>
+  <enum name="MqttTransport" type="enum8">
+    <cluster code="0x15E7FC00"/>
+    <item value="0x0000" name="SSL"/>
+    <item value="0x0001" name="WSS"/>
+  </enum>
+  <struct name="PhotonMQTTStruct">
+    <cluster code="0x15E7FC00"/>
+    <item fieldId="1" name="Host" type="char_string" length="254"/>
+    <item fieldId="2" name="Port" type="int16u"/>
+    <item fieldId="3" name="Transport" type="MqttTransport" default="0"/>
+    <item fieldId="4" name="KeepAlive" type="int16u"/>
+    <item fieldId="5" name="LastWellTopic" type="char_string" length="254"/>
+    <item fieldId="6" name="LastWellMsg" type="octet_string" length="1000"/>
+    <item fieldId="7" name="LastWellMsgLen" type="int16u" min="1" max="1000"/>
+    <item fieldId="8" name="LastWellQOS" type="int8u" min="0" max="2" default="1"/>
+    <item fieldId="9" name="LastWellRetain" type="boolean" default="0"/>
+    <item fieldId="10" name="CleanSession" type="boolean" default="1"/>
+    <item fieldId="11" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
+    <item fieldId="12" name="TimeoutMS" type="int32u" default="10000"/>
+    <item fieldId="13" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
+  </struct>
+
+
+  <cluster>
+    <name>Photon Smart</name>\
+    <domain>PHOTON</domain>
+    <description>Attributes and commands for Photon Smart Products.</description>
+    <code>0x15E7FC00</code>
+    <define>PHOTON_SMART_CLUSTER</define>
+
+    <globalAttribute code="0xFFFD" side="either" value="1"/>
+
+    <attribute side="server" code="0x0000" name="HomeId" define="HOME_ID" type="char_string" length="150" isNullable="true">
+      <description>HomeId</description>
+      <access op="read" privilege="administer"/>
+      <access op="write" privilege="administer"/>
+      <mandatoryConform/>
+    </attribute>
+
+    <attribute side="server" code="0x0001" name="ShouldReboot" define="SHOULD_REBOOT" type="boolean" default="0">
+      <description>ShouldReboot</description>
+      <mandatoryConform/>
+    </attribute>
+
+    <attribute side="server" code="0x0002" name="MqttConfig" define="MQTT_CONFIG" type="PhotonMQTTStruct" >
+      <access op="read" privilege="administer"/>
+      <access op="write" privilege="administer"/>
+      <mandatoryConform/>
+      <description>MqttConfig</description>
+    </attribute>
+
+
+    <command source="client" code="0x00" name="Reboot" optional="true">
+      <description>This command is used to reboot the device.</description>
+      <arg id="0" name="RebootAfter" type="int16u" default="0" min="0" max="65535"/>
+      <access op="invoke" privilege="administer"/>
+      <mandatoryConform/>
+    </command>
+
+    <command source="client" code="0x01" name="FactoryReset" optional="true">
+      <description>This command is used to initiate factory reset the device.</description>
+      <arg id="0" name="ResetAfter" type="int16u" default="0" min="0" max="65535"/>
+      <access op="invoke" privilege="administer"/>
+      <mandatoryConform/>
+    </command>
+
+
+  </cluster>
+</configurator>

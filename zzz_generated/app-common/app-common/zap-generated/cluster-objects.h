@@ -383,6 +383,10 @@
 #include <clusters/OzoneConcentrationMeasurement/Commands.h>
 #include <clusters/OzoneConcentrationMeasurement/Events.h>
 #include <clusters/OzoneConcentrationMeasurement/Structs.h>
+#include <clusters/PhotonSmart/Attributes.h>
+#include <clusters/PhotonSmart/Commands.h>
+#include <clusters/PhotonSmart/Events.h>
+#include <clusters/PhotonSmart/Structs.h>
 #include <clusters/Pm10ConcentrationMeasurement/Attributes.h>
 #include <clusters/Pm10ConcentrationMeasurement/Commands.h>
 #include <clusters/Pm10ConcentrationMeasurement/Events.h>

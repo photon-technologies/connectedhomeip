@@ -9014,6 +9014,16 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         }
         break;
     }
+    case app::Clusters::PhotonSmart::Id: {
+        using namespace app::Clusters::PhotonSmart;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
     case app::Clusters::FreshMideaAirConditionerAlarm::Id: {
         using namespace app::Clusters::FreshMideaAirConditionerAlarm;
         switch (aPath.mEventId)
@@ -9223,6 +9233,42 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
             }
 
             jobject value = env->NewObject(activeCleanEndedStructClass, activeCleanEndedStructCtor);
+
+            return value;
+        }
+        case Events::NotifyError::Id: {
+            Events::NotifyError::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_code;
+            std::string value_codeClassName     = "java/lang/Integer";
+            std::string value_codeCtorSignature = "(I)V";
+            jint jnivalue_code                  = static_cast<jint>(cppValue.code);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_codeClassName.c_str(), value_codeCtorSignature.c_str(),
+                                                                       jnivalue_code, value_code);
+
+            jclass notifyErrorStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshMideaControllerClusterNotifyErrorEvent", notifyErrorStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshMideaControllerClusterNotifyErrorEvent");
+                return nullptr;
+            }
+
+            jmethodID notifyErrorStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, notifyErrorStructClass, "<init>", "(Ljava/lang/Integer;)V",
+                                                                &notifyErrorStructCtor);
+            if (err != CHIP_NO_ERROR || notifyErrorStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshMideaControllerClusterNotifyErrorEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(notifyErrorStructClass, notifyErrorStructCtor, value_code);
 
             return value;
         }

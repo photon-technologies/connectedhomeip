@@ -20881,6 +20881,84 @@ static id _Nullable DecodeAttributeValueForCommodityMeteringCluster(AttributeId 
     *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::PhotonSmart;
+    switch (aAttributeId) {
+    case Attributes::HomeId::Id: {
+        using TypeInfo = Attributes::HomeId::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSString * _Nullable value;
+        if (cppValue.IsNull()) {
+            value = nil;
+        } else {
+            value = AsString(cppValue.Value());
+            if (value == nil) {
+                CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+                *aError = err;
+                return nil;
+            }
+        }
+        return value;
+    }
+    case Attributes::ShouldReboot::Id: {
+        using TypeInfo = Attributes::ShouldReboot::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::MqttConfig::Id: {
+        using TypeInfo = Attributes::MqttConfig::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull value;
+        value = [MTRPhotonSmartClusterPhotonMQTTStruct new];
+        value.host = AsString(cppValue.host);
+        if (value.host == nil) {
+            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+            *aError = err;
+            return nil;
+        }
+        value.port = [NSNumber numberWithUnsignedShort:cppValue.port];
+        value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue.transport)];
+        value.keepAlive = [NSNumber numberWithUnsignedShort:cppValue.keepAlive];
+        value.lastWellTopic = AsString(cppValue.lastWellTopic);
+        if (value.lastWellTopic == nil) {
+            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+            *aError = err;
+            return nil;
+        }
+        value.lastWellMsg = AsData(cppValue.lastWellMsg);
+        value.lastWellMsgLen = [NSNumber numberWithUnsignedShort:cppValue.lastWellMsgLen];
+        value.lastWellQOS = [NSNumber numberWithUnsignedChar:cppValue.lastWellQOS];
+        value.lastWellRetain = [NSNumber numberWithBool:cppValue.lastWellRetain];
+        value.cleanSession = [NSNumber numberWithBool:cppValue.cleanSession];
+        value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
+        value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
+        value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:cppValue.refreshConnectionAfterMS];
+        return value;
+    }
+    default: {
+        // Not a known PhotonSmart attribute.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeAttributeValueForFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::FreshMideaAirConditionerAlarm;
@@ -21322,6 +21400,43 @@ static id _Nullable DecodeAttributeValueForFreshMideaControllerCluster(Attribute
     }
     case Attributes::OnTimerMinutes::Id: {
         using TypeInfo = Attributes::OnTimerMinutes::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedChar:cppValue];
+        return value;
+    }
+    case Attributes::PlasmaMode::Id: {
+        using TypeInfo = Attributes::PlasmaMode::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::OutdoorTemperature::Id: {
+        using TypeInfo = Attributes::OutdoorTemperature::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nullable value;
+        if (cppValue.IsNull()) {
+            value = nil;
+        } else {
+            value = [NSNumber numberWithShort:cppValue.Value()];
+        }
+        return value;
+    }
+    case Attributes::ErrorCode::Id: {
+        using TypeInfo = Attributes::ErrorCode::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
@@ -23340,6 +23455,9 @@ id _Nullable MTRDecodeAttributeValue(const ConcreteAttributePath & aPath, TLV::T
     }
     case Clusters::CommodityMetering::Id: {
         return DecodeAttributeValueForCommodityMeteringCluster(aPath.mAttributeId, aReader, aError);
+    }
+    case Clusters::PhotonSmart::Id: {
+        return DecodeAttributeValueForPhotonSmartCluster(aPath.mAttributeId, aReader, aError);
     }
     case Clusters::FreshMideaAirConditionerAlarm::Id: {
         return DecodeAttributeValueForFreshMideaAirConditionerAlarmCluster(aPath.mAttributeId, aReader, aError);

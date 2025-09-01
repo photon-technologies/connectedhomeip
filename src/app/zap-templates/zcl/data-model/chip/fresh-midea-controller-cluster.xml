@@ -7,7 +7,7 @@
       <item name="Celsius" value="0x00"/>
       <item name="Fahrenheit" value="0x01"/>
     </enum>
-    <enum name="CleanStateEnum" type="enum8" apiMaturity="provisional">
+    <enum name="CleanStateEnum" type="enum8">
       <cluster code="0x15E7FC04"/>
       <item name="Inactive" value="0x00"/>
       <item name="Active" value="0x01"/>
@@ -38,6 +38,9 @@
         <optionalConform/>
       </feature>
       <feature bit="5" code="ACTIVE_CLEAN" name="ActiveClean" summary="Supports Active Clean mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="6" code="PLASMA" name="Plasma" summary="Supports air freshening (Plasma) mode for the AC controller">
         <optionalConform/>
       </feature>
     </features>
@@ -111,9 +114,25 @@
       <description>OnTimerMinutes</description>
       <mandatoryConform/>
     </attribute>
+    <attribute side="server" code="0x000E" name="PlasmaMode" define="PLASMA_MODE" type="boolean" default="0">
+      <description>PlasmaMode</description>
+      <mandatoryConform>
+        <feature name="PLASMA"/>
+      </mandatoryConform>
+    </attribute>
 
-   <command source="client" code="0x00" name="Clean" optional="true">
+    <attribute side="server" code="0x000F" name="OutdoorTemperature" define="OUTDOOR_TEMP_VALUE" type="temperature" min="-27315" isNullable="true"/>
+    <attribute side="server" code="0x0010" name="ErrorCode" define="ERROR_CODE" type="int8u" default="0"/>
+
+    <command source="client" code="0x00" name="Clean" optional="true">
       <description>This command starts the clean process.</description>
+      <mandatoryConform>
+        <feature name="ACTIVE_CLEAN"/>
+      </mandatoryConform>
+    </command>
+
+    <command source="client" code="0x01" name="CancelClean" optional="true">
+      <description>This command cancel the clean process.</description>
       <mandatoryConform>
         <feature name="ACTIVE_CLEAN"/>
       </mandatoryConform>
@@ -131,6 +150,11 @@
       <mandatoryConform>
         <feature name="ACTIVE_CLEAN"/>
       </mandatoryConform>
+    </event>
+
+    <event side="server" code="0x02" priority="info" name="NotifyError">
+      <description>This event SHALL be generated when one or more errors change state, and SHALL have these fields: </description>
+      <field id="0" name="Code" type="int8u" default="0"/>
     </event>
   </cluster>
 </configurator>

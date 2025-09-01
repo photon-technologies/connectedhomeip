@@ -414,7 +414,7 @@ class AndroidBuilder(Builder):
             new_sdk_manager = os.path.join(
                 os.environ["ANDROID_HOME"],
                 "cmdline-tools",
-                "10.0",
+                "latest",
                 "bin",
                 "sdkmanager",
             )

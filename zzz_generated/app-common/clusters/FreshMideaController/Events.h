@@ -99,6 +99,39 @@ public:
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
 } // namespace ActiveCleanEnded
+namespace NotifyError {
+static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
+
+enum class Fields : uint8_t
+{
+    kCode = 0,
+};
+
+struct Type
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::NotifyError::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    uint8_t code = static_cast<uint8_t>(0);
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+};
+
+struct DecodableType
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::NotifyError::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+
+    uint8_t code = static_cast<uint8_t>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+} // namespace NotifyError
 } // namespace Events
 } // namespace FreshMideaController
 } // namespace Clusters

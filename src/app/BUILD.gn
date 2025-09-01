@@ -203,6 +203,8 @@ static_library("interaction-model") {
     "reporting/SynchronizedReportSchedulerImpl.h",
     "reporting/reporting.cpp",
     "reporting/reporting.h",
+    "reporting/PhotonReporting.cpp",
+    "reporting/PhotonReporting.h",
   ]
 
   deps = [

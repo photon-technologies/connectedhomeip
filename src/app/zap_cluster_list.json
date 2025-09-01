@@ -157,7 +157,8 @@
         "FRESH_MIDEA_AC_ALARM_CLUSTER": [],
         "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
         "FRESH_REFRIGERATOR_ERRORS_CLUSTER":[],
-        "FRESH_MIDEA_CONTROLLER_CLUSTER": []
+        "FRESH_MIDEA_CONTROLLER_CLUSTER": [],
+        "PHOTON_SMART_CLUSTER": []
     },
     "ServerDirectories": {
         "ACCESS_CONTROL_CLUSTER": ["access-control-server"],
@@ -374,6 +375,7 @@
         "FRESH_MIDEA_AC_ALARM_CLUSTER": ["midea-air-conditioner-alarm-test-server"],
         "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
         "FRESH_REFRIGERATOR_ERRORS_CLUSTER": [],
-        "FRESH_MIDEA_CONTROLLER_CLUSTER": []
+        "FRESH_MIDEA_CONTROLLER_CLUSTER": [],
+        "PHOTON_SMART_CLUSTER": ["photon-smart-server"]
     }
 }

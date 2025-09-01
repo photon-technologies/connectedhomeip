@@ -217,6 +217,7 @@ typedef NS_ENUM(uint32_t, MTRClusterIDType) {
     MTRClusterIDTypeTLSClientManagementID MTR_PROVISIONALLY_AVAILABLE = 0x00000802,
     MTRClusterIDTypeMeterIdentificationID MTR_PROVISIONALLY_AVAILABLE = 0x00000B06,
     MTRClusterIDTypeCommodityMeteringID MTR_PROVISIONALLY_AVAILABLE = 0x00000B07,
+    MTRClusterIDTypePhotonSmartID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC00,
     MTRClusterIDTypeFreshMideaAirConditionerAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC01,
     MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC02,
     MTRClusterIDTypeFreshRefrigeratorControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC03,
@@ -4917,6 +4918,16 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterCommodityMeteringAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
     MTRAttributeIDTypeClusterCommodityMeteringAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
 
+    // Cluster PhotonSmart attributes
+    MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeShouldRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeMqttConfigID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
     // Cluster FreshMideaAirConditionerAlarm attributes
     MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
@@ -4976,6 +4987,9 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerID MTR_PROVISIONALLY_AVAILABLE = 0x0000000B,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerHoursID MTR_PROVISIONALLY_AVAILABLE = 0x0000000C,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerMinutesID MTR_PROVISIONALLY_AVAILABLE = 0x0000000D,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributePlasmaModeID MTR_PROVISIONALLY_AVAILABLE = 0x0000000E,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOutdoorTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x0000000F,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID MTR_PROVISIONALLY_AVAILABLE = 0x00000010,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
@@ -7295,6 +7309,10 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     MTRCommandIDTypeClusterTLSClientManagementCommandFindEndpointResponseID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
     MTRCommandIDTypeClusterTLSClientManagementCommandRemoveEndpointID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
 
+    // Cluster PhotonSmart commands
+    MTRCommandIDTypeClusterPhotonSmartCommandRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRCommandIDTypeClusterPhotonSmartCommandFactoryResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+
     // Cluster FreshMideaAirConditionerAlarm commands
     MTRCommandIDTypeClusterFreshMideaAirConditionerAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
@@ -7303,6 +7321,7 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
 
     // Cluster FreshMideaController commands
     MTRCommandIDTypeClusterFreshMideaControllerCommandCleanID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRCommandIDTypeClusterFreshMideaControllerCommandCancelCleanID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
 
     // Cluster TestCluster deprecated command id names
     MTRClusterTestClusterCommandTestID
@@ -7910,6 +7929,7 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
     // Cluster FreshMideaController events
     MTREventIDTypeClusterFreshMideaControllerEventActiveCleanStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTREventIDTypeClusterFreshMideaControllerEventActiveCleanEndedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTREventIDTypeClusterFreshMideaControllerEventNotifyErrorID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
 
     // Cluster TestCluster deprecated event names
     MTRClusterTestClusterEventTestEventID

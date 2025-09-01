@@ -1310,6 +1310,15 @@ static BOOL CommandNeedsTimedInvokeInCommodityMeteringCluster(AttributeId aAttri
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInPhotonSmartCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::PhotonSmart;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::FreshMideaAirConditionerAlarm;
@@ -1778,6 +1787,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::CommodityMetering::Id: {
         return CommandNeedsTimedInvokeInCommodityMeteringCluster(commandID);
+    }
+    case Clusters::PhotonSmart::Id: {
+        return CommandNeedsTimedInvokeInPhotonSmartCluster(commandID);
     }
     case Clusters::FreshMideaAirConditionerAlarm::Id: {
         return CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(commandID);

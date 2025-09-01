@@ -383,6 +383,10 @@
 #include <clusters/OzoneConcentrationMeasurement/Commands.ipp>
 #include <clusters/OzoneConcentrationMeasurement/Events.ipp>
 #include <clusters/OzoneConcentrationMeasurement/Structs.ipp>
+#include <clusters/PhotonSmart/Attributes.ipp>
+#include <clusters/PhotonSmart/Commands.ipp>
+#include <clusters/PhotonSmart/Events.ipp>
+#include <clusters/PhotonSmart/Structs.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Attributes.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Commands.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Events.ipp>
@@ -1423,6 +1427,13 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
             return true;
         case Clusters::TlsClientManagement::Commands::RemoveEndpoint::Id:
             return true;
+        default:
+            return false;
+        }
+    }
+    case Clusters::PhotonSmart::Id: {
+        switch (aCommand)
+        {
         default:
             return false;
         }

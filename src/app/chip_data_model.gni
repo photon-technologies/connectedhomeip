@@ -213,8 +213,9 @@ template("chip_data_model") {
         "${_app_root}/util/attribute-table.cpp",
         "${_app_root}/util/ember-io-storage.cpp",
         "${_app_root}/util/util.cpp",
+        "${_app_root}/reporting/PhotonReporting.cpp",
       ]
-    }
+    } 
 
     if (defined(invoker.zap_file)) {
       _zap_file = rebase_path(invoker.zap_file, root_build_dir)

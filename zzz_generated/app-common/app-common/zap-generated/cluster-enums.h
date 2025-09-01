@@ -112,6 +112,7 @@
 #include <clusters/OvenCavityOperationalState/Enums.h>
 #include <clusters/OvenMode/Enums.h>
 #include <clusters/OzoneConcentrationMeasurement/Enums.h>
+#include <clusters/PhotonSmart/Enums.h>
 #include <clusters/Pm10ConcentrationMeasurement/Enums.h>
 #include <clusters/Pm1ConcentrationMeasurement/Enums.h>
 #include <clusters/Pm25ConcentrationMeasurement/Enums.h>

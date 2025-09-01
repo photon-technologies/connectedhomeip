@@ -60,6 +60,12 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, onTimerHours);
     case Attributes::OnTimerMinutes::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, onTimerMinutes);
+    case Attributes::PlasmaMode::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, plasmaMode);
+    case Attributes::OutdoorTemperature::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, outdoorTemperature);
+    case Attributes::ErrorCode::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, errorCode);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

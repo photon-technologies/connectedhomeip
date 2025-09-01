@@ -3622,6 +3622,8 @@ public class ClusterWriteMapping {
     writeAttributeMap.put("meterIdentification", writeMeterIdentificationInteractionInfo);
     Map<String, InteractionInfo> writeCommodityMeteringInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("commodityMetering", writeCommodityMeteringInteractionInfo);
+    Map<String, InteractionInfo> writePhotonSmartInteractionInfo = new LinkedHashMap<>();
+    writeAttributeMap.put("photonSmart", writePhotonSmartInteractionInfo);
     Map<String, InteractionInfo> writeFreshMideaAirConditionerAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshMideaAirConditionerAlarm", writeFreshMideaAirConditionerAlarmInteractionInfo);
     Map<String, InteractionInfo> writeFreshRefrigeratorErrorsAlarmInteractionInfo = new LinkedHashMap<>();

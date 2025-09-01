@@ -149,10 +149,11 @@
         "fresh-ac-error-cluster.xml",
         "fresh-midea-controller-cluster.xml",
         "fresh-refrigerator-controller.xml",
-        "fresh-refrigerator-errors.xml"
+        "fresh-refrigerator-errors.xml",
+        "photon-smart-cluster.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
-    "options": {
+"options": {
         "text": {
             "defaultResponsePolicy": ["Always", "Conditional", "Never"]
         },
@@ -798,7 +799,8 @@
         "Unit Localization": ["TemperatureUnit"],
         "Zone Management": ["TwoDCartesianMax"],
         "TLS Client Management": ["ClusterRevision", "MaxProvisioned"],
-        "Thermostat": ["CurrentThermostatSuggestion"]
+        "Thermostat": ["CurrentThermostatSuggestion"],
+        "Photon Smart": ["MqttConfig"]
     },
     "mandatoryDeviceTypes": "0x0016",
     "defaultReportingPolicy": "mandatory",

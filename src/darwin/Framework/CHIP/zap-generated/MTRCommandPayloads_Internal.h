@@ -2698,6 +2698,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRPhotonSmartClusterRebootParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRPhotonSmartClusterFactoryResetParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRFreshMideaAirConditionerAlarmClusterResetParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
@@ -2711,6 +2723,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface MTRFreshMideaControllerClusterCleanParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRFreshMideaControllerClusterCancelCleanParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
 

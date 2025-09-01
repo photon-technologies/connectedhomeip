@@ -299,6 +299,8 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "MeterIdentification";
     case chip::app::Clusters::CommodityMetering::Id:
         return "CommodityMetering";
+    case chip::app::Clusters::PhotonSmart::Id:
+        return "PhotonSmart";
     case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id:
         return "FreshMideaAirConditionerAlarm";
     case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id:
@@ -4789,6 +4791,29 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
+    case chip::app::Clusters::PhotonSmart::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::PhotonSmart::Attributes::HomeId::Id:
+            return "HomeId";
+        case chip::app::Clusters::PhotonSmart::Attributes::ShouldReboot::Id:
+            return "ShouldReboot";
+        case chip::app::Clusters::PhotonSmart::Attributes::MqttConfig::Id:
+            return "MqttConfig";
+        case chip::app::Clusters::PhotonSmart::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::PhotonSmart::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::PhotonSmart::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::PhotonSmart::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::PhotonSmart::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id: {
         switch (id)
         {
@@ -4917,6 +4942,12 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "OnTimerHours";
         case chip::app::Clusters::FreshMideaController::Attributes::OnTimerMinutes::Id:
             return "OnTimerMinutes";
+        case chip::app::Clusters::FreshMideaController::Attributes::PlasmaMode::Id:
+            return "PlasmaMode";
+        case chip::app::Clusters::FreshMideaController::Attributes::OutdoorTemperature::Id:
+            return "OutdoorTemperature";
+        case chip::app::Clusters::FreshMideaController::Attributes::ErrorCode::Id:
+            return "ErrorCode";
         case chip::app::Clusters::FreshMideaController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshMideaController::Attributes::AcceptedCommandList::Id:
@@ -6480,6 +6511,17 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Unknown";
         }
     }
+    case chip::app::Clusters::PhotonSmart::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::PhotonSmart::Commands::Reboot::Id:
+            return "Reboot";
+        case chip::app::Clusters::PhotonSmart::Commands::FactoryReset::Id:
+            return "FactoryReset";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id: {
         switch (id)
         {
@@ -6503,6 +6545,8 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
         {
         case chip::app::Clusters::FreshMideaController::Commands::Clean::Id:
             return "Clean";
+        case chip::app::Clusters::FreshMideaController::Commands::CancelClean::Id:
+            return "CancelClean";
         default:
             return "Unknown";
         }

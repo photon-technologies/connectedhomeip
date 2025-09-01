@@ -439,6 +439,9 @@ public class ClusterIDMapping {
         if (clusterId == CommodityMetering.ID) {
             return new CommodityMetering();
         }
+        if (clusterId == PhotonSmart.ID) {
+            return new PhotonSmart();
+        }
         if (clusterId == FreshMideaAirConditionerAlarm.ID) {
             return new FreshMideaAirConditionerAlarm();
         }
@@ -20410,6 +20413,144 @@ public class ClusterIDMapping {
             return Command.valueOf(name).getID();
         }
     }
+    public static class PhotonSmart implements BaseCluster {
+        public static final long ID = 367524864L;
+        public long getID() {
+            return ID;
+        }
+
+        public enum Attribute {
+            HomeId(0L),
+            ShouldReboot(1L),
+            MqttConfig(2L),
+            GeneratedCommandList(65528L),
+            AcceptedCommandList(65529L),
+            AttributeList(65531L),
+            FeatureMap(65532L),
+            ClusterRevision(65533L),;
+            private final long id;
+            Attribute(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Attribute value(long id) throws NoSuchFieldError {
+                for (Attribute attribute : Attribute.values()) {
+                    if (attribute.getID() == id) {
+                        return attribute;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Event {;
+            private final long id;
+            Event(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Event value(long id) throws NoSuchFieldError {
+                for (Event event : Event.values()) {
+                    if (event.getID() == id) {
+                        return event;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Command {
+            Reboot(0L),
+            FactoryReset(1L),;
+            private final long id;
+            Command(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Command value(long id) throws NoSuchFieldError {
+                for (Command command : Command.values()) {
+                    if (command.getID() == id) {
+                        return command;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }public enum RebootCommandField {RebootAfter(0),;
+                    private final int id;
+                    RebootCommandField(int id) {
+                        this.id = id;
+                    }
+
+                    public int getID() {
+                        return id;
+                    }
+                    public static RebootCommandField value(int id) throws NoSuchFieldError {
+                        for (RebootCommandField field : RebootCommandField.values()) {
+                        if (field.getID() == id) {
+                            return field;
+                        }
+                        }
+                        throw new NoSuchFieldError();
+                    }
+                }public enum FactoryResetCommandField {ResetAfter(0),;
+                    private final int id;
+                    FactoryResetCommandField(int id) {
+                        this.id = id;
+                    }
+
+                    public int getID() {
+                        return id;
+                    }
+                    public static FactoryResetCommandField value(int id) throws NoSuchFieldError {
+                        for (FactoryResetCommandField field : FactoryResetCommandField.values()) {
+                        if (field.getID() == id) {
+                            return field;
+                        }
+                        }
+                        throw new NoSuchFieldError();
+                    }
+                }@Override
+        public String getAttributeName(long id) throws NoSuchFieldError {
+            return Attribute.value(id).toString();
+        }
+
+        @Override
+        public String getEventName(long id) throws NoSuchFieldError {
+            return Event.value(id).toString();
+        }
+
+        @Override
+        public String getCommandName(long id) throws NoSuchFieldError {
+            return Command.value(id).toString();
+        }
+
+        @Override
+        public long getAttributeID(String name) throws IllegalArgumentException {
+            return Attribute.valueOf(name).getID();
+        }
+
+        @Override
+        public long getEventID(String name) throws IllegalArgumentException {
+            return Event.valueOf(name).getID();
+        }
+
+        @Override
+        public long getCommandID(String name) throws IllegalArgumentException {
+            return Command.valueOf(name).getID();
+        }
+    }
     public static class FreshMideaAirConditionerAlarm implements BaseCluster {
         public static final long ID = 367524865L;
         public long getID() {
@@ -20789,6 +20930,9 @@ public class ClusterIDMapping {
             OnTimer(11L),
             OnTimerHours(12L),
             OnTimerMinutes(13L),
+            PlasmaMode(14L),
+            OutdoorTemperature(15L),
+            ErrorCode(16L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),
@@ -20815,7 +20959,8 @@ public class ClusterIDMapping {
 
         public enum Event {
             ActiveCleanStarted(0L),
-            ActiveCleanEnded(1L),;
+            ActiveCleanEnded(1L),
+            NotifyError(2L),;
             private final long id;
             Event(long id) {
                 this.id = id;
@@ -20836,7 +20981,8 @@ public class ClusterIDMapping {
         }
 
         public enum Command {
-            Clean(0L),;
+            Clean(0L),
+            CancelClean(1L),;
             private final long id;
             Command(long id) {
                 this.id = id;

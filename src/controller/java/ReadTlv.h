@@ -19,26 +19,23 @@
 #include <lib/support/JniReferences.h>
 #include <lib/support/JniTypeWrappers.h>
 
-using namespace chip;
-using namespace chip::app;
-
 class ReadTlv {
     public:
         ReadTlv(jobject wrapperCallback, const char * nodeStateClassSignature);
         ~ReadTlv() = default;
         CHIP_ERROR ProcessReportData(uint8_t *aPayload, size_t aSize);
-        CHIP_ERROR ProcessAttributeReportIBs(TLV::TLVReader & aAttributeDataIBsReader);
-        CHIP_ERROR ProcessEventReportIBs(TLV::TLVReader & aEventReportIBsReader);
-        CHIP_ERROR ProcessAttributePath(AttributePathIB::Parser & aAttributePath, ConcreteDataAttributePath & aClusterInfo);
+        CHIP_ERROR ProcessAttributeReportIBs(chip::TLV::TLVReader & aAttributeDataIBsReader);
+        CHIP_ERROR ProcessEventReportIBs(chip::TLV::TLVReader & aEventReportIBsReader);
+        CHIP_ERROR ProcessAttributePath(chip::app::AttributePathIB::Parser & aAttributePath, chip::app::ConcreteDataAttributePath & aClusterInfo);
 
-        void OnAttributeData(const app::ConcreteDataAttributePath & aPath, TLV::TLVReader * apData,
-                             const app::StatusIB & aStatus);
-        void OnEventData(const app::EventHeader & aEventHeader, TLV::TLVReader * apData, const app::StatusIB * apStatus);
+        void OnAttributeData(const chip::app::ConcreteDataAttributePath & aPath, chip::TLV::TLVReader * apData,
+                             const chip::app::StatusIB & aStatus);
+        void OnEventData(const chip::app::EventHeader & aEventHeader, chip::TLV::TLVReader * apData, const chip::app::StatusIB * apStatus);
         void UpdateClusterDataVersion();
 
         const char * mNodeStateClassSignature;
-        JniGlobalReference mWrapperCallbackRef;
-        Timestamp mEventTimestamp;
+        chip::JniGlobalReference mWrapperCallbackRef;
+        chip::app::Timestamp mEventTimestamp;
 };
 
 void readReportData(JNIEnv * env, jobject self, jbyteArray byteArrayJava, const char * nodeStateClassSignature);

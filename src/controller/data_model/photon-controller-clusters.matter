@@ -1,0 +1,602 @@
+// This IDL was generated automatically by ZAP.
+// It is for view/code review purposes only.
+
+enum AreaTypeTag : enum8 {
+  kAisle = 0;
+  kAttic = 1;
+  kBackDoor = 2;
+  kBackYard = 3;
+  kBalcony = 4;
+  kBallroom = 5;
+  kBathroom = 6;
+  kBedroom = 7;
+  kBorder = 8;
+  kBoxroom = 9;
+  kBreakfastRoom = 10;
+  kCarport = 11;
+  kCellar = 12;
+  kCloakroom = 13;
+  kCloset = 14;
+  kConservatory = 15;
+  kCorridor = 16;
+  kCraftRoom = 17;
+  kCupboard = 18;
+  kDeck = 19;
+  kDen = 20;
+  kDining = 21;
+  kDrawingRoom = 22;
+  kDressingRoom = 23;
+  kDriveway = 24;
+  kElevator = 25;
+  kEnsuite = 26;
+  kEntrance = 27;
+  kEntryway = 28;
+  kFamilyRoom = 29;
+  kFoyer = 30;
+  kFrontDoor = 31;
+  kFrontYard = 32;
+  kGameRoom = 33;
+  kGarage = 34;
+  kGarageDoor = 35;
+  kGarden = 36;
+  kGardenDoor = 37;
+  kGuestBathroom = 38;
+  kGuestBedroom = 39;
+  kGuestRoom = 41;
+  kGym = 42;
+  kHallway = 43;
+  kHearthRoom = 44;
+  kKidsRoom = 45;
+  kKidsBedroom = 46;
+  kKitchen = 47;
+  kLaundryRoom = 49;
+  kLawn = 50;
+  kLibrary = 51;
+  kLivingRoom = 52;
+  kLounge = 53;
+  kMediaTVRoom = 54 [spec_name = "Media/TV Room"];
+  kMudRoom = 55;
+  kMusicRoom = 56;
+  kNursery = 57;
+  kOffice = 58;
+  kOutdoorKitchen = 59;
+  kOutside = 60;
+  kPantry = 61;
+  kParkingLot = 62;
+  kParlor = 63;
+  kPatio = 64;
+  kPlayRoom = 65;
+  kPoolRoom = 66;
+  kPorch = 67;
+  kPrimaryBathroom = 68;
+  kPrimaryBedroom = 69;
+  kRamp = 70;
+  kReceptionRoom = 71;
+  kRecreationRoom = 72;
+  kRoof = 74;
+  kSauna = 75;
+  kScullery = 76;
+  kSewingRoom = 77;
+  kShed = 78;
+  kSideDoor = 79;
+  kSideYard = 80;
+  kSittingRoom = 81;
+  kSnug = 82;
+  kSpa = 83;
+  kStaircase = 84;
+  kSteamRoom = 85;
+  kStorageRoom = 86;
+  kStudio = 87;
+  kStudy = 88;
+  kSunRoom = 89;
+  kSwimmingPool = 90;
+  kTerrace = 91;
+  kUtilityRoom = 92;
+  kWard = 93;
+  kWorkshop = 94;
+  kToilet = 95;
+}
+
+enum AtomicRequestTypeEnum : enum8 {
+  kBeginWrite = 0;
+  kCommitWrite = 1;
+  kRollbackWrite = 2;
+}
+
+enum LandmarkTag : enum8 {
+  kAirConditioner = 0;
+  kAirPurifier = 1;
+  kBackDoor = 2;
+  kBarStool = 3;
+  kBathMat = 4;
+  kBathtub = 5;
+  kBed = 6;
+  kBookshelf = 7;
+  kChair = 8;
+  kChristmasTree = 9;
+  kCoatRack = 10;
+  kCoffeeTable = 11;
+  kCookingRange = 12;
+  kCouch = 13;
+  kCountertop = 14;
+  kCradle = 15;
+  kCrib = 16;
+  kDesk = 17;
+  kDiningTable = 18;
+  kDishwasher = 19;
+  kDoor = 20;
+  kDresser = 21;
+  kLaundryDryer = 22;
+  kFan = 23;
+  kFireplace = 24;
+  kFreezer = 25;
+  kFrontDoor = 26;
+  kHighChair = 27;
+  kKitchenIsland = 28;
+  kLamp = 29;
+  kLitterBox = 30;
+  kMirror = 31;
+  kNightstand = 32;
+  kOven = 33;
+  kPetBed = 34;
+  kPetBowl = 35;
+  kPetCrate = 36;
+  kRefrigerator = 37;
+  kScratchingPost = 38;
+  kShoeRack = 39;
+  kShower = 40;
+  kSideDoor = 41;
+  kSink = 42;
+  kSofa = 43;
+  kStove = 44;
+  kTable = 45;
+  kToilet = 46;
+  kTrashCan = 47;
+  kLaundryWasher = 48;
+  kWindow = 49;
+  kWineCooler = 50;
+}
+
+enum LocationTag : enum8 {
+  kIndoor = 0;
+  kOutdoor = 1;
+  kInside = 2;
+  kOutside = 3;
+}
+
+enum MeasurementTypeEnum : enum16 {
+  kUnspecified = 0;
+  kVoltage = 1;
+  kActiveCurrent = 2;
+  kReactiveCurrent = 3;
+  kApparentCurrent = 4;
+  kActivePower = 5;
+  kReactivePower = 6;
+  kApparentPower = 7;
+  kRMSVoltage = 8;
+  kRMSCurrent = 9;
+  kRMSPower = 10;
+  kFrequency = 11;
+  kPowerFactor = 12;
+  kNeutralCurrent = 13;
+  kElectricalEnergy = 14;
+  kReactiveEnergy = 15;
+  kApparentEnergy = 16;
+  kSoilMoisture = 17;
+}
+
+enum PositionTag : enum8 {
+  kLeft = 0;
+  kRight = 1;
+  kTop = 2;
+  kBottom = 3;
+  kMiddle = 4;
+  kRow = 5;
+  kColumn = 6;
+}
+
+enum PowerThresholdSourceEnum : enum8 {
+  kContract = 0;
+  kRegulator = 1;
+  kEquipment = 2;
+}
+
+enum RelativePositionTag : enum8 {
+  kUnder = 0;
+  kNextTo = 1;
+  kAround = 2;
+  kOn = 3;
+  kAbove = 4;
+  kFrontOf = 5;
+  kBehind = 6;
+}
+
+enum StreamUsageEnum : enum8 {
+  kInternal = 0;
+  kRecording = 1;
+  kAnalysis = 2;
+  kLiveView = 3;
+}
+
+enum TariffPriceTypeEnum : enum8 {
+  kStandard = 0;
+  kCritical = 1;
+  kVirtual = 2;
+  kIncentive = 3;
+  kIncentiveSignal = 4;
+}
+
+enum TariffUnitEnum : enum8 {
+  kKWh = 0;
+  kKVAh = 1;
+}
+
+enum TestGlobalEnum : enum8 {
+  kSomeValue = 0;
+  kSomeOtherValue = 1;
+  kFinalValue = 2;
+}
+
+enum ThreeLevelAutoEnum : enum8 {
+  kAuto = 0;
+  kLow = 1;
+  kMedium = 2;
+  kHigh = 3;
+}
+
+enum WebRTCEndReasonEnum : enum8 {
+  kIceFailed = 0;
+  kIceTimeout = 1;
+  kUserHangup = 2;
+  kUserBusy = 3;
+  kReplaced = 4;
+  kNoUserMedia = 5;
+  kInviteTimeout = 6;
+  kAnsweredElsewhere = 7;
+  kOutOfResources = 8;
+  kMediaTimeout = 9;
+  kLowPower = 10;
+  kUnknownReason = 11;
+}
+
+bitmap TestGlobalBitmap : bitmap32 {
+  kFirstBit = 0x1;
+  kSecondBit = 0x2;
+}
+
+struct CurrencyStruct {
+  int16u currency = 0;
+  int8u decimalPoints = 1;
+}
+
+struct PriceStruct {
+  money amount = 0;
+  CurrencyStruct currency = 1;
+}
+
+struct MeasurementAccuracyRangeStruct {
+  int64s rangeMin = 0;
+  int64s rangeMax = 1;
+  optional percent100ths percentMax = 2;
+  optional percent100ths percentMin = 3;
+  optional percent100ths percentTypical = 4;
+  optional int64u fixedMax = 5;
+  optional int64u fixedMin = 6;
+  optional int64u fixedTypical = 7;
+}
+
+struct MeasurementAccuracyStruct {
+  MeasurementTypeEnum measurementType = 0;
+  boolean measured = 1;
+  int64s minMeasuredValue = 2;
+  int64s maxMeasuredValue = 3;
+  MeasurementAccuracyRangeStruct accuracyRanges[] = 4;
+}
+
+struct AtomicAttributeStatusStruct {
+  attrib_id attributeID = 0;
+  status statusCode = 1;
+}
+
+struct ICECandidateStruct {
+  char_string candidate = 0;
+  nullable char_string SDPMid = 1;
+  nullable int16u SDPMLineIndex = 2;
+}
+
+struct ICEServerStruct {
+  char_string URLs[] = 0;
+  optional long_char_string<508> username = 1;
+  optional long_char_string<512> credential = 2;
+  optional int16u caid = 3;
+}
+
+struct LocationDescriptorStruct {
+  char_string<128> locationName = 0;
+  nullable int16s floorNumber = 1;
+  nullable AreaTypeTag areaType = 2;
+}
+
+struct PowerThresholdStruct {
+  optional power_mw powerThreshold = 0;
+  optional power_mva apparentPowerThreshold = 1;
+  nullable PowerThresholdSourceEnum powerThresholdSource = 2;
+}
+
+struct TestGlobalStruct {
+  char_string<128> name = 0;
+  nullable TestGlobalBitmap myBitmap = 1;
+  optional nullable TestGlobalEnum myEnum = 2;
+}
+
+struct ViewportStruct {
+  int16u x1 = 0;
+  int16u y1 = 1;
+  int16u x2 = 2;
+  int16u y2 = 3;
+}
+
+fabric_scoped struct WebRTCSessionStruct {
+  int16u id = 0;
+  node_id peerNodeID = 1;
+  endpoint_no peerEndpointID = 2;
+  StreamUsageEnum streamUsage = 3;
+  nullable int16u videoStreamID = 4;
+  nullable int16u audioStreamID = 5;
+  optional boolean metadataEnabled = 6;
+  fabric_idx fabricIndex = 254;
+}
+
+/** Attributes and commands for Photon Smart Products. */
+cluster PhotonSmart = 367524864 {
+  revision 1;
+
+  enum MqttTransport : enum8 {
+    kSSL = 0 [spec_name = "SSL"];
+    kWSS = 1 [spec_name = "WSS"];
+  }
+
+  struct PhotonMQTTStruct {
+    char_string<254> host = 1;
+    int16u port = 2;
+    MqttTransport transport = 3;
+    int16u keepAlive = 4;
+    char_string<254> lastWellTopic = 5;
+    octet_string<1000> lastWellMsg = 6;
+    int16u lastWellMsgLen = 7;
+    int8u lastWellQOS = 8;
+    boolean lastWellRetain = 9;
+    boolean cleanSession = 10;
+    int32u reconnectTimeoutMS = 11;
+    int32u timeoutMS = 12;
+    int32u refreshConnectionAfterMS = 13;
+  }
+
+  readonly attribute access(read: administer, write: administer) nullable char_string<150> homeId = 0;
+  readonly attribute boolean shouldReboot = 1;
+  readonly attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct RebootRequest {
+    int16u rebootAfter = 0;
+  }
+
+  request struct FactoryResetRequest {
+    int16u resetAfter = 0;
+  }
+
+  /** This command is used to reboot the device. */
+  command access(invoke: administer) Reboot(RebootRequest): DefaultSuccess = 0;
+  /** This command is used to initiate factory reset the device. */
+  command access(invoke: administer) FactoryReset(FactoryResetRequest): DefaultSuccess = 1;
+}
+
+/** Attributes and commands for configuring the Midea Air Conditioner alarm. */
+cluster FreshMideaAirConditionerAlarm = 367524865 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap64 {
+    kInteriorBoardCommunicationFailure = 0x1;
+    kIndoorMainControlBoardFailure = 0x2;
+    kIndoorOutdoorBoardCommunicationFailure = 0x4;
+    kZeroCrossingDetectionFailure = 0x8;
+    kIndoorBoardFanStallFailure = 0x10;
+    kOutdoorCondenserSensorFailure = 0x20;
+    kOutdoorAmbientTemperatureSensorFailure = 0x40;
+    kOutdoorCompressionEngineExhaustTemperatureSensorFailure = 0x80;
+    kOutdoorESideFailure = 0x100;
+    kIndoorTemperatureSensorFailure = 0x200;
+    kIndoorEvaporatorTemperatureSensorFailure = 0x400;
+    kOutdoorWindSpeedStallFailure = 0x800;
+    kIpmModuleProtection = 0x1000;
+    kVoltageProtection = 0x2000;
+    kOutdoorCompressorTopTemperatureProtection = 0x4000;
+    kOutdoorTemperatureLowProtection = 0x8000;
+    kCompressorPositionProtection = 0x10000;
+    kDisplayBoardESideFault = 0x20000;
+    kOuterPipeTemperatureProtection = 0x40000;
+    kExhaustHighTemperatureProtection = 0x80000;
+    kHeatingAndColdWindProtection = 0x100000;
+    kCurrentProtection = 0x200000;
+    kEvaporatorHighAndLowTemperatureProtection = 0x400000;
+    kCondenserHighAndLowTemperatureProtectionFrequencyLimit = 0x800000;
+    kExhaustHighAndLowTemperatureProtection = 0x1000000;
+    kIndoorOutdoorCommunicationMismatchProtocol = 0x2000000;
+    kRefrigerantLeakageProtection = 0x4000000;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
+}
+
+/** Attributes and commands for configuring the Fresh Refrigerator Errors alarm. */
+cluster FreshRefrigeratorErrorsAlarm = 367524866 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap32 {
+    kFridgeTemperatureSensorFailure = 0x1;
+    kFreezerTemperatureSensorFailure = 0x2;
+    kFanFailure = 0x4;
+    kDefrostTemperatureSensorFailure = 0x8;
+    kFridgeTemperatureOutRange = 0x10;
+    kFreezerTemperatureOutRange = 0x20;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
+}
+
+/** Attributes for configuring the Fresh Refrigerator Controller. */
+cluster FreshRefrigeratorController = 367524867 {
+  revision 1;
+
+  attribute optional temperature fridgeTemperatureDefault = 0;
+  attribute optional temperature freezerTemperatureDefault = 1;
+  attribute optional temperature fridgePreviousTemperature = 2;
+  attribute optional temperature freezerPreviousTemperature = 3;
+  attribute optional int32u superCoolTime = 4;
+  attribute optional int32u superFreezeTime = 5;
+  attribute optional int32u alarmTime = 6;
+  attribute optional int32u resetTimeout = 7;
+  attribute optional int32u displayActiveTime = 8;
+  attribute optional int32u displayErrorTime = 9;
+  readonly attribute optional boolean compressorState = 10;
+  readonly attribute optional boolean defrostState = 11;
+  attribute optional temperature fridgeErrorMargin = 12;
+  attribute optional temperature freezerErrorMargin = 13;
+  attribute optional int32u temperatureErrorTime = 14;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+}
+
+/** Attributes and commands for configuring the Fresh Midea AC Controller. */
+cluster FreshMideaController = 367524868 {
+  revision 1;
+
+  enum CleanStateEnum : enum8 {
+    kInactive = 0;
+    kActive = 1;
+  }
+
+  enum TemperatureUnitsEnum : enum8 {
+    kCelsius = 0;
+    kFahrenheit = 1;
+  }
+
+  bitmap Feature : bitmap32 {
+    kTurbo = 0x1;
+    kEco = 0x2;
+    kFrostProtection = 0x4;
+    kSleep = 0x8;
+    kTemperatureUnit = 0x10;
+    kActiveClean = 0x20;
+    kPlasma = 0x40;
+  }
+
+  info event ActiveCleanStarted = 0 {
+  }
+
+  info event ActiveCleanEnded = 1 {
+  }
+
+  info event NotifyError = 2 {
+    int8u code = 0;
+  }
+
+  attribute boolean beep = 0;
+  attribute boolean light = 1;
+  attribute optional boolean turboMode = 2;
+  attribute optional boolean ecoMode = 3;
+  attribute optional boolean frostProtectionMode = 4;
+  attribute optional boolean sleepMode = 5;
+  attribute optional TemperatureUnitsEnum temperatureUnit = 6;
+  readonly attribute optional CleanStateEnum cleanState = 7;
+  readonly attribute boolean offTimer = 8;
+  readonly attribute int8u offTimerHours = 9;
+  readonly attribute int8u offTimerMinutes = 10;
+  readonly attribute boolean onTimer = 11;
+  readonly attribute int8u onTimerHours = 12;
+  readonly attribute int8u onTimerMinutes = 13;
+  readonly attribute optional boolean plasmaMode = 14;
+  readonly attribute nullable temperature outdoorTemperature = 15;
+  readonly attribute int8u errorCode = 16;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  /** This command starts the clean process. */
+  command Clean(): DefaultSuccess = 0;
+  /** This command cancel the clean process. */
+  command CancelClean(): DefaultSuccess = 1;
+}
+
+endpoint 1 {
+  device type ma_rootdevice = 22, version 1;
+
+  binding cluster PhotonSmart;
+  binding cluster FreshMideaAirConditionerAlarm;
+  binding cluster FreshRefrigeratorErrorsAlarm;
+  binding cluster FreshRefrigeratorController;
+  binding cluster FreshMideaController;
+}
+
+
