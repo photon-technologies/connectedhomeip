@@ -61,6 +61,7 @@ enum class Feature : uint32_t
     kSleep           = 0x8,
     kTemperatureUnit = 0x10,
     kActiveClean     = 0x20,
+    kPlasma          = 0x40,
 };
 } // namespace FreshMideaController
 } // namespace Clusters

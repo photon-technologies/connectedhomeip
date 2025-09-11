@@ -1012,6 +1012,11 @@ static CHIP_ERROR Setup(const char * label, chip::app::Clusters::CommodityMeteri
 
 static void Finalize(chip::app::Clusters::CommodityMetering::Structs::MeteredQuantityStruct::Type & request);
 
+static CHIP_ERROR Setup(const char * label, chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type & request,
+                        Json::Value & value);
+
+static void Finalize(chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type & request);
+
 static CHIP_ERROR Setup(const char * label, chip::app::Clusters::UnitTesting::Structs::SimpleStruct::Type & request,
                         Json::Value & value);
 

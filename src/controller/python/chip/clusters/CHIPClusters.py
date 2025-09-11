@@ -14587,6 +14587,76 @@ class ChipClusters:
             },
         },
     }
+    _PHOTON_SMART_CLUSTER_INFO = {
+        "clusterName": "PhotonSmart",
+        "clusterId": 0x15E7FC00,
+        "commands": {
+            0x00000000: {
+                "commandId": 0x00000000,
+                "commandName": "Reboot",
+                "args": {
+                    "rebootAfter": "int",
+                },
+            },
+            0x00000001: {
+                "commandId": 0x00000001,
+                "commandName": "FactoryReset",
+                "args": {
+                    "resetAfter": "int",
+                },
+            },
+        },
+        "attributes": {
+            0x00000000: {
+                "attributeName": "HomeId",
+                "attributeId": 0x00000000,
+                "type": "str",
+                "reportable": True,
+            },
+            0x00000001: {
+                "attributeName": "ShouldReboot",
+                "attributeId": 0x00000001,
+                "type": "bool",
+                "reportable": True,
+            },
+            0x00000002: {
+                "attributeName": "MqttConfig",
+                "attributeId": 0x00000002,
+                "type": "",
+                "reportable": True,
+            },
+            0x0000FFF8: {
+                "attributeName": "GeneratedCommandList",
+                "attributeId": 0x0000FFF8,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF9: {
+                "attributeName": "AcceptedCommandList",
+                "attributeId": 0x0000FFF9,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFB: {
+                "attributeName": "AttributeList",
+                "attributeId": 0x0000FFFB,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFC: {
+                "attributeName": "FeatureMap",
+                "attributeId": 0x0000FFFC,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFD: {
+                "attributeName": "ClusterRevision",
+                "attributeId": 0x0000FFFD,
+                "type": "int",
+                "reportable": True,
+            },
+        },
+    }
     _FRESH_MIDEA_AIR_CONDITIONER_ALARM_CLUSTER_INFO = {
         "clusterName": "FreshMideaAirConditionerAlarm",
         "clusterId": 0x15E7FC01,
@@ -14736,70 +14806,60 @@ class ChipClusters:
                 "attributeId": 0x00000000,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000001: {
                 "attributeName": "FreezerTemperatureDefault",
                 "attributeId": 0x00000001,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000002: {
                 "attributeName": "FridgePreviousTemperature",
                 "attributeId": 0x00000002,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000003: {
                 "attributeName": "FreezerPreviousTemperature",
                 "attributeId": 0x00000003,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000004: {
                 "attributeName": "SuperCoolTime",
                 "attributeId": 0x00000004,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000005: {
                 "attributeName": "SuperFreezeTime",
                 "attributeId": 0x00000005,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000006: {
                 "attributeName": "AlarmTime",
                 "attributeId": 0x00000006,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000007: {
                 "attributeName": "ResetTimeout",
                 "attributeId": 0x00000007,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000008: {
                 "attributeName": "DisplayActiveTime",
                 "attributeId": 0x00000008,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x00000009: {
                 "attributeName": "DisplayErrorTime",
                 "attributeId": 0x00000009,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x0000000A: {
                 "attributeName": "CompressorState",
@@ -14818,21 +14878,30 @@ class ChipClusters:
                 "attributeId": 0x0000000C,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x0000000D: {
                 "attributeName": "FreezerErrorMargin",
                 "attributeId": 0x0000000D,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
             },
             0x0000000E: {
                 "attributeName": "TemperatureErrorTime",
                 "attributeId": 0x0000000E,
                 "type": "int",
                 "reportable": True,
-                "writable": True,
+            },
+            0x0000000F: {
+                "attributeName": "FridgeDoorState",
+                "attributeId": 0x0000000F,
+                "type": "bool",
+                "reportable": True,
+            },
+            0x00000010: {
+                "attributeName": "FreezerDoorState",
+                "attributeId": 0x00000010,
+                "type": "bool",
+                "reportable": True,
             },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
@@ -14873,6 +14942,12 @@ class ChipClusters:
             0x00000000: {
                 "commandId": 0x00000000,
                 "commandName": "Clean",
+                "args": {
+                },
+            },
+            0x00000001: {
+                "commandId": 0x00000001,
+                "commandName": "CancelClean",
                 "args": {
                 },
             },
@@ -14966,6 +15041,24 @@ class ChipClusters:
             0x0000000D: {
                 "attributeName": "OnTimerMinutes",
                 "attributeId": 0x0000000D,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000E: {
+                "attributeName": "PlasmaMode",
+                "attributeId": 0x0000000E,
+                "type": "bool",
+                "reportable": True,
+            },
+            0x0000000F: {
+                "attributeName": "OutdoorTemperature",
+                "attributeId": 0x0000000F,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000010: {
+                "attributeName": "ErrorCode",
+                "attributeId": 0x00000010,
                 "type": "int",
                 "reportable": True,
             },
@@ -16133,6 +16226,7 @@ class ChipClusters:
         0x00000802: _TLS_CLIENT_MANAGEMENT_CLUSTER_INFO,
         0x00000B06: _METER_IDENTIFICATION_CLUSTER_INFO,
         0x00000B07: _COMMODITY_METERING_CLUSTER_INFO,
+        0x15E7FC00: _PHOTON_SMART_CLUSTER_INFO,
         0x15E7FC01: _FRESH_MIDEA_AIR_CONDITIONER_ALARM_CLUSTER_INFO,
         0x15E7FC02: _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO,
         0x15E7FC03: _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
@@ -16280,6 +16374,7 @@ class ChipClusters:
         "TlsClientManagement": _TLS_CLIENT_MANAGEMENT_CLUSTER_INFO,
         "MeterIdentification": _METER_IDENTIFICATION_CLUSTER_INFO,
         "CommodityMetering": _COMMODITY_METERING_CLUSTER_INFO,
+        "PhotonSmart": _PHOTON_SMART_CLUSTER_INFO,
         "FreshMideaAirConditionerAlarm": _FRESH_MIDEA_AIR_CONDITIONER_ALARM_CLUSTER_INFO,
         "FreshRefrigeratorErrorsAlarm": _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO,
         "FreshRefrigeratorController": _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,

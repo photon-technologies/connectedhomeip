@@ -2704,6 +2704,23 @@ MTR_PROVISIONALLY_AVAILABLE
 @end
 
 MTR_PROVISIONALLY_AVAILABLE
+@interface MTRPhotonSmartClusterPhotonMQTTStruct : NSObject <NSCopying>
+@property (nonatomic, copy) NSString * _Nonnull host MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull port MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull transport MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull keepAlive MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSString * _Nonnull lastWellTopic MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSData * _Nonnull lastWellMsg MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull lastWellMsgLen MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull lastWellQOS MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull lastWellRetain MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull cleanSession MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull reconnectTimeoutMS MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull timeoutMS MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull refreshConnectionAfterMS MTR_PROVISIONALLY_AVAILABLE;
+@end
+
+MTR_PROVISIONALLY_AVAILABLE
 @interface MTRFreshMideaAirConditionerAlarmClusterNotifyEvent : NSObject <NSCopying>
 @property (nonatomic, copy) NSNumber * _Nonnull active MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull inactive MTR_PROVISIONALLY_AVAILABLE;
@@ -2725,6 +2742,11 @@ MTR_PROVISIONALLY_AVAILABLE
 
 MTR_PROVISIONALLY_AVAILABLE
 @interface MTRFreshMideaControllerClusterActiveCleanEndedEvent : NSObject <NSCopying>
+@end
+
+MTR_PROVISIONALLY_AVAILABLE
+@interface MTRFreshMideaControllerClusterNotifyErrorEvent : NSObject <NSCopying>
+@property (nonatomic, copy) NSNumber * _Nonnull code MTR_PROVISIONALLY_AVAILABLE;
 @end
 
 MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4))

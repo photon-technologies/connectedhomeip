@@ -1407,6 +1407,16 @@ void emberAfCommodityMeteringClusterShutdownCallback(chip::EndpointId endpoint);
 /**
  * @param endpoint    Endpoint that is being initialized
  */
+void emberAfPhotonSmartClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfPhotonSmartClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
 void emberAfFreshMideaAirConditionerAlarmClusterInitCallback(chip::EndpointId endpoint);
 
 /**
@@ -6768,6 +6778,45 @@ MatterCommodityMeteringClusterServerPreAttributeChangedCallback(const chip::app:
 void emberAfCommodityMeteringClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
+// Photon Smart Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfPhotonSmartClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterPhotonSmartClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfPhotonSmartClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterPhotonSmartClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status
+MatterPhotonSmartClusterServerPreAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath,
+                                                          EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfPhotonSmartClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
 // Fresh Midea Air Conditioner Alarm Cluster
 //
 
@@ -8301,6 +8350,18 @@ bool emberAfJointFabricAdministratorClusterAnnounceJointFabricAdministratorCallb
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::JointFabricAdministrator::Commands::AnnounceJointFabricAdministrator::DecodableType & commandData);
 /**
+ * @brief Photon Smart Cluster Reboot Command callback (from client)
+ */
+bool emberAfPhotonSmartClusterRebootCallback(chip::app::CommandHandler * commandObj,
+                                             const chip::app::ConcreteCommandPath & commandPath,
+                                             const chip::app::Clusters::PhotonSmart::Commands::Reboot::DecodableType & commandData);
+/**
+ * @brief Photon Smart Cluster FactoryReset Command callback (from client)
+ */
+bool emberAfPhotonSmartClusterFactoryResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::PhotonSmart::Commands::FactoryReset::DecodableType & commandData);
+/**
  * @brief Fresh Midea Air Conditioner Alarm Cluster Reset Command callback (from client)
  */
 bool emberAfFreshMideaAirConditionerAlarmClusterResetCallback(
@@ -8318,6 +8379,12 @@ bool emberAfFreshRefrigeratorErrorsAlarmClusterResetCallback(
 bool emberAfFreshMideaControllerClusterCleanCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::FreshMideaController::Commands::Clean::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Controller Cluster CancelClean Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterCancelCleanCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::CancelClean::DecodableType & commandData);
 /**
  * @brief Unit Testing Cluster Test Command callback (from client)
  */

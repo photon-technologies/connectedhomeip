@@ -100,6 +100,7 @@ template("declare_all_items_target") {
       "${chip_root}/zzz_generated/app-common/clusters/OvenCavityOperationalState" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/OvenMode" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/OzoneConcentrationMeasurement" + invoker.target,
+      "${chip_root}/zzz_generated/app-common/clusters/PhotonSmart" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/Pm10ConcentrationMeasurement" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/Pm1ConcentrationMeasurement" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/Pm25ConcentrationMeasurement" + invoker.target,

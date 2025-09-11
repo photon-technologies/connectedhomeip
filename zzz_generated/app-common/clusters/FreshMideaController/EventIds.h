@@ -19,6 +19,10 @@ namespace ActiveCleanEnded {
 inline constexpr EventId Id = 0x00000001;
 } // namespace ActiveCleanEnded
 
+namespace NotifyError {
+inline constexpr EventId Id = 0x00000002;
+} // namespace NotifyError
+
 } // namespace Events
 } // namespace FreshMideaController
 } // namespace Clusters

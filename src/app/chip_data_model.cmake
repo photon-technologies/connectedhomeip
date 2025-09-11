@@ -142,6 +142,7 @@ function(chip_configure_data_model APP_TARGET)
     target_sources(${APP_TARGET} ${SCOPE}
         ${CHIP_APP_ZAP_DIR}/app-common/zap-generated/attributes/Accessors.cpp
         ${CHIP_APP_BASE_DIR}/reporting/reporting.cpp
+        ${CHIP_APP_BASE_DIR}/reporting/PhotonReporting.cpp
         ${CHIP_APP_BASE_DIR}/util/attribute-storage.cpp
         ${CHIP_APP_BASE_DIR}/util/attribute-table.cpp
         ${CHIP_APP_BASE_DIR}/util/binding-table.cpp

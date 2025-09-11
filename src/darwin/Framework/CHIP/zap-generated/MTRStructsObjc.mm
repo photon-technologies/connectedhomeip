@@ -11413,6 +11413,69 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRPhotonSmartClusterPhotonMQTTStruct
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _host = @"";
+
+        _port = @(0);
+
+        _transport = @(0);
+
+        _keepAlive = @(0);
+
+        _lastWellTopic = @"";
+
+        _lastWellMsg = [NSData data];
+
+        _lastWellMsgLen = @(0);
+
+        _lastWellQOS = @(0);
+
+        _lastWellRetain = @(0);
+
+        _cleanSession = @(0);
+
+        _reconnectTimeoutMS = @(0);
+
+        _timeoutMS = @(0);
+
+        _refreshConnectionAfterMS = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRPhotonSmartClusterPhotonMQTTStruct alloc] init];
+
+    other.host = self.host;
+    other.port = self.port;
+    other.transport = self.transport;
+    other.keepAlive = self.keepAlive;
+    other.lastWellTopic = self.lastWellTopic;
+    other.lastWellMsg = self.lastWellMsg;
+    other.lastWellMsgLen = self.lastWellMsgLen;
+    other.lastWellQOS = self.lastWellQOS;
+    other.lastWellRetain = self.lastWellRetain;
+    other.cleanSession = self.cleanSession;
+    other.reconnectTimeoutMS = self.reconnectTimeoutMS;
+    other.timeoutMS = self.timeoutMS;
+    other.refreshConnectionAfterMS = self.refreshConnectionAfterMS;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; lastWellTopic:%@; lastWellMsg:%@; lastWellMsgLen:%@; lastWellQOS:%@; lastWellRetain:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _lastWellTopic, [_lastWellMsg base64EncodedStringWithOptions:0], _lastWellMsgLen, _lastWellQOS, _lastWellRetain, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRFreshMideaAirConditionerAlarmClusterNotifyEvent
 - (instancetype)init
 {
@@ -11526,6 +11589,33 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)description
 {
     NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshMideaControllerClusterNotifyErrorEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _code = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaControllerClusterNotifyErrorEvent alloc] init];
+
+    other.code = self.code;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: code:%@; >", NSStringFromClass([self class]), _code];
     return descriptionString;
 }
 

@@ -3316,6 +3316,14 @@
           "apiMaturity": "provisional"
         },
         {
+          "name": "Photon Smart",
+          "code": 367524864,
+          "mfgCode": null,
+          "define": "PHOTON_SMART_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
           "name": "Fresh Midea Air Conditioner Alarm",
           "code": 367524865,
           "mfgCode": null,

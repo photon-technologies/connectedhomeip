@@ -5146,6 +5146,19 @@ static id _Nullable DecodeEventPayloadForCommodityMeteringCluster(EventId aEvent
     *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeEventPayloadForPhotonSmartCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::PhotonSmart;
+    switch (aEventId) {
+    default: {
+        // Not a known PhotonSmart event.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeEventPayloadForFreshMideaAirConditionerAlarmCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::FreshMideaAirConditionerAlarm;
@@ -5272,6 +5285,23 @@ static id _Nullable DecodeEventPayloadForFreshMideaControllerCluster(EventId aEv
         }
 
         __auto_type * value = [MTRFreshMideaControllerClusterActiveCleanEndedEvent new];
+
+        return value;
+    }
+    case Events::NotifyError::Id: {
+        Events::NotifyError::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+
+        __auto_type * value = [MTRFreshMideaControllerClusterNotifyErrorEvent new];
+
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedChar:cppValue.code];
+            value.code = memberValue;
+        } while (0);
 
         return value;
     }
@@ -5879,6 +5909,9 @@ id _Nullable MTRDecodeEventPayload(const ConcreteEventPath & aPath, TLV::TLVRead
     }
     case Clusters::CommodityMetering::Id: {
         return DecodeEventPayloadForCommodityMeteringCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::PhotonSmart::Id: {
+        return DecodeEventPayloadForPhotonSmartCluster(aPath.mEventId, aReader, aError);
     }
     case Clusters::FreshMideaAirConditionerAlarm::Id: {
         return DecodeEventPayloadForFreshMideaAirConditionerAlarmCluster(aPath.mEventId, aReader, aError);

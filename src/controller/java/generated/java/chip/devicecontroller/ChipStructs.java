@@ -19469,6 +19469,232 @@ public static class CommodityMeteringClusterMeteredQuantityStruct {
     return output.toString();
   }
 }
+public static class PhotonSmartClusterPhotonMQTTStruct {
+  public String host;
+  public Integer port;
+  public Integer transport;
+  public Integer keepAlive;
+  public String lastWellTopic;
+  public byte[] lastWellMsg;
+  public Integer lastWellMsgLen;
+  public Integer lastWellQOS;
+  public Boolean lastWellRetain;
+  public Boolean cleanSession;
+  public Long reconnectTimeoutMS;
+  public Long timeoutMS;
+  public Long refreshConnectionAfterMS;
+  private static final long HOST_ID = 1L;
+  private static final long PORT_ID = 2L;
+  private static final long TRANSPORT_ID = 3L;
+  private static final long KEEP_ALIVE_ID = 4L;
+  private static final long LAST_WELL_TOPIC_ID = 5L;
+  private static final long LAST_WELL_MSG_ID = 6L;
+  private static final long LAST_WELL_MSG_LEN_ID = 7L;
+  private static final long LAST_WELL_QOS_ID = 8L;
+  private static final long LAST_WELL_RETAIN_ID = 9L;
+  private static final long CLEAN_SESSION_ID = 10L;
+  private static final long RECONNECT_TIMEOUT_MS_ID = 11L;
+  private static final long TIMEOUT_MS_ID = 12L;
+  private static final long REFRESH_CONNECTION_AFTER_MS_ID = 13L;
+
+  public PhotonSmartClusterPhotonMQTTStruct(
+    String host,
+    Integer port,
+    Integer transport,
+    Integer keepAlive,
+    String lastWellTopic,
+    byte[] lastWellMsg,
+    Integer lastWellMsgLen,
+    Integer lastWellQOS,
+    Boolean lastWellRetain,
+    Boolean cleanSession,
+    Long reconnectTimeoutMS,
+    Long timeoutMS,
+    Long refreshConnectionAfterMS
+  ) {
+    this.host = host;
+    this.port = port;
+    this.transport = transport;
+    this.keepAlive = keepAlive;
+    this.lastWellTopic = lastWellTopic;
+    this.lastWellMsg = lastWellMsg;
+    this.lastWellMsgLen = lastWellMsgLen;
+    this.lastWellQOS = lastWellQOS;
+    this.lastWellRetain = lastWellRetain;
+    this.cleanSession = cleanSession;
+    this.reconnectTimeoutMS = reconnectTimeoutMS;
+    this.timeoutMS = timeoutMS;
+    this.refreshConnectionAfterMS = refreshConnectionAfterMS;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(HOST_ID, new StringType(host)));
+    values.add(new StructElement(PORT_ID, new UIntType(port)));
+    values.add(new StructElement(TRANSPORT_ID, new UIntType(transport)));
+    values.add(new StructElement(KEEP_ALIVE_ID, new UIntType(keepAlive)));
+    values.add(new StructElement(LAST_WELL_TOPIC_ID, new StringType(lastWellTopic)));
+    values.add(new StructElement(LAST_WELL_MSG_ID, new ByteArrayType(lastWellMsg)));
+    values.add(new StructElement(LAST_WELL_MSG_LEN_ID, new UIntType(lastWellMsgLen)));
+    values.add(new StructElement(LAST_WELL_QOS_ID, new UIntType(lastWellQOS)));
+    values.add(new StructElement(LAST_WELL_RETAIN_ID, new BooleanType(lastWellRetain)));
+    values.add(new StructElement(CLEAN_SESSION_ID, new BooleanType(cleanSession)));
+    values.add(new StructElement(RECONNECT_TIMEOUT_MS_ID, new UIntType(reconnectTimeoutMS)));
+    values.add(new StructElement(TIMEOUT_MS_ID, new UIntType(timeoutMS)));
+    values.add(new StructElement(REFRESH_CONNECTION_AFTER_MS_ID, new UIntType(refreshConnectionAfterMS)));
+
+    return new StructType(values);
+  }
+
+  public static PhotonSmartClusterPhotonMQTTStruct decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    String host = null;
+    Integer port = null;
+    Integer transport = null;
+    Integer keepAlive = null;
+    String lastWellTopic = null;
+    byte[] lastWellMsg = null;
+    Integer lastWellMsgLen = null;
+    Integer lastWellQOS = null;
+    Boolean lastWellRetain = null;
+    Boolean cleanSession = null;
+    Long reconnectTimeoutMS = null;
+    Long timeoutMS = null;
+    Long refreshConnectionAfterMS = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == HOST_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.String) {
+          StringType castingValue = element.value(StringType.class);
+          host = castingValue.value(String.class);
+        }
+      } else if (element.contextTagNum() == PORT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          port = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == TRANSPORT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          transport = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == KEEP_ALIVE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          keepAlive = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == LAST_WELL_TOPIC_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.String) {
+          StringType castingValue = element.value(StringType.class);
+          lastWellTopic = castingValue.value(String.class);
+        }
+      } else if (element.contextTagNum() == LAST_WELL_MSG_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.ByteArray) {
+          ByteArrayType castingValue = element.value(ByteArrayType.class);
+          lastWellMsg = castingValue.value(byte[].class);
+        }
+      } else if (element.contextTagNum() == LAST_WELL_MSG_LEN_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          lastWellMsgLen = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == LAST_WELL_QOS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          lastWellQOS = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == LAST_WELL_RETAIN_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          lastWellRetain = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == CLEAN_SESSION_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          cleanSession = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == RECONNECT_TIMEOUT_MS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          reconnectTimeoutMS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == TIMEOUT_MS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          timeoutMS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == REFRESH_CONNECTION_AFTER_MS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          refreshConnectionAfterMS = castingValue.value(Long.class);
+        }
+      }
+    }
+    return new PhotonSmartClusterPhotonMQTTStruct(
+      host,
+      port,
+      transport,
+      keepAlive,
+      lastWellTopic,
+      lastWellMsg,
+      lastWellMsgLen,
+      lastWellQOS,
+      lastWellRetain,
+      cleanSession,
+      reconnectTimeoutMS,
+      timeoutMS,
+      refreshConnectionAfterMS
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("PhotonSmartClusterPhotonMQTTStruct {\n");
+    output.append("\thost: ");
+    output.append(host);
+    output.append("\n");
+    output.append("\tport: ");
+    output.append(port);
+    output.append("\n");
+    output.append("\ttransport: ");
+    output.append(transport);
+    output.append("\n");
+    output.append("\tkeepAlive: ");
+    output.append(keepAlive);
+    output.append("\n");
+    output.append("\tlastWellTopic: ");
+    output.append(lastWellTopic);
+    output.append("\n");
+    output.append("\tlastWellMsg: ");
+    output.append(Arrays.toString(lastWellMsg));
+    output.append("\n");
+    output.append("\tlastWellMsgLen: ");
+    output.append(lastWellMsgLen);
+    output.append("\n");
+    output.append("\tlastWellQOS: ");
+    output.append(lastWellQOS);
+    output.append("\n");
+    output.append("\tlastWellRetain: ");
+    output.append(lastWellRetain);
+    output.append("\n");
+    output.append("\tcleanSession: ");
+    output.append(cleanSession);
+    output.append("\n");
+    output.append("\treconnectTimeoutMS: ");
+    output.append(reconnectTimeoutMS);
+    output.append("\n");
+    output.append("\ttimeoutMS: ");
+    output.append(timeoutMS);
+    output.append("\n");
+    output.append("\trefreshConnectionAfterMS: ");
+    output.append(refreshConnectionAfterMS);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
 public static class UnitTestingClusterSimpleStruct {
   public Integer a;
   public Boolean b;

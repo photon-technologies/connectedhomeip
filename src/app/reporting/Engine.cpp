@@ -36,6 +36,7 @@
 #include <lib/core/DataModelTypes.h>
 #include <lib/support/CodeUtils.h>
 #include <protocols/interaction_model/StatusCode.h>
+#include <app/reporting/PhotonReporting.h>
 
 #include <optional>
 
@@ -1102,6 +1103,10 @@ CHIP_ERROR Engine::InsertPathIntoDirtySet(const AttributePathParams & aAttribute
 
 CHIP_ERROR Engine::SetDirty(const AttributePathParams & aAttributePath)
 {
+
+    //TODO: Add Custom Delegate Callback here
+    PhotonReportingAttributeChangeCallback(aAttributePath);
+
     BumpDirtySetGeneration();
 
     bool intersectsInterestPath     = false;

@@ -8867,6 +8867,114 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::CommodityMetering::Str
     ComplexArgumentParser::Finalize(request.quantity);
 }
 
+CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
+                                        chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type & request,
+                                        Json::Value & value)
+{
+    VerifyOrReturnError(value.isObject(), CHIP_ERROR_INVALID_ARGUMENT);
+
+    // Copy to track which members we already processed.
+    Json::Value valueCopy(value);
+
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.host", "host", value.isMember("host")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.port", "port", value.isMember("port")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.transport", "transport", value.isMember("transport")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.keepAlive", "keepAlive", value.isMember("keepAlive")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellTopic", "lastWellTopic",
+                                                                  value.isMember("lastWellTopic")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellMsg", "lastWellMsg", value.isMember("lastWellMsg")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellMsgLen", "lastWellMsgLen",
+                                                                  value.isMember("lastWellMsgLen")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellQOS", "lastWellQOS", value.isMember("lastWellQOS")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellRetain", "lastWellRetain",
+                                                                  value.isMember("lastWellRetain")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.cleanSession", "cleanSession", value.isMember("cleanSession")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.reconnectTimeoutMS", "reconnectTimeoutMS",
+                                                                  value.isMember("reconnectTimeoutMS")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.timeoutMS", "timeoutMS", value.isMember("timeoutMS")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
+        "PhotonMQTTStruct.refreshConnectionAfterMS", "refreshConnectionAfterMS", value.isMember("refreshConnectionAfterMS")));
+
+    char labelWithMember[kMaxLabelLength];
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "host");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.host, value["host"]));
+    valueCopy.removeMember("host");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "port");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.port, value["port"]));
+    valueCopy.removeMember("port");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "transport");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.transport, value["transport"]));
+    valueCopy.removeMember("transport");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "keepAlive");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.keepAlive, value["keepAlive"]));
+    valueCopy.removeMember("keepAlive");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellTopic");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellTopic, value["lastWellTopic"]));
+    valueCopy.removeMember("lastWellTopic");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellMsg");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellMsg, value["lastWellMsg"]));
+    valueCopy.removeMember("lastWellMsg");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellMsgLen");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellMsgLen, value["lastWellMsgLen"]));
+    valueCopy.removeMember("lastWellMsgLen");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellQOS");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellQOS, value["lastWellQOS"]));
+    valueCopy.removeMember("lastWellQOS");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellRetain");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellRetain, value["lastWellRetain"]));
+    valueCopy.removeMember("lastWellRetain");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "cleanSession");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.cleanSession, value["cleanSession"]));
+    valueCopy.removeMember("cleanSession");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reconnectTimeoutMS");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.reconnectTimeoutMS, value["reconnectTimeoutMS"]));
+    valueCopy.removeMember("reconnectTimeoutMS");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "timeoutMS");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.timeoutMS, value["timeoutMS"]));
+    valueCopy.removeMember("timeoutMS");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "refreshConnectionAfterMS");
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::Setup(labelWithMember, request.refreshConnectionAfterMS, value["refreshConnectionAfterMS"]));
+    valueCopy.removeMember("refreshConnectionAfterMS");
+
+    return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
+}
+
+void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type & request)
+{
+    ComplexArgumentParser::Finalize(request.host);
+    ComplexArgumentParser::Finalize(request.port);
+    ComplexArgumentParser::Finalize(request.transport);
+    ComplexArgumentParser::Finalize(request.keepAlive);
+    ComplexArgumentParser::Finalize(request.lastWellTopic);
+    ComplexArgumentParser::Finalize(request.lastWellMsg);
+    ComplexArgumentParser::Finalize(request.lastWellMsgLen);
+    ComplexArgumentParser::Finalize(request.lastWellQOS);
+    ComplexArgumentParser::Finalize(request.lastWellRetain);
+    ComplexArgumentParser::Finalize(request.cleanSession);
+    ComplexArgumentParser::Finalize(request.reconnectTimeoutMS);
+    ComplexArgumentParser::Finalize(request.timeoutMS);
+    ComplexArgumentParser::Finalize(request.refreshConnectionAfterMS);
+}
+
 CHIP_ERROR ComplexArgumentParser::Setup(const char * label, chip::app::Clusters::UnitTesting::Structs::SimpleStruct::Type & request,
                                         Json::Value & value)
 {

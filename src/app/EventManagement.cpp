@@ -24,6 +24,7 @@
 #include <lib/core/TLVUtilities.h>
 #include <lib/support/CodeUtils.h>
 #include <lib/support/logging/CHIPLogging.h>
+#include "app/reporting/PhotonReporting.h"
 
 #include <cassert>
 #include <cinttypes>
@@ -122,11 +123,6 @@ CHIP_ERROR EventManagement::Init(Messaging::ExchangeManager * apExchangeManager,
     mpEventReporter = apEventReporter;
 
     return CHIP_NO_ERROR;
-}
-
-void EventManagement::SetRemoteEventReporter(RemoteEventReporter * apRemoteEventReporter)
-{
-    mpRemoteEventReporter = apRemoteEventReporter;
 }
 
 CHIP_ERROR EventManagement::CopyToNextBuffer(CircularEventBuffer * apEventBuffer)
@@ -493,12 +489,9 @@ exit:
                       opts.mTimestamp.mType == Timestamp::Type::kSystem ? "Sys" : "Epoch", ChipLogValueX64(opts.mTimestamp.mValue));
 #endif // CHIP_CONFIG_EVENT_LOGGING_VERBOSE_DEBUG_LOGS
 
-        if(mpRemoteEventReporter)
-        {
-            // If we have a remote event reporter, report the event to it.
-            // Note: This is a no-op if the remote event reporter is not set.
-            mpRemoteEventReporter->NewEventGenerated(opts.mPath, mpEventBuffer->GetQueue(), mBytesWritten);
-        }
+        // If we have a remote event reporter, report the event to it.
+        // Note: This is a no-op if the remote event reporter is not set.
+        PhotonReportingNewEventGenerated(opts.mPath, opts.mFabricIndex, to_underlying(opts.mPriority), opts.mTimestamp.mValue, mpEventBuffer->GetQueue(), mBytesWritten);
 
         err = mpEventReporter->NewEventGenerated(opts.mPath, mBytesWritten);
     }

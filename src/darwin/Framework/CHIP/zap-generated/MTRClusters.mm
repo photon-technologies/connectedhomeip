@@ -22595,6 +22595,104 @@ using chip::System::Clock::Timeout;
 
 @end
 
+@implementation MTRClusterPhotonSmart
+
+- (void)rebootWithParams:(MTRPhotonSmartClusterRebootParams *)params expectedValues:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)expectedValues expectedValueInterval:(NSNumber * _Nullable)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRPhotonSmartClusterRebootParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = PhotonSmart::Commands::Reboot::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                    expectedValues:expectedValues
+                             expectedValueInterval:expectedValueIntervalMs
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
+
+- (void)factoryResetWithParams:(MTRPhotonSmartClusterFactoryResetParams *)params expectedValues:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)expectedValues expectedValueInterval:(NSNumber * _Nullable)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRPhotonSmartClusterFactoryResetParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = PhotonSmart::Commands::FactoryReset::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                    expectedValues:expectedValues
+                             expectedValueInterval:expectedValueIntervalMs
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeHomeIdWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeShouldRebootWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeShouldRebootID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeMqttConfigWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeMqttConfigID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeGeneratedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAcceptedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeAcceptedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAttributeListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeAttributeListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFeatureMapWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeFeatureMapID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeClusterRevisionID) params:params];
+}
+
+@end
+
 @implementation MTRClusterFreshMideaAirConditionerAlarm
 
 - (void)resetWithParams:(MTRFreshMideaAirConditionerAlarmClusterResetParams *)params expectedValues:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)expectedValues expectedValueInterval:(NSNumber * _Nullable)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
@@ -22754,31 +22852,9 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeTemperatureDefaultID) params:params];
 }
 
-- (void)writeAttributeFridgeTemperatureDefaultWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeFridgeTemperatureDefaultWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeFridgeTemperatureDefaultWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeTemperatureDefaultID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeFreezerTemperatureDefaultWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerTemperatureDefaultID) params:params];
-}
-
-- (void)writeAttributeFreezerTemperatureDefaultWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeFreezerTemperatureDefaultWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeFreezerTemperatureDefaultWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerTemperatureDefaultID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeFridgePreviousTemperatureWithParams:(MTRReadParams * _Nullable)params
@@ -22786,31 +22862,9 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgePreviousTemperatureID) params:params];
 }
 
-- (void)writeAttributeFridgePreviousTemperatureWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeFridgePreviousTemperatureWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeFridgePreviousTemperatureWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgePreviousTemperatureID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeFreezerPreviousTemperatureWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerPreviousTemperatureID) params:params];
-}
-
-- (void)writeAttributeFreezerPreviousTemperatureWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeFreezerPreviousTemperatureWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeFreezerPreviousTemperatureWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerPreviousTemperatureID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeSuperCoolTimeWithParams:(MTRReadParams * _Nullable)params
@@ -22818,31 +22872,9 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperCoolTimeID) params:params];
 }
 
-- (void)writeAttributeSuperCoolTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeSuperCoolTimeWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeSuperCoolTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperCoolTimeID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeSuperFreezeTimeWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperFreezeTimeID) params:params];
-}
-
-- (void)writeAttributeSuperFreezeTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeSuperFreezeTimeWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeSuperFreezeTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperFreezeTimeID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeAlarmTimeWithParams:(MTRReadParams * _Nullable)params
@@ -22850,31 +22882,9 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAlarmTimeID) params:params];
 }
 
-- (void)writeAttributeAlarmTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeAlarmTimeWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeAlarmTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAlarmTimeID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeResetTimeoutWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeResetTimeoutID) params:params];
-}
-
-- (void)writeAttributeResetTimeoutWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeResetTimeoutWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeResetTimeoutWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeResetTimeoutID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeDisplayActiveTimeWithParams:(MTRReadParams * _Nullable)params
@@ -22882,31 +22892,9 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayActiveTimeID) params:params];
 }
 
-- (void)writeAttributeDisplayActiveTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeDisplayActiveTimeWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeDisplayActiveTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayActiveTimeID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeDisplayErrorTimeWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayErrorTimeID) params:params];
-}
-
-- (void)writeAttributeDisplayErrorTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeDisplayErrorTimeWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeDisplayErrorTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayErrorTimeID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeCompressorStateWithParams:(MTRReadParams * _Nullable)params
@@ -22924,31 +22912,9 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeErrorMarginID) params:params];
 }
 
-- (void)writeAttributeFridgeErrorMarginWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeFridgeErrorMarginWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeFridgeErrorMarginWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeErrorMarginID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeFreezerErrorMarginWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerErrorMarginID) params:params];
-}
-
-- (void)writeAttributeFreezerErrorMarginWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeFreezerErrorMarginWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeFreezerErrorMarginWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerErrorMarginID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeTemperatureErrorTimeWithParams:(MTRReadParams * _Nullable)params
@@ -22956,15 +22922,14 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeTemperatureErrorTimeID) params:params];
 }
 
-- (void)writeAttributeTemperatureErrorTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFridgeDoorStateWithParams:(MTRReadParams * _Nullable)params
 {
-    [self writeAttributeTemperatureErrorTimeWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeDoorStateID) params:params];
 }
-- (void)writeAttributeTemperatureErrorTimeWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
 
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeTemperatureErrorTimeID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFreezerDoorStateWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerDoorStateID) params:params];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
@@ -23014,6 +22979,37 @@ using chip::System::Clock::Timeout;
     auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
 
     using RequestType = FreshMideaController::Commands::Clean::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                    expectedValues:expectedValues
+                             expectedValueInterval:expectedValueIntervalMs
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
+
+- (void)cancelCleanWithExpectedValues:(NSArray<NSDictionary<NSString *, id> *> *)expectedValues expectedValueInterval:(NSNumber *)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    [self cancelCleanWithParams:nil expectedValues:expectedValues expectedValueInterval:expectedValueIntervalMs completion:completion];
+}
+- (void)cancelCleanWithParams:(MTRFreshMideaControllerClusterCancelCleanParams * _Nullable)params expectedValues:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)expectedValues expectedValueInterval:(NSNumber * _Nullable)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRFreshMideaControllerClusterCancelCleanParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = FreshMideaController::Commands::CancelClean::Type;
     [self.device _invokeKnownCommandWithEndpointID:self.endpointID
                                          clusterID:@(RequestType::GetClusterId())
                                          commandID:@(RequestType::GetCommandId())
@@ -23172,6 +23168,21 @@ using chip::System::Clock::Timeout;
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeOnTimerMinutesWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerMinutesID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributePlasmaModeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributePlasmaModeID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeOutdoorTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributeOutdoorTemperatureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeErrorCodeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID) params:params];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params

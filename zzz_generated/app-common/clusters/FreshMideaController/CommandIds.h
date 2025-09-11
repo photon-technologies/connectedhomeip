@@ -15,6 +15,10 @@ namespace Clean {
 inline constexpr CommandId Id = 0x00000000;
 } // namespace Clean
 
+namespace CancelClean {
+inline constexpr CommandId Id = 0x00000001;
+} // namespace CancelClean
+
 } // namespace Commands
 } // namespace FreshMideaController
 } // namespace Clusters

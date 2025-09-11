@@ -6882,6 +6882,52 @@ public static class FreshMideaControllerClusterActiveCleanEndedEvent {
     return output.toString();
   }
 }
+public static class FreshMideaControllerClusterNotifyErrorEvent {
+  public Integer code;
+  private static final long CODE_ID = 0L;
+
+  public FreshMideaControllerClusterNotifyErrorEvent(
+    Integer code
+  ) {
+    this.code = code;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(CODE_ID, new UIntType(code)));
+
+    return new StructType(values);
+  }
+
+  public static FreshMideaControllerClusterNotifyErrorEvent decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Integer code = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == CODE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          code = castingValue.value(Integer.class);
+        }
+      }
+    }
+    return new FreshMideaControllerClusterNotifyErrorEvent(
+      code
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("FreshMideaControllerClusterNotifyErrorEvent {\n");
+    output.append("\tcode: ");
+    output.append(code);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
 public static class UnitTestingClusterTestEventEvent {
   public Integer arg1;
   public Integer arg2;
