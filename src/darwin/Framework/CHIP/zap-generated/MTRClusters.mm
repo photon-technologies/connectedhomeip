@@ -22656,6 +22656,17 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID) params:params];
 }
 
+- (void)writeAttributeHomeIdWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
+{
+    [self writeAttributeHomeIdWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
+}
+- (void)writeAttributeHomeIdWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
+{
+    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
+
+    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
+}
+
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeShouldRebootWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeShouldRebootID) params:params];
@@ -22664,6 +22675,17 @@ using chip::System::Clock::Timeout;
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeMqttConfigWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeMqttConfigID) params:params];
+}
+
+- (void)writeAttributeMqttConfigWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
+{
+    [self writeAttributeMqttConfigWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
+}
+- (void)writeAttributeMqttConfigWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
+{
+    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
+
+    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeMqttConfigID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
@@ -22932,6 +22954,11 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerDoorStateID) params:params];
 }
 
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeDefrostTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostTemperatureID) params:params];
+}
+
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshRefrigeratorControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID) params:params];
@@ -23175,11 +23202,6 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributePlasmaModeID) params:params];
 }
 
-- (NSDictionary<NSString *, id> * _Nullable)readAttributeOutdoorTemperatureWithParams:(MTRReadParams * _Nullable)params
-{
-    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributeOutdoorTemperatureID) params:params];
-}
-
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeErrorCodeWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID) params:params];
@@ -23208,6 +23230,222 @@ using chip::System::Clock::Timeout;
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshMideaControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshMideaControllerAttributeClusterRevisionID) params:params];
+}
+
+@end
+
+@implementation MTRClusterFreshWaterHeaterController
+
+- (void)anodeChangeRequestWithExpectedValues:(NSArray<NSDictionary<NSString *, id> *> *)expectedValues expectedValueInterval:(NSNumber *)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    [self anodeChangeRequestWithParams:nil expectedValues:expectedValues expectedValueInterval:expectedValueIntervalMs completion:completion];
+}
+- (void)anodeChangeRequestWithParams:(MTRFreshWaterHeaterControllerClusterAnodeChangeRequestParams * _Nullable)params expectedValues:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)expectedValues expectedValueInterval:(NSNumber * _Nullable)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRFreshWaterHeaterControllerClusterAnodeChangeRequestParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = FreshWaterHeaterController::Commands::AnodeChangeRequest::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                    expectedValues:expectedValues
+                             expectedValueInterval:expectedValueIntervalMs
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeColdWaterTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeColdWaterTemperatureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeShowerPercentWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerPercentID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeShowerStateWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerStateID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeDisplayUpdateIntervalWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayUpdateIntervalID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeStandardModeSetpointWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeStandardModeSetpointID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeEcoModeSetpointWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEcoModeSetpointID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeBoostModeSetpointWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeBoostModeSetpointID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeDisplayTemperatureStepWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTemperatureStepID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeResetTimeoutWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetTimeoutID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeCoolDownTimeoutWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeCoolDownTimeoutID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeDisplayErrorTimeoutWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayErrorTimeoutID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeDisplayTargetTimeoutWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTargetTimeoutID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeTemperatureSensorMinValidWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeTemperatureSensorMinValidID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeTemperatureSensorMaxValidWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeTemperatureSensorMaxValidID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeOverheatThresholdTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeOverheatThresholdTemperatureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeRapidRiseDeltaWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRapidRiseDeltaID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAcceptedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAcceptedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAttributeListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAttributeListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFeatureMapWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeFeatureMapID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeClusterRevisionID) params:params];
+}
+
+@end
+
+@implementation MTRClusterFreshWaterHeaterErrorsAlarm
+
+- (void)resetWithParams:(MTRFreshWaterHeaterErrorsAlarmClusterResetParams *)params expectedValues:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)expectedValues expectedValueInterval:(NSNumber * _Nullable)expectedValueIntervalMs completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRFreshWaterHeaterErrorsAlarmClusterResetParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = FreshWaterHeaterErrorsAlarm::Commands::Reset::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                    expectedValues:expectedValues
+                             expectedValueInterval:expectedValueIntervalMs
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeMaskWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeMaskID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLatchWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeLatchID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeStateWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeStateID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeSupportedWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeSupportedID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeGeneratedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAcceptedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAcceptedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAttributeListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAttributeListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFeatureMapWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeFeatureMapID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeClusterRevisionID) params:params];
 }
 
 @end

@@ -27,7 +27,6 @@ declare_args() {
 
 group("esp32") {
   deps = [
-    "${chip_root}/src/platform/Photon",
     "${chip_root}/src/lib",
     matter_trace_config,
   ]

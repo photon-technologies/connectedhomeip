@@ -53,6 +53,7 @@ enum class Fields : uint8_t
     kReconnectTimeoutMS       = 11,
     kTimeoutMS                = 12,
     kRefreshConnectionAfterMS = 13,
+    kReplyTo                  = 14,
 };
 
 struct Type
@@ -71,6 +72,7 @@ public:
     uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(0);
     uint32_t timeoutMS                = static_cast<uint32_t>(0);
     uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
+    chip::CharSpan replyTo;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 

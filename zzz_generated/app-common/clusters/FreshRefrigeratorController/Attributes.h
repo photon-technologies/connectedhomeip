@@ -247,6 +247,18 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace FreezerDoorState
+namespace DefrostTemperature {
+struct TypeInfo
+{
+    using Type             = int16_t;
+    using DecodableType    = int16_t;
+    using DecodableArgType = int16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DefrostTemperature::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace DefrostTemperature
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -303,6 +315,7 @@ struct TypeInfo
         Attributes::TemperatureErrorTime::TypeInfo::DecodableType temperatureErrorTime             = static_cast<uint32_t>(0);
         Attributes::FridgeDoorState::TypeInfo::DecodableType fridgeDoorState                       = static_cast<bool>(0);
         Attributes::FreezerDoorState::TypeInfo::DecodableType freezerDoorState                     = static_cast<bool>(0);
+        Attributes::DefrostTemperature::TypeInfo::DecodableType defrostTemperature                 = static_cast<int16_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

@@ -77,6 +77,8 @@
 #include <clusters/FreshMideaController/Enums.h>
 #include <clusters/FreshRefrigeratorController/Enums.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/Enums.h>
+#include <clusters/FreshWaterHeaterController/Enums.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/Enums.h>
 #include <clusters/GeneralCommissioning/Enums.h>
 #include <clusters/GeneralDiagnostics/Enums.h>
 #include <clusters/GroupKeyManagement/Enums.h>

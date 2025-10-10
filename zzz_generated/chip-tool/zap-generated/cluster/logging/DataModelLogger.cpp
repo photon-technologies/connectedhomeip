@@ -7974,6 +7974,72 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
             return err;
         }
     }
+    {
+        CHIP_ERROR err = LogValue("ReplyTo", indent + 1, value.replyTo);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReplyTo'");
+            return err;
+        }
+    }
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+
+CHIP_ERROR DataModelLogger::LogValue(
+    const char * label, size_t indent,
+    const chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    {
+        CHIP_ERROR err = LogValue("Duration", indent + 1, value.duration);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'Duration'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("OneShot", indent + 1, value.oneShot);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'OneShot'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("EmergencyBoost", indent + 1, value.emergencyBoost);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'EmergencyBoost'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("TemporarySetpoint", indent + 1, value.temporarySetpoint);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'TemporarySetpoint'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("TargetPercentage", indent + 1, value.targetPercentage);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'TargetPercentage'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("TargetReheat", indent + 1, value.targetReheat);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'TargetReheat'");
+            return err;
+        }
+    }
     DataModelLogger::LogString(indent, "}");
 
     return CHIP_NO_ERROR;
@@ -11027,6 +11093,46 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Code'");
+            return err;
+        }
+    }
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
+                                     const FreshWaterHeaterErrorsAlarm::Events::Notify::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("Active", indent + 1, value.active);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Active'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("Inactive", indent + 1, value.inactive);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Inactive'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("State", indent + 1, value.state);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'State'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("Mask", indent + 1, value.mask);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Mask'");
             return err;
         }
     }
@@ -22246,6 +22352,11 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("FreezerDoorState", 1, value);
         }
+        case FreshRefrigeratorController::Attributes::DefrostTemperature::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DefrostTemperature", 1, value);
+        }
         case FreshRefrigeratorController::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
@@ -22352,13 +22463,8 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("PlasmaMode", 1, value);
         }
-        case FreshMideaController::Attributes::OutdoorTemperature::Id: {
-            chip::app::DataModel::Nullable<int16_t> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("OutdoorTemperature", 1, value);
-        }
         case FreshMideaController::Attributes::ErrorCode::Id: {
-            uint8_t value;
+            uint16_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("ErrorCode", 1, value);
         }
@@ -22383,6 +22489,168 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             return DataModelLogger::LogValue("FeatureMap", 1, value);
         }
         case FreshMideaController::Attributes::ClusterRevision::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ClusterRevision", 1, value);
+        }
+        }
+        break;
+    }
+    case FreshWaterHeaterController::Id: {
+        switch (path.mAttributeId)
+        {
+        case FreshWaterHeaterController::Attributes::ColdWaterTemperature::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ColdWaterTemperature", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ShowerPercent::Id: {
+            chip::Percent value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ShowerPercent", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ShowerState::Id: {
+            chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ShowerState", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DisplayUpdateInterval::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayUpdateInterval", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::StandardModeSetpoint::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("StandardModeSetpoint", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::EcoModeSetpoint::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("EcoModeSetpoint", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::BoostModeSetpoint::Id: {
+            chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("BoostModeSetpoint", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DisplayTemperatureStep::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayTemperatureStep", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ResetTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ResetTimeout", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::CoolDownTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("CoolDownTimeout", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DisplayErrorTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayErrorTimeout", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DisplayTargetTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayTargetTimeout", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::TemperatureSensorMinValid::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("TemperatureSensorMinValid", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::TemperatureSensorMaxValid::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("TemperatureSensorMaxValid", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::OverheatThresholdTemperature::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("OverheatThresholdTemperature", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::RapidRiseDelta::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("RapidRiseDelta", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::GeneratedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, FreshWaterHeaterController::Id);
+        }
+        case FreshWaterHeaterController::Attributes::AcceptedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, FreshWaterHeaterController::Id);
+        }
+        case FreshWaterHeaterController::Attributes::AttributeList::Id: {
+            chip::app::DataModel::DecodableList<chip::AttributeId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAttributeId("AttributeList", 1, value, FreshWaterHeaterController::Id);
+        }
+        case FreshWaterHeaterController::Attributes::FeatureMap::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FeatureMap", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ClusterRevision::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ClusterRevision", 1, value);
+        }
+        }
+        break;
+    }
+    case FreshWaterHeaterErrorsAlarm::Id: {
+        switch (path.mAttributeId)
+        {
+        case FreshWaterHeaterErrorsAlarm::Attributes::Mask::Id: {
+            chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("Mask", 1, value);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::Latch::Id: {
+            chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("Latch", 1, value);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::State::Id: {
+            chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("State", 1, value);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::Supported::Id: {
+            chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("Supported", 1, value);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::GeneratedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, FreshWaterHeaterErrorsAlarm::Id);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::AcceptedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, FreshWaterHeaterErrorsAlarm::Id);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::AttributeList::Id: {
+            chip::app::DataModel::DecodableList<chip::AttributeId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAttributeId("AttributeList", 1, value, FreshWaterHeaterErrorsAlarm::Id);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::FeatureMap::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FeatureMap", 1, value);
+        }
+        case FreshWaterHeaterErrorsAlarm::Attributes::ClusterRevision::Id: {
             uint16_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("ClusterRevision", 1, value);
@@ -24756,6 +25024,17 @@ CHIP_ERROR DataModelLogger::LogEvent(const chip::app::EventHeader & header, chip
             chip::app::Clusters::FreshMideaController::Events::NotifyError::DecodableType value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("NotifyError", 1, value);
+        }
+        }
+        break;
+    }
+    case FreshWaterHeaterErrorsAlarm::Id: {
+        switch (header.mPath.mEventId)
+        {
+        case FreshWaterHeaterErrorsAlarm::Events::Notify::Id: {
+            chip::app::Clusters::FreshWaterHeaterErrorsAlarm::Events::Notify::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("Notify", 1, value);
         }
         }
         break;

@@ -22,6 +22,7 @@ static const int MILLIS_SINCE_EPOCH = 1;
 static const int EXTRA_SPACE_FOR_ATTRIBUTE_TAG = 19;
 
 ReadTlv::ReadTlv(jobject wrapperCallback, const char * nodeStateClassSignature) :
+    // mClusterCacheAdapter(*this, Optional<EventNumber>::Missing(), false /*cacheData*/),
     mNodeStateClassSignature(nodeStateClassSignature)
 {
     JNIEnv * env = JniReferences::GetInstance().GetEnvForCurrentThread();
@@ -193,17 +194,17 @@ void ReadTlv::UpdateClusterDataVersion()
 //    JNIEnv * env = JniReferences::GetInstance().GetEnvForCurrentThread();
 //    VerifyOrReturn(env != nullptr, ChipLogError(Controller, "Could not get JNIEnv for current thread"));
 //    chip::app::ConcreteClusterPath lastConcreteClusterPath;
-//
+
 //    if (!lastConcreteClusterPath.IsValidConcreteClusterPath())
 //    {
 //        return;
 //    }
-//
+
 //    VerifyOrReturn(mWrapperCallbackRef.HasValidObjectRef(),
 //                   ChipLogError(Controller, "mReportCallbackRef is not valid in %s", __func__));
 //    jobject wrapperCallback = mWrapperCallbackRef.ObjectRef();
 //    jobject nodeState       = GetNodeStateObj(env, mNodeStateClassSignature, wrapperCallback);
-//
+
 //    // SetDataVersion to NodeState
 //    jmethodID setDataVersionMethod;
 //    CHIP_ERROR err = JniReferences::GetInstance().FindMethod(env, nodeState, "setDataVersion", "(IJJ)V", &setDataVersionMethod);
@@ -214,7 +215,7 @@ void ReadTlv::UpdateClusterDataVersion()
 }
 
 void ReadTlv::OnAttributeData(const app::ConcreteDataAttributePath & aPath, TLV::TLVReader * apData,
-                                     const app::StatusIB & aStatus)
+                                     const app::StatusIB & aStatus, DataVersion & version)
 {
     DeviceLayer::StackUnlock unlock;
     CHIP_ERROR err = CHIP_NO_ERROR;
@@ -312,9 +313,18 @@ void ReadTlv::OnAttributeData(const app::ConcreteDataAttributePath & aPath, TLV:
                    ChipLogError(Controller, "Could not find addAttribute method with error %s", ErrorStr(err)));
     env->CallVoidMethod(nodeState, addAttributeMethod, static_cast<jint>(aPath.mEndpointId), static_cast<jlong>(aPath.mClusterId),
                         static_cast<jlong>(aPath.mAttributeId), value, jniByteArray.jniValue(), jsonString.jniValue());
+
+   
     VerifyOrReturn(!env->ExceptionCheck(), env->ExceptionDescribe());
 
-    UpdateClusterDataVersion();
+    // UpdateClusterDataVersion();
+
+    // SetDataVersion to NodeState
+    jmethodID setDataVersionMethod;
+    err = JniReferences::GetInstance().FindMethod(env, nodeState, "setDataVersion", "(IJJ)V", &setDataVersionMethod);
+    VerifyOrReturn(err == CHIP_NO_ERROR, ChipLogError(Controller, "Could not find setDataVersion method"));
+    env->CallVoidMethod(nodeState, setDataVersionMethod, static_cast<jint>(aPath.mEndpointId),
+                        static_cast<jlong>(aPath.mClusterId), static_cast<jlong>(version));
 }
 
 void ReadTlv::OnEventData(const app::EventHeader & aEventHeader, TLV::TLVReader * apData, const app::StatusIB * apStatus)
@@ -470,7 +480,8 @@ CHIP_ERROR ReadTlv::ProcessAttributeReportIBs(TLV::TLVReader & aAttributeReportI
             ReturnErrorOnFailure(status.GetErrorStatus(&errorStatus));
             ReturnErrorOnFailure(errorStatus.DecodeStatusIB(statusIB));
 //            NoteReportingData();
-            OnAttributeData(attributePath, nullptr, statusIB);
+            DataVersion version = 0;
+            OnAttributeData(attributePath, nullptr, statusIB, version);
         }
         else if (CHIP_END_OF_TLV == err)
         {
@@ -526,7 +537,9 @@ CHIP_ERROR ReadTlv::ProcessAttributeReportIBs(TLV::TLVReader & aAttributeReportI
 //            }
 
 //            NoteReportingData();
-            OnAttributeData(attributePath, &dataReader, statusIB);
+            OnAttributeData(attributePath, &dataReader, statusIB, version);
+
+             
         }
     }
 
@@ -682,8 +695,8 @@ void readReportData(JNIEnv * env, jobject self, jbyteArray byteArrayJava, const 
                 return;
         }
 
+        // ReadTlv * readTlv = chip::Platform::New<ReadTlv>(self, nodeStateClassSignature);
         ReadTlv readTlv(self, nodeStateClassSignature);
-
 //        // 1) Get raw bytes
 //        jsize len = (env)->GetArrayLength(env, byteArray);
 //        jbyte *buf = (env)->GetByteArrayElements(env, byteArray, NULL);

@@ -11443,6 +11443,8 @@ NS_ASSUME_NONNULL_BEGIN
         _timeoutMS = @(0);
 
         _refreshConnectionAfterMS = @(0);
+
+        _replyTo = @"";
     }
     return self;
 }
@@ -11464,13 +11466,14 @@ NS_ASSUME_NONNULL_BEGIN
     other.reconnectTimeoutMS = self.reconnectTimeoutMS;
     other.timeoutMS = self.timeoutMS;
     other.refreshConnectionAfterMS = self.refreshConnectionAfterMS;
+    other.replyTo = self.replyTo;
 
     return other;
 }
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; lastWellTopic:%@; lastWellMsg:%@; lastWellMsgLen:%@; lastWellQOS:%@; lastWellRetain:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _lastWellTopic, [_lastWellMsg base64EncodedStringWithOptions:0], _lastWellMsgLen, _lastWellQOS, _lastWellRetain, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; lastWellTopic:%@; lastWellMsg:%@; lastWellMsgLen:%@; lastWellQOS:%@; lastWellRetain:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; replyTo:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _lastWellTopic, [_lastWellMsg base64EncodedStringWithOptions:0], _lastWellMsgLen, _lastWellQOS, _lastWellRetain, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _replyTo];
     return descriptionString;
 }
 
@@ -11616,6 +11619,84 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)description
 {
     NSString * descriptionString = [NSString stringWithFormat:@"<%@: code:%@; >", NSStringFromClass([self class]), _code];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _duration = @(0);
+
+        _oneShot = nil;
+
+        _emergencyBoost = nil;
+
+        _temporarySetpoint = nil;
+
+        _targetPercentage = nil;
+
+        _targetReheat = nil;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct alloc] init];
+
+    other.duration = self.duration;
+    other.oneShot = self.oneShot;
+    other.emergencyBoost = self.emergencyBoost;
+    other.temporarySetpoint = self.temporarySetpoint;
+    other.targetPercentage = self.targetPercentage;
+    other.targetReheat = self.targetReheat;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: duration:%@; oneShot:%@; emergencyBoost:%@; temporarySetpoint:%@; targetPercentage:%@; targetReheat:%@; >", NSStringFromClass([self class]), _duration, _oneShot, _emergencyBoost, _temporarySetpoint, _targetPercentage, _targetReheat];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _active = @(0);
+
+        _inactive = @(0);
+
+        _state = @(0);
+
+        _mask = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent alloc] init];
+
+    other.active = self.active;
+    other.inactive = self.inactive;
+    other.state = self.state;
+    other.mask = self.mask;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
     return descriptionString;
 }
 

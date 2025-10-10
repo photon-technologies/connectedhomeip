@@ -444,6 +444,12 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeFreshMideaControllerID:
         result = @"FreshMideaController";
         break;
+    case MTRClusterIDTypeFreshWaterHeaterControllerID:
+        result = @"FreshWaterHeaterController";
+        break;
+    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
+        result = @"FreshWaterHeaterErrorsAlarm";
+        break;
     case MTRClusterIDTypeUnitTestingID:
         result = @"UnitTesting";
         break;
@@ -9244,6 +9250,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"FreezerDoorState";
             break;
 
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostTemperatureID:
+            result = @"DefrostTemperature";
+            break;
+
         case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;
@@ -9336,10 +9346,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"PlasmaMode";
             break;
 
-        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeOutdoorTemperatureID:
-            result = @"OutdoorTemperature";
-            break;
-
         case MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID:
             result = @"ErrorCode";
             break;
@@ -9366,6 +9372,150 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         default:
             // Not a known FreshMideaController attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterControllerID:
+
+        switch (attributeID) {
+
+            // Cluster FreshWaterHeaterController attributes
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeColdWaterTemperatureID:
+            result = @"ColdWaterTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerPercentID:
+            result = @"ShowerPercent";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerStateID:
+            result = @"ShowerState";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayUpdateIntervalID:
+            result = @"DisplayUpdateInterval";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeStandardModeSetpointID:
+            result = @"StandardModeSetpoint";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEcoModeSetpointID:
+            result = @"EcoModeSetpoint";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeBoostModeSetpointID:
+            result = @"BoostModeSetpoint";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTemperatureStepID:
+            result = @"DisplayTemperatureStep";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetTimeoutID:
+            result = @"ResetTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeCoolDownTimeoutID:
+            result = @"CoolDownTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayErrorTimeoutID:
+            result = @"DisplayErrorTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTargetTimeoutID:
+            result = @"DisplayTargetTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeTemperatureSensorMinValidID:
+            result = @"TemperatureSensorMinValid";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeTemperatureSensorMaxValidID:
+            result = @"TemperatureSensorMaxValid";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeOverheatThresholdTemperatureID:
+            result = @"OverheatThresholdTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRapidRiseDeltaID:
+            result = @"RapidRiseDelta";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known FreshWaterHeaterController attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
+
+        switch (attributeID) {
+
+            // Cluster FreshWaterHeaterErrorsAlarm attributes
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeMaskID:
+            result = @"Mask";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeLatchID:
+            result = @"Latch";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeStateID:
+            result = @"State";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeSupportedID:
+            result = @"Supported";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known FreshWaterHeaterErrorsAlarm attribute.
             result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
             break;
         }
@@ -12621,6 +12771,34 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypeFreshWaterHeaterControllerID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeRequestID:
+            result = @"AnodeChangeRequest";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterFreshWaterHeaterErrorsAlarmCommandResetID:
+            result = @"Reset";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeUnitTestingID:
 
         switch (commandID) {
@@ -14544,6 +14722,26 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         break;
 
     case MTRClusterIDTypeFreshMideaControllerID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterControllerID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
 
         switch (commandID) {
 
@@ -16590,6 +16788,31 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
 
         case MTREventIDTypeClusterFreshMideaControllerEventNotifyErrorID:
             result = @"NotifyError";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterControllerID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
+
+        switch (eventID) {
+
+            // Cluster FreshWaterHeaterErrorsAlarm events
+        case MTREventIDTypeClusterFreshWaterHeaterErrorsAlarmEventNotifyID:
+            result = @"Notify";
             break;
 
         default:

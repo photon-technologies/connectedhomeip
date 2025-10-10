@@ -75,6 +75,8 @@
 #include <clusters/FreshMideaController/CommandIds.h>
 #include <clusters/FreshRefrigeratorController/CommandIds.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/CommandIds.h>
+#include <clusters/FreshWaterHeaterController/CommandIds.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/CommandIds.h>
 #include <clusters/GeneralCommissioning/CommandIds.h>
 #include <clusters/GeneralDiagnostics/CommandIds.h>
 #include <clusters/GroupKeyManagement/CommandIds.h>

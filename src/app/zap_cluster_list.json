@@ -158,7 +158,9 @@
         "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": [],
         "FRESH_REFRIGERATOR_ERRORS_CLUSTER":[],
         "FRESH_MIDEA_CONTROLLER_CLUSTER": [],
-        "PHOTON_SMART_CLUSTER": []
+        "PHOTON_SMART_CLUSTER": [],
+        "FRESH_WATER_HEATER_CONTROLLER_CLUSTER": [],
+        "FRESH_WATER_HEATER_ERRORS_CLUSTER": []
     },
     "ServerDirectories": {
         "ACCESS_CONTROL_CLUSTER": ["access-control-server"],
@@ -376,6 +378,8 @@
         "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER": ["fresh-refrigerator-controller-server"],
         "FRESH_REFRIGERATOR_ERRORS_CLUSTER": [],
         "FRESH_MIDEA_CONTROLLER_CLUSTER": [],
-        "PHOTON_SMART_CLUSTER": ["photon-smart-server"]
+        "PHOTON_SMART_CLUSTER": ["photon-smart-server"],
+        "FRESH_WATER_HEATER_CONTROLLER_CLUSTER": [],
+        "FRESH_WATER_HEATER_ERRORS_CLUSTER": []
     }
 }

@@ -65,6 +65,8 @@ template("declare_all_items_target") {
       "${chip_root}/zzz_generated/app-common/clusters/FreshMideaController" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/FreshRefrigeratorController" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/FreshRefrigeratorErrorsAlarm" + invoker.target,
+      "${chip_root}/zzz_generated/app-common/clusters/FreshWaterHeaterController" + invoker.target,
+      "${chip_root}/zzz_generated/app-common/clusters/FreshWaterHeaterErrorsAlarm" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/GeneralCommissioning" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/GeneralDiagnostics" + invoker.target,
       "${chip_root}/zzz_generated/app-common/clusters/GroupKeyManagement" + invoker.target,

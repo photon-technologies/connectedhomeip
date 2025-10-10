@@ -6743,6 +6743,9 @@ static BOOL AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(AttributeId
     case Attributes::FreezerDoorState::Id: {
         return YES;
     }
+    case Attributes::DefrostTemperature::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }
@@ -6813,9 +6816,6 @@ static BOOL AttributeIsSpecifiedInFreshMideaControllerCluster(AttributeId aAttri
     case Attributes::PlasmaMode::Id: {
         return YES;
     }
-    case Attributes::OutdoorTemperature::Id: {
-        return YES;
-    }
     case Attributes::ErrorCode::Id: {
         return YES;
     }
@@ -6836,6 +6836,116 @@ static BOOL AttributeIsSpecifiedInFreshMideaControllerCluster(AttributeId aAttri
     }
     default: {
         // Not a known FreshMideaController attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshWaterHeaterController;
+    switch (aAttributeId) {
+    case Attributes::ColdWaterTemperature::Id: {
+        return YES;
+    }
+    case Attributes::ShowerPercent::Id: {
+        return YES;
+    }
+    case Attributes::ShowerState::Id: {
+        return YES;
+    }
+    case Attributes::DisplayUpdateInterval::Id: {
+        return YES;
+    }
+    case Attributes::StandardModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::EcoModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::BoostModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::DisplayTemperatureStep::Id: {
+        return YES;
+    }
+    case Attributes::ResetTimeout::Id: {
+        return YES;
+    }
+    case Attributes::CoolDownTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayErrorTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayTargetTimeout::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureSensorMinValid::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureSensorMaxValid::Id: {
+        return YES;
+    }
+    case Attributes::OverheatThresholdTemperature::Id: {
+        return YES;
+    }
+    case Attributes::RapidRiseDelta::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshWaterHeaterController attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshWaterHeaterErrorsAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshWaterHeaterErrorsAlarm;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        return YES;
+    }
+    case Attributes::Latch::Id: {
+        return YES;
+    }
+    case Attributes::State::Id: {
+        return YES;
+    }
+    case Attributes::Supported::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshWaterHeaterErrorsAlarm attribute.
         return NO;
     }
     }
@@ -7580,6 +7690,12 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::FreshMideaController::Id: {
         return AttributeIsSpecifiedInFreshMideaControllerCluster(aAttributeId);
+    }
+    case Clusters::FreshWaterHeaterController::Id: {
+        return AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(aAttributeId);
+    }
+    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
+        return AttributeIsSpecifiedInFreshWaterHeaterErrorsAlarmCluster(aAttributeId);
     }
     case Clusters::UnitTesting::Id: {
         return AttributeIsSpecifiedInUnitTestingCluster(aAttributeId);

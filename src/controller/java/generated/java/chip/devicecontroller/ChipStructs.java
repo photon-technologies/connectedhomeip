@@ -19483,6 +19483,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   public Long reconnectTimeoutMS;
   public Long timeoutMS;
   public Long refreshConnectionAfterMS;
+  public String replyTo;
   private static final long HOST_ID = 1L;
   private static final long PORT_ID = 2L;
   private static final long TRANSPORT_ID = 3L;
@@ -19496,6 +19497,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   private static final long RECONNECT_TIMEOUT_MS_ID = 11L;
   private static final long TIMEOUT_MS_ID = 12L;
   private static final long REFRESH_CONNECTION_AFTER_MS_ID = 13L;
+  private static final long REPLY_TO_ID = 14L;
 
   public PhotonSmartClusterPhotonMQTTStruct(
     String host,
@@ -19510,7 +19512,8 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Boolean cleanSession,
     Long reconnectTimeoutMS,
     Long timeoutMS,
-    Long refreshConnectionAfterMS
+    Long refreshConnectionAfterMS,
+    String replyTo
   ) {
     this.host = host;
     this.port = port;
@@ -19525,6 +19528,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     this.reconnectTimeoutMS = reconnectTimeoutMS;
     this.timeoutMS = timeoutMS;
     this.refreshConnectionAfterMS = refreshConnectionAfterMS;
+    this.replyTo = replyTo;
   }
 
   public StructType encodeTlv() {
@@ -19542,6 +19546,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     values.add(new StructElement(RECONNECT_TIMEOUT_MS_ID, new UIntType(reconnectTimeoutMS)));
     values.add(new StructElement(TIMEOUT_MS_ID, new UIntType(timeoutMS)));
     values.add(new StructElement(REFRESH_CONNECTION_AFTER_MS_ID, new UIntType(refreshConnectionAfterMS)));
+    values.add(new StructElement(REPLY_TO_ID, new StringType(replyTo)));
 
     return new StructType(values);
   }
@@ -19563,6 +19568,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Long reconnectTimeoutMS = null;
     Long timeoutMS = null;
     Long refreshConnectionAfterMS = null;
+    String replyTo = null;
     for (StructElement element: ((StructType)tlvValue).value()) {
       if (element.contextTagNum() == HOST_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.String) {
@@ -19629,6 +19635,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
           UIntType castingValue = element.value(UIntType.class);
           refreshConnectionAfterMS = castingValue.value(Long.class);
         }
+      } else if (element.contextTagNum() == REPLY_TO_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.String) {
+          StringType castingValue = element.value(StringType.class);
+          replyTo = castingValue.value(String.class);
+        }
       }
     }
     return new PhotonSmartClusterPhotonMQTTStruct(
@@ -19644,7 +19655,8 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
       cleanSession,
       reconnectTimeoutMS,
       timeoutMS,
-      refreshConnectionAfterMS
+      refreshConnectionAfterMS,
+      replyTo
     );
   }
 
@@ -19690,6 +19702,130 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     output.append("\n");
     output.append("\trefreshConnectionAfterMS: ");
     output.append(refreshConnectionAfterMS);
+    output.append("\n");
+    output.append("\treplyTo: ");
+    output.append(replyTo);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
+public static class FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct {
+  public Long duration;
+  public Optional<Boolean> oneShot;
+  public Optional<Boolean> emergencyBoost;
+  public Optional<Integer> temporarySetpoint;
+  public Optional<Integer> targetPercentage;
+  public Optional<Integer> targetReheat;
+  private static final long DURATION_ID = 0L;
+  private static final long ONE_SHOT_ID = 1L;
+  private static final long EMERGENCY_BOOST_ID = 2L;
+  private static final long TEMPORARY_SETPOINT_ID = 3L;
+  private static final long TARGET_PERCENTAGE_ID = 4L;
+  private static final long TARGET_REHEAT_ID = 5L;
+
+  public FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct(
+    Long duration,
+    Optional<Boolean> oneShot,
+    Optional<Boolean> emergencyBoost,
+    Optional<Integer> temporarySetpoint,
+    Optional<Integer> targetPercentage,
+    Optional<Integer> targetReheat
+  ) {
+    this.duration = duration;
+    this.oneShot = oneShot;
+    this.emergencyBoost = emergencyBoost;
+    this.temporarySetpoint = temporarySetpoint;
+    this.targetPercentage = targetPercentage;
+    this.targetReheat = targetReheat;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(DURATION_ID, new UIntType(duration)));
+    values.add(new StructElement(ONE_SHOT_ID, oneShot.<BaseTLVType>map((nonOptionaloneShot) -> new BooleanType(nonOptionaloneShot)).orElse(new EmptyType())));
+    values.add(new StructElement(EMERGENCY_BOOST_ID, emergencyBoost.<BaseTLVType>map((nonOptionalemergencyBoost) -> new BooleanType(nonOptionalemergencyBoost)).orElse(new EmptyType())));
+    values.add(new StructElement(TEMPORARY_SETPOINT_ID, temporarySetpoint.<BaseTLVType>map((nonOptionaltemporarySetpoint) -> new IntType(nonOptionaltemporarySetpoint)).orElse(new EmptyType())));
+    values.add(new StructElement(TARGET_PERCENTAGE_ID, targetPercentage.<BaseTLVType>map((nonOptionaltargetPercentage) -> new UIntType(nonOptionaltargetPercentage)).orElse(new EmptyType())));
+    values.add(new StructElement(TARGET_REHEAT_ID, targetReheat.<BaseTLVType>map((nonOptionaltargetReheat) -> new UIntType(nonOptionaltargetReheat)).orElse(new EmptyType())));
+
+    return new StructType(values);
+  }
+
+  public static FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Long duration = null;
+    Optional<Boolean> oneShot = Optional.empty();
+    Optional<Boolean> emergencyBoost = Optional.empty();
+    Optional<Integer> temporarySetpoint = Optional.empty();
+    Optional<Integer> targetPercentage = Optional.empty();
+    Optional<Integer> targetReheat = Optional.empty();
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == DURATION_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          duration = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == ONE_SHOT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          oneShot = Optional.of(castingValue.value(Boolean.class));
+        }
+      } else if (element.contextTagNum() == EMERGENCY_BOOST_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          emergencyBoost = Optional.of(castingValue.value(Boolean.class));
+        }
+      } else if (element.contextTagNum() == TEMPORARY_SETPOINT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Int) {
+          IntType castingValue = element.value(IntType.class);
+          temporarySetpoint = Optional.of(castingValue.value(Integer.class));
+        }
+      } else if (element.contextTagNum() == TARGET_PERCENTAGE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          targetPercentage = Optional.of(castingValue.value(Integer.class));
+        }
+      } else if (element.contextTagNum() == TARGET_REHEAT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          targetReheat = Optional.of(castingValue.value(Integer.class));
+        }
+      }
+    }
+    return new FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct(
+      duration,
+      oneShot,
+      emergencyBoost,
+      temporarySetpoint,
+      targetPercentage,
+      targetReheat
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct {\n");
+    output.append("\tduration: ");
+    output.append(duration);
+    output.append("\n");
+    output.append("\toneShot: ");
+    output.append(oneShot);
+    output.append("\n");
+    output.append("\temergencyBoost: ");
+    output.append(emergencyBoost);
+    output.append("\n");
+    output.append("\ttemporarySetpoint: ");
+    output.append(temporarySetpoint);
+    output.append("\n");
+    output.append("\ttargetPercentage: ");
+    output.append(targetPercentage);
+    output.append("\n");
+    output.append("\ttargetReheat: ");
+    output.append(targetReheat);
     output.append("\n");
     output.append("}\n");
     return output.toString();

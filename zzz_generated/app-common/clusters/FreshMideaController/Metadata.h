@@ -79,10 +79,6 @@ namespace PlasmaMode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(PlasmaMode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace PlasmaMode
-namespace OutdoorTemperature {
-inline constexpr DataModel::AttributeEntry kMetadataEntry(OutdoorTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, std::nullopt);
-} // namespace OutdoorTemperature
 namespace ErrorCode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ErrorCode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);

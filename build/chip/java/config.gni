@@ -36,7 +36,7 @@ declare_args() {
     }
 
     matter_enable_java_generated_api = false
-    matter_enable_tlv_decoder_api = false
+    matter_enable_tlv_decoder_api = true
     matter_enable_java_compilation = true
   }
 }

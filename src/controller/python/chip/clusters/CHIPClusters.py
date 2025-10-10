@@ -14612,6 +14612,7 @@ class ChipClusters:
                 "attributeId": 0x00000000,
                 "type": "str",
                 "reportable": True,
+                "writable": True,
             },
             0x00000001: {
                 "attributeName": "ShouldReboot",
@@ -14624,6 +14625,7 @@ class ChipClusters:
                 "attributeId": 0x00000002,
                 "type": "",
                 "reportable": True,
+                "writable": True,
             },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
@@ -14903,6 +14905,12 @@ class ChipClusters:
                 "type": "bool",
                 "reportable": True,
             },
+            0x00000011: {
+                "attributeName": "DefrostTemperature",
+                "attributeId": 0x00000011,
+                "type": "int",
+                "reportable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,
@@ -15050,15 +15058,218 @@ class ChipClusters:
                 "type": "bool",
                 "reportable": True,
             },
+            0x00000010: {
+                "attributeName": "ErrorCode",
+                "attributeId": 0x00000010,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF8: {
+                "attributeName": "GeneratedCommandList",
+                "attributeId": 0x0000FFF8,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF9: {
+                "attributeName": "AcceptedCommandList",
+                "attributeId": 0x0000FFF9,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFB: {
+                "attributeName": "AttributeList",
+                "attributeId": 0x0000FFFB,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFC: {
+                "attributeName": "FeatureMap",
+                "attributeId": 0x0000FFFC,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFD: {
+                "attributeName": "ClusterRevision",
+                "attributeId": 0x0000FFFD,
+                "type": "int",
+                "reportable": True,
+            },
+        },
+    }
+    _FRESH_WATER_HEATER_CONTROLLER_CLUSTER_INFO = {
+        "clusterName": "FreshWaterHeaterController",
+        "clusterId": 0x15E7FC05,
+        "commands": {
+            0x00000000: {
+                "commandId": 0x00000000,
+                "commandName": "AnodeChangeRequest",
+                "args": {
+                },
+            },
+        },
+        "attributes": {
+            0x00000000: {
+                "attributeName": "ColdWaterTemperature",
+                "attributeId": 0x00000000,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000001: {
+                "attributeName": "ShowerPercent",
+                "attributeId": 0x00000001,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000002: {
+                "attributeName": "ShowerState",
+                "attributeId": 0x00000002,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000003: {
+                "attributeName": "DisplayUpdateInterval",
+                "attributeId": 0x00000003,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000004: {
+                "attributeName": "StandardModeSetpoint",
+                "attributeId": 0x00000004,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000005: {
+                "attributeName": "EcoModeSetpoint",
+                "attributeId": 0x00000005,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000006: {
+                "attributeName": "BoostModeSetpoint",
+                "attributeId": 0x00000006,
+                "type": "",
+                "reportable": True,
+            },
+            0x00000007: {
+                "attributeName": "DisplayTemperatureStep",
+                "attributeId": 0x00000007,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000008: {
+                "attributeName": "ResetTimeout",
+                "attributeId": 0x00000008,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000009: {
+                "attributeName": "CoolDownTimeout",
+                "attributeId": 0x00000009,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000A: {
+                "attributeName": "DisplayErrorTimeout",
+                "attributeId": 0x0000000A,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000B: {
+                "attributeName": "DisplayTargetTimeout",
+                "attributeId": 0x0000000B,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000C: {
+                "attributeName": "TemperatureSensorMinValid",
+                "attributeId": 0x0000000C,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000D: {
+                "attributeName": "TemperatureSensorMaxValid",
+                "attributeId": 0x0000000D,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000000E: {
+                "attributeName": "OverheatThresholdTemperature",
+                "attributeId": 0x0000000E,
+                "type": "int",
+                "reportable": True,
+            },
             0x0000000F: {
-                "attributeName": "OutdoorTemperature",
+                "attributeName": "RapidRiseDelta",
                 "attributeId": 0x0000000F,
                 "type": "int",
                 "reportable": True,
             },
-            0x00000010: {
-                "attributeName": "ErrorCode",
-                "attributeId": 0x00000010,
+            0x0000FFF8: {
+                "attributeName": "GeneratedCommandList",
+                "attributeId": 0x0000FFF8,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF9: {
+                "attributeName": "AcceptedCommandList",
+                "attributeId": 0x0000FFF9,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFB: {
+                "attributeName": "AttributeList",
+                "attributeId": 0x0000FFFB,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFC: {
+                "attributeName": "FeatureMap",
+                "attributeId": 0x0000FFFC,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFD: {
+                "attributeName": "ClusterRevision",
+                "attributeId": 0x0000FFFD,
+                "type": "int",
+                "reportable": True,
+            },
+        },
+    }
+    _FRESH_WATER_HEATER_ERRORS_ALARM_CLUSTER_INFO = {
+        "clusterName": "FreshWaterHeaterErrorsAlarm",
+        "clusterId": 0x15E7FC06,
+        "commands": {
+            0x00000000: {
+                "commandId": 0x00000000,
+                "commandName": "Reset",
+                "args": {
+                    "alarms": "int",
+                },
+            },
+        },
+        "attributes": {
+            0x00000000: {
+                "attributeName": "Mask",
+                "attributeId": 0x00000000,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000001: {
+                "attributeName": "Latch",
+                "attributeId": 0x00000001,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000002: {
+                "attributeName": "State",
+                "attributeId": 0x00000002,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000003: {
+                "attributeName": "Supported",
+                "attributeId": 0x00000003,
                 "type": "int",
                 "reportable": True,
             },
@@ -16231,6 +16442,8 @@ class ChipClusters:
         0x15E7FC02: _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO,
         0x15E7FC03: _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
         0x15E7FC04: _FRESH_MIDEA_CONTROLLER_CLUSTER_INFO,
+        0x15E7FC05: _FRESH_WATER_HEATER_CONTROLLER_CLUSTER_INFO,
+        0x15E7FC06: _FRESH_WATER_HEATER_ERRORS_ALARM_CLUSTER_INFO,
         0xFFF1FC05: _UNIT_TESTING_CLUSTER_INFO,
         0xFFF1FC06: _FAULT_INJECTION_CLUSTER_INFO,
         0xFFF1FC20: _SAMPLE_MEI_CLUSTER_INFO,
@@ -16379,6 +16592,8 @@ class ChipClusters:
         "FreshRefrigeratorErrorsAlarm": _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO,
         "FreshRefrigeratorController": _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
         "FreshMideaController": _FRESH_MIDEA_CONTROLLER_CLUSTER_INFO,
+        "FreshWaterHeaterController": _FRESH_WATER_HEATER_CONTROLLER_CLUSTER_INFO,
+        "FreshWaterHeaterErrorsAlarm": _FRESH_WATER_HEATER_ERRORS_ALARM_CLUSTER_INFO,
         "UnitTesting": _UNIT_TESTING_CLUSTER_INFO,
         "FaultInjection": _FAULT_INJECTION_CLUSTER_INFO,
         "SampleMei": _SAMPLE_MEI_CLUSTER_INFO,

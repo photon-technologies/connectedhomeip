@@ -223,24 +223,12 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace PlasmaMode
-namespace OutdoorTemperature {
-struct TypeInfo
-{
-    using Type             = chip::app::DataModel::Nullable<int16_t>;
-    using DecodableType    = chip::app::DataModel::Nullable<int16_t>;
-    using DecodableArgType = const chip::app::DataModel::Nullable<int16_t> &;
-
-    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
-    static constexpr AttributeId GetAttributeId() { return Attributes::OutdoorTemperature::Id; }
-    static constexpr bool MustUseTimedWrite() { return false; }
-};
-} // namespace OutdoorTemperature
 namespace ErrorCode {
 struct TypeInfo
 {
-    using Type             = uint8_t;
-    using DecodableType    = uint8_t;
-    using DecodableArgType = uint8_t;
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
 
     static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
     static constexpr AttributeId GetAttributeId() { return Attributes::ErrorCode::Id; }
@@ -303,8 +291,7 @@ struct TypeInfo
         Attributes::OnTimerHours::TypeInfo::DecodableType onTimerHours       = static_cast<uint8_t>(0);
         Attributes::OnTimerMinutes::TypeInfo::DecodableType onTimerMinutes   = static_cast<uint8_t>(0);
         Attributes::PlasmaMode::TypeInfo::DecodableType plasmaMode           = static_cast<bool>(0);
-        Attributes::OutdoorTemperature::TypeInfo::DecodableType outdoorTemperature;
-        Attributes::ErrorCode::TypeInfo::DecodableType errorCode = static_cast<uint8_t>(0);
+        Attributes::ErrorCode::TypeInfo::DecodableType errorCode             = static_cast<uint16_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;
