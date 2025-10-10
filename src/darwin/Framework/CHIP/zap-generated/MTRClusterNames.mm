@@ -9250,6 +9250,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"FreezerDoorState";
             break;
 
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostTemperatureID:
+            result = @"DefrostTemperature";
+            break;
+
         case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

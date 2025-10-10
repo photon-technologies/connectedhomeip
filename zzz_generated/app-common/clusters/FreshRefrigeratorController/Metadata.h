@@ -91,6 +91,10 @@ namespace FreezerDoorState {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerDoorState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace FreezerDoorState
+namespace DefrostTemperature {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(DefrostTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace DefrostTemperature
 
 } // namespace Attributes
 

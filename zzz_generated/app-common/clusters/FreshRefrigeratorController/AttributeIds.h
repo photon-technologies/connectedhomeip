@@ -80,6 +80,10 @@ namespace FreezerDoorState {
 inline constexpr AttributeId Id = 0x00000010;
 } // namespace FreezerDoorState
 
+namespace DefrostTemperature {
+inline constexpr AttributeId Id = 0x00000011;
+} // namespace DefrostTemperature
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

@@ -11482,6 +11482,7 @@ cluster FreshRefrigeratorController = 367524867 {
   readonly attribute optional int32u temperatureErrorTime = 14;
   readonly attribute optional boolean fridgeDoorState = 15;
   readonly attribute optional boolean freezerDoorState = 16;
+  readonly attribute optional temperature defrostTemperature = 17;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

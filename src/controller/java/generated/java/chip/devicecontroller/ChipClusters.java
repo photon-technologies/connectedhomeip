@@ -66566,6 +66566,7 @@ public class ChipClusters {
     private static final long TEMPERATURE_ERROR_TIME_ATTRIBUTE_ID = 14L;
     private static final long FRIDGE_DOOR_STATE_ATTRIBUTE_ID = 15L;
     private static final long FREEZER_DOOR_STATE_ATTRIBUTE_ID = 16L;
+    private static final long DEFROST_TEMPERATURE_ATTRIBUTE_ID = 17L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -67034,6 +67035,32 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, FREEZER_DOOR_STATE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readDefrostTemperatureAttribute(
+        IntegerAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEFROST_TEMPERATURE_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, DEFROST_TEMPERATURE_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeDefrostTemperatureAttribute(
+        IntegerAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEFROST_TEMPERATURE_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, DEFROST_TEMPERATURE_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

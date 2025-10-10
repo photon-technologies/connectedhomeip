@@ -17662,6 +17662,7 @@ private:
 | * TemperatureErrorTime                                              | 0x000E |
 | * FridgeDoorState                                                   | 0x000F |
 | * FreezerDoorState                                                  | 0x0010 |
+| * DefrostTemperature                                                | 0x0011 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -31809,6 +31810,7 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<ReadAttribute>(Id, "temperature-error-time", Attributes::TemperatureErrorTime::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "fridge-door-state", Attributes::FridgeDoorState::Id, credsIssuerConfig),           //
         make_unique<ReadAttribute>(Id, "freezer-door-state", Attributes::FreezerDoorState::Id, credsIssuerConfig),         //
+        make_unique<ReadAttribute>(Id, "defrost-temperature", Attributes::DefrostTemperature::Id, credsIssuerConfig),      //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -31853,6 +31855,8 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "freezer-door-state", 0, 1, Attributes::FreezerDoorState::Id,
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "defrost-temperature", INT16_MIN, INT16_MAX, Attributes::DefrostTemperature::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -31886,6 +31890,7 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<SubscribeAttribute>(Id, "temperature-error-time", Attributes::TemperatureErrorTime::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "fridge-door-state", Attributes::FridgeDoorState::Id, credsIssuerConfig),           //
         make_unique<SubscribeAttribute>(Id, "freezer-door-state", Attributes::FreezerDoorState::Id, credsIssuerConfig),         //
+        make_unique<SubscribeAttribute>(Id, "defrost-temperature", Attributes::DefrostTemperature::Id, credsIssuerConfig),      //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //

@@ -85,7 +85,7 @@
       <optionalConform />
     </attribute>
 
-    <attribute side="server" code="0x0010" name="DefrostTemperature" define="DEFROST_TEMPERATURE" type="temperature" default="0" min="-5000" max="5000">
+    <attribute side="server" code="0x0011" name="DefrostTemperature" define="DEFROST_TEMPERATURE" type="temperature" default="0" min="-5000" max="5000">
       <description>DefrostTemperature</description>
       <optionalConform />
     </attribute>

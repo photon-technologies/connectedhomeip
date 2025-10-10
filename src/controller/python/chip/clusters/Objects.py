@@ -53621,6 +53621,7 @@ class FreshRefrigeratorController(Cluster):
                 ClusterObjectFieldDescriptor(Label="temperatureErrorTime", Tag=0x0000000E, Type=typing.Optional[uint]),
                 ClusterObjectFieldDescriptor(Label="fridgeDoorState", Tag=0x0000000F, Type=typing.Optional[bool]),
                 ClusterObjectFieldDescriptor(Label="freezerDoorState", Tag=0x00000010, Type=typing.Optional[bool]),
+                ClusterObjectFieldDescriptor(Label="defrostTemperature", Tag=0x00000011, Type=typing.Optional[int]),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -53645,6 +53646,7 @@ class FreshRefrigeratorController(Cluster):
     temperatureErrorTime: typing.Optional[uint] = None
     fridgeDoorState: typing.Optional[bool] = None
     freezerDoorState: typing.Optional[bool] = None
+    defrostTemperature: typing.Optional[int] = None
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -53923,6 +53925,22 @@ class FreshRefrigeratorController(Cluster):
                 return ClusterObjectFieldDescriptor(Type=typing.Optional[bool])
 
             value: typing.Optional[bool] = None
+
+        @dataclass
+        class DefrostTemperature(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC03
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000011
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[int])
+
+            value: typing.Optional[int] = None
 
         @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):

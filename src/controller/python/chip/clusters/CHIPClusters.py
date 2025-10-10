@@ -14905,6 +14905,12 @@ class ChipClusters:
                 "type": "bool",
                 "reportable": True,
             },
+            0x00000011: {
+                "attributeName": "DefrostTemperature",
+                "attributeId": 0x00000011,
+                "type": "int",
+                "reportable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,

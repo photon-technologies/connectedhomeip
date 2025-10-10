@@ -21270,6 +21270,17 @@ static id _Nullable DecodeAttributeValueForFreshRefrigeratorControllerCluster(At
         value = [NSNumber numberWithBool:cppValue];
         return value;
     }
+    case Attributes::DefrostTemperature::Id: {
+        using TypeInfo = Attributes::DefrostTemperature::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
     default: {
         // Not a known FreshRefrigeratorController attribute.
         break;

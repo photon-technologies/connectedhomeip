@@ -20825,6 +20825,7 @@ public class ClusterIDMapping {
             TemperatureErrorTime(14L),
             FridgeDoorState(15L),
             FreezerDoorState(16L),
+            DefrostTemperature(17L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),
