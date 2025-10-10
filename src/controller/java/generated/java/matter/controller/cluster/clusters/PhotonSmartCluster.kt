@@ -32,6 +32,9 @@ import matter.controller.SubscribeRequest
 import matter.controller.SubscriptionState
 import matter.controller.UIntSubscriptionState
 import matter.controller.UShortSubscriptionState
+import matter.controller.WriteRequest
+import matter.controller.WriteRequests
+import matter.controller.WriteResponse
 import matter.controller.cluster.structs.*
 import matter.controller.model.AttributePath
 import matter.controller.model.CommandPath
@@ -169,6 +172,46 @@ class PhotonSmartCluster(private val controller: MatterController, private val e
       }
 
     return HomeIdAttribute(decodedValue)
+  }
+
+  suspend fun writeHomeIdAttribute(value: String, timedWriteTimeout: Duration? = null) {
+    val ATTRIBUTE_ID: UInt = 0u
+
+    val tlvWriter = TlvWriter()
+    tlvWriter.put(AnonymousTag, value)
+
+    val writeRequests: WriteRequests =
+      WriteRequests(
+        requests =
+          listOf(
+            WriteRequest(
+              attributePath =
+                AttributePath(endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID),
+              tlvPayload = tlvWriter.getEncoded(),
+            )
+          ),
+        timedRequest = timedWriteTimeout,
+      )
+
+    val response: WriteResponse = controller.write(writeRequests)
+
+    when (response) {
+      is WriteResponse.Success -> {
+        logger.log(Level.FINE, "Write command succeeded")
+      }
+      is WriteResponse.PartialWriteFailure -> {
+        val aggregatedErrorMessage =
+          response.failures.joinToString("\n") { failure ->
+            "Error at ${failure.attributePath}: ${failure.ex.message}"
+          }
+
+        response.failures.forEach { failure ->
+          logger.log(Level.WARNING, "Error at ${failure.attributePath}: ${failure.ex.message}")
+        }
+
+        throw IllegalStateException("Write command failed with errors: \n$aggregatedErrorMessage")
+      }
+    }
   }
 
   suspend fun subscribeHomeIdAttribute(
@@ -338,6 +381,49 @@ class PhotonSmartCluster(private val controller: MatterController, private val e
       PhotonSmartClusterPhotonMQTTStruct.fromTlv(AnonymousTag, tlvReader)
 
     return MqttConfigAttribute(decodedValue)
+  }
+
+  suspend fun writeMqttConfigAttribute(
+    value: PhotonSmartClusterPhotonMQTTStruct,
+    timedWriteTimeout: Duration? = null,
+  ) {
+    val ATTRIBUTE_ID: UInt = 2u
+
+    val tlvWriter = TlvWriter()
+    value.toTlv(AnonymousTag, tlvWriter)
+
+    val writeRequests: WriteRequests =
+      WriteRequests(
+        requests =
+          listOf(
+            WriteRequest(
+              attributePath =
+                AttributePath(endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID),
+              tlvPayload = tlvWriter.getEncoded(),
+            )
+          ),
+        timedRequest = timedWriteTimeout,
+      )
+
+    val response: WriteResponse = controller.write(writeRequests)
+
+    when (response) {
+      is WriteResponse.Success -> {
+        logger.log(Level.FINE, "Write command succeeded")
+      }
+      is WriteResponse.PartialWriteFailure -> {
+        val aggregatedErrorMessage =
+          response.failures.joinToString("\n") { failure ->
+            "Error at ${failure.attributePath}: ${failure.ex.message}"
+          }
+
+        response.failures.forEach { failure ->
+          logger.log(Level.WARNING, "Error at ${failure.attributePath}: ${failure.ex.message}")
+        }
+
+        throw IllegalStateException("Write command failed with errors: \n$aggregatedErrorMessage")
+      }
+    }
   }
 
   suspend fun subscribeMqttConfigAttribute(

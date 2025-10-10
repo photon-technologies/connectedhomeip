@@ -427,7 +427,6 @@ target_include_directories(${COMPONENT_LIB} PRIVATE
 
 target_include_directories(${COMPONENT_LIB} INTERFACE
     "${CHIP_ROOT}/src/platform/ESP32"
-    "${CHIP_ROOT}/src/platform/Photon"
     "${CHIP_ROOT}/src/platform/OpenThread"
     "${CHIP_ROOT}/src/include"
     "${CHIP_ROOT}/src/lib"

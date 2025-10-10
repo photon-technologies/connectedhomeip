@@ -8900,6 +8900,8 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.timeoutMS", "timeoutMS", value.isMember("timeoutMS")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
         "PhotonMQTTStruct.refreshConnectionAfterMS", "refreshConnectionAfterMS", value.isMember("refreshConnectionAfterMS")));
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.replyTo", "replyTo", value.isMember("replyTo")));
 
     char labelWithMember[kMaxLabelLength];
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "host");
@@ -8955,6 +8957,10 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::Setup(labelWithMember, request.refreshConnectionAfterMS, value["refreshConnectionAfterMS"]));
     valueCopy.removeMember("refreshConnectionAfterMS");
 
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "replyTo");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.replyTo, value["replyTo"]));
+    valueCopy.removeMember("replyTo");
+
     return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
 }
 
@@ -8973,6 +8979,74 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::
     ComplexArgumentParser::Finalize(request.reconnectTimeoutMS);
     ComplexArgumentParser::Finalize(request.timeoutMS);
     ComplexArgumentParser::Finalize(request.refreshConnectionAfterMS);
+    ComplexArgumentParser::Finalize(request.replyTo);
+}
+
+CHIP_ERROR
+ComplexArgumentParser::Setup(const char * label,
+                             chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type & request,
+                             Json::Value & value)
+{
+    VerifyOrReturnError(value.isObject(), CHIP_ERROR_INVALID_ARGUMENT);
+
+    // Copy to track which members we already processed.
+    Json::Value valueCopy(value);
+
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::EnsureMemberExist("WaterHeaterBoostInfoStruct.duration", "duration", value.isMember("duration")));
+
+    char labelWithMember[kMaxLabelLength];
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "duration");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.duration, value["duration"]));
+    valueCopy.removeMember("duration");
+
+    if (value.isMember("oneShot"))
+    {
+        snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "oneShot");
+        ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.oneShot, value["oneShot"]));
+    }
+    valueCopy.removeMember("oneShot");
+
+    if (value.isMember("emergencyBoost"))
+    {
+        snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "emergencyBoost");
+        ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.emergencyBoost, value["emergencyBoost"]));
+    }
+    valueCopy.removeMember("emergencyBoost");
+
+    if (value.isMember("temporarySetpoint"))
+    {
+        snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "temporarySetpoint");
+        ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.temporarySetpoint, value["temporarySetpoint"]));
+    }
+    valueCopy.removeMember("temporarySetpoint");
+
+    if (value.isMember("targetPercentage"))
+    {
+        snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "targetPercentage");
+        ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.targetPercentage, value["targetPercentage"]));
+    }
+    valueCopy.removeMember("targetPercentage");
+
+    if (value.isMember("targetReheat"))
+    {
+        snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "targetReheat");
+        ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.targetReheat, value["targetReheat"]));
+    }
+    valueCopy.removeMember("targetReheat");
+
+    return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
+}
+
+void ComplexArgumentParser::Finalize(
+    chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type & request)
+{
+    ComplexArgumentParser::Finalize(request.duration);
+    ComplexArgumentParser::Finalize(request.oneShot);
+    ComplexArgumentParser::Finalize(request.emergencyBoost);
+    ComplexArgumentParser::Finalize(request.temporarySetpoint);
+    ComplexArgumentParser::Finalize(request.targetPercentage);
+    ComplexArgumentParser::Finalize(request.targetReheat);
 }
 
 CHIP_ERROR ComplexArgumentParser::Setup(const char * label, chip::app::Clusters::UnitTesting::Structs::SimpleStruct::Type & request,

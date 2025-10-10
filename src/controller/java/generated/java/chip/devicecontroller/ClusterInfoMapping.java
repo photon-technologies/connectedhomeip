@@ -21236,27 +21236,6 @@ public class ClusterInfoMapping {
     }
   }
 
-  public static class DelegatedFreshMideaControllerClusterOutdoorTemperatureAttributeCallback implements ChipClusters.FreshMideaControllerCluster.OutdoorTemperatureAttributeCallback, DelegatedClusterCallback {
-    private ClusterCommandCallback callback;
-    @Override
-    public void setCallbackDelegate(ClusterCommandCallback callback) {
-      this.callback = callback;
-    }
-
-    @Override
-    public void onSuccess(@Nullable Integer value) {
-      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
-      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "Integer");
-      responseValues.put(commandResponseInfo, value);
-      callback.onSuccess(responseValues);
-    }
-
-    @Override
-    public void onError(Exception ex) {
-      callback.onFailure(ex);
-    }
-  }
-
   public static class DelegatedFreshMideaControllerClusterGeneratedCommandListAttributeCallback implements ChipClusters.FreshMideaControllerCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
     private ClusterCommandCallback callback;
     @Override
@@ -21300,6 +21279,153 @@ public class ClusterInfoMapping {
   }
 
   public static class DelegatedFreshMideaControllerClusterAttributeListAttributeCallback implements ChipClusters.FreshMideaControllerCluster.AttributeListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterControllerClusterBoostModeSetpointAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.BoostModeSetpointAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct");
+      responseValues.put(commandResponseInfo, value);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterControllerClusterGeneratedCommandListAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterControllerClusterAcceptedCommandListAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.AcceptedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterControllerClusterAttributeListAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.AttributeListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterErrorsAlarmClusterGeneratedCommandListAttributeCallback implements ChipClusters.FreshWaterHeaterErrorsAlarmCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterErrorsAlarmClusterAcceptedCommandListAttributeCallback implements ChipClusters.FreshWaterHeaterErrorsAlarmCluster.AcceptedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterErrorsAlarmClusterAttributeListAttributeCallback implements ChipClusters.FreshWaterHeaterErrorsAlarmCluster.AttributeListAttributeCallback, DelegatedClusterCallback {
     private ClusterCommandCallback callback;
     @Override
     public void setCallbackDelegate(ClusterCommandCallback callback) {
@@ -23453,6 +23579,14 @@ public class ClusterInfoMapping {
       (ptr, endpointId) -> new ChipClusters.FreshMideaControllerCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("freshMideaController", freshMideaControllerClusterInfo);
 
+    ClusterInfo freshWaterHeaterControllerClusterInfo = new ClusterInfo(
+      (ptr, endpointId) -> new ChipClusters.FreshWaterHeaterControllerCluster(ptr, endpointId), new HashMap<>());
+    clusterMap.put("freshWaterHeaterController", freshWaterHeaterControllerClusterInfo);
+
+    ClusterInfo freshWaterHeaterErrorsAlarmClusterInfo = new ClusterInfo(
+      (ptr, endpointId) -> new ChipClusters.FreshWaterHeaterErrorsAlarmCluster(ptr, endpointId), new HashMap<>());
+    clusterMap.put("freshWaterHeaterErrorsAlarm", freshWaterHeaterErrorsAlarmClusterInfo);
+
     ClusterInfo unitTestingClusterInfo = new ClusterInfo(
       (ptr, endpointId) -> new ChipClusters.UnitTestingCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("unitTesting", unitTestingClusterInfo);
@@ -23611,6 +23745,8 @@ public class ClusterInfoMapping {
     destination.get("freshRefrigeratorErrorsAlarm").combineCommands(source.get("freshRefrigeratorErrorsAlarm"));
     destination.get("freshRefrigeratorController").combineCommands(source.get("freshRefrigeratorController"));
     destination.get("freshMideaController").combineCommands(source.get("freshMideaController"));
+    destination.get("freshWaterHeaterController").combineCommands(source.get("freshWaterHeaterController"));
+    destination.get("freshWaterHeaterErrorsAlarm").combineCommands(source.get("freshWaterHeaterErrorsAlarm"));
     destination.get("unitTesting").combineCommands(source.get("unitTesting"));
     destination.get("faultInjection").combineCommands(source.get("faultInjection"));
     destination.get("sampleMei").combineCommands(source.get("sampleMei"));
@@ -31987,6 +32123,43 @@ public class ClusterInfoMapping {
     freshMideaControllerClusterInteractionInfoMap.put("cancelClean", freshMideaControllercancelCleanInteractionInfo);
 
     commandMap.put("freshMideaController", freshMideaControllerClusterInteractionInfoMap);
+
+    Map<String, InteractionInfo> freshWaterHeaterControllerClusterInteractionInfoMap = new LinkedHashMap<>();
+
+    Map<String, CommandParameterInfo> freshWaterHeaterControlleranodeChangeRequestCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    InteractionInfo freshWaterHeaterControlleranodeChangeRequestInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshWaterHeaterControllerCluster) cluster)
+        .anodeChangeRequest((DefaultClusterCallback) callback
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        freshWaterHeaterControlleranodeChangeRequestCommandParams
+    );
+    freshWaterHeaterControllerClusterInteractionInfoMap.put("anodeChangeRequest", freshWaterHeaterControlleranodeChangeRequestInteractionInfo);
+
+    commandMap.put("freshWaterHeaterController", freshWaterHeaterControllerClusterInteractionInfoMap);
+
+    Map<String, InteractionInfo> freshWaterHeaterErrorsAlarmClusterInteractionInfoMap = new LinkedHashMap<>();
+
+    Map<String, CommandParameterInfo> freshWaterHeaterErrorsAlarmresetCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo freshWaterHeaterErrorsAlarmresetalarmsCommandParameterInfo = new CommandParameterInfo("alarms", Long.class, Long.class);
+    freshWaterHeaterErrorsAlarmresetCommandParams.put("alarms",freshWaterHeaterErrorsAlarmresetalarmsCommandParameterInfo);
+    InteractionInfo freshWaterHeaterErrorsAlarmresetInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster)
+        .reset((DefaultClusterCallback) callback
+        , (Long)
+        commandArguments.get("alarms")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        freshWaterHeaterErrorsAlarmresetCommandParams
+    );
+    freshWaterHeaterErrorsAlarmClusterInteractionInfoMap.put("reset", freshWaterHeaterErrorsAlarmresetInteractionInfo);
+
+    commandMap.put("freshWaterHeaterErrorsAlarm", freshWaterHeaterErrorsAlarmClusterInteractionInfoMap);
 
     Map<String, InteractionInfo> unitTestingClusterInteractionInfoMap = new LinkedHashMap<>();
 

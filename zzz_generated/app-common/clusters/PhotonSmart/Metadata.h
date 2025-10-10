@@ -21,7 +21,7 @@ inline constexpr uint32_t kRevision = 1;
 namespace Attributes {
 namespace HomeId {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(HomeId::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kAdminister, std::nullopt);
+                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
 } // namespace HomeId
 namespace ShouldReboot {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ShouldReboot::Id, BitFlags<DataModel::AttributeQualityFlags>(),
@@ -29,7 +29,7 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(ShouldReboot::Id, BitF
 } // namespace ShouldReboot
 namespace MqttConfig {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(MqttConfig::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kAdminister, std::nullopt);
+                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
 } // namespace MqttConfig
 
 } // namespace Attributes

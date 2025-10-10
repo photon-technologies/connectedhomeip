@@ -3623,6 +3623,28 @@ public class ClusterWriteMapping {
     Map<String, InteractionInfo> writeCommodityMeteringInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("commodityMetering", writeCommodityMeteringInteractionInfo);
     Map<String, InteractionInfo> writePhotonSmartInteractionInfo = new LinkedHashMap<>();
+    Map<String, CommandParameterInfo> writePhotonSmartHomeIdCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo photonSmarthomeIdCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            String.class, 
+            String.class 
+        );
+    writePhotonSmartHomeIdCommandParams.put(
+        "value",
+        photonSmarthomeIdCommandParameterInfo
+    );
+    InteractionInfo writePhotonSmartHomeIdAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster).writeHomeIdAttribute(
+          (DefaultClusterCallback) callback,
+          (String) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writePhotonSmartHomeIdCommandParams
+    );
+    writePhotonSmartInteractionInfo.put("writeHomeIdAttribute", writePhotonSmartHomeIdAttributeInteractionInfo);
     writeAttributeMap.put("photonSmart", writePhotonSmartInteractionInfo);
     Map<String, InteractionInfo> writeFreshMideaAirConditionerAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshMideaAirConditionerAlarm", writeFreshMideaAirConditionerAlarmInteractionInfo);
@@ -3786,6 +3808,10 @@ public class ClusterWriteMapping {
     );
     writeFreshMideaControllerInteractionInfo.put("writeTemperatureUnitAttribute", writeFreshMideaControllerTemperatureUnitAttributeInteractionInfo);
     writeAttributeMap.put("freshMideaController", writeFreshMideaControllerInteractionInfo);
+    Map<String, InteractionInfo> writeFreshWaterHeaterControllerInteractionInfo = new LinkedHashMap<>();
+    writeAttributeMap.put("freshWaterHeaterController", writeFreshWaterHeaterControllerInteractionInfo);
+    Map<String, InteractionInfo> writeFreshWaterHeaterErrorsAlarmInteractionInfo = new LinkedHashMap<>();
+    writeAttributeMap.put("freshWaterHeaterErrorsAlarm", writeFreshWaterHeaterErrorsAlarmInteractionInfo);
     Map<String, InteractionInfo> writeUnitTestingInteractionInfo = new LinkedHashMap<>();
     Map<String, CommandParameterInfo> writeUnitTestingBooleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
     CommandParameterInfo unitTestingbooleanCommandParameterInfo =

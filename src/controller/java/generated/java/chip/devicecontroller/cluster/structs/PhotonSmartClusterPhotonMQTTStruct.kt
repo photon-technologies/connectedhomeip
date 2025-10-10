@@ -36,6 +36,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
   val reconnectTimeoutMS: ULong,
   val timeoutMS: ULong,
   val refreshConnectionAfterMS: ULong,
+  val replyTo: String,
 ) {
   override fun toString(): String = buildString {
     append("PhotonSmartClusterPhotonMQTTStruct {\n")
@@ -52,6 +53,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
     append("\treconnectTimeoutMS : $reconnectTimeoutMS\n")
     append("\ttimeoutMS : $timeoutMS\n")
     append("\trefreshConnectionAfterMS : $refreshConnectionAfterMS\n")
+    append("\treplyTo : $replyTo\n")
     append("}\n")
   }
 
@@ -71,6 +73,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
       put(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS), reconnectTimeoutMS)
       put(ContextSpecificTag(TAG_TIMEOUT_MS), timeoutMS)
       put(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS), refreshConnectionAfterMS)
+      put(ContextSpecificTag(TAG_REPLY_TO), replyTo)
       endStructure()
     }
   }
@@ -89,6 +92,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
     private const val TAG_RECONNECT_TIMEOUT_MS = 11
     private const val TAG_TIMEOUT_MS = 12
     private const val TAG_REFRESH_CONNECTION_AFTER_MS = 13
+    private const val TAG_REPLY_TO = 14
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): PhotonSmartClusterPhotonMQTTStruct {
       tlvReader.enterStructure(tlvTag)
@@ -106,6 +110,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
       val timeoutMS = tlvReader.getULong(ContextSpecificTag(TAG_TIMEOUT_MS))
       val refreshConnectionAfterMS =
         tlvReader.getULong(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
+      val replyTo = tlvReader.getString(ContextSpecificTag(TAG_REPLY_TO))
 
       tlvReader.exitContainer()
 
@@ -123,6 +128,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
         reconnectTimeoutMS,
         timeoutMS,
         refreshConnectionAfterMS,
+        replyTo,
       )
     }
   }

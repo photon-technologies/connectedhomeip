@@ -150,10 +150,12 @@
         "fresh-midea-controller-cluster.xml",
         "fresh-refrigerator-controller.xml",
         "fresh-refrigerator-errors.xml",
-        "photon-smart-cluster.xml"
+        "photon-smart-cluster.xml",
+        "fresh-water-heater-controller-cluster.xml",
+        "fresh-water-heater-errors.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
-"options": {
+    "options": {
         "text": {
             "defaultResponsePolicy": ["Always", "Conditional", "Never"]
         },
@@ -800,7 +802,8 @@
         "Zone Management": ["TwoDCartesianMax"],
         "TLS Client Management": ["ClusterRevision", "MaxProvisioned"],
         "Thermostat": ["CurrentThermostatSuggestion"],
-        "Photon Smart": ["MqttConfig"]
+        "Photon Smart": ["MqttConfig"],
+        "Fresh Water Heater Controller": ["BoostModeSetpoint"]
     },
     "mandatoryDeviceTypes": "0x0016",
     "defaultReportingPolicy": "mandatory",

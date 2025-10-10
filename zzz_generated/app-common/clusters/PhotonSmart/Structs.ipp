@@ -46,6 +46,7 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kReconnectTimeoutMS), reconnectTimeoutMS);
     encoder.Encode(to_underlying(Fields::kTimeoutMS), timeoutMS);
     encoder.Encode(to_underlying(Fields::kRefreshConnectionAfterMS), refreshConnectionAfterMS);
+    encoder.Encode(to_underlying(Fields::kReplyTo), replyTo);
     return encoder.Finalize();
 }
 
@@ -110,6 +111,10 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         else if (__context_tag == to_underlying(Fields::kRefreshConnectionAfterMS))
         {
             err = DataModel::Decode(reader, refreshConnectionAfterMS);
+        }
+        else if (__context_tag == to_underlying(Fields::kReplyTo))
+        {
+            err = DataModel::Decode(reader, replyTo);
         }
 
         ReturnErrorOnFailure(err);

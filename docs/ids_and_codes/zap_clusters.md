@@ -154,6 +154,8 @@ Generally regenerate using one of:
 |  367524866 | 0x15E7FC02 | FreshRefrigeratorErrorsAlarm                            |
 |  367524867 | 0x15E7FC03 | FreshRefrigeratorController                             |
 |  367524868 | 0x15E7FC04 | FreshMideaController                                    |
+|  367524869 | 0x15E7FC05 | FreshWaterHeaterController                              |
+|  367524870 | 0x15E7FC06 | FreshWaterHeaterErrorsAlarm                             |
 | 4294048773 | 0xFFF1FC05 | UnitTesting                                             |
 | 4294048774 | 0xFFF1FC06 | FaultInjection                                          |
 | 4294048800 | 0xFFF1FC20 | SampleMei                                               |

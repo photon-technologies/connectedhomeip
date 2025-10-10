@@ -22,6 +22,7 @@
     <item fieldId="11" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
     <item fieldId="12" name="TimeoutMS" type="int32u" default="10000"/>
     <item fieldId="13" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
+    <item fieldId="14" name="replyTo" type="char_string" length="128"/>
   </struct>
 
 
@@ -34,7 +35,7 @@
 
     <globalAttribute code="0xFFFD" side="either" value="1"/>
 
-    <attribute side="server" code="0x0000" name="HomeId" define="HOME_ID" type="char_string" length="150" isNullable="true">
+    <attribute side="server" code="0x0000" name="HomeId" define="HOME_ID" type="char_string" length="150" isNullable="true" writable="true">
       <description>HomeId</description>
       <access op="read" privilege="administer"/>
       <access op="write" privilege="administer"/>
@@ -46,7 +47,7 @@
       <mandatoryConform/>
     </attribute>
 
-    <attribute side="server" code="0x0002" name="MqttConfig" define="MQTT_CONFIG" type="PhotonMQTTStruct" >
+    <attribute side="server" code="0x0002" name="MqttConfig" define="MQTT_CONFIG" type="PhotonMQTTStruct" writable="true">
       <access op="read" privilege="administer"/>
       <access op="write" privilege="administer"/>
       <mandatoryConform/>

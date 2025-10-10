@@ -11330,11 +11330,12 @@ cluster PhotonSmart = 367524864 {
     int32u reconnectTimeoutMS = 11;
     int32u timeoutMS = 12;
     int32u refreshConnectionAfterMS = 13;
+    char_string<128> replyTo = 14;
   }
 
-  readonly attribute access(read: administer, write: administer) nullable char_string<150> homeId = 0;
+  attribute access(read: administer, write: administer) nullable char_string<150> homeId = 0;
   readonly attribute boolean shouldReboot = 1;
-  readonly attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
+  attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -11537,8 +11538,7 @@ cluster FreshMideaController = 367524868 {
   readonly attribute int8u onTimerHours = 12;
   readonly attribute int8u onTimerMinutes = 13;
   readonly attribute optional boolean plasmaMode = 14;
-  readonly attribute nullable temperature outdoorTemperature = 15;
-  readonly attribute int8u errorCode = 16;
+  readonly attribute int16u errorCode = 16;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -11549,6 +11549,97 @@ cluster FreshMideaController = 367524868 {
   command Clean(): DefaultSuccess = 0;
   /** This command cancel the clean process. */
   command CancelClean(): DefaultSuccess = 1;
+}
+
+/** Attributes for configuring the Fresh Water Heater Controller. */
+cluster FreshWaterHeaterController = 367524869 {
+  revision 1;
+
+  enum AntiLegionellaStateEnum : enum8 {
+    kInactive = 0;
+    kActive = 1;
+  }
+
+  enum ShowerStateEnum : enum8 {
+    kInactive = 0;
+    kActive = 1;
+  }
+
+  struct WaterHeaterBoostInfoStruct {
+    elapsed_s duration = 0;
+    optional boolean oneShot = 1;
+    optional boolean emergencyBoost = 2;
+    optional temperature temporarySetpoint = 3;
+    optional percent targetPercentage = 4;
+    optional percent targetReheat = 5;
+  }
+
+  readonly attribute temperature coldWaterTemperature = 0;
+  readonly attribute percent showerPercent = 1;
+  readonly attribute ShowerStateEnum showerState = 2;
+  readonly attribute int32u displayUpdateInterval = 3;
+  readonly attribute temperature standardModeSetpoint = 4;
+  readonly attribute temperature ecoModeSetpoint = 5;
+  readonly attribute WaterHeaterBoostInfoStruct boostModeSetpoint = 6;
+  readonly attribute temperature displayTemperatureStep = 7;
+  readonly attribute elapsed_s resetTimeout = 8;
+  readonly attribute elapsed_s coolDownTimeout = 9;
+  readonly attribute elapsed_s displayErrorTimeout = 10;
+  readonly attribute elapsed_s displayTargetTimeout = 11;
+  readonly attribute temperature temperatureSensorMinValid = 12;
+  readonly attribute temperature temperatureSensorMaxValid = 13;
+  readonly attribute temperature overheatThresholdTemperature = 14;
+  readonly attribute temperature rapidRiseDelta = 15;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  /** Allows a client to request that the water heater is put into an Anode Change Mode. */
+  command access(invoke: administer) AnodeChangeRequest(): DefaultSuccess = 0;
+}
+
+/** Attributes and commands for configuring the Fresh Water Heater Errors alarm. */
+cluster FreshWaterHeaterErrorsAlarm = 367524870 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap32 {
+    kSensorUnderRange = 0x1;
+    kSensorOverRange = 0x2;
+    kHeaterOverTemp = 0x4;
+    kNoHeatingElement = 0x8;
+    kHeatingLatchedOn = 0x10;
+    kAnodeChangeRequest = 0x20;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
 }
 
 /** The Test Cluster is meant to validate the generated code */

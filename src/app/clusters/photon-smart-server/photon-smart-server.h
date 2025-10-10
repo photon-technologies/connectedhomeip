@@ -18,6 +18,7 @@
 #pragma once
 
 #include <app-common/zap-generated/cluster-objects.h>
+#include <app/AttributeAccessInterface.h>
 #include <app/CommandHandler.h>
 #include <app/ConcreteCommandPath.h>
 #include <app/util/af-types.h>
@@ -28,22 +29,21 @@
 /**********************************************************
  * Defines and Macros
  *********************************************************/
-static constexpr char *const MQTT_HOST_NVS_KEY = "mqtt_host";
-static constexpr char *const MQTT_PORT_NVS_KEY = "mqtt_port";
-static constexpr char *const MQTT_TRANSPORT_NVS_KEY = "mqtt_transport";
-static constexpr char *const MQTT_LAST_WILL_TOPIC_NVS_KEY = "lwt_topic";
-static constexpr char *const MQTT_LAST_WILL_MSG_NVS_KEY = "lwt_msg";
-static constexpr char *const MQTT_LAST_WILL_QOS_NVS_KEY = "lwt_qos";
-static constexpr char *const MQTT_LAST_WILL_RETAIN_NVS_KEY = "lwt_retain";
-static constexpr char *const MQTT_CLEAN_SESSION_NVS_KEY = "clean_session";
-static constexpr char *const MQTT_KEEP_ALIVE_NVS_KEY = "keep_alive";
-static constexpr char *const MQTT_RECONNECT_TIMEOUT_NVS_KEY = "recon_timeout";
-static constexpr char *const MQTT_NETWORK_TIMEOUT_NVS_KEY = "net_timeout";
-static constexpr char *const MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY = "ref_con_after";
+static constexpr char * const MQTT_HOST_NVS_KEY                     = "mqtt_host";
+static constexpr char * const MQTT_PORT_NVS_KEY                     = "mqtt_port";
+static constexpr char * const MQTT_TRANSPORT_NVS_KEY                = "mqtt_transport";
+static constexpr char * const MQTT_LAST_WILL_TOPIC_NVS_KEY          = "lwt_topic";
+static constexpr char * const MQTT_LAST_WILL_MSG_NVS_KEY            = "lwt_msg";
+static constexpr char * const MQTT_LAST_WILL_QOS_NVS_KEY            = "lwt_qos";
+static constexpr char * const MQTT_LAST_WILL_RETAIN_NVS_KEY         = "lwt_retain";
+static constexpr char * const MQTT_CLEAN_SESSION_NVS_KEY            = "clean_session";
+static constexpr char * const MQTT_KEEP_ALIVE_NVS_KEY               = "keep_alive";
+static constexpr char * const MQTT_RECONNECT_TIMEOUT_NVS_KEY        = "recon_timeout";
+static constexpr char * const MQTT_NETWORK_TIMEOUT_NVS_KEY          = "net_timeout";
+static constexpr char * const MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY = "ref_con_after";
+static constexpr char * const MQTT_REPLY_TO_NVS_KEY                 = "mqtt_reply_to";
 
-
-namespace chip::DeviceLayer::PersistedStorage
-{
+namespace chip::DeviceLayer::PersistedStorage {
 class KeyValueStoreManager;
 }
 
@@ -77,24 +77,41 @@ public:
      * @param aNewMqttConfig The value to which the MqttConfig attribute is to be set.
      * @return Returns a ConstraintError if the aNewMqttConfig value is not valid. Returns Success otherwise.
      */
-    CHIP_ERROR UpdateMqttConfig(PhotonMQTTStruct::Type aNewMqttConfig);
+    CHIP_ERROR UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttConfig);
 
     /**
      * @return The current MqttConfig PhotonMQTTStruct.
      */
-    PhotonMQTTStruct::Type GetMqttConfig();
+    Structs::PhotonMQTTStruct::Type GetMqttConfig();
 
 private:
     EndpointId mEndpointId;
-    PhotonMQTTStruct::Type mMqttConfig;
+    uint8_t host[254];
+    size_t host_size   = 0;
+    uint16_t port      = static_cast<uint16_t>(8883);
+    uint8_t transport  = static_cast<uint8_t>(2);
+    uint16_t keepAlive = static_cast<uint16_t>(120);
+    uint8_t lastWellTopic[254];
+    size_t lastWellTopicLen = 0;
+    uint8_t lastWellMsg[1000];
+    size_t lastWellMsgLen             = 0;
+    uint8_t lastWellQOS               = static_cast<uint8_t>(0);
+    bool lastWellRetain               = static_cast<bool>(0);
+    bool cleanSession                 = static_cast<bool>(1);
+    uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(10000);
+    uint32_t timeoutMS                = static_cast<uint32_t>(10000);
+    uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
+    uint8_t replyTo[128];   
+    size_t replyToLen = 0;               
+
+    bool mqttConfigHasChanged(const Structs::PhotonMQTTStruct::Type & aNewMqttConfig);
 
     // AttributeAccessInterface
     CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
-    CHIP_ERROR Write(const ConcreteDataAttributePath &aPath, AttributeValueDecoder &aDecoder) override;
-
+    CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override;
 };
 
-} // namespace AirQuality
+} // namespace PhotonSmart
 } // namespace Clusters
 } // namespace app
 } // namespace chip

@@ -3356,6 +3356,32 @@
           "enabled": 1
         },
         {
+          "name": "Fresh Water Heater Controller",
+          "code": 367524869,
+          "mfgCode": null,
+          "define": "FRESH_WATER_HEATER_CONTROLLER_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "AnodeChangeRequest",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Fresh Water Heater Errors Alarm",
+          "code": 367524870,
+          "mfgCode": null,
+          "define": "FRESH_WATER_HEATER_ERRORS_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
           "name": "Unit Testing",
           "code": 4294048773,
           "mfgCode": null,

@@ -20948,6 +20948,12 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
         value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:cppValue.refreshConnectionAfterMS];
+        value.replyTo = AsString(cppValue.replyTo);
+        if (value.replyTo == nil) {
+            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+            *aError = err;
+            return nil;
+        }
         return value;
     }
     default: {
@@ -21442,23 +21448,43 @@ static id _Nullable DecodeAttributeValueForFreshMideaControllerCluster(Attribute
         value = [NSNumber numberWithBool:cppValue];
         return value;
     }
-    case Attributes::OutdoorTemperature::Id: {
-        using TypeInfo = Attributes::OutdoorTemperature::TypeInfo;
+    case Attributes::ErrorCode::Id: {
+        using TypeInfo = Attributes::ErrorCode::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
             return nil;
         }
-        NSNumber * _Nullable value;
-        if (cppValue.IsNull()) {
-            value = nil;
-        } else {
-            value = [NSNumber numberWithShort:cppValue.Value()];
-        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedShort:cppValue];
         return value;
     }
-    case Attributes::ErrorCode::Id: {
-        using TypeInfo = Attributes::ErrorCode::TypeInfo;
+    default: {
+        // Not a known FreshMideaController attribute.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
+    return nil;
+}
+static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::FreshWaterHeaterController;
+    switch (aAttributeId) {
+    case Attributes::ColdWaterTemperature::Id: {
+        using TypeInfo = Attributes::ColdWaterTemperature::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::ShowerPercent::Id: {
+        using TypeInfo = Attributes::ShowerPercent::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
@@ -21468,8 +21494,245 @@ static id _Nullable DecodeAttributeValueForFreshMideaControllerCluster(Attribute
         value = [NSNumber numberWithUnsignedChar:cppValue];
         return value;
     }
+    case Attributes::ShowerState::Id: {
+        using TypeInfo = Attributes::ShowerState::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue)];
+        return value;
+    }
+    case Attributes::DisplayUpdateInterval::Id: {
+        using TypeInfo = Attributes::DisplayUpdateInterval::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::StandardModeSetpoint::Id: {
+        using TypeInfo = Attributes::StandardModeSetpoint::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::EcoModeSetpoint::Id: {
+        using TypeInfo = Attributes::EcoModeSetpoint::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::BoostModeSetpoint::Id: {
+        using TypeInfo = Attributes::BoostModeSetpoint::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nonnull value;
+        value = [MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct new];
+        value.duration = [NSNumber numberWithUnsignedInt:cppValue.duration];
+        if (cppValue.oneShot.HasValue()) {
+            value.oneShot = [NSNumber numberWithBool:cppValue.oneShot.Value()];
+        } else {
+            value.oneShot = nil;
+        }
+        if (cppValue.emergencyBoost.HasValue()) {
+            value.emergencyBoost = [NSNumber numberWithBool:cppValue.emergencyBoost.Value()];
+        } else {
+            value.emergencyBoost = nil;
+        }
+        if (cppValue.temporarySetpoint.HasValue()) {
+            value.temporarySetpoint = [NSNumber numberWithShort:cppValue.temporarySetpoint.Value()];
+        } else {
+            value.temporarySetpoint = nil;
+        }
+        if (cppValue.targetPercentage.HasValue()) {
+            value.targetPercentage = [NSNumber numberWithUnsignedChar:cppValue.targetPercentage.Value()];
+        } else {
+            value.targetPercentage = nil;
+        }
+        if (cppValue.targetReheat.HasValue()) {
+            value.targetReheat = [NSNumber numberWithUnsignedChar:cppValue.targetReheat.Value()];
+        } else {
+            value.targetReheat = nil;
+        }
+        return value;
+    }
+    case Attributes::DisplayTemperatureStep::Id: {
+        using TypeInfo = Attributes::DisplayTemperatureStep::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::ResetTimeout::Id: {
+        using TypeInfo = Attributes::ResetTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::CoolDownTimeout::Id: {
+        using TypeInfo = Attributes::CoolDownTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::DisplayErrorTimeout::Id: {
+        using TypeInfo = Attributes::DisplayErrorTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::DisplayTargetTimeout::Id: {
+        using TypeInfo = Attributes::DisplayTargetTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::TemperatureSensorMinValid::Id: {
+        using TypeInfo = Attributes::TemperatureSensorMinValid::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::TemperatureSensorMaxValid::Id: {
+        using TypeInfo = Attributes::TemperatureSensorMaxValid::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::OverheatThresholdTemperature::Id: {
+        using TypeInfo = Attributes::OverheatThresholdTemperature::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::RapidRiseDelta::Id: {
+        using TypeInfo = Attributes::RapidRiseDelta::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
     default: {
-        // Not a known FreshMideaController attribute.
+        // Not a known FreshWaterHeaterController attribute.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
+    return nil;
+}
+static id _Nullable DecodeAttributeValueForFreshWaterHeaterErrorsAlarmCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::FreshWaterHeaterErrorsAlarm;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        using TypeInfo = Attributes::Mask::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    case Attributes::Latch::Id: {
+        using TypeInfo = Attributes::Latch::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    case Attributes::State::Id: {
+        using TypeInfo = Attributes::State::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    case Attributes::Supported::Id: {
+        using TypeInfo = Attributes::Supported::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
+        return value;
+    }
+    default: {
+        // Not a known FreshWaterHeaterErrorsAlarm attribute.
         break;
     }
     }
@@ -23492,6 +23755,12 @@ id _Nullable MTRDecodeAttributeValue(const ConcreteAttributePath & aPath, TLV::T
     }
     case Clusters::FreshMideaController::Id: {
         return DecodeAttributeValueForFreshMideaControllerCluster(aPath.mAttributeId, aReader, aError);
+    }
+    case Clusters::FreshWaterHeaterController::Id: {
+        return DecodeAttributeValueForFreshWaterHeaterControllerCluster(aPath.mAttributeId, aReader, aError);
+    }
+    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
+        return DecodeAttributeValueForFreshWaterHeaterErrorsAlarmCluster(aPath.mAttributeId, aReader, aError);
     }
     case Clusters::UnitTesting::Id: {
         return DecodeAttributeValueForUnitTestingCluster(aPath.mAttributeId, aReader, aError);

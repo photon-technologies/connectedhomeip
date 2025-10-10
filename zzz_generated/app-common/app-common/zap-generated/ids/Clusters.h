@@ -75,6 +75,8 @@
 #include <clusters/FreshMideaController/ClusterId.h>
 #include <clusters/FreshRefrigeratorController/ClusterId.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/ClusterId.h>
+#include <clusters/FreshWaterHeaterController/ClusterId.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/ClusterId.h>
 #include <clusters/GeneralCommissioning/ClusterId.h>
 #include <clusters/GeneralDiagnostics/ClusterId.h>
 #include <clusters/GroupKeyManagement/ClusterId.h>

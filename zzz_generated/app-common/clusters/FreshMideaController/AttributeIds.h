@@ -72,10 +72,6 @@ namespace PlasmaMode {
 inline constexpr AttributeId Id = 0x0000000E;
 } // namespace PlasmaMode
 
-namespace OutdoorTemperature {
-inline constexpr AttributeId Id = 0x0000000F;
-} // namespace OutdoorTemperature
-
 namespace ErrorCode {
 inline constexpr AttributeId Id = 0x00000010;
 } // namespace ErrorCode

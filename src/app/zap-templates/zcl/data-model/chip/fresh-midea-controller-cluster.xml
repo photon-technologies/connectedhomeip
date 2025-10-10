@@ -121,8 +121,8 @@
       </mandatoryConform>
     </attribute>
 
-    <attribute side="server" code="0x000F" name="OutdoorTemperature" define="OUTDOOR_TEMP_VALUE" type="temperature" min="-27315" isNullable="true"/>
-    <attribute side="server" code="0x0010" name="ErrorCode" define="ERROR_CODE" type="int8u" default="0"/>
+    <!-- <attribute side="server" code="0x000F" name="OutdoorTemperature" define="OUTDOOR_TEMP_VALUE" type="temperature" min="-27315" isNullable="true"/> -->
+    <attribute side="server" code="0x0010" name="ErrorCode" define="ERROR_CODE" type="int16u" default="0"/>
 
     <command source="client" code="0x00" name="Clean" optional="true">
       <description>This command starts the clean process.</description>
