@@ -79,13 +79,13 @@ Instance::~Instance()
 CHIP_ERROR Instance::Init()
 {
     // Check if the cluster has been selected in zap
-    VerifyOrDie(emberAfContainsServer(mEndpointId, Id) == true);
+    // VerifyOrDie(emberAfContainsServer(mEndpointId, Id) == true);
 
     // Set ShouldReboot to false on init as Init is called only after boot;
     Attributes::ShouldReboot::Set(mEndpointId, false);
 
     ChipLogProgress(DeviceLayer, "Init MQTT config");
-    VerifyOrDie(storageDelegate.Get(0x42 /* Type blob */, MQTT_HOST_NVS_KEY, &host, sizeof(host), &host_size) == CHIP_NO_ERROR);
+    VerifyOrDie(storageDelegate.Get(0x41 /* Type blob */, MQTT_HOST_NVS_KEY, &host, sizeof(host), &host_size) == CHIP_NO_ERROR);
     ChipLogProgress(DeviceLayer, "host_size: %d == strlen(host): %d, last character %d", host_size, strlen((char *) host), host[host_size]);
 
     if (storageDelegate.Get(0x02 /* U16 */, MQTT_PORT_NVS_KEY, &port, sizeof(port)) != CHIP_NO_ERROR)
@@ -103,12 +103,12 @@ CHIP_ERROR Instance::Init()
         storageDelegate.Put(0x02 /* U16 */, MQTT_KEEP_ALIVE_NVS_KEY, &keepAlive, sizeof(keepAlive));
     }
     ChipLogProgress(DeviceLayer, "lastWillTopicLen before: %d", lastWillTopicLen);
-    storageDelegate.Get(0x42 /* Type blob */, MQTT_LAST_WILL_TOPIC_NVS_KEY, &lastWillTopic, sizeof(lastWillTopic), &lastWillTopicLen);
+    storageDelegate.Get(0x41 /* Type blob */, MQTT_LAST_WILL_TOPIC_NVS_KEY, &lastWillTopic, sizeof(lastWillTopic), &lastWillTopicLen);
     ChipLogProgress(DeviceLayer, "lastWillTopic: %.*s", lastWillTopicLen, lastWillTopic);
     ChipLogProgress(DeviceLayer, "lastWillTopicLen: after %d == strlen(lastWillTopic): %d, last character %d", lastWillTopicLen, strlen((char *) lastWillTopic), lastWillTopic[lastWillTopicLen]);
 
     ChipLogProgress(DeviceLayer, "lastWillMsgLen before: %d", lastWillMsgLen);
-    storageDelegate.Get(0x42 /* Type blob */, MQTT_LAST_WILL_MSG_NVS_KEY, &lastWillMsg, sizeof(lastWillMsg), &lastWillMsgLen);
+    storageDelegate.Get(0x41 /* Type blob */, MQTT_LAST_WILL_MSG_NVS_KEY, &lastWillMsg, sizeof(lastWillMsg), &lastWillMsgLen);
     ChipLogProgress(DeviceLayer, "lastWillMsg: %.*s", lastWillMsgLen, lastWillMsg);
     ChipLogProgress(DeviceLayer, "lastWillMsgLen: after %d == strlen(lastWillMsg): %d, last character %d", lastWillMsgLen, strlen((char *) lastWillMsg), lastWillMsg[lastWillMsgLen]);
 
@@ -144,12 +144,12 @@ CHIP_ERROR Instance::Init()
         storageDelegate.Put(0x04 /*!< U32 */, MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY, &refreshConnectionAfterMS, sizeof(refreshConnectionAfterMS));
     }
 
-    storageDelegate.Get(0x42 /* Type blob */, MQTT_REPLY_TO_NVS_KEY, &replyTo, sizeof(replyTo), &replyToLen);
+    storageDelegate.Get(0x41 /* Type blob */, MQTT_REPLY_TO_NVS_KEY, &replyTo, sizeof(replyTo), &replyToLen);
 
 
-    if (storageDelegate.Get(0x42 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t)) != CHIP_NO_ERROR)
+    if (storageDelegate.Get(0x41 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t)) != CHIP_NO_ERROR)
     {
-        storageDelegate.Put(0x42 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t));
+        storageDelegate.Put(0x41 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t));
     }
 
     storageDelegate.Get(0x01 /* U8 */, MQTT_ENABLED_NVS_KEY, &mqttEnabled, sizeof(mqttEnabled));
@@ -245,7 +245,7 @@ CHIP_ERROR Instance::UpdateInsightsParams(const Structs::PhotonInsightsParamsStr
     insightsParams.variables.report_network_variables = aNewInsightsParams.reportNetworkVariables;
     insightsParams.variables.report_more_network_variables = aNewInsightsParams.reportMoreNetworkVariables;
     insightsParams.watermark_percent = aNewInsightsParams.reportWatermarkPercent;
-    if(storageDelegate.Put(0x42 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t)) != CHIP_NO_ERROR)
+    if(storageDelegate.Put(0x41 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t)) != CHIP_NO_ERROR)
     {
         return CHIP_ERROR_INCORRECT_STATE;
     }
@@ -279,7 +279,7 @@ CHIP_ERROR Instance::UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttCo
     }
 
     memcpy(host, aNewMqttConfig.host.data(), aNewMqttConfig.host.size());
-    storageDelegate.Put(0x42 /* Type blob */, MQTT_HOST_NVS_KEY, aNewMqttConfig.host.data(), aNewMqttConfig.host.size());
+    storageDelegate.Put(0x41 /* Type blob */, MQTT_HOST_NVS_KEY, aNewMqttConfig.host.data(), aNewMqttConfig.host.size());
     port = aNewMqttConfig.port;
     storageDelegate.Put(0x02 /* Type u16 */, MQTT_PORT_NVS_KEY, &port, sizeof(port));
     transport = aNewMqttConfig.transport == MqttTransport::kWss ? 4 : 2;
@@ -290,7 +290,7 @@ CHIP_ERROR Instance::UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttCo
     if(lastWillTopicLen)
     {
         memcpy(lastWillTopic, aNewMqttConfig.lastWillTopic.data(), aNewMqttConfig.lastWillTopic.size());
-        storageDelegate.Put(0x42 /* Type blob */, MQTT_LAST_WILL_TOPIC_NVS_KEY, lastWillTopic, lastWillTopicLen);
+        storageDelegate.Put(0x41 /* Type blob */, MQTT_LAST_WILL_TOPIC_NVS_KEY, lastWillTopic, lastWillTopicLen);
     } else {
         memset(lastWillTopic, 0, sizeof(lastWillTopic));
         storageDelegate.Delete(MQTT_LAST_WILL_TOPIC_NVS_KEY);
@@ -300,7 +300,7 @@ CHIP_ERROR Instance::UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttCo
     if(lastWillMsgLen)
     {
         memcpy(lastWillMsg, aNewMqttConfig.lastWillMsg.data(), aNewMqttConfig.lastWillMsg.size());
-        storageDelegate.Put(0x42 /* Type blob */, MQTT_LAST_WILL_MSG_NVS_KEY, lastWillMsg, lastWillMsgLen);
+        storageDelegate.Put(0x41 /* Type blob */, MQTT_LAST_WILL_MSG_NVS_KEY, lastWillMsg, lastWillMsgLen);
     } else {
         memset(lastWillMsg, 0, sizeof(lastWillMsg));
         storageDelegate.Delete(MQTT_LAST_WILL_MSG_NVS_KEY);
@@ -322,7 +322,7 @@ CHIP_ERROR Instance::UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttCo
     if(replyToLen)
     {
         memcpy(replyTo, aNewMqttConfig.replyTo.data(), aNewMqttConfig.replyTo.size());
-        storageDelegate.Put(0x42 /* Type blob */, MQTT_REPLY_TO_NVS_KEY, replyTo, replyToLen);
+        storageDelegate.Put(0x41 /* Type blob */, MQTT_REPLY_TO_NVS_KEY, replyTo, replyToLen);
     } else {
         memset(replyTo, 0, sizeof(replyTo));
         storageDelegate.Delete(MQTT_REPLY_TO_NVS_KEY);
