@@ -37,6 +37,7 @@ enum class AlarmBitmap : uint32_t
     kDefrostTemperatureSensorFailure = 0x8,
     kFridgeTemperatureOutRange       = 0x10,
     kFreezerTemperatureOutRange      = 0x20,
+    kCommunicationFailure            = 0x40,
 };
 
 // Bitmap for Feature

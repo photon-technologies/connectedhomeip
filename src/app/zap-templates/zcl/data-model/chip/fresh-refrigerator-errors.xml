@@ -10,6 +10,8 @@
     <field name="DefrostTemperatureSensorFailure" mask="0x00000008"/>
     <field name="FridgeTemperatureOutRange" mask="0x00000010"/>
     <field name="FreezerTemperatureOutRange" mask="0x00000020"/>
+    <field name="CommunicationFailure" mask="0x00000040"/>
+
   </bitmap>
   <cluster>
     <name>Fresh Refrigerator Errors Alarm</name>

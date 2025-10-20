@@ -47,6 +47,8 @@ namespace chip
 
                     int16_t GetDefaultFreezerTemperature() const;
 
+                    int16_t GetDefrostTemperature() const;
+
                     int16_t GetPreviousFridgeTemperature() const;
 
                     int16_t GetPreviousFreezerTemperature() const;
@@ -83,6 +85,8 @@ namespace chip
                     CHIP_ERROR SetDefaultFreezerTemperature(int16_t temp);
 
                     CHIP_ERROR SetPreviousFridgeTemperature(int16_t temp);
+
+                    CHIP_ERROR SetDefrostTemperature(int16_t temp);
 
                     CHIP_ERROR SetPreviousFreezerTemperature(int16_t temp);
 
@@ -127,6 +131,7 @@ namespace chip
                     uint32_t mDisplayErrorTime = 5; // 5 seconds
                     int16_t mFridgeErrorMargin = 1500; // 15 degrees
                     int16_t mFreezerErrorMargin = 1500; // 15 degrees
+                    int16_t mDefrostTemperature = 0; // 0 degrees
                     uint32_t mTemperatureErrorTime = 3600; // 1 hour
                     bool mCompressorState = false;
                     bool mDefrostState = false;
@@ -162,6 +167,8 @@ namespace chip
                     CHIP_ERROR SetFridgeErrorMargin(AttributeValueDecoder &aDecoder);
 
                     CHIP_ERROR SetFreezerErrorMargin(AttributeValueDecoder &aDecoder);
+
+                    CHIP_ERROR SetDefrostTemperature(AttributeValueDecoder &aDecoder);
 
                     CHIP_ERROR SetTemperatureErrorTime(AttributeValueDecoder &aDecoder);
 

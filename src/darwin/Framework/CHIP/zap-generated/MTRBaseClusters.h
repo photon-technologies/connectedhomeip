@@ -22918,6 +22918,7 @@ typedef NS_OPTIONS(uint32_t, MTRFreshRefrigeratorErrorsAlarmAlarmBitmap) {
     MTRFreshRefrigeratorErrorsAlarmAlarmBitmapDefrostTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x8,
     MTRFreshRefrigeratorErrorsAlarmAlarmBitmapFridgeTemperatureOutRange MTR_PROVISIONALLY_AVAILABLE = 0x10,
     MTRFreshRefrigeratorErrorsAlarmAlarmBitmapFreezerTemperatureOutRange MTR_PROVISIONALLY_AVAILABLE = 0x20,
+    MTRFreshRefrigeratorErrorsAlarmAlarmBitmapCommunicationFailure MTR_PROVISIONALLY_AVAILABLE = 0x40,
 } MTR_PROVISIONALLY_AVAILABLE;
 
 typedef NS_OPTIONS(uint32_t, MTRFreshRefrigeratorErrorsAlarmFeature) {
