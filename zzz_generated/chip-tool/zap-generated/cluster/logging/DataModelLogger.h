@@ -623,6 +623,9 @@ static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::CommodityMetering::Structs::MeteredQuantityStruct::DecodableType & value);
 
 static CHIP_ERROR LogValue(const char * label, size_t indent,
+                           const chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::DecodableType & value);
+
+static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::DecodableType & value);
 
 static CHIP_ERROR

@@ -4804,6 +4804,12 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "ShouldReboot";
         case chip::app::Clusters::PhotonSmart::Attributes::MqttConfig::Id:
             return "MqttConfig";
+        case chip::app::Clusters::PhotonSmart::Attributes::MqttReportEnabled::Id:
+            return "MqttReportEnabled";
+        case chip::app::Clusters::PhotonSmart::Attributes::InsightsEnabled::Id:
+            return "InsightsEnabled";
+        case chip::app::Clusters::PhotonSmart::Attributes::InsightsParams::Id:
+            return "InsightsParams";
         case chip::app::Clusters::PhotonSmart::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::PhotonSmart::Attributes::AcceptedCommandList::Id:

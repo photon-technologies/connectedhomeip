@@ -29,6 +29,110 @@ namespace Clusters {
 namespace PhotonSmart {
 namespace Structs {
 
+namespace PhotonInsightsParamsStruct {
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
+{
+    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
+    encoder.Encode(to_underlying(Fields::kCoreDumpEnabled), coreDumpEnabled);
+    encoder.Encode(to_underlying(Fields::kMinInterval), minInterval);
+    encoder.Encode(to_underlying(Fields::kMaxInterval), maxInterval);
+    encoder.Encode(to_underlying(Fields::kDropWifiLogs), dropWifiLogs);
+    encoder.Encode(to_underlying(Fields::kReportMetrics), reportMetrics);
+    encoder.Encode(to_underlying(Fields::kReportHeapMetrics), reportHeapMetrics);
+    encoder.Encode(to_underlying(Fields::kHeapPollingInterval), heapPollingInterval);
+    encoder.Encode(to_underlying(Fields::kHeapPollingCount), heapPollingCount);
+    encoder.Encode(to_underlying(Fields::kReportWifiMetrics), reportWifiMetrics);
+    encoder.Encode(to_underlying(Fields::kWifiPollingInterval), wifiPollingInterval);
+    encoder.Encode(to_underlying(Fields::kWifiPollingCount), wifiPollingCount);
+    encoder.Encode(to_underlying(Fields::kUsePolling), usePolling);
+    encoder.Encode(to_underlying(Fields::kReportVariables), reportVariables);
+    encoder.Encode(to_underlying(Fields::kReportNetworkVariables), reportNetworkVariables);
+    encoder.Encode(to_underlying(Fields::kReportMoreNetworkVariables), reportMoreNetworkVariables);
+    encoder.Encode(to_underlying(Fields::kReportWatermarkPercent), reportWatermarkPercent);
+    return encoder.Finalize();
+}
+
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
+{
+    detail::StructDecodeIterator __iterator(reader);
+    while (true)
+    {
+        uint8_t __context_tag = 0;
+        CHIP_ERROR err        = __iterator.Next(__context_tag);
+        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
+        ReturnErrorOnFailure(err);
+
+        if (__context_tag == to_underlying(Fields::kCoreDumpEnabled))
+        {
+            err = DataModel::Decode(reader, coreDumpEnabled);
+        }
+        else if (__context_tag == to_underlying(Fields::kMinInterval))
+        {
+            err = DataModel::Decode(reader, minInterval);
+        }
+        else if (__context_tag == to_underlying(Fields::kMaxInterval))
+        {
+            err = DataModel::Decode(reader, maxInterval);
+        }
+        else if (__context_tag == to_underlying(Fields::kDropWifiLogs))
+        {
+            err = DataModel::Decode(reader, dropWifiLogs);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportMetrics))
+        {
+            err = DataModel::Decode(reader, reportMetrics);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportHeapMetrics))
+        {
+            err = DataModel::Decode(reader, reportHeapMetrics);
+        }
+        else if (__context_tag == to_underlying(Fields::kHeapPollingInterval))
+        {
+            err = DataModel::Decode(reader, heapPollingInterval);
+        }
+        else if (__context_tag == to_underlying(Fields::kHeapPollingCount))
+        {
+            err = DataModel::Decode(reader, heapPollingCount);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportWifiMetrics))
+        {
+            err = DataModel::Decode(reader, reportWifiMetrics);
+        }
+        else if (__context_tag == to_underlying(Fields::kWifiPollingInterval))
+        {
+            err = DataModel::Decode(reader, wifiPollingInterval);
+        }
+        else if (__context_tag == to_underlying(Fields::kWifiPollingCount))
+        {
+            err = DataModel::Decode(reader, wifiPollingCount);
+        }
+        else if (__context_tag == to_underlying(Fields::kUsePolling))
+        {
+            err = DataModel::Decode(reader, usePolling);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportVariables))
+        {
+            err = DataModel::Decode(reader, reportVariables);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportNetworkVariables))
+        {
+            err = DataModel::Decode(reader, reportNetworkVariables);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportMoreNetworkVariables))
+        {
+            err = DataModel::Decode(reader, reportMoreNetworkVariables);
+        }
+        else if (__context_tag == to_underlying(Fields::kReportWatermarkPercent))
+        {
+            err = DataModel::Decode(reader, reportWatermarkPercent);
+        }
+
+        ReturnErrorOnFailure(err);
+    }
+}
+
+} // namespace PhotonInsightsParamsStruct
+
 namespace PhotonMQTTStruct {
 CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {
@@ -37,11 +141,11 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kPort), port);
     encoder.Encode(to_underlying(Fields::kTransport), transport);
     encoder.Encode(to_underlying(Fields::kKeepAlive), keepAlive);
-    encoder.Encode(to_underlying(Fields::kLastWellTopic), lastWellTopic);
-    encoder.Encode(to_underlying(Fields::kLastWellMsg), lastWellMsg);
-    encoder.Encode(to_underlying(Fields::kLastWellMsgLen), lastWellMsgLen);
-    encoder.Encode(to_underlying(Fields::kLastWellQOS), lastWellQOS);
-    encoder.Encode(to_underlying(Fields::kLastWellRetain), lastWellRetain);
+    encoder.Encode(to_underlying(Fields::kLastWillTopic), lastWillTopic);
+    encoder.Encode(to_underlying(Fields::kLastWillMsg), lastWillMsg);
+    encoder.Encode(to_underlying(Fields::kLastWillMsgLen), lastWillMsgLen);
+    encoder.Encode(to_underlying(Fields::kLastWillQOS), lastWillQOS);
+    encoder.Encode(to_underlying(Fields::kLastWillRetain), lastWillRetain);
     encoder.Encode(to_underlying(Fields::kCleanSession), cleanSession);
     encoder.Encode(to_underlying(Fields::kReconnectTimeoutMS), reconnectTimeoutMS);
     encoder.Encode(to_underlying(Fields::kTimeoutMS), timeoutMS);
@@ -76,25 +180,25 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         {
             err = DataModel::Decode(reader, keepAlive);
         }
-        else if (__context_tag == to_underlying(Fields::kLastWellTopic))
+        else if (__context_tag == to_underlying(Fields::kLastWillTopic))
         {
-            err = DataModel::Decode(reader, lastWellTopic);
+            err = DataModel::Decode(reader, lastWillTopic);
         }
-        else if (__context_tag == to_underlying(Fields::kLastWellMsg))
+        else if (__context_tag == to_underlying(Fields::kLastWillMsg))
         {
-            err = DataModel::Decode(reader, lastWellMsg);
+            err = DataModel::Decode(reader, lastWillMsg);
         }
-        else if (__context_tag == to_underlying(Fields::kLastWellMsgLen))
+        else if (__context_tag == to_underlying(Fields::kLastWillMsgLen))
         {
-            err = DataModel::Decode(reader, lastWellMsgLen);
+            err = DataModel::Decode(reader, lastWillMsgLen);
         }
-        else if (__context_tag == to_underlying(Fields::kLastWellQOS))
+        else if (__context_tag == to_underlying(Fields::kLastWillQOS))
         {
-            err = DataModel::Decode(reader, lastWellQOS);
+            err = DataModel::Decode(reader, lastWillQOS);
         }
-        else if (__context_tag == to_underlying(Fields::kLastWellRetain))
+        else if (__context_tag == to_underlying(Fields::kLastWillRetain))
         {
-            err = DataModel::Decode(reader, lastWellRetain);
+            err = DataModel::Decode(reader, lastWillRetain);
         }
         else if (__context_tag == to_underlying(Fields::kCleanSession))
         {

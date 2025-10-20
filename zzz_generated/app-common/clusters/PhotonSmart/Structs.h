@@ -37,6 +37,57 @@ namespace app {
 namespace Clusters {
 namespace PhotonSmart {
 namespace Structs {
+namespace PhotonInsightsParamsStruct {
+enum class Fields : uint8_t
+{
+    kCoreDumpEnabled            = 0,
+    kMinInterval                = 1,
+    kMaxInterval                = 2,
+    kDropWifiLogs               = 3,
+    kReportMetrics              = 4,
+    kReportHeapMetrics          = 5,
+    kHeapPollingInterval        = 6,
+    kHeapPollingCount           = 7,
+    kReportWifiMetrics          = 8,
+    kWifiPollingInterval        = 9,
+    kWifiPollingCount           = 10,
+    kUsePolling                 = 11,
+    kReportVariables            = 12,
+    kReportNetworkVariables     = 13,
+    kReportMoreNetworkVariables = 14,
+    kReportWatermarkPercent     = 15,
+};
+
+struct Type
+{
+public:
+    bool coreDumpEnabled                 = static_cast<bool>(0);
+    uint32_t minInterval                 = static_cast<uint32_t>(0);
+    uint32_t maxInterval                 = static_cast<uint32_t>(0);
+    bool dropWifiLogs                    = static_cast<bool>(0);
+    bool reportMetrics                   = static_cast<bool>(0);
+    bool reportHeapMetrics               = static_cast<bool>(0);
+    uint32_t heapPollingInterval         = static_cast<uint32_t>(0);
+    uint8_t heapPollingCount             = static_cast<uint8_t>(0);
+    bool reportWifiMetrics               = static_cast<bool>(0);
+    uint32_t wifiPollingInterval         = static_cast<uint32_t>(0);
+    uint8_t wifiPollingCount             = static_cast<uint8_t>(0);
+    bool usePolling                      = static_cast<bool>(0);
+    bool reportVariables                 = static_cast<bool>(0);
+    bool reportNetworkVariables          = static_cast<bool>(0);
+    bool reportMoreNetworkVariables      = static_cast<bool>(0);
+    chip::Percent reportWatermarkPercent = static_cast<chip::Percent>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+
+    static constexpr bool kIsFabricScoped = false;
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+};
+
+using DecodableType = Type;
+
+} // namespace PhotonInsightsParamsStruct
 namespace PhotonMQTTStruct {
 enum class Fields : uint8_t
 {
@@ -44,11 +95,11 @@ enum class Fields : uint8_t
     kPort                     = 2,
     kTransport                = 3,
     kKeepAlive                = 4,
-    kLastWellTopic            = 5,
-    kLastWellMsg              = 6,
-    kLastWellMsgLen           = 7,
-    kLastWellQOS              = 8,
-    kLastWellRetain           = 9,
+    kLastWillTopic            = 5,
+    kLastWillMsg              = 6,
+    kLastWillMsgLen           = 7,
+    kLastWillQOS              = 8,
+    kLastWillRetain           = 9,
     kCleanSession             = 10,
     kReconnectTimeoutMS       = 11,
     kTimeoutMS                = 12,
@@ -63,11 +114,11 @@ public:
     uint16_t port           = static_cast<uint16_t>(0);
     MqttTransport transport = static_cast<MqttTransport>(0);
     uint16_t keepAlive      = static_cast<uint16_t>(0);
-    chip::CharSpan lastWellTopic;
-    chip::ByteSpan lastWellMsg;
-    uint16_t lastWellMsgLen           = static_cast<uint16_t>(0);
-    uint8_t lastWellQOS               = static_cast<uint8_t>(0);
-    bool lastWellRetain               = static_cast<bool>(0);
+    chip::CharSpan lastWillTopic;
+    chip::ByteSpan lastWillMsg;
+    uint16_t lastWillMsgLen           = static_cast<uint16_t>(0);
+    uint8_t lastWillQOS               = static_cast<uint8_t>(0);
+    bool lastWillRetain               = static_cast<bool>(0);
     bool cleanSession                 = static_cast<bool>(0);
     uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(0);
     uint32_t timeoutMS                = static_cast<uint32_t>(0);

@@ -19329,6 +19329,28 @@ public class ClusterReadMapping {
           readPhotonSmartShouldRebootCommandParams
         );
         result.put("readShouldRebootAttribute", readPhotonSmartShouldRebootAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonSmartMqttReportEnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonSmartMqttReportEnabledAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonSmartCluster) cluster).readMqttReportEnabledAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readPhotonSmartMqttReportEnabledCommandParams
+        );
+        result.put("readMqttReportEnabledAttribute", readPhotonSmartMqttReportEnabledAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonSmartInsightsEnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonSmartInsightsEnabledAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonSmartCluster) cluster).readInsightsEnabledAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readPhotonSmartInsightsEnabledCommandParams
+        );
+        result.put("readInsightsEnabledAttribute", readPhotonSmartInsightsEnabledAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readPhotonSmartGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readPhotonSmartGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

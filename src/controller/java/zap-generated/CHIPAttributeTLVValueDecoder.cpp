@@ -51243,34 +51243,34 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
             jint jnivalue_keepAlive                  = static_cast<jint>(cppValue.keepAlive);
             chip::JniReferences::GetInstance().CreateBoxedObject<jint>(
                 value_keepAliveClassName.c_str(), value_keepAliveCtorSignature.c_str(), jnivalue_keepAlive, value_keepAlive);
-            jobject value_lastWellTopic;
-            LogErrorOnFailure(chip::JniReferences::GetInstance().CharToStringUTF(cppValue.lastWellTopic, value_lastWellTopic));
-            jobject value_lastWellMsg;
-            jbyteArray value_lastWellMsgByteArray = env->NewByteArray(static_cast<jsize>(cppValue.lastWellMsg.size()));
-            env->SetByteArrayRegion(value_lastWellMsgByteArray, 0, static_cast<jsize>(cppValue.lastWellMsg.size()),
-                                    reinterpret_cast<const jbyte *>(cppValue.lastWellMsg.data()));
-            value_lastWellMsg = value_lastWellMsgByteArray;
-            jobject value_lastWellMsgLen;
-            std::string value_lastWellMsgLenClassName     = "java/lang/Integer";
-            std::string value_lastWellMsgLenCtorSignature = "(I)V";
-            jint jnivalue_lastWellMsgLen                  = static_cast<jint>(cppValue.lastWellMsgLen);
-            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_lastWellMsgLenClassName.c_str(),
-                                                                       value_lastWellMsgLenCtorSignature.c_str(),
-                                                                       jnivalue_lastWellMsgLen, value_lastWellMsgLen);
-            jobject value_lastWellQOS;
-            std::string value_lastWellQOSClassName     = "java/lang/Integer";
-            std::string value_lastWellQOSCtorSignature = "(I)V";
-            jint jnivalue_lastWellQOS                  = static_cast<jint>(cppValue.lastWellQOS);
-            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_lastWellQOSClassName.c_str(),
-                                                                       value_lastWellQOSCtorSignature.c_str(), jnivalue_lastWellQOS,
-                                                                       value_lastWellQOS);
-            jobject value_lastWellRetain;
-            std::string value_lastWellRetainClassName     = "java/lang/Boolean";
-            std::string value_lastWellRetainCtorSignature = "(Z)V";
-            jboolean jnivalue_lastWellRetain              = static_cast<jboolean>(cppValue.lastWellRetain);
-            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_lastWellRetainClassName.c_str(),
-                                                                           value_lastWellRetainCtorSignature.c_str(),
-                                                                           jnivalue_lastWellRetain, value_lastWellRetain);
+            jobject value_lastWillTopic;
+            LogErrorOnFailure(chip::JniReferences::GetInstance().CharToStringUTF(cppValue.lastWillTopic, value_lastWillTopic));
+            jobject value_lastWillMsg;
+            jbyteArray value_lastWillMsgByteArray = env->NewByteArray(static_cast<jsize>(cppValue.lastWillMsg.size()));
+            env->SetByteArrayRegion(value_lastWillMsgByteArray, 0, static_cast<jsize>(cppValue.lastWillMsg.size()),
+                                    reinterpret_cast<const jbyte *>(cppValue.lastWillMsg.data()));
+            value_lastWillMsg = value_lastWillMsgByteArray;
+            jobject value_lastWillMsgLen;
+            std::string value_lastWillMsgLenClassName     = "java/lang/Integer";
+            std::string value_lastWillMsgLenCtorSignature = "(I)V";
+            jint jnivalue_lastWillMsgLen                  = static_cast<jint>(cppValue.lastWillMsgLen);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_lastWillMsgLenClassName.c_str(),
+                                                                       value_lastWillMsgLenCtorSignature.c_str(),
+                                                                       jnivalue_lastWillMsgLen, value_lastWillMsgLen);
+            jobject value_lastWillQOS;
+            std::string value_lastWillQOSClassName     = "java/lang/Integer";
+            std::string value_lastWillQOSCtorSignature = "(I)V";
+            jint jnivalue_lastWillQOS                  = static_cast<jint>(cppValue.lastWillQOS);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_lastWillQOSClassName.c_str(),
+                                                                       value_lastWillQOSCtorSignature.c_str(), jnivalue_lastWillQOS,
+                                                                       value_lastWillQOS);
+            jobject value_lastWillRetain;
+            std::string value_lastWillRetainClassName     = "java/lang/Boolean";
+            std::string value_lastWillRetainCtorSignature = "(Z)V";
+            jboolean jnivalue_lastWillRetain              = static_cast<jboolean>(cppValue.lastWillRetain);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_lastWillRetainClassName.c_str(),
+                                                                           value_lastWillRetainCtorSignature.c_str(),
+                                                                           jnivalue_lastWillRetain, value_lastWillRetain);
             jobject value_cleanSession;
             std::string value_cleanSessionClassName     = "java/lang/Boolean";
             std::string value_cleanSessionCtorSignature = "(Z)V";
@@ -51325,9 +51325,195 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                 }
 
                 value = env->NewObject(photonMQTTStructStructClass_0, photonMQTTStructStructCtor_0, value_host, value_port,
-                                       value_transport, value_keepAlive, value_lastWellTopic, value_lastWellMsg,
-                                       value_lastWellMsgLen, value_lastWellQOS, value_lastWellRetain, value_cleanSession,
+                                       value_transport, value_keepAlive, value_lastWillTopic, value_lastWillMsg,
+                                       value_lastWillMsgLen, value_lastWillQOS, value_lastWillRetain, value_cleanSession,
                                        value_reconnectTimeoutMS, value_timeoutMS, value_refreshConnectionAfterMS, value_replyTo);
+            }
+            return value;
+        }
+        case Attributes::MqttReportEnabled::Id: {
+            using TypeInfo = Attributes::MqttReportEnabled::TypeInfo;
+            TypeInfo::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value;
+            std::string valueClassName     = "java/lang/Boolean";
+            std::string valueCtorSignature = "(Z)V";
+            jboolean jnivalue              = static_cast<jboolean>(cppValue);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(valueClassName.c_str(), valueCtorSignature.c_str(),
+                                                                           jnivalue, value);
+            return value;
+        }
+        case Attributes::InsightsEnabled::Id: {
+            using TypeInfo = Attributes::InsightsEnabled::TypeInfo;
+            TypeInfo::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value;
+            std::string valueClassName     = "java/lang/Boolean";
+            std::string valueCtorSignature = "(Z)V";
+            jboolean jnivalue              = static_cast<jboolean>(cppValue);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(valueClassName.c_str(), valueCtorSignature.c_str(),
+                                                                           jnivalue, value);
+            return value;
+        }
+        case Attributes::InsightsParams::Id: {
+            using TypeInfo = Attributes::InsightsParams::TypeInfo;
+            TypeInfo::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value;
+            jobject value_coreDumpEnabled;
+            std::string value_coreDumpEnabledClassName     = "java/lang/Boolean";
+            std::string value_coreDumpEnabledCtorSignature = "(Z)V";
+            jboolean jnivalue_coreDumpEnabled              = static_cast<jboolean>(cppValue.coreDumpEnabled);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_coreDumpEnabledClassName.c_str(),
+                                                                           value_coreDumpEnabledCtorSignature.c_str(),
+                                                                           jnivalue_coreDumpEnabled, value_coreDumpEnabled);
+            jobject value_minInterval;
+            std::string value_minIntervalClassName     = "java/lang/Long";
+            std::string value_minIntervalCtorSignature = "(J)V";
+            jlong jnivalue_minInterval                 = static_cast<jlong>(cppValue.minInterval);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_minIntervalClassName.c_str(),
+                                                                        value_minIntervalCtorSignature.c_str(),
+                                                                        jnivalue_minInterval, value_minInterval);
+            jobject value_maxInterval;
+            std::string value_maxIntervalClassName     = "java/lang/Long";
+            std::string value_maxIntervalCtorSignature = "(J)V";
+            jlong jnivalue_maxInterval                 = static_cast<jlong>(cppValue.maxInterval);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_maxIntervalClassName.c_str(),
+                                                                        value_maxIntervalCtorSignature.c_str(),
+                                                                        jnivalue_maxInterval, value_maxInterval);
+            jobject value_dropWifiLogs;
+            std::string value_dropWifiLogsClassName     = "java/lang/Boolean";
+            std::string value_dropWifiLogsCtorSignature = "(Z)V";
+            jboolean jnivalue_dropWifiLogs              = static_cast<jboolean>(cppValue.dropWifiLogs);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_dropWifiLogsClassName.c_str(),
+                                                                           value_dropWifiLogsCtorSignature.c_str(),
+                                                                           jnivalue_dropWifiLogs, value_dropWifiLogs);
+            jobject value_reportMetrics;
+            std::string value_reportMetricsClassName     = "java/lang/Boolean";
+            std::string value_reportMetricsCtorSignature = "(Z)V";
+            jboolean jnivalue_reportMetrics              = static_cast<jboolean>(cppValue.reportMetrics);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_reportMetricsClassName.c_str(),
+                                                                           value_reportMetricsCtorSignature.c_str(),
+                                                                           jnivalue_reportMetrics, value_reportMetrics);
+            jobject value_reportHeapMetrics;
+            std::string value_reportHeapMetricsClassName     = "java/lang/Boolean";
+            std::string value_reportHeapMetricsCtorSignature = "(Z)V";
+            jboolean jnivalue_reportHeapMetrics              = static_cast<jboolean>(cppValue.reportHeapMetrics);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_reportHeapMetricsClassName.c_str(),
+                                                                           value_reportHeapMetricsCtorSignature.c_str(),
+                                                                           jnivalue_reportHeapMetrics, value_reportHeapMetrics);
+            jobject value_heapPollingInterval;
+            std::string value_heapPollingIntervalClassName     = "java/lang/Long";
+            std::string value_heapPollingIntervalCtorSignature = "(J)V";
+            jlong jnivalue_heapPollingInterval                 = static_cast<jlong>(cppValue.heapPollingInterval);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_heapPollingIntervalClassName.c_str(),
+                                                                        value_heapPollingIntervalCtorSignature.c_str(),
+                                                                        jnivalue_heapPollingInterval, value_heapPollingInterval);
+            jobject value_heapPollingCount;
+            std::string value_heapPollingCountClassName     = "java/lang/Integer";
+            std::string value_heapPollingCountCtorSignature = "(I)V";
+            jint jnivalue_heapPollingCount                  = static_cast<jint>(cppValue.heapPollingCount);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_heapPollingCountClassName.c_str(),
+                                                                       value_heapPollingCountCtorSignature.c_str(),
+                                                                       jnivalue_heapPollingCount, value_heapPollingCount);
+            jobject value_reportWifiMetrics;
+            std::string value_reportWifiMetricsClassName     = "java/lang/Boolean";
+            std::string value_reportWifiMetricsCtorSignature = "(Z)V";
+            jboolean jnivalue_reportWifiMetrics              = static_cast<jboolean>(cppValue.reportWifiMetrics);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_reportWifiMetricsClassName.c_str(),
+                                                                           value_reportWifiMetricsCtorSignature.c_str(),
+                                                                           jnivalue_reportWifiMetrics, value_reportWifiMetrics);
+            jobject value_wifiPollingInterval;
+            std::string value_wifiPollingIntervalClassName     = "java/lang/Long";
+            std::string value_wifiPollingIntervalCtorSignature = "(J)V";
+            jlong jnivalue_wifiPollingInterval                 = static_cast<jlong>(cppValue.wifiPollingInterval);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_wifiPollingIntervalClassName.c_str(),
+                                                                        value_wifiPollingIntervalCtorSignature.c_str(),
+                                                                        jnivalue_wifiPollingInterval, value_wifiPollingInterval);
+            jobject value_wifiPollingCount;
+            std::string value_wifiPollingCountClassName     = "java/lang/Integer";
+            std::string value_wifiPollingCountCtorSignature = "(I)V";
+            jint jnivalue_wifiPollingCount                  = static_cast<jint>(cppValue.wifiPollingCount);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_wifiPollingCountClassName.c_str(),
+                                                                       value_wifiPollingCountCtorSignature.c_str(),
+                                                                       jnivalue_wifiPollingCount, value_wifiPollingCount);
+            jobject value_usePolling;
+            std::string value_usePollingClassName     = "java/lang/Boolean";
+            std::string value_usePollingCtorSignature = "(Z)V";
+            jboolean jnivalue_usePolling              = static_cast<jboolean>(cppValue.usePolling);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(
+                value_usePollingClassName.c_str(), value_usePollingCtorSignature.c_str(), jnivalue_usePolling, value_usePolling);
+            jobject value_reportVariables;
+            std::string value_reportVariablesClassName     = "java/lang/Boolean";
+            std::string value_reportVariablesCtorSignature = "(Z)V";
+            jboolean jnivalue_reportVariables              = static_cast<jboolean>(cppValue.reportVariables);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_reportVariablesClassName.c_str(),
+                                                                           value_reportVariablesCtorSignature.c_str(),
+                                                                           jnivalue_reportVariables, value_reportVariables);
+            jobject value_reportNetworkVariables;
+            std::string value_reportNetworkVariablesClassName     = "java/lang/Boolean";
+            std::string value_reportNetworkVariablesCtorSignature = "(Z)V";
+            jboolean jnivalue_reportNetworkVariables              = static_cast<jboolean>(cppValue.reportNetworkVariables);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(
+                value_reportNetworkVariablesClassName.c_str(), value_reportNetworkVariablesCtorSignature.c_str(),
+                jnivalue_reportNetworkVariables, value_reportNetworkVariables);
+            jobject value_reportMoreNetworkVariables;
+            std::string value_reportMoreNetworkVariablesClassName     = "java/lang/Boolean";
+            std::string value_reportMoreNetworkVariablesCtorSignature = "(Z)V";
+            jboolean jnivalue_reportMoreNetworkVariables              = static_cast<jboolean>(cppValue.reportMoreNetworkVariables);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(
+                value_reportMoreNetworkVariablesClassName.c_str(), value_reportMoreNetworkVariablesCtorSignature.c_str(),
+                jnivalue_reportMoreNetworkVariables, value_reportMoreNetworkVariables);
+            jobject value_reportWatermarkPercent;
+            std::string value_reportWatermarkPercentClassName     = "java/lang/Integer";
+            std::string value_reportWatermarkPercentCtorSignature = "(I)V";
+            jint jnivalue_reportWatermarkPercent                  = static_cast<jint>(cppValue.reportWatermarkPercent);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(
+                value_reportWatermarkPercentClassName.c_str(), value_reportWatermarkPercentCtorSignature.c_str(),
+                jnivalue_reportWatermarkPercent, value_reportWatermarkPercent);
+
+            {
+                jclass photonInsightsParamsStructStructClass_0;
+                err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                    env, "chip/devicecontroller/ChipStructs$PhotonSmartClusterPhotonInsightsParamsStruct",
+                    photonInsightsParamsStructStructClass_0);
+                if (err != CHIP_NO_ERROR)
+                {
+                    ChipLogError(Zcl, "Could not find class ChipStructs$PhotonSmartClusterPhotonInsightsParamsStruct");
+                    return nullptr;
+                }
+
+                jmethodID photonInsightsParamsStructStructCtor_0;
+                err = chip::JniReferences::GetInstance().FindMethod(
+                    env, photonInsightsParamsStructStructClass_0, "<init>",
+                    "(Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/"
+                    "Boolean;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/"
+                    "Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Integer;)V",
+                    &photonInsightsParamsStructStructCtor_0);
+                if (err != CHIP_NO_ERROR || photonInsightsParamsStructStructCtor_0 == nullptr)
+                {
+                    ChipLogError(Zcl, "Could not find ChipStructs$PhotonSmartClusterPhotonInsightsParamsStruct constructor");
+                    return nullptr;
+                }
+
+                value = env->NewObject(
+                    photonInsightsParamsStructStructClass_0, photonInsightsParamsStructStructCtor_0, value_coreDumpEnabled,
+                    value_minInterval, value_maxInterval, value_dropWifiLogs, value_reportMetrics, value_reportHeapMetrics,
+                    value_heapPollingInterval, value_heapPollingCount, value_reportWifiMetrics, value_wifiPollingInterval,
+                    value_wifiPollingCount, value_usePolling, value_reportVariables, value_reportNetworkVariables,
+                    value_reportMoreNetworkVariables, value_reportWatermarkPercent);
             }
             return value;
         }

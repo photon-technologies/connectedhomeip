@@ -11413,6 +11413,78 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRPhotonSmartClusterPhotonInsightsParamsStruct
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _coreDumpEnabled = @(0);
+
+        _minInterval = @(0);
+
+        _maxInterval = @(0);
+
+        _dropWifiLogs = @(0);
+
+        _reportMetrics = @(0);
+
+        _reportHeapMetrics = @(0);
+
+        _heapPollingInterval = @(0);
+
+        _heapPollingCount = @(0);
+
+        _reportWifiMetrics = @(0);
+
+        _wifiPollingInterval = @(0);
+
+        _wifiPollingCount = @(0);
+
+        _usePolling = @(0);
+
+        _reportVariables = @(0);
+
+        _reportNetworkVariables = @(0);
+
+        _reportMoreNetworkVariables = @(0);
+
+        _reportWatermarkPercent = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRPhotonSmartClusterPhotonInsightsParamsStruct alloc] init];
+
+    other.coreDumpEnabled = self.coreDumpEnabled;
+    other.minInterval = self.minInterval;
+    other.maxInterval = self.maxInterval;
+    other.dropWifiLogs = self.dropWifiLogs;
+    other.reportMetrics = self.reportMetrics;
+    other.reportHeapMetrics = self.reportHeapMetrics;
+    other.heapPollingInterval = self.heapPollingInterval;
+    other.heapPollingCount = self.heapPollingCount;
+    other.reportWifiMetrics = self.reportWifiMetrics;
+    other.wifiPollingInterval = self.wifiPollingInterval;
+    other.wifiPollingCount = self.wifiPollingCount;
+    other.usePolling = self.usePolling;
+    other.reportVariables = self.reportVariables;
+    other.reportNetworkVariables = self.reportNetworkVariables;
+    other.reportMoreNetworkVariables = self.reportMoreNetworkVariables;
+    other.reportWatermarkPercent = self.reportWatermarkPercent;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: coreDumpEnabled:%@; minInterval:%@; maxInterval:%@; dropWifiLogs:%@; reportMetrics:%@; reportHeapMetrics:%@; heapPollingInterval:%@; heapPollingCount:%@; reportWifiMetrics:%@; wifiPollingInterval:%@; wifiPollingCount:%@; usePolling:%@; reportVariables:%@; reportNetworkVariables:%@; reportMoreNetworkVariables:%@; reportWatermarkPercent:%@; >", NSStringFromClass([self class]), _coreDumpEnabled, _minInterval, _maxInterval, _dropWifiLogs, _reportMetrics, _reportHeapMetrics, _heapPollingInterval, _heapPollingCount, _reportWifiMetrics, _wifiPollingInterval, _wifiPollingCount, _usePolling, _reportVariables, _reportNetworkVariables, _reportMoreNetworkVariables, _reportWatermarkPercent];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRPhotonSmartClusterPhotonMQTTStruct
 - (instancetype)init
 {
@@ -11426,15 +11498,15 @@ NS_ASSUME_NONNULL_BEGIN
 
         _keepAlive = @(0);
 
-        _lastWellTopic = @"";
+        _lastWillTopic = @"";
 
-        _lastWellMsg = [NSData data];
+        _lastWillMsg = [NSData data];
 
-        _lastWellMsgLen = @(0);
+        _lastWillMsgLen = @(0);
 
-        _lastWellQOS = @(0);
+        _lastWillQOS = @(0);
 
-        _lastWellRetain = @(0);
+        _lastWillRetain = @(0);
 
         _cleanSession = @(0);
 
@@ -11457,11 +11529,11 @@ NS_ASSUME_NONNULL_BEGIN
     other.port = self.port;
     other.transport = self.transport;
     other.keepAlive = self.keepAlive;
-    other.lastWellTopic = self.lastWellTopic;
-    other.lastWellMsg = self.lastWellMsg;
-    other.lastWellMsgLen = self.lastWellMsgLen;
-    other.lastWellQOS = self.lastWellQOS;
-    other.lastWellRetain = self.lastWellRetain;
+    other.lastWillTopic = self.lastWillTopic;
+    other.lastWillMsg = self.lastWillMsg;
+    other.lastWillMsgLen = self.lastWillMsgLen;
+    other.lastWillQOS = self.lastWillQOS;
+    other.lastWillRetain = self.lastWillRetain;
     other.cleanSession = self.cleanSession;
     other.reconnectTimeoutMS = self.reconnectTimeoutMS;
     other.timeoutMS = self.timeoutMS;
@@ -11473,7 +11545,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; lastWellTopic:%@; lastWellMsg:%@; lastWellMsgLen:%@; lastWellQOS:%@; lastWellRetain:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; replyTo:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _lastWellTopic, [_lastWellMsg base64EncodedStringWithOptions:0], _lastWellMsgLen, _lastWellQOS, _lastWellRetain, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _replyTo];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; lastWillTopic:%@; lastWillMsg:%@; lastWillMsgLen:%@; lastWillQOS:%@; lastWillRetain:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; replyTo:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _lastWillTopic, [_lastWillMsg base64EncodedStringWithOptions:0], _lastWillMsgLen, _lastWillQOS, _lastWillRetain, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _replyTo];
     return descriptionString;
 }
 

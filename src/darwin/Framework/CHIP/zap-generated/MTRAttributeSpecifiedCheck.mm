@@ -6593,6 +6593,15 @@ static BOOL AttributeIsSpecifiedInPhotonSmartCluster(AttributeId aAttributeId)
     case Attributes::MqttConfig::Id: {
         return YES;
     }
+    case Attributes::MqttReportEnabled::Id: {
+        return YES;
+    }
+    case Attributes::InsightsEnabled::Id: {
+        return YES;
+    }
+    case Attributes::InsightsParams::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

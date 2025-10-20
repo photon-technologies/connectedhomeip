@@ -8868,6 +8868,140 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::CommodityMetering::Str
 }
 
 CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
+                                        chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type & request,
+                                        Json::Value & value)
+{
+    VerifyOrReturnError(value.isObject(), CHIP_ERROR_INVALID_ARGUMENT);
+
+    // Copy to track which members we already processed.
+    Json::Value valueCopy(value);
+
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.coreDumpEnabled", "coreDumpEnabled",
+                                                                  value.isMember("coreDumpEnabled")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.minInterval", "minInterval",
+                                                                  value.isMember("minInterval")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.maxInterval", "maxInterval",
+                                                                  value.isMember("maxInterval")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.dropWifiLogs", "dropWifiLogs",
+                                                                  value.isMember("dropWifiLogs")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.reportMetrics", "reportMetrics",
+                                                                  value.isMember("reportMetrics")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.reportHeapMetrics",
+                                                                  "reportHeapMetrics", value.isMember("reportHeapMetrics")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.heapPollingInterval",
+                                                                  "heapPollingInterval", value.isMember("heapPollingInterval")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.heapPollingCount", "heapPollingCount",
+                                                                  value.isMember("heapPollingCount")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.reportWifiMetrics",
+                                                                  "reportWifiMetrics", value.isMember("reportWifiMetrics")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.wifiPollingInterval",
+                                                                  "wifiPollingInterval", value.isMember("wifiPollingInterval")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.wifiPollingCount", "wifiPollingCount",
+                                                                  value.isMember("wifiPollingCount")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.usePolling", "usePolling",
+                                                                  value.isMember("usePolling")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.reportVariables", "reportVariables",
+                                                                  value.isMember("reportVariables")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
+        "PhotonInsightsParamsStruct.reportNetworkVariables", "reportNetworkVariables", value.isMember("reportNetworkVariables")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonInsightsParamsStruct.reportMoreNetworkVariables",
+                                                                  "reportMoreNetworkVariables",
+                                                                  value.isMember("reportMoreNetworkVariables")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
+        "PhotonInsightsParamsStruct.reportWatermarkPercent", "reportWatermarkPercent", value.isMember("reportWatermarkPercent")));
+
+    char labelWithMember[kMaxLabelLength];
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "coreDumpEnabled");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.coreDumpEnabled, value["coreDumpEnabled"]));
+    valueCopy.removeMember("coreDumpEnabled");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "minInterval");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.minInterval, value["minInterval"]));
+    valueCopy.removeMember("minInterval");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "maxInterval");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.maxInterval, value["maxInterval"]));
+    valueCopy.removeMember("maxInterval");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "dropWifiLogs");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.dropWifiLogs, value["dropWifiLogs"]));
+    valueCopy.removeMember("dropWifiLogs");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportMetrics");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.reportMetrics, value["reportMetrics"]));
+    valueCopy.removeMember("reportMetrics");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportHeapMetrics");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.reportHeapMetrics, value["reportHeapMetrics"]));
+    valueCopy.removeMember("reportHeapMetrics");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "heapPollingInterval");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.heapPollingInterval, value["heapPollingInterval"]));
+    valueCopy.removeMember("heapPollingInterval");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "heapPollingCount");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.heapPollingCount, value["heapPollingCount"]));
+    valueCopy.removeMember("heapPollingCount");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportWifiMetrics");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.reportWifiMetrics, value["reportWifiMetrics"]));
+    valueCopy.removeMember("reportWifiMetrics");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "wifiPollingInterval");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.wifiPollingInterval, value["wifiPollingInterval"]));
+    valueCopy.removeMember("wifiPollingInterval");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "wifiPollingCount");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.wifiPollingCount, value["wifiPollingCount"]));
+    valueCopy.removeMember("wifiPollingCount");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "usePolling");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.usePolling, value["usePolling"]));
+    valueCopy.removeMember("usePolling");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportVariables");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.reportVariables, value["reportVariables"]));
+    valueCopy.removeMember("reportVariables");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportNetworkVariables");
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::Setup(labelWithMember, request.reportNetworkVariables, value["reportNetworkVariables"]));
+    valueCopy.removeMember("reportNetworkVariables");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportMoreNetworkVariables");
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::Setup(labelWithMember, request.reportMoreNetworkVariables, value["reportMoreNetworkVariables"]));
+    valueCopy.removeMember("reportMoreNetworkVariables");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reportWatermarkPercent");
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::Setup(labelWithMember, request.reportWatermarkPercent, value["reportWatermarkPercent"]));
+    valueCopy.removeMember("reportWatermarkPercent");
+
+    return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
+}
+
+void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type & request)
+{
+    ComplexArgumentParser::Finalize(request.coreDumpEnabled);
+    ComplexArgumentParser::Finalize(request.minInterval);
+    ComplexArgumentParser::Finalize(request.maxInterval);
+    ComplexArgumentParser::Finalize(request.dropWifiLogs);
+    ComplexArgumentParser::Finalize(request.reportMetrics);
+    ComplexArgumentParser::Finalize(request.reportHeapMetrics);
+    ComplexArgumentParser::Finalize(request.heapPollingInterval);
+    ComplexArgumentParser::Finalize(request.heapPollingCount);
+    ComplexArgumentParser::Finalize(request.reportWifiMetrics);
+    ComplexArgumentParser::Finalize(request.wifiPollingInterval);
+    ComplexArgumentParser::Finalize(request.wifiPollingCount);
+    ComplexArgumentParser::Finalize(request.usePolling);
+    ComplexArgumentParser::Finalize(request.reportVariables);
+    ComplexArgumentParser::Finalize(request.reportNetworkVariables);
+    ComplexArgumentParser::Finalize(request.reportMoreNetworkVariables);
+    ComplexArgumentParser::Finalize(request.reportWatermarkPercent);
+}
+
+CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
                                         chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type & request,
                                         Json::Value & value)
 {
@@ -8882,16 +9016,16 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.transport", "transport", value.isMember("transport")));
     ReturnErrorOnFailure(
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.keepAlive", "keepAlive", value.isMember("keepAlive")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellTopic", "lastWellTopic",
-                                                                  value.isMember("lastWellTopic")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillTopic", "lastWillTopic",
+                                                                  value.isMember("lastWillTopic")));
     ReturnErrorOnFailure(
-        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellMsg", "lastWellMsg", value.isMember("lastWellMsg")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellMsgLen", "lastWellMsgLen",
-                                                                  value.isMember("lastWellMsgLen")));
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillMsg", "lastWillMsg", value.isMember("lastWillMsg")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillMsgLen", "lastWillMsgLen",
+                                                                  value.isMember("lastWillMsgLen")));
     ReturnErrorOnFailure(
-        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellQOS", "lastWellQOS", value.isMember("lastWellQOS")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWellRetain", "lastWellRetain",
-                                                                  value.isMember("lastWellRetain")));
+        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillQOS", "lastWillQOS", value.isMember("lastWillQOS")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillRetain", "lastWillRetain",
+                                                                  value.isMember("lastWillRetain")));
     ReturnErrorOnFailure(
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.cleanSession", "cleanSession", value.isMember("cleanSession")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.reconnectTimeoutMS", "reconnectTimeoutMS",
@@ -8920,25 +9054,25 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.keepAlive, value["keepAlive"]));
     valueCopy.removeMember("keepAlive");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellTopic");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellTopic, value["lastWellTopic"]));
-    valueCopy.removeMember("lastWellTopic");
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillTopic");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillTopic, value["lastWillTopic"]));
+    valueCopy.removeMember("lastWillTopic");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellMsg");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellMsg, value["lastWellMsg"]));
-    valueCopy.removeMember("lastWellMsg");
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillMsg");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillMsg, value["lastWillMsg"]));
+    valueCopy.removeMember("lastWillMsg");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellMsgLen");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellMsgLen, value["lastWellMsgLen"]));
-    valueCopy.removeMember("lastWellMsgLen");
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillMsgLen");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillMsgLen, value["lastWillMsgLen"]));
+    valueCopy.removeMember("lastWillMsgLen");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellQOS");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellQOS, value["lastWellQOS"]));
-    valueCopy.removeMember("lastWellQOS");
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillQOS");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillQOS, value["lastWillQOS"]));
+    valueCopy.removeMember("lastWillQOS");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWellRetain");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWellRetain, value["lastWellRetain"]));
-    valueCopy.removeMember("lastWellRetain");
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillRetain");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillRetain, value["lastWillRetain"]));
+    valueCopy.removeMember("lastWillRetain");
 
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "cleanSession");
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.cleanSession, value["cleanSession"]));
@@ -8970,11 +9104,11 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::
     ComplexArgumentParser::Finalize(request.port);
     ComplexArgumentParser::Finalize(request.transport);
     ComplexArgumentParser::Finalize(request.keepAlive);
-    ComplexArgumentParser::Finalize(request.lastWellTopic);
-    ComplexArgumentParser::Finalize(request.lastWellMsg);
-    ComplexArgumentParser::Finalize(request.lastWellMsgLen);
-    ComplexArgumentParser::Finalize(request.lastWellQOS);
-    ComplexArgumentParser::Finalize(request.lastWellRetain);
+    ComplexArgumentParser::Finalize(request.lastWillTopic);
+    ComplexArgumentParser::Finalize(request.lastWillMsg);
+    ComplexArgumentParser::Finalize(request.lastWillMsgLen);
+    ComplexArgumentParser::Finalize(request.lastWillQOS);
+    ComplexArgumentParser::Finalize(request.lastWillRetain);
     ComplexArgumentParser::Finalize(request.cleanSession);
     ComplexArgumentParser::Finalize(request.reconnectTimeoutMS);
     ComplexArgumentParser::Finalize(request.timeoutMS);

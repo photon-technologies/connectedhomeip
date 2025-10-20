@@ -9054,6 +9054,18 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"MqttConfig";
             break;
 
+        case MTRAttributeIDTypeClusterPhotonSmartAttributeMqttReportEnabledID:
+            result = @"MqttReportEnabled";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonSmartAttributeInsightsEnabledID:
+            result = @"InsightsEnabled";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonSmartAttributeInsightsParamsID:
+            result = @"InsightsParams";
+            break;
+
         case MTRAttributeIDTypeClusterPhotonSmartAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

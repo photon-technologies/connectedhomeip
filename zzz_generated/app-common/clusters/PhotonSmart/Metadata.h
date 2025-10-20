@@ -31,6 +31,18 @@ namespace MqttConfig {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(MqttConfig::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kAdminister, Access::Privilege::kAdminister);
 } // namespace MqttConfig
+namespace MqttReportEnabled {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(MqttReportEnabled::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
+} // namespace MqttReportEnabled
+namespace InsightsEnabled {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(InsightsEnabled::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
+} // namespace InsightsEnabled
+namespace InsightsParams {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(InsightsParams::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
+} // namespace InsightsParams
 
 } // namespace Attributes
 

@@ -13,16 +13,36 @@
     <item fieldId="2" name="Port" type="int16u"/>
     <item fieldId="3" name="Transport" type="MqttTransport" default="0"/>
     <item fieldId="4" name="KeepAlive" type="int16u"/>
-    <item fieldId="5" name="LastWellTopic" type="char_string" length="254"/>
-    <item fieldId="6" name="LastWellMsg" type="octet_string" length="1000"/>
-    <item fieldId="7" name="LastWellMsgLen" type="int16u" min="1" max="1000"/>
-    <item fieldId="8" name="LastWellQOS" type="int8u" min="0" max="2" default="1"/>
-    <item fieldId="9" name="LastWellRetain" type="boolean" default="0"/>
+    <item fieldId="5" name="LastWillTopic" type="char_string" length="254"/>
+    <item fieldId="6" name="LastWillMsg" type="octet_string" length="1000"/>
+    <item fieldId="7" name="LastWillMsgLen" type="int16u" min="1" max="1000"/>
+    <item fieldId="8" name="LastWillQOS" type="int8u" min="0" max="2" default="1"/>
+    <item fieldId="9" name="LastWillRetain" type="boolean" default="0"/>
     <item fieldId="10" name="CleanSession" type="boolean" default="1"/>
     <item fieldId="11" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
     <item fieldId="12" name="TimeoutMS" type="int32u" default="10000"/>
     <item fieldId="13" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
     <item fieldId="14" name="replyTo" type="char_string" length="128"/>
+  </struct>
+  <struct name="PhotonInsightsParamsStruct">
+  <cluster code="0x15E7FC00"/>
+    <item fieldId="0" name="coreDumpEnabled" type="boolean" default="1"/>
+    <item fieldId="1" name="minInterval" type="elapsed_s" default="60" min="60"/>
+    <item fieldId="2" name="maxInterval" type="elapsed_s" default="240" min="240"/>
+    <item fieldId="3" name="dropWifiLogs" type="boolean" default="1"/>
+    <item fieldId="4" name="reportMetrics" type="boolean" default="1"/>
+    <item fieldId="5" name="reportHeapMetrics" type="boolean" default="1"/>
+    <item fieldId="6" name="HeapPollingInterval" type="elapsed_s" default="28800" min="30" max="86400"/>
+    <item fieldId="7" name="HeapPollingCount" type="int8u" default="5" min="1" max="100"/>
+    <item fieldId="8" name="reportWifiMetrics" type="boolean" default="1"/>
+    <item fieldId="9" name="WifiPollingInterval" type="elapsed_s" default="28800" min="30" max="86400"/>
+    <item fieldId="10" name="WifiPollingCount" type="int8u" default="5" min="1" max="100"/>
+    <item fieldId="11" name="usePolling" type="boolean" default="1"/>
+    <item fieldId="12" name="reportVariables" type="boolean" default="1"/>
+    <item fieldId="13" name="reportNetworkVariables" type="boolean" default="1"/>
+    <item fieldId="14" name="reportMoreNetworkVariables" type="boolean" default="0"/>
+    <item fieldId="15" name="reportWatermarkPercent" type="percent" default="80" min="50" max="90"/>
+
   </struct>
 
 
@@ -54,6 +74,27 @@
       <description>MqttConfig</description>
     </attribute>
 
+    <attribute side="server" code="0x0003" name="MqttReportEnabled" define="MQTT_REPORT_ENABLED" type="boolean" writable="true" default="1">
+      <access op="read" privilege="administer"/>
+      <access op="write" privilege="administer"/>
+      <mandatoryConform/>
+      <description>MqttReportEnabled</description>
+    </attribute>
+
+    <attribute side="server" code="0x0004" name="InsightsEnabled" define="INSIGHTS_ENABLED" type="boolean" writable="true" default="1">
+      <access op="read" privilege="administer"/>
+      <access op="write" privilege="administer"/>
+      <mandatoryConform/>
+      <description>InsightsEnabled</description>
+    </attribute>
+
+    <attribute side="server" code="0x0005" name="InsightsParams" define="INSIGHTS_PARAMS" type="PhotonInsightsParamsStruct" writable="true">
+      <access op="read" privilege="administer"/>
+      <access op="write" privilege="administer"/>
+      <mandatoryConform/>
+      <description>InsightsParams</description>
+    </attribute>
+
 
     <command source="client" code="0x00" name="Reboot" optional="true">
       <description>This command is used to reboot the device.</description>
@@ -68,7 +109,6 @@
       <access op="invoke" privilege="administer"/>
       <mandatoryConform/>
     </command>
-
 
   </cluster>
 </configurator>

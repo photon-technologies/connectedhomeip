@@ -28,6 +28,7 @@
 
 #include "nvs.h"
 #include "nvs_flash.h"
+#include <nvs_handle.hpp>
 #include <crypto/CHIPCryptoPAL.h>
 #include <lib/core/CHIPSafeCasts.h>
 #include <lib/support/BytesToHex.h>
@@ -89,6 +90,68 @@ CHIP_ERROR FctryStoreManager::Get(const char * key, void * value, size_t value_s
     return CHIP_NO_ERROR;
 }
 
+CHIP_ERROR FctryStoreManager::GetTyped(uint8_t type, const char * key, void * value, size_t value_size, size_t * read_bytes_size,
+                                          size_t offset_bytes)
+{
+    // value may be NULL when checking whether the key exists
+
+    // Offset and partial reads are not supported in nvs, for now just return NOT_IMPLEMENTED. Support can be added in the
+    // future if this is needed.
+    VerifyOrReturnError(offset_bytes == 0, CHIP_ERROR_NOT_IMPLEMENTED);
+
+    chip::DeviceLayer::Internal::ScopedNvsHandle handle;
+    ReturnErrorOnFailure(handle.Open(kNamespace, NVS_READONLY, CHIP_DEVICE_CONFIG_CHIP_FACTORY_NAMESPACE_PARTITION));
+
+    char keyHash[NVS_KEY_NAME_MAX_SIZE];
+    VerifyOrDo(HashIfLongKey(key, keyHash) == false, key = keyHash);
+
+    size_t value_size_local = value_size;
+    esp_err_t err;
+    switch (static_cast<nvs::ItemType>(type))
+    {
+    case nvs::ItemType::U8:
+        err = nvs_get_u8(handle, key, reinterpret_cast<uint8_t *>(value));
+        break;
+    case nvs::ItemType::U16:
+        err = nvs_get_u16(handle, key, reinterpret_cast<uint16_t *>(value));
+        break;
+    case nvs::ItemType::U32:
+        err = nvs_get_u32(handle, key, reinterpret_cast<uint32_t *>(value));
+        break;
+    case nvs::ItemType::U64:
+        err = nvs_get_u64(handle, key, reinterpret_cast<uint64_t *>(value));
+        break;
+    case nvs::ItemType::I8:
+        err = nvs_get_i8(handle, key, reinterpret_cast<int8_t *>(value));
+        break;
+    case nvs::ItemType::I16:
+        err = nvs_get_i16(handle, key, reinterpret_cast<int16_t *>(value));
+        break;
+    case nvs::ItemType::I32:
+        err = nvs_get_i32(handle, key, reinterpret_cast<int32_t *>(value));
+        break;
+    case nvs::ItemType::I64:
+        err = nvs_get_i64(handle, key, reinterpret_cast<int64_t *>(value));
+        break;
+    case nvs::ItemType::SZ:
+        err = nvs_get_str(handle, key, reinterpret_cast<char *>(value), &value_size_local);
+        break;
+    case nvs::ItemType::BLOB:
+        err = nvs_get_blob(handle, key, value, &value_size_local);
+        break;
+    default:
+        return CHIP_ERROR_INVALID_ARGUMENT;
+    }
+    ReturnMappedErrorOnFailure(err);
+
+    if (read_bytes_size)
+    {
+        *read_bytes_size = value_size_local;
+    }
+
+    return CHIP_NO_ERROR;
+}
+
 CHIP_ERROR FctryStoreManager::Put(const char * key, const void * value, size_t value_size)
 {
     VerifyOrReturnError(value, CHIP_ERROR_INVALID_ARGUMENT);
@@ -100,6 +163,60 @@ CHIP_ERROR FctryStoreManager::Put(const char * key, const void * value, size_t v
     VerifyOrDo(HashIfLongKey(key, keyHash) == false, key = keyHash);
 
     ReturnMappedErrorOnFailure(nvs_set_blob(handle, key, value, value_size));
+
+    // Commit the value to the persistent store.
+    ReturnMappedErrorOnFailure(nvs_commit(handle));
+
+    return CHIP_NO_ERROR;
+}
+
+CHIP_ERROR FctryStoreManager::PutTyped(uint8_t type, const char * key, const void * value, size_t value_size)
+{
+    VerifyOrReturnError(value, CHIP_ERROR_INVALID_ARGUMENT);
+
+    chip::DeviceLayer::Internal::ScopedNvsHandle handle;
+    ReturnErrorOnFailure(handle.Open(kNamespace, NVS_READWRITE, CHIP_DEVICE_CONFIG_CHIP_FACTORY_NAMESPACE_PARTITION));
+
+    char keyHash[NVS_KEY_NAME_MAX_SIZE];
+    VerifyOrDo(HashIfLongKey(key, keyHash) == false, key = keyHash);
+
+    esp_err_t err;
+    switch (static_cast<nvs::ItemType>(type))
+    {
+    case nvs::ItemType::U8:
+        err = nvs_set_u8(handle, key, *reinterpret_cast<const uint8_t *>(value));
+        break;
+    case nvs::ItemType::U16:
+        err = nvs_set_u16(handle, key, *reinterpret_cast<const uint16_t *>(value));
+        break;
+    case nvs::ItemType::U32:
+        err = nvs_set_u32(handle, key, *reinterpret_cast<const uint32_t *>(value));
+        break;
+    case nvs::ItemType::U64:
+        err = nvs_set_u64(handle, key, *reinterpret_cast<const uint64_t *>(value));
+        break;
+    case nvs::ItemType::I8:
+        err = nvs_set_i8(handle, key, *reinterpret_cast<const int8_t *>(value));
+        break;
+    case nvs::ItemType::I16:
+        err = nvs_set_i16(handle, key, *reinterpret_cast<const int16_t *>(value));
+        break;
+    case nvs::ItemType::I32:
+        err = nvs_set_i32(handle, key, *reinterpret_cast<const int32_t *>(value));
+        break;
+    case nvs::ItemType::I64:
+        err = nvs_set_i64(handle, key, *reinterpret_cast<const int64_t *>(value));
+        break;
+    case nvs::ItemType::SZ:
+        err = nvs_set_str(handle, key, reinterpret_cast<const char *>(value));
+        break;
+    case nvs::ItemType::BLOB:
+        err = nvs_set_blob(handle, key, value, value_size);
+        break;
+    default:
+        return CHIP_ERROR_INVALID_ARGUMENT;
+    }
+    ReturnMappedErrorOnFailure(err);
 
     // Commit the value to the persistent store.
     ReturnMappedErrorOnFailure(nvs_commit(handle));

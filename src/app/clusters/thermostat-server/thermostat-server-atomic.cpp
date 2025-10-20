@@ -83,6 +83,7 @@ void ClearTimer(EndpointId endpoint)
 ScopedNodeId GetSourceScopedNodeId(CommandHandler * commandObj)
 {
     ScopedNodeId sourceNodeId = ScopedNodeId();
+    if(commandObj->GetExchangeContext()){
     auto sessionHandle        = commandObj->GetExchangeContext()->GetSessionHandle();
 
     if (sessionHandle->IsSecureSession())
@@ -92,7 +93,7 @@ ScopedNodeId GetSourceScopedNodeId(CommandHandler * commandObj)
     else if (sessionHandle->IsGroupSession())
     {
         sourceNodeId = sessionHandle->AsIncomingGroupSession()->GetPeer();
-    }
+    }}
     return sourceNodeId;
 }
 

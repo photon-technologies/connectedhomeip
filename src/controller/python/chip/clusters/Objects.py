@@ -52888,6 +52888,9 @@ class PhotonSmart(Cluster):
                 ClusterObjectFieldDescriptor(Label="homeId", Tag=0x00000000, Type=typing.Union[Nullable, str]),
                 ClusterObjectFieldDescriptor(Label="shouldReboot", Tag=0x00000001, Type=bool),
                 ClusterObjectFieldDescriptor(Label="mqttConfig", Tag=0x00000002, Type=PhotonSmart.Structs.PhotonMQTTStruct),
+                ClusterObjectFieldDescriptor(Label="mqttReportEnabled", Tag=0x00000003, Type=bool),
+                ClusterObjectFieldDescriptor(Label="insightsEnabled", Tag=0x00000004, Type=bool),
+                ClusterObjectFieldDescriptor(Label="insightsParams", Tag=0x00000005, Type=PhotonSmart.Structs.PhotonInsightsParamsStruct),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -52898,6 +52901,9 @@ class PhotonSmart(Cluster):
     homeId: typing.Union[Nullable, str] = NullValue
     shouldReboot: bool = False
     mqttConfig: PhotonSmart.Structs.PhotonMQTTStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonMQTTStruct())
+    mqttReportEnabled: bool = False
+    insightsEnabled: bool = False
+    insightsParams: PhotonSmart.Structs.PhotonInsightsParamsStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonInsightsParamsStruct())
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -52916,6 +52922,47 @@ class PhotonSmart(Cluster):
 
     class Structs:
         @dataclass
+        class PhotonInsightsParamsStruct(ClusterObject):
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="coreDumpEnabled", Tag=0, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="minInterval", Tag=1, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="maxInterval", Tag=2, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="dropWifiLogs", Tag=3, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reportMetrics", Tag=4, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reportHeapMetrics", Tag=5, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="heapPollingInterval", Tag=6, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="heapPollingCount", Tag=7, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="reportWifiMetrics", Tag=8, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="wifiPollingInterval", Tag=9, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="wifiPollingCount", Tag=10, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="usePolling", Tag=11, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reportVariables", Tag=12, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reportNetworkVariables", Tag=13, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reportMoreNetworkVariables", Tag=14, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reportWatermarkPercent", Tag=15, Type=uint),
+                    ])
+
+            coreDumpEnabled: 'bool' = False
+            minInterval: 'uint' = 0
+            maxInterval: 'uint' = 0
+            dropWifiLogs: 'bool' = False
+            reportMetrics: 'bool' = False
+            reportHeapMetrics: 'bool' = False
+            heapPollingInterval: 'uint' = 0
+            heapPollingCount: 'uint' = 0
+            reportWifiMetrics: 'bool' = False
+            wifiPollingInterval: 'uint' = 0
+            wifiPollingCount: 'uint' = 0
+            usePolling: 'bool' = False
+            reportVariables: 'bool' = False
+            reportNetworkVariables: 'bool' = False
+            reportMoreNetworkVariables: 'bool' = False
+            reportWatermarkPercent: 'uint' = 0
+
+        @dataclass
         class PhotonMQTTStruct(ClusterObject):
             @ChipUtility.classproperty
             def descriptor(cls) -> ClusterObjectDescriptor:
@@ -52925,11 +52972,11 @@ class PhotonSmart(Cluster):
                         ClusterObjectFieldDescriptor(Label="port", Tag=2, Type=uint),
                         ClusterObjectFieldDescriptor(Label="transport", Tag=3, Type=PhotonSmart.Enums.MqttTransport),
                         ClusterObjectFieldDescriptor(Label="keepAlive", Tag=4, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="lastWellTopic", Tag=5, Type=str),
-                        ClusterObjectFieldDescriptor(Label="lastWellMsg", Tag=6, Type=bytes),
-                        ClusterObjectFieldDescriptor(Label="lastWellMsgLen", Tag=7, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="lastWellQOS", Tag=8, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="lastWellRetain", Tag=9, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="lastWillTopic", Tag=5, Type=str),
+                        ClusterObjectFieldDescriptor(Label="lastWillMsg", Tag=6, Type=bytes),
+                        ClusterObjectFieldDescriptor(Label="lastWillMsgLen", Tag=7, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="lastWillQOS", Tag=8, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="lastWillRetain", Tag=9, Type=bool),
                         ClusterObjectFieldDescriptor(Label="cleanSession", Tag=10, Type=bool),
                         ClusterObjectFieldDescriptor(Label="reconnectTimeoutMS", Tag=11, Type=uint),
                         ClusterObjectFieldDescriptor(Label="timeoutMS", Tag=12, Type=uint),
@@ -52941,11 +52988,11 @@ class PhotonSmart(Cluster):
             port: 'uint' = 0
             transport: 'PhotonSmart.Enums.MqttTransport' = 0
             keepAlive: 'uint' = 0
-            lastWellTopic: 'str' = ""
-            lastWellMsg: 'bytes' = b""
-            lastWellMsgLen: 'uint' = 0
-            lastWellQOS: 'uint' = 0
-            lastWellRetain: 'bool' = False
+            lastWillTopic: 'str' = ""
+            lastWillMsg: 'bytes' = b""
+            lastWillMsgLen: 'uint' = 0
+            lastWillQOS: 'uint' = 0
+            lastWillRetain: 'bool' = False
             cleanSession: 'bool' = False
             reconnectTimeoutMS: 'uint' = 0
             timeoutMS: 'uint' = 0
@@ -53033,6 +53080,54 @@ class PhotonSmart(Cluster):
                 return ClusterObjectFieldDescriptor(Type=PhotonSmart.Structs.PhotonMQTTStruct)
 
             value: PhotonSmart.Structs.PhotonMQTTStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonMQTTStruct())
+
+        @dataclass
+        class MqttReportEnabled(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC00
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000003
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=bool)
+
+            value: bool = False
+
+        @dataclass
+        class InsightsEnabled(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC00
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000004
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=bool)
+
+            value: bool = False
+
+        @dataclass
+        class InsightsParams(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC00
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000005
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=PhotonSmart.Structs.PhotonInsightsParamsStruct)
+
+            value: PhotonSmart.Structs.PhotonInsightsParamsStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonInsightsParamsStruct())
 
         @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):

@@ -25,6 +25,7 @@
 #include <app/util/basic-types.h>
 #include <platform/CHIPDeviceConfig.h>
 #include <protocols/interaction_model/StatusCode.h>
+#include "photon-smart-delegate.h"
 
 /**********************************************************
  * Defines and Macros
@@ -42,6 +43,9 @@ static constexpr char * const MQTT_RECONNECT_TIMEOUT_NVS_KEY        = "recon_tim
 static constexpr char * const MQTT_NETWORK_TIMEOUT_NVS_KEY          = "net_timeout";
 static constexpr char * const MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY = "ref_con_after";
 static constexpr char * const MQTT_REPLY_TO_NVS_KEY                 = "mqtt_reply_to";
+static constexpr char * const MQTT_ENABLED_NVS_KEY                  = "mqtt_en";
+static constexpr char * const INSIGHTS_ENABLED_NVS_KEY              = "insights_en";
+static constexpr char * const INSIGHTS_PARAMS_NVS_KEY               = "insights_params";
 
 namespace chip::DeviceLayer::PersistedStorage {
 class KeyValueStoreManager;
@@ -51,6 +55,7 @@ namespace chip {
 namespace app {
 namespace Clusters {
 namespace PhotonSmart {
+
 
 class Instance : public AttributeAccessInterface
 {
@@ -80,6 +85,18 @@ public:
     CHIP_ERROR UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttConfig);
 
     /**
+     * @return The current InsightsParams PhotonInsightsParamsStruct.
+     */
+    Structs::PhotonInsightsParamsStruct::Type GetInsightsParams();
+
+    /**
+     * Sets the InsightsParams attribute.
+     * @param aNewInsightsParams The value to which the InsightsParams attribute is to be set.
+     * @return Returns a ConstraintError if the aNewInsightsParams value is not valid. Returns Success otherwise.
+     */
+    CHIP_ERROR UpdateInsightsParams(Structs::PhotonInsightsParamsStruct::Type aNewInsightsParams);
+
+    /**
      * @return The current MqttConfig PhotonMQTTStruct.
      */
     Structs::PhotonMQTTStruct::Type GetMqttConfig();
@@ -91,18 +108,22 @@ private:
     uint16_t port      = static_cast<uint16_t>(8883);
     uint8_t transport  = static_cast<uint8_t>(2);
     uint16_t keepAlive = static_cast<uint16_t>(120);
-    uint8_t lastWellTopic[254];
-    size_t lastWellTopicLen = 0;
-    uint8_t lastWellMsg[1000];
-    size_t lastWellMsgLen             = 0;
-    uint8_t lastWellQOS               = static_cast<uint8_t>(0);
-    bool lastWellRetain               = static_cast<bool>(0);
+    uint8_t lastWillTopic[254];
+    size_t lastWillTopicLen = 0;
+    uint8_t lastWillMsg[1000];
+    size_t lastWillMsgLen             = 0;
+    uint8_t lastWillQOS               = static_cast<uint8_t>(0);
+    bool lastWillRetain               = static_cast<bool>(0);
     bool cleanSession                 = static_cast<bool>(1);
     uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(10000);
     uint32_t timeoutMS                = static_cast<uint32_t>(10000);
     uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
     uint8_t replyTo[128];   
-    size_t replyToLen = 0;               
+    size_t replyToLen = 0;
+    
+    photon_insights_params_t insightsParams;
+    bool insightsEnabled = true;
+    bool mqttEnabled     = true;
 
     bool mqttConfigHasChanged(const Structs::PhotonMQTTStruct::Type & aNewMqttConfig);
 

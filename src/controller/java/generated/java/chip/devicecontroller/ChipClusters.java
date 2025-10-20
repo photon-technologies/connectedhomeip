@@ -65663,6 +65663,9 @@ public class ChipClusters {
     private static final long HOME_ID_ATTRIBUTE_ID = 0L;
     private static final long SHOULD_REBOOT_ATTRIBUTE_ID = 1L;
     private static final long MQTT_CONFIG_ATTRIBUTE_ID = 2L;
+    private static final long MQTT_REPORT_ENABLED_ATTRIBUTE_ID = 3L;
+    private static final long INSIGHTS_ENABLED_ATTRIBUTE_ID = 4L;
+    private static final long INSIGHTS_PARAMS_ATTRIBUTE_ID = 5L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -65725,6 +65728,10 @@ public class ChipClusters {
 
     public interface MqttConfigAttributeCallback extends BaseAttributeCallback {
       void onSuccess(ChipStructs.PhotonSmartClusterPhotonMQTTStruct value);
+    }
+
+    public interface InsightsParamsAttributeCallback extends BaseAttributeCallback {
+      void onSuccess(ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value);
     }
 
     public interface GeneratedCommandListAttributeCallback extends BaseAttributeCallback {
@@ -65833,6 +65840,111 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, MQTT_CONFIG_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readMqttReportEnabledAttribute(
+        BooleanAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, MQTT_REPORT_ENABLED_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, MQTT_REPORT_ENABLED_ATTRIBUTE_ID, true);
+    }
+
+    public void writeMqttReportEnabledAttribute(DefaultClusterCallback callback, Boolean value) {
+      writeMqttReportEnabledAttribute(callback, value, 0);
+    }
+
+    public void writeMqttReportEnabledAttribute(DefaultClusterCallback callback, Boolean value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new BooleanType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), MQTT_REPORT_ENABLED_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeMqttReportEnabledAttribute(
+        BooleanAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, MQTT_REPORT_ENABLED_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, MQTT_REPORT_ENABLED_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readInsightsEnabledAttribute(
+        BooleanAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, INSIGHTS_ENABLED_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, INSIGHTS_ENABLED_ATTRIBUTE_ID, true);
+    }
+
+    public void writeInsightsEnabledAttribute(DefaultClusterCallback callback, Boolean value) {
+      writeInsightsEnabledAttribute(callback, value, 0);
+    }
+
+    public void writeInsightsEnabledAttribute(DefaultClusterCallback callback, Boolean value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new BooleanType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), INSIGHTS_ENABLED_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeInsightsEnabledAttribute(
+        BooleanAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, INSIGHTS_ENABLED_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, INSIGHTS_ENABLED_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readInsightsParamsAttribute(
+        InsightsParamsAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, INSIGHTS_PARAMS_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, INSIGHTS_PARAMS_ATTRIBUTE_ID, true);
+    }
+
+    public void writeInsightsParamsAttribute(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value) {
+      writeInsightsParamsAttribute(callback, value, 0);
+    }
+
+    public void writeInsightsParamsAttribute(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = value.encodeTlv();
+      writeAttribute(new WriteAttributesCallbackImpl(callback), INSIGHTS_PARAMS_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeInsightsParamsAttribute(
+        InsightsParamsAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, INSIGHTS_PARAMS_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, INSIGHTS_PARAMS_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(
