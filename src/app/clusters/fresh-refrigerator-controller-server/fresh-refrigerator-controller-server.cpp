@@ -15,7 +15,6 @@
  *    limitations under the License.
  *
  */
-#define FACTORY_STORE_MANAGER_IMPLEMENTATION
 #include "fresh-refrigerator-controller-server.h"
 #include <app/AttributeAccessInterfaceRegistry.h>
 #include <src/platform/ESP32/FctryStoreManager.h>

@@ -199,5 +199,7 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
     },
-    "autopep8.args": ["--max-line-length", "132"]
+    "autopep8.args": ["--max-line-length", "132"],
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.intelliSenseEngine": "default"
 }
