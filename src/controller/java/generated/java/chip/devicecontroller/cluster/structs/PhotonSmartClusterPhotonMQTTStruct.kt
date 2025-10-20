@@ -27,11 +27,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
   val port: UInt,
   val transport: UInt,
   val keepAlive: UInt,
-  val lastWellTopic: String,
-  val lastWellMsg: ByteArray,
-  val lastWellMsgLen: UInt,
-  val lastWellQOS: UInt,
-  val lastWellRetain: Boolean,
+  val lastWillTopic: String,
+  val lastWillMsg: ByteArray,
+  val lastWillMsgLen: UInt,
+  val lastWillQOS: UInt,
+  val lastWillRetain: Boolean,
   val cleanSession: Boolean,
   val reconnectTimeoutMS: ULong,
   val timeoutMS: ULong,
@@ -44,11 +44,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
     append("\tport : $port\n")
     append("\ttransport : $transport\n")
     append("\tkeepAlive : $keepAlive\n")
-    append("\tlastWellTopic : $lastWellTopic\n")
-    append("\tlastWellMsg : $lastWellMsg\n")
-    append("\tlastWellMsgLen : $lastWellMsgLen\n")
-    append("\tlastWellQOS : $lastWellQOS\n")
-    append("\tlastWellRetain : $lastWellRetain\n")
+    append("\tlastWillTopic : $lastWillTopic\n")
+    append("\tlastWillMsg : $lastWillMsg\n")
+    append("\tlastWillMsgLen : $lastWillMsgLen\n")
+    append("\tlastWillQOS : $lastWillQOS\n")
+    append("\tlastWillRetain : $lastWillRetain\n")
     append("\tcleanSession : $cleanSession\n")
     append("\treconnectTimeoutMS : $reconnectTimeoutMS\n")
     append("\ttimeoutMS : $timeoutMS\n")
@@ -64,11 +64,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
       put(ContextSpecificTag(TAG_PORT), port)
       put(ContextSpecificTag(TAG_TRANSPORT), transport)
       put(ContextSpecificTag(TAG_KEEP_ALIVE), keepAlive)
-      put(ContextSpecificTag(TAG_LAST_WELL_TOPIC), lastWellTopic)
-      put(ContextSpecificTag(TAG_LAST_WELL_MSG), lastWellMsg)
-      put(ContextSpecificTag(TAG_LAST_WELL_MSG_LEN), lastWellMsgLen)
-      put(ContextSpecificTag(TAG_LAST_WELL_QOS), lastWellQOS)
-      put(ContextSpecificTag(TAG_LAST_WELL_RETAIN), lastWellRetain)
+      put(ContextSpecificTag(TAG_LAST_WILL_TOPIC), lastWillTopic)
+      put(ContextSpecificTag(TAG_LAST_WILL_MSG), lastWillMsg)
+      put(ContextSpecificTag(TAG_LAST_WILL_MSG_LEN), lastWillMsgLen)
+      put(ContextSpecificTag(TAG_LAST_WILL_QOS), lastWillQOS)
+      put(ContextSpecificTag(TAG_LAST_WILL_RETAIN), lastWillRetain)
       put(ContextSpecificTag(TAG_CLEAN_SESSION), cleanSession)
       put(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS), reconnectTimeoutMS)
       put(ContextSpecificTag(TAG_TIMEOUT_MS), timeoutMS)
@@ -83,11 +83,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
     private const val TAG_PORT = 2
     private const val TAG_TRANSPORT = 3
     private const val TAG_KEEP_ALIVE = 4
-    private const val TAG_LAST_WELL_TOPIC = 5
-    private const val TAG_LAST_WELL_MSG = 6
-    private const val TAG_LAST_WELL_MSG_LEN = 7
-    private const val TAG_LAST_WELL_QOS = 8
-    private const val TAG_LAST_WELL_RETAIN = 9
+    private const val TAG_LAST_WILL_TOPIC = 5
+    private const val TAG_LAST_WILL_MSG = 6
+    private const val TAG_LAST_WILL_MSG_LEN = 7
+    private const val TAG_LAST_WILL_QOS = 8
+    private const val TAG_LAST_WILL_RETAIN = 9
     private const val TAG_CLEAN_SESSION = 10
     private const val TAG_RECONNECT_TIMEOUT_MS = 11
     private const val TAG_TIMEOUT_MS = 12
@@ -100,11 +100,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
       val port = tlvReader.getUInt(ContextSpecificTag(TAG_PORT))
       val transport = tlvReader.getUInt(ContextSpecificTag(TAG_TRANSPORT))
       val keepAlive = tlvReader.getUInt(ContextSpecificTag(TAG_KEEP_ALIVE))
-      val lastWellTopic = tlvReader.getString(ContextSpecificTag(TAG_LAST_WELL_TOPIC))
-      val lastWellMsg = tlvReader.getByteArray(ContextSpecificTag(TAG_LAST_WELL_MSG))
-      val lastWellMsgLen = tlvReader.getUInt(ContextSpecificTag(TAG_LAST_WELL_MSG_LEN))
-      val lastWellQOS = tlvReader.getUInt(ContextSpecificTag(TAG_LAST_WELL_QOS))
-      val lastWellRetain = tlvReader.getBoolean(ContextSpecificTag(TAG_LAST_WELL_RETAIN))
+      val lastWillTopic = tlvReader.getString(ContextSpecificTag(TAG_LAST_WILL_TOPIC))
+      val lastWillMsg = tlvReader.getByteArray(ContextSpecificTag(TAG_LAST_WILL_MSG))
+      val lastWillMsgLen = tlvReader.getUInt(ContextSpecificTag(TAG_LAST_WILL_MSG_LEN))
+      val lastWillQOS = tlvReader.getUInt(ContextSpecificTag(TAG_LAST_WILL_QOS))
+      val lastWillRetain = tlvReader.getBoolean(ContextSpecificTag(TAG_LAST_WILL_RETAIN))
       val cleanSession = tlvReader.getBoolean(ContextSpecificTag(TAG_CLEAN_SESSION))
       val reconnectTimeoutMS = tlvReader.getULong(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS))
       val timeoutMS = tlvReader.getULong(ContextSpecificTag(TAG_TIMEOUT_MS))
@@ -119,11 +119,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
         port,
         transport,
         keepAlive,
-        lastWellTopic,
-        lastWellMsg,
-        lastWellMsgLen,
-        lastWellQOS,
-        lastWellRetain,
+        lastWillTopic,
+        lastWillMsg,
+        lastWillMsgLen,
+        lastWillQOS,
+        lastWillRetain,
         cleanSession,
         reconnectTimeoutMS,
         timeoutMS,

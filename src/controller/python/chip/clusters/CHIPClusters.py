@@ -14627,6 +14627,27 @@ class ChipClusters:
                 "reportable": True,
                 "writable": True,
             },
+            0x00000003: {
+                "attributeName": "MqttReportEnabled",
+                "attributeId": 0x00000003,
+                "type": "bool",
+                "reportable": True,
+                "writable": True,
+            },
+            0x00000004: {
+                "attributeName": "InsightsEnabled",
+                "attributeId": 0x00000004,
+                "type": "bool",
+                "reportable": True,
+                "writable": True,
+            },
+            0x00000005: {
+                "attributeName": "InsightsParams",
+                "attributeId": 0x00000005,
+                "type": "",
+                "reportable": True,
+                "writable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,

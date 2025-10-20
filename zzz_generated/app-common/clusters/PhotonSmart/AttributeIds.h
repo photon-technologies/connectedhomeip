@@ -24,6 +24,18 @@ namespace MqttConfig {
 inline constexpr AttributeId Id = 0x00000002;
 } // namespace MqttConfig
 
+namespace MqttReportEnabled {
+inline constexpr AttributeId Id = 0x00000003;
+} // namespace MqttReportEnabled
+
+namespace InsightsEnabled {
+inline constexpr AttributeId Id = 0x00000004;
+} // namespace InsightsEnabled
+
+namespace InsightsParams {
+inline constexpr AttributeId Id = 0x00000005;
+} // namespace InsightsParams
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

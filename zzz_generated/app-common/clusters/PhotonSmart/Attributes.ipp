@@ -38,6 +38,12 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, shouldReboot);
     case Attributes::MqttConfig::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, mqttConfig);
+    case Attributes::MqttReportEnabled::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, mqttReportEnabled);
+    case Attributes::InsightsEnabled::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, insightsEnabled);
+    case Attributes::InsightsParams::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, insightsParams);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

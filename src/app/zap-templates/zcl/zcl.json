@@ -802,7 +802,12 @@
         "Zone Management": ["TwoDCartesianMax"],
         "TLS Client Management": ["ClusterRevision", "MaxProvisioned"],
         "Thermostat": ["CurrentThermostatSuggestion"],
-        "Photon Smart": ["MqttConfig"],
+        "Photon Smart": [
+            "MqttConfig",
+            "InsightsEnabled",
+            "InsightsParams",
+            "MqttReportEnabled"
+        ],
         "Fresh Water Heater Controller": ["BoostModeSetpoint"]
     },
     "mandatoryDeviceTypes": "0x0016",

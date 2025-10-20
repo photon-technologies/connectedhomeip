@@ -80,6 +80,42 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace MqttConfig
+namespace MqttReportEnabled {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::MqttReportEnabled::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace MqttReportEnabled
+namespace InsightsEnabled {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::InsightsEnabled::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace InsightsEnabled
+namespace InsightsParams {
+struct TypeInfo
+{
+    using Type             = chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type;
+    using DecodableType    = chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::DecodableType;
+    using DecodableArgType = const chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::DecodableType &;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::InsightsParams::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace InsightsParams
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -122,6 +158,9 @@ struct TypeInfo
         Attributes::HomeId::TypeInfo::DecodableType homeId;
         Attributes::ShouldReboot::TypeInfo::DecodableType shouldReboot = static_cast<bool>(0);
         Attributes::MqttConfig::TypeInfo::DecodableType mqttConfig;
+        Attributes::MqttReportEnabled::TypeInfo::DecodableType mqttReportEnabled = static_cast<bool>(0);
+        Attributes::InsightsEnabled::TypeInfo::DecodableType insightsEnabled     = static_cast<bool>(0);
+        Attributes::InsightsParams::TypeInfo::DecodableType insightsParams;
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

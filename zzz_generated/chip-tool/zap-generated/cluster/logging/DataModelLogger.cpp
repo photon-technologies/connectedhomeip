@@ -7866,6 +7866,144 @@ DataModelLogger::LogValue(const char * label, size_t indent,
     return CHIP_NO_ERROR;
 }
 
+CHIP_ERROR
+DataModelLogger::LogValue(const char * label, size_t indent,
+                          const chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    {
+        CHIP_ERROR err = LogValue("CoreDumpEnabled", indent + 1, value.coreDumpEnabled);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'CoreDumpEnabled'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("MinInterval", indent + 1, value.minInterval);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'MinInterval'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("MaxInterval", indent + 1, value.maxInterval);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'MaxInterval'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("DropWifiLogs", indent + 1, value.dropWifiLogs);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'DropWifiLogs'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportMetrics", indent + 1, value.reportMetrics);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportMetrics'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportHeapMetrics", indent + 1, value.reportHeapMetrics);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportHeapMetrics'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("HeapPollingInterval", indent + 1, value.heapPollingInterval);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'HeapPollingInterval'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("HeapPollingCount", indent + 1, value.heapPollingCount);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'HeapPollingCount'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportWifiMetrics", indent + 1, value.reportWifiMetrics);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportWifiMetrics'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("WifiPollingInterval", indent + 1, value.wifiPollingInterval);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'WifiPollingInterval'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("WifiPollingCount", indent + 1, value.wifiPollingCount);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'WifiPollingCount'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("UsePolling", indent + 1, value.usePolling);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'UsePolling'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportVariables", indent + 1, value.reportVariables);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportVariables'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportNetworkVariables", indent + 1, value.reportNetworkVariables);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportNetworkVariables'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportMoreNetworkVariables", indent + 1, value.reportMoreNetworkVariables);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportMoreNetworkVariables'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReportWatermarkPercent", indent + 1, value.reportWatermarkPercent);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReportWatermarkPercent'");
+            return err;
+        }
+    }
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+
 CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
                                      const chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::DecodableType & value)
 {
@@ -7903,42 +8041,42 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         }
     }
     {
-        CHIP_ERROR err = LogValue("LastWellTopic", indent + 1, value.lastWellTopic);
+        CHIP_ERROR err = LogValue("LastWillTopic", indent + 1, value.lastWillTopic);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWellTopic'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillTopic'");
             return err;
         }
     }
     {
-        CHIP_ERROR err = LogValue("LastWellMsg", indent + 1, value.lastWellMsg);
+        CHIP_ERROR err = LogValue("LastWillMsg", indent + 1, value.lastWillMsg);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWellMsg'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillMsg'");
             return err;
         }
     }
     {
-        CHIP_ERROR err = LogValue("LastWellMsgLen", indent + 1, value.lastWellMsgLen);
+        CHIP_ERROR err = LogValue("LastWillMsgLen", indent + 1, value.lastWillMsgLen);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWellMsgLen'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillMsgLen'");
             return err;
         }
     }
     {
-        CHIP_ERROR err = LogValue("LastWellQOS", indent + 1, value.lastWellQOS);
+        CHIP_ERROR err = LogValue("LastWillQOS", indent + 1, value.lastWillQOS);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWellQOS'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillQOS'");
             return err;
         }
     }
     {
-        CHIP_ERROR err = LogValue("LastWellRetain", indent + 1, value.lastWellRetain);
+        CHIP_ERROR err = LogValue("LastWillRetain", indent + 1, value.lastWillRetain);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWellRetain'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillRetain'");
             return err;
         }
     }
@@ -22133,6 +22271,21 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::DecodableType value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("MqttConfig", 1, value);
+        }
+        case PhotonSmart::Attributes::MqttReportEnabled::Id: {
+            bool value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("MqttReportEnabled", 1, value);
+        }
+        case PhotonSmart::Attributes::InsightsEnabled::Id: {
+            bool value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("InsightsEnabled", 1, value);
+        }
+        case PhotonSmart::Attributes::InsightsParams::Id: {
+            chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("InsightsParams", 1, value);
         }
         case PhotonSmart::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;

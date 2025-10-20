@@ -17440,6 +17440,9 @@ private:
 | * HomeId                                                            | 0x0000 |
 | * ShouldReboot                                                      | 0x0001 |
 | * MqttConfig                                                        | 0x0002 |
+| * MqttReportEnabled                                                 | 0x0003 |
+| * InsightsEnabled                                                   | 0x0004 |
+| * InsightsParams                                                    | 0x0005 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -31601,6 +31604,9 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<ReadAttribute>(Id, "home-id", Attributes::HomeId::Id, credsIssuerConfig),                              //
         make_unique<ReadAttribute>(Id, "should-reboot", Attributes::ShouldReboot::Id, credsIssuerConfig),                  //
         make_unique<ReadAttribute>(Id, "mqtt-config", Attributes::MqttConfig::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "mqtt-report-enabled", Attributes::MqttReportEnabled::Id, credsIssuerConfig),       //
+        make_unique<ReadAttribute>(Id, "insights-enabled", Attributes::InsightsEnabled::Id, credsIssuerConfig),            //
+        make_unique<ReadAttribute>(Id, "insights-params", Attributes::InsightsParams::Id, credsIssuerConfig),              //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -31613,6 +31619,12 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
                                           credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type>>(
             Id, "mqtt-config", Attributes::MqttConfig::Id, WriteCommandType::kWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "mqtt-report-enabled", 0, 1, Attributes::MqttReportEnabled::Id,
+                                          WriteCommandType::kWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "insights-enabled", 0, 1, Attributes::InsightsEnabled::Id, WriteCommandType::kWrite,
+                                          credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type>>(
+            Id, "insights-params", Attributes::InsightsParams::Id, WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -31628,6 +31640,9 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<SubscribeAttribute>(Id, "home-id", Attributes::HomeId::Id, credsIssuerConfig),                              //
         make_unique<SubscribeAttribute>(Id, "should-reboot", Attributes::ShouldReboot::Id, credsIssuerConfig),                  //
         make_unique<SubscribeAttribute>(Id, "mqtt-config", Attributes::MqttConfig::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "mqtt-report-enabled", Attributes::MqttReportEnabled::Id, credsIssuerConfig),       //
+        make_unique<SubscribeAttribute>(Id, "insights-enabled", Attributes::InsightsEnabled::Id, credsIssuerConfig),            //
+        make_unique<SubscribeAttribute>(Id, "insights-params", Attributes::InsightsParams::Id, credsIssuerConfig),              //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //

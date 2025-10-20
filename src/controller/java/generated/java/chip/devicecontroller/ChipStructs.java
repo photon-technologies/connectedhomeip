@@ -19469,16 +19469,287 @@ public static class CommodityMeteringClusterMeteredQuantityStruct {
     return output.toString();
   }
 }
+public static class PhotonSmartClusterPhotonInsightsParamsStruct {
+  public Boolean coreDumpEnabled;
+  public Long minInterval;
+  public Long maxInterval;
+  public Boolean dropWifiLogs;
+  public Boolean reportMetrics;
+  public Boolean reportHeapMetrics;
+  public Long heapPollingInterval;
+  public Integer heapPollingCount;
+  public Boolean reportWifiMetrics;
+  public Long wifiPollingInterval;
+  public Integer wifiPollingCount;
+  public Boolean usePolling;
+  public Boolean reportVariables;
+  public Boolean reportNetworkVariables;
+  public Boolean reportMoreNetworkVariables;
+  public Integer reportWatermarkPercent;
+  private static final long CORE_DUMP_ENABLED_ID = 0L;
+  private static final long MIN_INTERVAL_ID = 1L;
+  private static final long MAX_INTERVAL_ID = 2L;
+  private static final long DROP_WIFI_LOGS_ID = 3L;
+  private static final long REPORT_METRICS_ID = 4L;
+  private static final long REPORT_HEAP_METRICS_ID = 5L;
+  private static final long HEAP_POLLING_INTERVAL_ID = 6L;
+  private static final long HEAP_POLLING_COUNT_ID = 7L;
+  private static final long REPORT_WIFI_METRICS_ID = 8L;
+  private static final long WIFI_POLLING_INTERVAL_ID = 9L;
+  private static final long WIFI_POLLING_COUNT_ID = 10L;
+  private static final long USE_POLLING_ID = 11L;
+  private static final long REPORT_VARIABLES_ID = 12L;
+  private static final long REPORT_NETWORK_VARIABLES_ID = 13L;
+  private static final long REPORT_MORE_NETWORK_VARIABLES_ID = 14L;
+  private static final long REPORT_WATERMARK_PERCENT_ID = 15L;
+
+  public PhotonSmartClusterPhotonInsightsParamsStruct(
+    Boolean coreDumpEnabled,
+    Long minInterval,
+    Long maxInterval,
+    Boolean dropWifiLogs,
+    Boolean reportMetrics,
+    Boolean reportHeapMetrics,
+    Long heapPollingInterval,
+    Integer heapPollingCount,
+    Boolean reportWifiMetrics,
+    Long wifiPollingInterval,
+    Integer wifiPollingCount,
+    Boolean usePolling,
+    Boolean reportVariables,
+    Boolean reportNetworkVariables,
+    Boolean reportMoreNetworkVariables,
+    Integer reportWatermarkPercent
+  ) {
+    this.coreDumpEnabled = coreDumpEnabled;
+    this.minInterval = minInterval;
+    this.maxInterval = maxInterval;
+    this.dropWifiLogs = dropWifiLogs;
+    this.reportMetrics = reportMetrics;
+    this.reportHeapMetrics = reportHeapMetrics;
+    this.heapPollingInterval = heapPollingInterval;
+    this.heapPollingCount = heapPollingCount;
+    this.reportWifiMetrics = reportWifiMetrics;
+    this.wifiPollingInterval = wifiPollingInterval;
+    this.wifiPollingCount = wifiPollingCount;
+    this.usePolling = usePolling;
+    this.reportVariables = reportVariables;
+    this.reportNetworkVariables = reportNetworkVariables;
+    this.reportMoreNetworkVariables = reportMoreNetworkVariables;
+    this.reportWatermarkPercent = reportWatermarkPercent;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(CORE_DUMP_ENABLED_ID, new BooleanType(coreDumpEnabled)));
+    values.add(new StructElement(MIN_INTERVAL_ID, new UIntType(minInterval)));
+    values.add(new StructElement(MAX_INTERVAL_ID, new UIntType(maxInterval)));
+    values.add(new StructElement(DROP_WIFI_LOGS_ID, new BooleanType(dropWifiLogs)));
+    values.add(new StructElement(REPORT_METRICS_ID, new BooleanType(reportMetrics)));
+    values.add(new StructElement(REPORT_HEAP_METRICS_ID, new BooleanType(reportHeapMetrics)));
+    values.add(new StructElement(HEAP_POLLING_INTERVAL_ID, new UIntType(heapPollingInterval)));
+    values.add(new StructElement(HEAP_POLLING_COUNT_ID, new UIntType(heapPollingCount)));
+    values.add(new StructElement(REPORT_WIFI_METRICS_ID, new BooleanType(reportWifiMetrics)));
+    values.add(new StructElement(WIFI_POLLING_INTERVAL_ID, new UIntType(wifiPollingInterval)));
+    values.add(new StructElement(WIFI_POLLING_COUNT_ID, new UIntType(wifiPollingCount)));
+    values.add(new StructElement(USE_POLLING_ID, new BooleanType(usePolling)));
+    values.add(new StructElement(REPORT_VARIABLES_ID, new BooleanType(reportVariables)));
+    values.add(new StructElement(REPORT_NETWORK_VARIABLES_ID, new BooleanType(reportNetworkVariables)));
+    values.add(new StructElement(REPORT_MORE_NETWORK_VARIABLES_ID, new BooleanType(reportMoreNetworkVariables)));
+    values.add(new StructElement(REPORT_WATERMARK_PERCENT_ID, new UIntType(reportWatermarkPercent)));
+
+    return new StructType(values);
+  }
+
+  public static PhotonSmartClusterPhotonInsightsParamsStruct decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Boolean coreDumpEnabled = null;
+    Long minInterval = null;
+    Long maxInterval = null;
+    Boolean dropWifiLogs = null;
+    Boolean reportMetrics = null;
+    Boolean reportHeapMetrics = null;
+    Long heapPollingInterval = null;
+    Integer heapPollingCount = null;
+    Boolean reportWifiMetrics = null;
+    Long wifiPollingInterval = null;
+    Integer wifiPollingCount = null;
+    Boolean usePolling = null;
+    Boolean reportVariables = null;
+    Boolean reportNetworkVariables = null;
+    Boolean reportMoreNetworkVariables = null;
+    Integer reportWatermarkPercent = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == CORE_DUMP_ENABLED_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          coreDumpEnabled = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == MIN_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          minInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MAX_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == DROP_WIFI_LOGS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          dropWifiLogs = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_METRICS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportMetrics = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_HEAP_METRICS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportHeapMetrics = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == HEAP_POLLING_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          heapPollingInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == HEAP_POLLING_COUNT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          heapPollingCount = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == REPORT_WIFI_METRICS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportWifiMetrics = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == WIFI_POLLING_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          wifiPollingInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == WIFI_POLLING_COUNT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          wifiPollingCount = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == USE_POLLING_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          usePolling = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_VARIABLES_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportVariables = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_NETWORK_VARIABLES_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportNetworkVariables = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_MORE_NETWORK_VARIABLES_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportMoreNetworkVariables = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_WATERMARK_PERCENT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          reportWatermarkPercent = castingValue.value(Integer.class);
+        }
+      }
+    }
+    return new PhotonSmartClusterPhotonInsightsParamsStruct(
+      coreDumpEnabled,
+      minInterval,
+      maxInterval,
+      dropWifiLogs,
+      reportMetrics,
+      reportHeapMetrics,
+      heapPollingInterval,
+      heapPollingCount,
+      reportWifiMetrics,
+      wifiPollingInterval,
+      wifiPollingCount,
+      usePolling,
+      reportVariables,
+      reportNetworkVariables,
+      reportMoreNetworkVariables,
+      reportWatermarkPercent
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("PhotonSmartClusterPhotonInsightsParamsStruct {\n");
+    output.append("\tcoreDumpEnabled: ");
+    output.append(coreDumpEnabled);
+    output.append("\n");
+    output.append("\tminInterval: ");
+    output.append(minInterval);
+    output.append("\n");
+    output.append("\tmaxInterval: ");
+    output.append(maxInterval);
+    output.append("\n");
+    output.append("\tdropWifiLogs: ");
+    output.append(dropWifiLogs);
+    output.append("\n");
+    output.append("\treportMetrics: ");
+    output.append(reportMetrics);
+    output.append("\n");
+    output.append("\treportHeapMetrics: ");
+    output.append(reportHeapMetrics);
+    output.append("\n");
+    output.append("\theapPollingInterval: ");
+    output.append(heapPollingInterval);
+    output.append("\n");
+    output.append("\theapPollingCount: ");
+    output.append(heapPollingCount);
+    output.append("\n");
+    output.append("\treportWifiMetrics: ");
+    output.append(reportWifiMetrics);
+    output.append("\n");
+    output.append("\twifiPollingInterval: ");
+    output.append(wifiPollingInterval);
+    output.append("\n");
+    output.append("\twifiPollingCount: ");
+    output.append(wifiPollingCount);
+    output.append("\n");
+    output.append("\tusePolling: ");
+    output.append(usePolling);
+    output.append("\n");
+    output.append("\treportVariables: ");
+    output.append(reportVariables);
+    output.append("\n");
+    output.append("\treportNetworkVariables: ");
+    output.append(reportNetworkVariables);
+    output.append("\n");
+    output.append("\treportMoreNetworkVariables: ");
+    output.append(reportMoreNetworkVariables);
+    output.append("\n");
+    output.append("\treportWatermarkPercent: ");
+    output.append(reportWatermarkPercent);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
 public static class PhotonSmartClusterPhotonMQTTStruct {
   public String host;
   public Integer port;
   public Integer transport;
   public Integer keepAlive;
-  public String lastWellTopic;
-  public byte[] lastWellMsg;
-  public Integer lastWellMsgLen;
-  public Integer lastWellQOS;
-  public Boolean lastWellRetain;
+  public String lastWillTopic;
+  public byte[] lastWillMsg;
+  public Integer lastWillMsgLen;
+  public Integer lastWillQOS;
+  public Boolean lastWillRetain;
   public Boolean cleanSession;
   public Long reconnectTimeoutMS;
   public Long timeoutMS;
@@ -19488,11 +19759,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   private static final long PORT_ID = 2L;
   private static final long TRANSPORT_ID = 3L;
   private static final long KEEP_ALIVE_ID = 4L;
-  private static final long LAST_WELL_TOPIC_ID = 5L;
-  private static final long LAST_WELL_MSG_ID = 6L;
-  private static final long LAST_WELL_MSG_LEN_ID = 7L;
-  private static final long LAST_WELL_QOS_ID = 8L;
-  private static final long LAST_WELL_RETAIN_ID = 9L;
+  private static final long LAST_WILL_TOPIC_ID = 5L;
+  private static final long LAST_WILL_MSG_ID = 6L;
+  private static final long LAST_WILL_MSG_LEN_ID = 7L;
+  private static final long LAST_WILL_QOS_ID = 8L;
+  private static final long LAST_WILL_RETAIN_ID = 9L;
   private static final long CLEAN_SESSION_ID = 10L;
   private static final long RECONNECT_TIMEOUT_MS_ID = 11L;
   private static final long TIMEOUT_MS_ID = 12L;
@@ -19504,11 +19775,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Integer port,
     Integer transport,
     Integer keepAlive,
-    String lastWellTopic,
-    byte[] lastWellMsg,
-    Integer lastWellMsgLen,
-    Integer lastWellQOS,
-    Boolean lastWellRetain,
+    String lastWillTopic,
+    byte[] lastWillMsg,
+    Integer lastWillMsgLen,
+    Integer lastWillQOS,
+    Boolean lastWillRetain,
     Boolean cleanSession,
     Long reconnectTimeoutMS,
     Long timeoutMS,
@@ -19519,11 +19790,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     this.port = port;
     this.transport = transport;
     this.keepAlive = keepAlive;
-    this.lastWellTopic = lastWellTopic;
-    this.lastWellMsg = lastWellMsg;
-    this.lastWellMsgLen = lastWellMsgLen;
-    this.lastWellQOS = lastWellQOS;
-    this.lastWellRetain = lastWellRetain;
+    this.lastWillTopic = lastWillTopic;
+    this.lastWillMsg = lastWillMsg;
+    this.lastWillMsgLen = lastWillMsgLen;
+    this.lastWillQOS = lastWillQOS;
+    this.lastWillRetain = lastWillRetain;
     this.cleanSession = cleanSession;
     this.reconnectTimeoutMS = reconnectTimeoutMS;
     this.timeoutMS = timeoutMS;
@@ -19537,11 +19808,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     values.add(new StructElement(PORT_ID, new UIntType(port)));
     values.add(new StructElement(TRANSPORT_ID, new UIntType(transport)));
     values.add(new StructElement(KEEP_ALIVE_ID, new UIntType(keepAlive)));
-    values.add(new StructElement(LAST_WELL_TOPIC_ID, new StringType(lastWellTopic)));
-    values.add(new StructElement(LAST_WELL_MSG_ID, new ByteArrayType(lastWellMsg)));
-    values.add(new StructElement(LAST_WELL_MSG_LEN_ID, new UIntType(lastWellMsgLen)));
-    values.add(new StructElement(LAST_WELL_QOS_ID, new UIntType(lastWellQOS)));
-    values.add(new StructElement(LAST_WELL_RETAIN_ID, new BooleanType(lastWellRetain)));
+    values.add(new StructElement(LAST_WILL_TOPIC_ID, new StringType(lastWillTopic)));
+    values.add(new StructElement(LAST_WILL_MSG_ID, new ByteArrayType(lastWillMsg)));
+    values.add(new StructElement(LAST_WILL_MSG_LEN_ID, new UIntType(lastWillMsgLen)));
+    values.add(new StructElement(LAST_WILL_QOS_ID, new UIntType(lastWillQOS)));
+    values.add(new StructElement(LAST_WILL_RETAIN_ID, new BooleanType(lastWillRetain)));
     values.add(new StructElement(CLEAN_SESSION_ID, new BooleanType(cleanSession)));
     values.add(new StructElement(RECONNECT_TIMEOUT_MS_ID, new UIntType(reconnectTimeoutMS)));
     values.add(new StructElement(TIMEOUT_MS_ID, new UIntType(timeoutMS)));
@@ -19559,11 +19830,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Integer port = null;
     Integer transport = null;
     Integer keepAlive = null;
-    String lastWellTopic = null;
-    byte[] lastWellMsg = null;
-    Integer lastWellMsgLen = null;
-    Integer lastWellQOS = null;
-    Boolean lastWellRetain = null;
+    String lastWillTopic = null;
+    byte[] lastWillMsg = null;
+    Integer lastWillMsgLen = null;
+    Integer lastWillQOS = null;
+    Boolean lastWillRetain = null;
     Boolean cleanSession = null;
     Long reconnectTimeoutMS = null;
     Long timeoutMS = null;
@@ -19590,30 +19861,30 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
           UIntType castingValue = element.value(UIntType.class);
           keepAlive = castingValue.value(Integer.class);
         }
-      } else if (element.contextTagNum() == LAST_WELL_TOPIC_ID) {
+      } else if (element.contextTagNum() == LAST_WILL_TOPIC_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.String) {
           StringType castingValue = element.value(StringType.class);
-          lastWellTopic = castingValue.value(String.class);
+          lastWillTopic = castingValue.value(String.class);
         }
-      } else if (element.contextTagNum() == LAST_WELL_MSG_ID) {
+      } else if (element.contextTagNum() == LAST_WILL_MSG_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.ByteArray) {
           ByteArrayType castingValue = element.value(ByteArrayType.class);
-          lastWellMsg = castingValue.value(byte[].class);
+          lastWillMsg = castingValue.value(byte[].class);
         }
-      } else if (element.contextTagNum() == LAST_WELL_MSG_LEN_ID) {
+      } else if (element.contextTagNum() == LAST_WILL_MSG_LEN_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
           UIntType castingValue = element.value(UIntType.class);
-          lastWellMsgLen = castingValue.value(Integer.class);
+          lastWillMsgLen = castingValue.value(Integer.class);
         }
-      } else if (element.contextTagNum() == LAST_WELL_QOS_ID) {
+      } else if (element.contextTagNum() == LAST_WILL_QOS_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
           UIntType castingValue = element.value(UIntType.class);
-          lastWellQOS = castingValue.value(Integer.class);
+          lastWillQOS = castingValue.value(Integer.class);
         }
-      } else if (element.contextTagNum() == LAST_WELL_RETAIN_ID) {
+      } else if (element.contextTagNum() == LAST_WILL_RETAIN_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
           BooleanType castingValue = element.value(BooleanType.class);
-          lastWellRetain = castingValue.value(Boolean.class);
+          lastWillRetain = castingValue.value(Boolean.class);
         }
       } else if (element.contextTagNum() == CLEAN_SESSION_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
@@ -19647,11 +19918,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
       port,
       transport,
       keepAlive,
-      lastWellTopic,
-      lastWellMsg,
-      lastWellMsgLen,
-      lastWellQOS,
-      lastWellRetain,
+      lastWillTopic,
+      lastWillMsg,
+      lastWillMsgLen,
+      lastWillQOS,
+      lastWillRetain,
       cleanSession,
       reconnectTimeoutMS,
       timeoutMS,
@@ -19676,20 +19947,20 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     output.append("\tkeepAlive: ");
     output.append(keepAlive);
     output.append("\n");
-    output.append("\tlastWellTopic: ");
-    output.append(lastWellTopic);
+    output.append("\tlastWillTopic: ");
+    output.append(lastWillTopic);
     output.append("\n");
-    output.append("\tlastWellMsg: ");
-    output.append(Arrays.toString(lastWellMsg));
+    output.append("\tlastWillMsg: ");
+    output.append(Arrays.toString(lastWillMsg));
     output.append("\n");
-    output.append("\tlastWellMsgLen: ");
-    output.append(lastWellMsgLen);
+    output.append("\tlastWillMsgLen: ");
+    output.append(lastWillMsgLen);
     output.append("\n");
-    output.append("\tlastWellQOS: ");
-    output.append(lastWellQOS);
+    output.append("\tlastWillQOS: ");
+    output.append(lastWillQOS);
     output.append("\n");
-    output.append("\tlastWellRetain: ");
-    output.append(lastWellRetain);
+    output.append("\tlastWillRetain: ");
+    output.append(lastWillRetain);
     output.append("\n");
     output.append("\tcleanSession: ");
     output.append(cleanSession);

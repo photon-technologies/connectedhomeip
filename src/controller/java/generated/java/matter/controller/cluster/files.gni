@@ -152,6 +152,7 @@ matter_structs_sources = [
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/OvenCavityOperationalStateClusterOperationalStateStruct.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/OvenModeClusterModeOptionStruct.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/OvenModeClusterModeTagStruct.kt",
+  "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/PhotonSmartClusterPhotonInsightsParamsStruct.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/PhotonSmartClusterPhotonMQTTStruct.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/PowerSourceClusterBatChargeFaultChangeType.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/structs/PowerSourceClusterBatFaultChangeType.kt",

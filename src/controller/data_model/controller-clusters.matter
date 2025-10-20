@@ -11316,16 +11316,35 @@ cluster PhotonSmart = 367524864 {
     kWSS = 1 [spec_name = "WSS"];
   }
 
+  struct PhotonInsightsParamsStruct {
+    boolean coreDumpEnabled = 0;
+    elapsed_s minInterval = 1;
+    elapsed_s maxInterval = 2;
+    boolean dropWifiLogs = 3;
+    boolean reportMetrics = 4;
+    boolean reportHeapMetrics = 5;
+    elapsed_s heapPollingInterval = 6;
+    int8u heapPollingCount = 7;
+    boolean reportWifiMetrics = 8;
+    elapsed_s wifiPollingInterval = 9;
+    int8u wifiPollingCount = 10;
+    boolean usePolling = 11;
+    boolean reportVariables = 12;
+    boolean reportNetworkVariables = 13;
+    boolean reportMoreNetworkVariables = 14;
+    percent reportWatermarkPercent = 15;
+  }
+
   struct PhotonMQTTStruct {
     char_string<254> host = 1;
     int16u port = 2;
     MqttTransport transport = 3;
     int16u keepAlive = 4;
-    char_string<254> lastWellTopic = 5;
-    octet_string<1000> lastWellMsg = 6;
-    int16u lastWellMsgLen = 7;
-    int8u lastWellQOS = 8;
-    boolean lastWellRetain = 9;
+    char_string<254> lastWillTopic = 5;
+    octet_string<1000> lastWillMsg = 6;
+    int16u lastWillMsgLen = 7;
+    int8u lastWillQOS = 8;
+    boolean lastWillRetain = 9;
     boolean cleanSession = 10;
     int32u reconnectTimeoutMS = 11;
     int32u timeoutMS = 12;
@@ -11336,6 +11355,9 @@ cluster PhotonSmart = 367524864 {
   attribute access(read: administer, write: administer) nullable char_string<150> homeId = 0;
   readonly attribute boolean shouldReboot = 1;
   attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
+  attribute access(read: administer, write: administer) boolean mqttReportEnabled = 3;
+  attribute access(read: administer, write: administer) boolean insightsEnabled = 4;
+  attribute access(read: administer, write: administer) PhotonInsightsParamsStruct insightsParams = 5;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

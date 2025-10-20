@@ -20934,16 +20934,16 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.port = [NSNumber numberWithUnsignedShort:cppValue.port];
         value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue.transport)];
         value.keepAlive = [NSNumber numberWithUnsignedShort:cppValue.keepAlive];
-        value.lastWellTopic = AsString(cppValue.lastWellTopic);
-        if (value.lastWellTopic == nil) {
+        value.lastWillTopic = AsString(cppValue.lastWillTopic);
+        if (value.lastWillTopic == nil) {
             CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
             *aError = err;
             return nil;
         }
-        value.lastWellMsg = AsData(cppValue.lastWellMsg);
-        value.lastWellMsgLen = [NSNumber numberWithUnsignedShort:cppValue.lastWellMsgLen];
-        value.lastWellQOS = [NSNumber numberWithUnsignedChar:cppValue.lastWellQOS];
-        value.lastWellRetain = [NSNumber numberWithBool:cppValue.lastWellRetain];
+        value.lastWillMsg = AsData(cppValue.lastWillMsg);
+        value.lastWillMsgLen = [NSNumber numberWithUnsignedShort:cppValue.lastWillMsgLen];
+        value.lastWillQOS = [NSNumber numberWithUnsignedChar:cppValue.lastWillQOS];
+        value.lastWillRetain = [NSNumber numberWithBool:cppValue.lastWillRetain];
         value.cleanSession = [NSNumber numberWithBool:cppValue.cleanSession];
         value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
@@ -20954,6 +20954,55 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
             *aError = err;
             return nil;
         }
+        return value;
+    }
+    case Attributes::MqttReportEnabled::Id: {
+        using TypeInfo = Attributes::MqttReportEnabled::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::InsightsEnabled::Id: {
+        using TypeInfo = Attributes::InsightsEnabled::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::InsightsParams::Id: {
+        using TypeInfo = Attributes::InsightsParams::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull value;
+        value = [MTRPhotonSmartClusterPhotonInsightsParamsStruct new];
+        value.coreDumpEnabled = [NSNumber numberWithBool:cppValue.coreDumpEnabled];
+        value.minInterval = [NSNumber numberWithUnsignedInt:cppValue.minInterval];
+        value.maxInterval = [NSNumber numberWithUnsignedInt:cppValue.maxInterval];
+        value.dropWifiLogs = [NSNumber numberWithBool:cppValue.dropWifiLogs];
+        value.reportMetrics = [NSNumber numberWithBool:cppValue.reportMetrics];
+        value.reportHeapMetrics = [NSNumber numberWithBool:cppValue.reportHeapMetrics];
+        value.heapPollingInterval = [NSNumber numberWithUnsignedInt:cppValue.heapPollingInterval];
+        value.heapPollingCount = [NSNumber numberWithUnsignedChar:cppValue.heapPollingCount];
+        value.reportWifiMetrics = [NSNumber numberWithBool:cppValue.reportWifiMetrics];
+        value.wifiPollingInterval = [NSNumber numberWithUnsignedInt:cppValue.wifiPollingInterval];
+        value.wifiPollingCount = [NSNumber numberWithUnsignedChar:cppValue.wifiPollingCount];
+        value.usePolling = [NSNumber numberWithBool:cppValue.usePolling];
+        value.reportVariables = [NSNumber numberWithBool:cppValue.reportVariables];
+        value.reportNetworkVariables = [NSNumber numberWithBool:cppValue.reportNetworkVariables];
+        value.reportMoreNetworkVariables = [NSNumber numberWithBool:cppValue.reportMoreNetworkVariables];
+        value.reportWatermarkPercent = [NSNumber numberWithUnsignedChar:cppValue.reportWatermarkPercent];
         return value;
     }
     default: {

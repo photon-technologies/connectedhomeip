@@ -3645,6 +3645,50 @@ public class ClusterWriteMapping {
       writePhotonSmartHomeIdCommandParams
     );
     writePhotonSmartInteractionInfo.put("writeHomeIdAttribute", writePhotonSmartHomeIdAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writePhotonSmartMqttReportEnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo photonSmartmqttReportEnabledCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writePhotonSmartMqttReportEnabledCommandParams.put(
+        "value",
+        photonSmartmqttReportEnabledCommandParameterInfo
+    );
+    InteractionInfo writePhotonSmartMqttReportEnabledAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster).writeMqttReportEnabledAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writePhotonSmartMqttReportEnabledCommandParams
+    );
+    writePhotonSmartInteractionInfo.put("writeMqttReportEnabledAttribute", writePhotonSmartMqttReportEnabledAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writePhotonSmartInsightsEnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo photonSmartinsightsEnabledCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writePhotonSmartInsightsEnabledCommandParams.put(
+        "value",
+        photonSmartinsightsEnabledCommandParameterInfo
+    );
+    InteractionInfo writePhotonSmartInsightsEnabledAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster).writeInsightsEnabledAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writePhotonSmartInsightsEnabledCommandParams
+    );
+    writePhotonSmartInteractionInfo.put("writeInsightsEnabledAttribute", writePhotonSmartInsightsEnabledAttributeInteractionInfo);
     writeAttributeMap.put("photonSmart", writePhotonSmartInteractionInfo);
     Map<String, InteractionInfo> writeFreshMideaAirConditionerAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshMideaAirConditionerAlarm", writeFreshMideaAirConditionerAlarmInteractionInfo);
