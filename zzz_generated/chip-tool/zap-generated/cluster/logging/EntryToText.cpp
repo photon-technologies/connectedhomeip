@@ -5003,8 +5003,6 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "CoolDownTimeout";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id:
             return "ResetCounterTimeout";
-        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id:
-            return "ResetCounterTimeout";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayActiveTimeout::Id:
             return "DisplayActiveTimeout";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayErrorTimeout::Id:

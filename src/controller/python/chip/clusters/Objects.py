@@ -54638,19 +54638,18 @@ class FreshWaterHeaterController(Cluster):
                 ClusterObjectFieldDescriptor(Label="resetTimeout", Tag=0x00000009, Type=uint),
                 ClusterObjectFieldDescriptor(Label="coolDownTimeout", Tag=0x0000000A, Type=uint),
                 ClusterObjectFieldDescriptor(Label="resetCounterTimeout", Tag=0x0000000B, Type=uint),
-                ClusterObjectFieldDescriptor(Label="resetCounterTimeout", Tag=0x0000000C, Type=uint),
-                ClusterObjectFieldDescriptor(Label="displayActiveTimeout", Tag=0x0000000D, Type=uint),
-                ClusterObjectFieldDescriptor(Label="displayErrorTimeout", Tag=0x0000000E, Type=uint),
-                ClusterObjectFieldDescriptor(Label="displayTargetTimeout", Tag=0x0000000F, Type=uint),
-                ClusterObjectFieldDescriptor(Label="temperatureSensorMinValid", Tag=0x00000011, Type=int),
-                ClusterObjectFieldDescriptor(Label="temperatureSensorMaxValid", Tag=0x00000012, Type=int),
-                ClusterObjectFieldDescriptor(Label="overheatThresholdTemperature", Tag=0x00000013, Type=int),
-                ClusterObjectFieldDescriptor(Label="rapidRiseDelta", Tag=0x00000014, Type=int),
-                ClusterObjectFieldDescriptor(Label="rapidRiseWindow", Tag=0x00000015, Type=uint),
-                ClusterObjectFieldDescriptor(Label="previousTargetHeaterTemperature", Tag=0x00000016, Type=int),
-                ClusterObjectFieldDescriptor(Label="heaterMaximumPower", Tag=0x00000017, Type=uint),
-                ClusterObjectFieldDescriptor(Label="diagnosticsConfirmTimeList", Tag=0x00000018, Type=typing.List[uint]),
-                ClusterObjectFieldDescriptor(Label="diagnosticsRehabTimeList", Tag=0x00000019, Type=typing.List[uint]),
+                ClusterObjectFieldDescriptor(Label="displayActiveTimeout", Tag=0x0000000C, Type=uint),
+                ClusterObjectFieldDescriptor(Label="displayErrorTimeout", Tag=0x0000000D, Type=uint),
+                ClusterObjectFieldDescriptor(Label="displayTargetTimeout", Tag=0x0000000E, Type=uint),
+                ClusterObjectFieldDescriptor(Label="temperatureSensorMinValid", Tag=0x0000000F, Type=int),
+                ClusterObjectFieldDescriptor(Label="temperatureSensorMaxValid", Tag=0x00000010, Type=int),
+                ClusterObjectFieldDescriptor(Label="overheatThresholdTemperature", Tag=0x00000011, Type=int),
+                ClusterObjectFieldDescriptor(Label="rapidRiseDelta", Tag=0x00000012, Type=int),
+                ClusterObjectFieldDescriptor(Label="rapidRiseWindow", Tag=0x00000013, Type=uint),
+                ClusterObjectFieldDescriptor(Label="previousTargetHeaterTemperature", Tag=0x00000014, Type=int),
+                ClusterObjectFieldDescriptor(Label="heaterMaximumPower", Tag=0x00000015, Type=uint),
+                ClusterObjectFieldDescriptor(Label="diagnosticsConfirmTimeList", Tag=0x00000016, Type=typing.List[uint]),
+                ClusterObjectFieldDescriptor(Label="diagnosticsRehabTimeList", Tag=0x00000017, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -54669,7 +54668,6 @@ class FreshWaterHeaterController(Cluster):
     displayTemperatureStep: int = 0
     resetTimeout: uint = 0
     coolDownTimeout: uint = 0
-    resetCounterTimeout: uint = 0
     resetCounterTimeout: uint = 0
     displayActiveTimeout: uint = 0
     displayErrorTimeout: uint = 0
@@ -54938,7 +54936,7 @@ class FreshWaterHeaterController(Cluster):
             value: uint = 0
 
         @dataclass
-        class ResetCounterTimeout(ClusterAttributeDescriptor):
+        class DisplayActiveTimeout(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
                 return 0x15E7FC05
@@ -54954,7 +54952,7 @@ class FreshWaterHeaterController(Cluster):
             value: uint = 0
 
         @dataclass
-        class DisplayActiveTimeout(ClusterAttributeDescriptor):
+        class DisplayErrorTimeout(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
                 return 0x15E7FC05
@@ -54970,7 +54968,7 @@ class FreshWaterHeaterController(Cluster):
             value: uint = 0
 
         @dataclass
-        class DisplayErrorTimeout(ClusterAttributeDescriptor):
+        class DisplayTargetTimeout(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
                 return 0x15E7FC05
@@ -54986,22 +54984,6 @@ class FreshWaterHeaterController(Cluster):
             value: uint = 0
 
         @dataclass
-        class DisplayTargetTimeout(ClusterAttributeDescriptor):
-            @ChipUtility.classproperty
-            def cluster_id(cls) -> int:
-                return 0x15E7FC05
-
-            @ChipUtility.classproperty
-            def attribute_id(cls) -> int:
-                return 0x0000000F
-
-            @ChipUtility.classproperty
-            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
-                return ClusterObjectFieldDescriptor(Type=uint)
-
-            value: uint = 0
-
-        @dataclass
         class TemperatureSensorMinValid(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
@@ -55009,7 +54991,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000011
+                return 0x0000000F
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55025,7 +55007,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000012
+                return 0x00000010
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55041,7 +55023,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000013
+                return 0x00000011
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55057,7 +55039,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000014
+                return 0x00000012
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55073,7 +55055,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000015
+                return 0x00000013
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55089,7 +55071,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000016
+                return 0x00000014
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55105,7 +55087,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000017
+                return 0x00000015
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55121,7 +55103,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000018
+                return 0x00000016
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
@@ -55137,7 +55119,7 @@ class FreshWaterHeaterController(Cluster):
 
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
-                return 0x00000019
+                return 0x00000017
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:

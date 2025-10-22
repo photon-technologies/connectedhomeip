@@ -6430,12 +6430,6 @@ Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
 Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
 } // namespace ResetCounterTimeout
 
-namespace ResetCounterTimeout {
-Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
-Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
-} // namespace ResetCounterTimeout
-
 namespace DisplayActiveTimeout {
 Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
 Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);

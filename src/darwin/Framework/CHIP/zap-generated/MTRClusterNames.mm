@@ -9442,10 +9442,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"ResetCounterTimeout";
             break;
 
-        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetCounterTimeoutID:
-            result = @"ResetCounterTimeout";
-            break;
-
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayActiveTimeoutID:
             result = @"DisplayActiveTimeout";
             break;

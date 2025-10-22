@@ -60,56 +60,52 @@ namespace ResetCounterTimeout {
 inline constexpr AttributeId Id = 0x0000000B;
 } // namespace ResetCounterTimeout
 
-namespace ResetCounterTimeout {
-inline constexpr AttributeId Id = 0x0000000C;
-} // namespace ResetCounterTimeout
-
 namespace DisplayActiveTimeout {
-inline constexpr AttributeId Id = 0x0000000D;
+inline constexpr AttributeId Id = 0x0000000C;
 } // namespace DisplayActiveTimeout
 
 namespace DisplayErrorTimeout {
-inline constexpr AttributeId Id = 0x0000000E;
+inline constexpr AttributeId Id = 0x0000000D;
 } // namespace DisplayErrorTimeout
 
 namespace DisplayTargetTimeout {
-inline constexpr AttributeId Id = 0x0000000F;
+inline constexpr AttributeId Id = 0x0000000E;
 } // namespace DisplayTargetTimeout
 
 namespace TemperatureSensorMinValid {
-inline constexpr AttributeId Id = 0x00000011;
+inline constexpr AttributeId Id = 0x0000000F;
 } // namespace TemperatureSensorMinValid
 
 namespace TemperatureSensorMaxValid {
-inline constexpr AttributeId Id = 0x00000012;
+inline constexpr AttributeId Id = 0x00000010;
 } // namespace TemperatureSensorMaxValid
 
 namespace OverheatThresholdTemperature {
-inline constexpr AttributeId Id = 0x00000013;
+inline constexpr AttributeId Id = 0x00000011;
 } // namespace OverheatThresholdTemperature
 
 namespace RapidRiseDelta {
-inline constexpr AttributeId Id = 0x00000014;
+inline constexpr AttributeId Id = 0x00000012;
 } // namespace RapidRiseDelta
 
 namespace RapidRiseWindow {
-inline constexpr AttributeId Id = 0x00000015;
+inline constexpr AttributeId Id = 0x00000013;
 } // namespace RapidRiseWindow
 
 namespace PreviousTargetHeaterTemperature {
-inline constexpr AttributeId Id = 0x00000016;
+inline constexpr AttributeId Id = 0x00000014;
 } // namespace PreviousTargetHeaterTemperature
 
 namespace HeaterMaximumPower {
-inline constexpr AttributeId Id = 0x00000017;
+inline constexpr AttributeId Id = 0x00000015;
 } // namespace HeaterMaximumPower
 
 namespace DiagnosticsConfirmTimeList {
-inline constexpr AttributeId Id = 0x00000018;
+inline constexpr AttributeId Id = 0x00000016;
 } // namespace DiagnosticsConfirmTimeList
 
 namespace DiagnosticsRehabTimeList {
-inline constexpr AttributeId Id = 0x00000019;
+inline constexpr AttributeId Id = 0x00000017;
 } // namespace DiagnosticsRehabTimeList
 
 namespace GeneratedCommandList {

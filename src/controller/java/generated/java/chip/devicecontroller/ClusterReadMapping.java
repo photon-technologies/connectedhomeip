@@ -20229,17 +20229,6 @@ public class ClusterReadMapping {
           readFreshWaterHeaterControllerResetCounterTimeoutCommandParams
         );
         result.put("readResetCounterTimeoutAttribute", readFreshWaterHeaterControllerResetCounterTimeoutAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterControllerResetCounterTimeoutCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterControllerResetCounterTimeoutAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).readResetCounterTimeoutAttribute(
-              (ChipClusters.LongAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
-          readFreshWaterHeaterControllerResetCounterTimeoutCommandParams
-        );
-        result.put("readResetCounterTimeoutAttribute", readFreshWaterHeaterControllerResetCounterTimeoutAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshWaterHeaterControllerDisplayActiveTimeoutCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshWaterHeaterControllerDisplayActiveTimeoutAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

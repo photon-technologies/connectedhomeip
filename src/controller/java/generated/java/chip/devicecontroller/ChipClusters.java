@@ -68010,19 +68010,18 @@ public class ChipClusters {
     private static final long RESET_TIMEOUT_ATTRIBUTE_ID = 9L;
     private static final long COOL_DOWN_TIMEOUT_ATTRIBUTE_ID = 10L;
     private static final long RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID = 11L;
-    private static final long RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID = 12L;
-    private static final long DISPLAY_ACTIVE_TIMEOUT_ATTRIBUTE_ID = 13L;
-    private static final long DISPLAY_ERROR_TIMEOUT_ATTRIBUTE_ID = 14L;
-    private static final long DISPLAY_TARGET_TIMEOUT_ATTRIBUTE_ID = 15L;
-    private static final long TEMPERATURE_SENSOR_MIN_VALID_ATTRIBUTE_ID = 17L;
-    private static final long TEMPERATURE_SENSOR_MAX_VALID_ATTRIBUTE_ID = 18L;
-    private static final long OVERHEAT_THRESHOLD_TEMPERATURE_ATTRIBUTE_ID = 19L;
-    private static final long RAPID_RISE_DELTA_ATTRIBUTE_ID = 20L;
-    private static final long RAPID_RISE_WINDOW_ATTRIBUTE_ID = 21L;
-    private static final long PREVIOUS_TARGET_HEATER_TEMPERATURE_ATTRIBUTE_ID = 22L;
-    private static final long HEATER_MAXIMUM_POWER_ATTRIBUTE_ID = 23L;
-    private static final long DIAGNOSTICS_CONFIRM_TIME_LIST_ATTRIBUTE_ID = 24L;
-    private static final long DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID = 25L;
+    private static final long DISPLAY_ACTIVE_TIMEOUT_ATTRIBUTE_ID = 12L;
+    private static final long DISPLAY_ERROR_TIMEOUT_ATTRIBUTE_ID = 13L;
+    private static final long DISPLAY_TARGET_TIMEOUT_ATTRIBUTE_ID = 14L;
+    private static final long TEMPERATURE_SENSOR_MIN_VALID_ATTRIBUTE_ID = 15L;
+    private static final long TEMPERATURE_SENSOR_MAX_VALID_ATTRIBUTE_ID = 16L;
+    private static final long OVERHEAT_THRESHOLD_TEMPERATURE_ATTRIBUTE_ID = 17L;
+    private static final long RAPID_RISE_DELTA_ATTRIBUTE_ID = 18L;
+    private static final long RAPID_RISE_WINDOW_ATTRIBUTE_ID = 19L;
+    private static final long PREVIOUS_TARGET_HEATER_TEMPERATURE_ATTRIBUTE_ID = 20L;
+    private static final long HEATER_MAXIMUM_POWER_ATTRIBUTE_ID = 21L;
+    private static final long DIAGNOSTICS_CONFIRM_TIME_LIST_ATTRIBUTE_ID = 22L;
+    private static final long DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID = 23L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -68363,32 +68362,6 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, COOL_DOWN_TIMEOUT_ATTRIBUTE_ID, minInterval, maxInterval);
-    }
-
-    public void readResetCounterTimeoutAttribute(
-        LongAttributeCallback callback) {
-      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID);
-
-      readAttribute(new ReportCallbackImpl(callback, path) {
-          @Override
-          public void onSuccess(byte[] tlv) {
-            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
-            callback.onSuccess(value);
-          }
-        }, RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID, true);
-    }
-
-    public void subscribeResetCounterTimeoutAttribute(
-        LongAttributeCallback callback, int minInterval, int maxInterval) {
-      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID);
-
-      subscribeAttribute(new ReportCallbackImpl(callback, path) {
-          @Override
-          public void onSuccess(byte[] tlv) {
-            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
-            callback.onSuccess(value);
-          }
-        }, RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readResetCounterTimeoutAttribute(

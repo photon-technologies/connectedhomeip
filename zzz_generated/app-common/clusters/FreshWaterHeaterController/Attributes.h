@@ -188,18 +188,6 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace ResetCounterTimeout
-namespace ResetCounterTimeout {
-struct TypeInfo
-{
-    using Type             = uint32_t;
-    using DecodableType    = uint32_t;
-    using DecodableArgType = uint32_t;
-
-    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
-    static constexpr AttributeId GetAttributeId() { return Attributes::ResetCounterTimeout::Id; }
-    static constexpr bool MustUseTimedWrite() { return false; }
-};
-} // namespace ResetCounterTimeout
 namespace DisplayActiveTimeout {
 struct TypeInfo
 {
@@ -395,7 +383,6 @@ struct TypeInfo
         Attributes::DisplayTemperatureStep::TypeInfo::DecodableType displayTemperatureStep             = static_cast<int16_t>(0);
         Attributes::ResetTimeout::TypeInfo::DecodableType resetTimeout                                 = static_cast<uint32_t>(0);
         Attributes::CoolDownTimeout::TypeInfo::DecodableType coolDownTimeout                           = static_cast<uint32_t>(0);
-        Attributes::ResetCounterTimeout::TypeInfo::DecodableType resetCounterTimeout                   = static_cast<uint32_t>(0);
         Attributes::ResetCounterTimeout::TypeInfo::DecodableType resetCounterTimeout                   = static_cast<uint32_t>(0);
         Attributes::DisplayActiveTimeout::TypeInfo::DecodableType displayActiveTimeout                 = static_cast<uint32_t>(0);
         Attributes::DisplayErrorTimeout::TypeInfo::DecodableType displayErrorTimeout                   = static_cast<uint32_t>(0);

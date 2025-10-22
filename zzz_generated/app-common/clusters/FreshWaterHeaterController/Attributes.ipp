@@ -56,8 +56,6 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, coolDownTimeout);
     case Attributes::ResetCounterTimeout::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, resetCounterTimeout);
-    case Attributes::ResetCounterTimeout::TypeInfo::GetAttributeId():
-        return DataModel::Decode(reader, resetCounterTimeout);
     case Attributes::DisplayActiveTimeout::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, displayActiveTimeout);
     case Attributes::DisplayErrorTimeout::TypeInfo::GetAttributeId():

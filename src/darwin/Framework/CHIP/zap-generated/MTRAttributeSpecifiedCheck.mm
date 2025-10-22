@@ -6889,9 +6889,6 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     case Attributes::ResetCounterTimeout::Id: {
         return YES;
     }
-    case Attributes::ResetCounterTimeout::Id: {
-        return YES;
-    }
     case Attributes::DisplayActiveTimeout::Id: {
         return YES;
     }

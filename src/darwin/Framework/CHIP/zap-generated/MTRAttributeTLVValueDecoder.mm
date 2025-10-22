@@ -21690,17 +21690,6 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         value = [NSNumber numberWithUnsignedInt:cppValue];
         return value;
     }
-    case Attributes::ResetCounterTimeout::Id: {
-        using TypeInfo = Attributes::ResetCounterTimeout::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue];
-        return value;
-    }
     case Attributes::DisplayActiveTimeout::Id: {
         using TypeInfo = Attributes::DisplayActiveTimeout::TypeInfo;
         TypeInfo::DecodableType cppValue;

@@ -182436,19 +182436,18 @@ public:
 | * ResetTimeout                                                      | 0x0009 |
 | * CoolDownTimeout                                                   | 0x000A |
 | * ResetCounterTimeout                                               | 0x000B |
-| * ResetCounterTimeout                                               | 0x000C |
-| * DisplayActiveTimeout                                              | 0x000D |
-| * DisplayErrorTimeout                                               | 0x000E |
-| * DisplayTargetTimeout                                              | 0x000F |
-| * TemperatureSensorMinValid                                         | 0x0011 |
-| * TemperatureSensorMaxValid                                         | 0x0012 |
-| * OverheatThresholdTemperature                                      | 0x0013 |
-| * RapidRiseDelta                                                    | 0x0014 |
-| * RapidRiseWindow                                                   | 0x0015 |
-| * PreviousTargetHeaterTemperature                                   | 0x0016 |
-| * HeaterMaximumPower                                                | 0x0017 |
-| * DiagnosticsConfirmTimeList                                        | 0x0018 |
-| * DiagnosticsRehabTimeList                                          | 0x0019 |
+| * DisplayActiveTimeout                                              | 0x000C |
+| * DisplayErrorTimeout                                               | 0x000D |
+| * DisplayTargetTimeout                                              | 0x000E |
+| * TemperatureSensorMinValid                                         | 0x000F |
+| * TemperatureSensorMaxValid                                         | 0x0010 |
+| * OverheatThresholdTemperature                                      | 0x0011 |
+| * RapidRiseDelta                                                    | 0x0012 |
+| * RapidRiseWindow                                                   | 0x0013 |
+| * PreviousTargetHeaterTemperature                                   | 0x0014 |
+| * HeaterMaximumPower                                                | 0x0015 |
+| * DiagnosticsConfirmTimeList                                        | 0x0016 |
+| * DiagnosticsRehabTimeList                                          | 0x0017 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -183427,91 +183426,6 @@ public:
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
                 NSLog(@"FreshWaterHeaterController.CoolDownTimeout response %@", [value description]);
-                if (error == nil) {
-                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
-                } else {
-                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
-                }
-                SetCommandExitStatus(error);
-            }];
-
-        return CHIP_NO_ERROR;
-    }
-};
-
-#endif // MTR_ENABLE_PROVISIONAL
-#if MTR_ENABLE_PROVISIONAL
-
-/*
- * Attribute ResetCounterTimeout
- */
-class ReadFreshWaterHeaterControllerResetCounterTimeout : public ReadAttribute {
-public:
-    ReadFreshWaterHeaterControllerResetCounterTimeout()
-        : ReadAttribute("reset-counter-timeout")
-    {
-    }
-
-    ~ReadFreshWaterHeaterControllerResetCounterTimeout()
-    {
-    }
-
-    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
-        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
-
-        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
-        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        [cluster readAttributeResetCounterTimeoutWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
-            NSLog(@"FreshWaterHeaterController.ResetCounterTimeout response %@", [value description]);
-            if (error == nil) {
-                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
-            } else {
-                LogNSError("FreshWaterHeaterController ResetCounterTimeout read Error", error);
-                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
-            }
-            SetCommandExitStatus(error);
-        }];
-        return CHIP_NO_ERROR;
-    }
-};
-
-class SubscribeAttributeFreshWaterHeaterControllerResetCounterTimeout : public SubscribeAttribute {
-public:
-    SubscribeAttributeFreshWaterHeaterControllerResetCounterTimeout()
-        : SubscribeAttribute("reset-counter-timeout")
-    {
-    }
-
-    ~SubscribeAttributeFreshWaterHeaterControllerResetCounterTimeout()
-    {
-    }
-
-    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
-        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
-        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
-        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
-        if (mKeepSubscriptions.HasValue()) {
-            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
-        }
-        if (mFabricFiltered.HasValue()) {
-            params.filterByFabric = mFabricFiltered.Value();
-        }
-        if (mAutoResubscribe.HasValue()) {
-            params.resubscribeAutomatically = mAutoResubscribe.Value();
-        }
-        [cluster subscribeAttributeResetCounterTimeoutWithParams:params
-            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
-            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
-                NSLog(@"FreshWaterHeaterController.ResetCounterTimeout response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -208059,10 +207973,6 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerCoolDownTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerCoolDownTimeout>(), //
-#endif // MTR_ENABLE_PROVISIONAL
-#if MTR_ENABLE_PROVISIONAL
-        make_unique<ReadFreshWaterHeaterControllerResetCounterTimeout>(), //
-        make_unique<SubscribeAttributeFreshWaterHeaterControllerResetCounterTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerResetCounterTimeout>(), //

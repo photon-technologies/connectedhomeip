@@ -80,57 +80,53 @@
             <description>Reset Counter Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000C" name="ResetCounterTimeout" define="RESET_COUNTER_TIMEOUT" type="elapsed_s" default="1">
-            <description>Reset Counter Timeout</description>
-            <mandatoryConform />
-        </attribute>
-        <attribute side="server" code="0x000D" name="DisplayActiveTimeout" define="DISPLAY_ACTIVE_TIMEOUT" type="elapsed_s" default="30" min="1">
+        <attribute side="server" code="0x000C" name="DisplayActiveTimeout" define="DISPLAY_ACTIVE_TIMEOUT" type="elapsed_s" default="30" min="1">
             <description>Display Active Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000E" name="DisplayErrorTimeout" define="DISPLAY_ERROR_TIMEOUT" type="elapsed_s" default="5" min="1">
+        <attribute side="server" code="0x000D" name="DisplayErrorTimeout" define="DISPLAY_ERROR_TIMEOUT" type="elapsed_s" default="5" min="1">
             <description>Display Error Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000F" name="DisplayTargetTimeout" define="DISPLAY_TARGET_TIMEOUT" type="elapsed_s" default="10" min="1">
+        <attribute side="server" code="0x000E" name="DisplayTargetTimeout" define="DISPLAY_TARGET_TIMEOUT" type="elapsed_s" default="10" min="1">
             <description>Display Target Timeout</description>
             <mandatoryConform />
         </attribute>
         <!--        Failure parameters        -->
-        <attribute side="server" code="0x0011" name="TemperatureSensorMinValid" define="TEMPERATURE_SENSOR_MIN_VALID" type="temperature" default="0">
+        <attribute side="server" code="0x00F" name="TemperatureSensorMinValid" define="TEMPERATURE_SENSOR_MIN_VALID" type="temperature" default="0">
             <description>Temperature Sensor Min Valid</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0012" name="TemperatureSensorMaxValid" define="TEMPERATURE_SENSOR_MAX_VALID" type="temperature" default="10000">
+        <attribute side="server" code="0x0010" name="TemperatureSensorMaxValid" define="TEMPERATURE_SENSOR_MAX_VALID" type="temperature" default="10000">
             <description>Temperature Sensor Max Valid</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0013" name="OverheatThresholdTemperature" define="OVERHEAT_THRESHOLD_TEMPERATURE" type="temperature" default="9000">
+        <attribute side="server" code="0x0011" name="OverheatThresholdTemperature" define="OVERHEAT_THRESHOLD_TEMPERATURE" type="temperature" default="9000">
             <description>Overheat Threshold Temperature</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0014" name="RapidRiseDelta" define="RAPID_RISE_DELTA" type="temperature" default="500">
+        <attribute side="server" code="0x0012" name="RapidRiseDelta" define="RAPID_RISE_DELTA" type="temperature" default="500">
             <description>Rapid Rise Delta</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0015" name="RapidRiseWindow" define="RAPID_RISE_WINDOW" type="elapsed_s" default="20">
+        <attribute side="server" code="0x0013" name="RapidRiseWindow" define="RAPID_RISE_WINDOW" type="elapsed_s" default="20">
             <description>Rapid Rise Window</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0016" name="PreviousTargetHeaterTemperature" define="PREVIOUS_TARGET_HEATER_TEMPERATURE" type="temperature" default="20">
+        <attribute side="server" code="0x0014" name="PreviousTargetHeaterTemperature" define="PREVIOUS_TARGET_HEATER_TEMPERATURE" type="temperature" default="20">
             <description>Previous TargetHeater Temperature</description>
             <mandatoryConform />
         </attribute>
 
-        <attribute side="server" code="0x0017" name="HeaterMaximumPower" define="HEATER_MAXIMUM_POWER" type="int16u" default="1500">
+        <attribute side="server" code="0x0015" name="HeaterMaximumPower" define="HEATER_MAXIMUM_POWER" type="int16u" default="1500">
             <description>Heater Maximum Power</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0018" name="DiagnosticsConfirmTimeList" define="DIAGNOSTICS_CONFIRM_TIME_LIST" type="array" entryType="int32u" length="7">
+        <attribute side="server" code="0x0016" name="DiagnosticsConfirmTimeList" define="DIAGNOSTICS_CONFIRM_TIME_LIST" type="array" entryType="int32u" length="7">
             <description>Diagnostics Confirm Time List</description>
             <mandatoryConform/>
         </attribute>
-        <attribute side="server" code="0x0019" name="DiagnosticsRehabTimeList" define="DIAGNOSTICS_Rehab_TIME_LIST" type="array" entryType="int32u" length="7">
+        <attribute side="server" code="0x0017" name="DiagnosticsRehabTimeList" define="DIAGNOSTICS_Rehab_TIME_LIST" type="array" entryType="int32u" length="7">
             <description>Diagnostics Rehab Time List</description>
             <mandatoryConform/>
         </attribute>

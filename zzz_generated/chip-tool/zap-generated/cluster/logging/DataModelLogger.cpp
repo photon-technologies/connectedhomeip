@@ -22712,11 +22712,6 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("ResetCounterTimeout", 1, value);
         }
-        case FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id: {
-            uint32_t value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("ResetCounterTimeout", 1, value);
-        }
         case FreshWaterHeaterController::Attributes::DisplayActiveTimeout::Id: {
             uint32_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));

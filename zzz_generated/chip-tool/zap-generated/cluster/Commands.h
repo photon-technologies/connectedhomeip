@@ -17803,19 +17803,18 @@ private:
 | * ResetTimeout                                                      | 0x0009 |
 | * CoolDownTimeout                                                   | 0x000A |
 | * ResetCounterTimeout                                               | 0x000B |
-| * ResetCounterTimeout                                               | 0x000C |
-| * DisplayActiveTimeout                                              | 0x000D |
-| * DisplayErrorTimeout                                               | 0x000E |
-| * DisplayTargetTimeout                                              | 0x000F |
-| * TemperatureSensorMinValid                                         | 0x0011 |
-| * TemperatureSensorMaxValid                                         | 0x0012 |
-| * OverheatThresholdTemperature                                      | 0x0013 |
-| * RapidRiseDelta                                                    | 0x0014 |
-| * RapidRiseWindow                                                   | 0x0015 |
-| * PreviousTargetHeaterTemperature                                   | 0x0016 |
-| * HeaterMaximumPower                                                | 0x0017 |
-| * DiagnosticsConfirmTimeList                                        | 0x0018 |
-| * DiagnosticsRehabTimeList                                          | 0x0019 |
+| * DisplayActiveTimeout                                              | 0x000C |
+| * DisplayErrorTimeout                                               | 0x000D |
+| * DisplayTargetTimeout                                              | 0x000E |
+| * TemperatureSensorMinValid                                         | 0x000F |
+| * TemperatureSensorMaxValid                                         | 0x0010 |
+| * OverheatThresholdTemperature                                      | 0x0011 |
+| * RapidRiseDelta                                                    | 0x0012 |
+| * RapidRiseWindow                                                   | 0x0013 |
+| * PreviousTargetHeaterTemperature                                   | 0x0014 |
+| * HeaterMaximumPower                                                | 0x0015 |
+| * DiagnosticsConfirmTimeList                                        | 0x0016 |
+| * DiagnosticsRehabTimeList                                          | 0x0017 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -32074,7 +32073,6 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<ReadAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                      //
         make_unique<ReadAttribute>(Id, "cool-down-timeout", Attributes::CoolDownTimeout::Id, credsIssuerConfig),               //
         make_unique<ReadAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),       //
-        make_unique<ReadAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),       //
         make_unique<ReadAttribute>(Id, "display-active-timeout", Attributes::DisplayActiveTimeout::Id, credsIssuerConfig),     //
         make_unique<ReadAttribute>(Id, "display-error-timeout", Attributes::DisplayErrorTimeout::Id, credsIssuerConfig),       //
         make_unique<ReadAttribute>(Id, "display-target-timeout", Attributes::DisplayTargetTimeout::Id, credsIssuerConfig),     //
@@ -32124,8 +32122,6 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<WriteAttribute<uint32_t>>(Id, "reset-timeout", 0, UINT32_MAX, Attributes::ResetTimeout::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "cool-down-timeout", 0, UINT32_MAX, Attributes::CoolDownTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<uint32_t>>(Id, "reset-counter-timeout", 0, UINT32_MAX, Attributes::ResetCounterTimeout::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "reset-counter-timeout", 0, UINT32_MAX, Attributes::ResetCounterTimeout::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
@@ -32183,7 +32179,6 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                         credsIssuerConfig),                                                                     //
         make_unique<SubscribeAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                  //
         make_unique<SubscribeAttribute>(Id, "cool-down-timeout", Attributes::CoolDownTimeout::Id, credsIssuerConfig),           //
-        make_unique<SubscribeAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "display-active-timeout", Attributes::DisplayActiveTimeout::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "display-error-timeout", Attributes::DisplayErrorTimeout::Id, credsIssuerConfig),   //

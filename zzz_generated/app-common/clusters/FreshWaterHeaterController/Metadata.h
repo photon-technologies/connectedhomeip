@@ -67,10 +67,6 @@ namespace ResetCounterTimeout {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ResetCounterTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace ResetCounterTimeout
-namespace ResetCounterTimeout {
-inline constexpr DataModel::AttributeEntry kMetadataEntry(ResetCounterTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, std::nullopt);
-} // namespace ResetCounterTimeout
 namespace DisplayActiveTimeout {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayActiveTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
