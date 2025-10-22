@@ -6856,13 +6856,16 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     case Attributes::ColdWaterTemperature::Id: {
         return YES;
     }
-    case Attributes::ShowerPercent::Id: {
+    case Attributes::ShowerTemperature::Id: {
+        return YES;
+    }
+    case Attributes::ShowerHysteresis::Id: {
         return YES;
     }
     case Attributes::ShowerState::Id: {
         return YES;
     }
-    case Attributes::DisplayUpdateInterval::Id: {
+    case Attributes::DefaultShowerFlowLPM::Id: {
         return YES;
     }
     case Attributes::StandardModeSetpoint::Id: {
@@ -6883,6 +6886,15 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     case Attributes::CoolDownTimeout::Id: {
         return YES;
     }
+    case Attributes::ResetCounterTimeout::Id: {
+        return YES;
+    }
+    case Attributes::ResetCounterTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayActiveTimeout::Id: {
+        return YES;
+    }
     case Attributes::DisplayErrorTimeout::Id: {
         return YES;
     }
@@ -6899,6 +6911,21 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
         return YES;
     }
     case Attributes::RapidRiseDelta::Id: {
+        return YES;
+    }
+    case Attributes::RapidRiseWindow::Id: {
+        return YES;
+    }
+    case Attributes::PreviousTargetHeaterTemperature::Id: {
+        return YES;
+    }
+    case Attributes::HeaterMaximumPower::Id: {
+        return YES;
+    }
+    case Attributes::DiagnosticsConfirmTimeList::Id: {
+        return YES;
+    }
+    case Attributes::DiagnosticsRehabTimeList::Id: {
         return YES;
     }
     case Attributes::GeneratedCommandList::Id: {

@@ -23,18 +23,22 @@ namespace ColdWaterTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ColdWaterTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace ColdWaterTemperature
-namespace ShowerPercent {
-inline constexpr DataModel::AttributeEntry kMetadataEntry(ShowerPercent::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+namespace ShowerTemperature {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(ShowerTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
-} // namespace ShowerPercent
+} // namespace ShowerTemperature
+namespace ShowerHysteresis {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(ShowerHysteresis::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace ShowerHysteresis
 namespace ShowerState {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ShowerState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace ShowerState
-namespace DisplayUpdateInterval {
-inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayUpdateInterval::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+namespace DefaultShowerFlowLPM {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(DefaultShowerFlowLPM::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
-} // namespace DisplayUpdateInterval
+} // namespace DefaultShowerFlowLPM
 namespace StandardModeSetpoint {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(StandardModeSetpoint::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
@@ -59,6 +63,18 @@ namespace CoolDownTimeout {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(CoolDownTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace CoolDownTimeout
+namespace ResetCounterTimeout {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(ResetCounterTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace ResetCounterTimeout
+namespace ResetCounterTimeout {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(ResetCounterTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace ResetCounterTimeout
+namespace DisplayActiveTimeout {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayActiveTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace DisplayActiveTimeout
 namespace DisplayErrorTimeout {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayErrorTimeout::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
@@ -86,6 +102,31 @@ namespace RapidRiseDelta {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(RapidRiseDelta::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace RapidRiseDelta
+namespace RapidRiseWindow {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(RapidRiseWindow::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace RapidRiseWindow
+namespace PreviousTargetHeaterTemperature {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(PreviousTargetHeaterTemperature::Id,
+                                                          BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
+                                                          std::nullopt);
+} // namespace PreviousTargetHeaterTemperature
+namespace HeaterMaximumPower {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(HeaterMaximumPower::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace HeaterMaximumPower
+namespace DiagnosticsConfirmTimeList {
+inline constexpr DataModel::AttributeEntry
+    kMetadataEntry(DiagnosticsConfirmTimeList::Id,
+                   BitFlags<DataModel::AttributeQualityFlags>(DataModel::AttributeQualityFlags::kListAttribute),
+                   Access::Privilege::kView, std::nullopt);
+} // namespace DiagnosticsConfirmTimeList
+namespace DiagnosticsRehabTimeList {
+inline constexpr DataModel::AttributeEntry
+    kMetadataEntry(DiagnosticsRehabTimeList::Id,
+                   BitFlags<DataModel::AttributeQualityFlags>(DataModel::AttributeQualityFlags::kListAttribute),
+                   Access::Privilege::kView, std::nullopt);
+} // namespace DiagnosticsRehabTimeList
 
 } // namespace Attributes
 

@@ -4981,12 +4981,14 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
         {
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::ColdWaterTemperature::Id:
             return "ColdWaterTemperature";
-        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ShowerPercent::Id:
-            return "ShowerPercent";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ShowerTemperature::Id:
+            return "ShowerTemperature";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ShowerHysteresis::Id:
+            return "ShowerHysteresis";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::ShowerState::Id:
             return "ShowerState";
-        case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayUpdateInterval::Id:
-            return "DisplayUpdateInterval";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::DefaultShowerFlowLPM::Id:
+            return "DefaultShowerFlowLPM";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::StandardModeSetpoint::Id:
             return "StandardModeSetpoint";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::EcoModeSetpoint::Id:
@@ -4999,6 +5001,12 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "ResetTimeout";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::CoolDownTimeout::Id:
             return "CoolDownTimeout";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id:
+            return "ResetCounterTimeout";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id:
+            return "ResetCounterTimeout";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayActiveTimeout::Id:
+            return "DisplayActiveTimeout";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayErrorTimeout::Id:
             return "DisplayErrorTimeout";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayTargetTimeout::Id:
@@ -5011,6 +5019,16 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "OverheatThresholdTemperature";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::RapidRiseDelta::Id:
             return "RapidRiseDelta";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::RapidRiseWindow::Id:
+            return "RapidRiseWindow";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::PreviousTargetHeaterTemperature::Id:
+            return "PreviousTargetHeaterTemperature";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::HeaterMaximumPower::Id:
+            return "HeaterMaximumPower";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::DiagnosticsConfirmTimeList::Id:
+            return "DiagnosticsConfirmTimeList";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::DiagnosticsRehabTimeList::Id:
+            return "DiagnosticsRehabTimeList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::AcceptedCommandList::Id:

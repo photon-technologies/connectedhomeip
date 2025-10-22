@@ -34,12 +34,14 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
     {
     case Attributes::ColdWaterTemperature::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, coldWaterTemperature);
-    case Attributes::ShowerPercent::TypeInfo::GetAttributeId():
-        return DataModel::Decode(reader, showerPercent);
+    case Attributes::ShowerTemperature::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, showerTemperature);
+    case Attributes::ShowerHysteresis::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, showerHysteresis);
     case Attributes::ShowerState::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, showerState);
-    case Attributes::DisplayUpdateInterval::TypeInfo::GetAttributeId():
-        return DataModel::Decode(reader, displayUpdateInterval);
+    case Attributes::DefaultShowerFlowLPM::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, defaultShowerFlowLPM);
     case Attributes::StandardModeSetpoint::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, standardModeSetpoint);
     case Attributes::EcoModeSetpoint::TypeInfo::GetAttributeId():
@@ -52,6 +54,12 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, resetTimeout);
     case Attributes::CoolDownTimeout::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, coolDownTimeout);
+    case Attributes::ResetCounterTimeout::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, resetCounterTimeout);
+    case Attributes::ResetCounterTimeout::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, resetCounterTimeout);
+    case Attributes::DisplayActiveTimeout::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, displayActiveTimeout);
     case Attributes::DisplayErrorTimeout::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, displayErrorTimeout);
     case Attributes::DisplayTargetTimeout::TypeInfo::GetAttributeId():
@@ -64,6 +72,16 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, overheatThresholdTemperature);
     case Attributes::RapidRiseDelta::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, rapidRiseDelta);
+    case Attributes::RapidRiseWindow::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, rapidRiseWindow);
+    case Attributes::PreviousTargetHeaterTemperature::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, previousTargetHeaterTemperature);
+    case Attributes::HeaterMaximumPower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, heaterMaximumPower);
+    case Attributes::DiagnosticsConfirmTimeList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, diagnosticsConfirmTimeList);
+    case Attributes::DiagnosticsRehabTimeList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, diagnosticsRehabTimeList);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

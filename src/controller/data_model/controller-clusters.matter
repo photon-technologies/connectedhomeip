@@ -11599,21 +11599,30 @@ cluster FreshWaterHeaterController = 367524869 {
   }
 
   readonly attribute temperature coldWaterTemperature = 0;
-  readonly attribute percent showerPercent = 1;
-  readonly attribute ShowerStateEnum showerState = 2;
-  readonly attribute int32u displayUpdateInterval = 3;
-  readonly attribute temperature standardModeSetpoint = 4;
-  readonly attribute temperature ecoModeSetpoint = 5;
-  readonly attribute WaterHeaterBoostInfoStruct boostModeSetpoint = 6;
-  readonly attribute temperature displayTemperatureStep = 7;
-  readonly attribute elapsed_s resetTimeout = 8;
-  readonly attribute elapsed_s coolDownTimeout = 9;
-  readonly attribute elapsed_s displayErrorTimeout = 10;
-  readonly attribute elapsed_s displayTargetTimeout = 11;
-  readonly attribute temperature temperatureSensorMinValid = 12;
-  readonly attribute temperature temperatureSensorMaxValid = 13;
-  readonly attribute temperature overheatThresholdTemperature = 14;
-  readonly attribute temperature rapidRiseDelta = 15;
+  readonly attribute temperature showerTemperature = 1;
+  readonly attribute temperature showerHysteresis = 2;
+  readonly attribute ShowerStateEnum showerState = 3;
+  readonly attribute int16u defaultShowerFlowLPM = 4;
+  readonly attribute temperature standardModeSetpoint = 5;
+  readonly attribute temperature ecoModeSetpoint = 6;
+  readonly attribute WaterHeaterBoostInfoStruct boostModeSetpoint = 7;
+  readonly attribute temperature displayTemperatureStep = 8;
+  readonly attribute elapsed_s resetTimeout = 9;
+  readonly attribute elapsed_s coolDownTimeout = 10;
+  readonly attribute elapsed_s resetCounterTimeout = 11;
+  readonly attribute elapsed_s resetCounterTimeout = 12;
+  readonly attribute elapsed_s displayActiveTimeout = 13;
+  readonly attribute elapsed_s displayErrorTimeout = 14;
+  readonly attribute elapsed_s displayTargetTimeout = 15;
+  readonly attribute temperature temperatureSensorMinValid = 17;
+  readonly attribute temperature temperatureSensorMaxValid = 18;
+  readonly attribute temperature overheatThresholdTemperature = 19;
+  readonly attribute temperature rapidRiseDelta = 20;
+  readonly attribute elapsed_s rapidRiseWindow = 21;
+  readonly attribute temperature previousTargetHeaterTemperature = 22;
+  readonly attribute int16u heaterMaximumPower = 23;
+  readonly attribute int32u diagnosticsConfirmTimeList[] = 24;
+  readonly attribute int32u diagnosticsRehabTimeList[] = 25;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -11633,8 +11642,9 @@ cluster FreshWaterHeaterErrorsAlarm = 367524870 {
     kSensorOverRange = 0x2;
     kHeaterOverTemp = 0x4;
     kNoHeatingElement = 0x8;
-    kHeatingLatchedOn = 0x10;
-    kAnodeChangeRequest = 0x20;
+    kFastTempRise = 0x10;
+    kHeatingLatchedOn = 0x20;
+    kAnodeChangeRequest = 0x40;
   }
 
   bitmap Feature : bitmap32 {

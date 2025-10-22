@@ -22657,20 +22657,25 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("ColdWaterTemperature", 1, value);
         }
-        case FreshWaterHeaterController::Attributes::ShowerPercent::Id: {
-            chip::Percent value;
+        case FreshWaterHeaterController::Attributes::ShowerTemperature::Id: {
+            int16_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("ShowerPercent", 1, value);
+            return DataModelLogger::LogValue("ShowerTemperature", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ShowerHysteresis::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ShowerHysteresis", 1, value);
         }
         case FreshWaterHeaterController::Attributes::ShowerState::Id: {
             chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("ShowerState", 1, value);
         }
-        case FreshWaterHeaterController::Attributes::DisplayUpdateInterval::Id: {
-            uint32_t value;
+        case FreshWaterHeaterController::Attributes::DefaultShowerFlowLPM::Id: {
+            uint16_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("DisplayUpdateInterval", 1, value);
+            return DataModelLogger::LogValue("DefaultShowerFlowLPM", 1, value);
         }
         case FreshWaterHeaterController::Attributes::StandardModeSetpoint::Id: {
             int16_t value;
@@ -22702,6 +22707,21 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("CoolDownTimeout", 1, value);
         }
+        case FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ResetCounterTimeout", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ResetCounterTimeout", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DisplayActiveTimeout::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DisplayActiveTimeout", 1, value);
+        }
         case FreshWaterHeaterController::Attributes::DisplayErrorTimeout::Id: {
             uint32_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
@@ -22731,6 +22751,31 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             int16_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("RapidRiseDelta", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::RapidRiseWindow::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("RapidRiseWindow", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::PreviousTargetHeaterTemperature::Id: {
+            int16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("PreviousTargetHeaterTemperature", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::HeaterMaximumPower::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("HeaterMaximumPower", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DiagnosticsConfirmTimeList::Id: {
+            chip::app::DataModel::DecodableList<uint32_t> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DiagnosticsConfirmTimeList", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::DiagnosticsRehabTimeList::Id: {
+            chip::app::DataModel::DecodableList<uint32_t> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DiagnosticsRehabTimeList", 1, value);
         }
         case FreshWaterHeaterController::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;

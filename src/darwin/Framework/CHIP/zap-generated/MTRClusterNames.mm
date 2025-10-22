@@ -9398,16 +9398,20 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"ColdWaterTemperature";
             break;
 
-        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerPercentID:
-            result = @"ShowerPercent";
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerTemperatureID:
+            result = @"ShowerTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerHysteresisID:
+            result = @"ShowerHysteresis";
             break;
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerStateID:
             result = @"ShowerState";
             break;
 
-        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayUpdateIntervalID:
-            result = @"DisplayUpdateInterval";
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDefaultShowerFlowLPMID:
+            result = @"DefaultShowerFlowLPM";
             break;
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeStandardModeSetpointID:
@@ -9434,6 +9438,18 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"CoolDownTimeout";
             break;
 
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetCounterTimeoutID:
+            result = @"ResetCounterTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetCounterTimeoutID:
+            result = @"ResetCounterTimeout";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayActiveTimeoutID:
+            result = @"DisplayActiveTimeout";
+            break;
+
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayErrorTimeoutID:
             result = @"DisplayErrorTimeout";
             break;
@@ -9456,6 +9472,26 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRapidRiseDeltaID:
             result = @"RapidRiseDelta";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRapidRiseWindowID:
+            result = @"RapidRiseWindow";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributePreviousTargetHeaterTemperatureID:
+            result = @"PreviousTargetHeaterTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeHeaterMaximumPowerID:
+            result = @"HeaterMaximumPower";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDiagnosticsConfirmTimeListID:
+            result = @"DiagnosticsConfirmTimeList";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDiagnosticsRehabTimeListID:
+            result = @"DiagnosticsRehabTimeList";
             break;
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID:

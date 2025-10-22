@@ -55,18 +55,30 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace ColdWaterTemperature
-namespace ShowerPercent {
+namespace ShowerTemperature {
 struct TypeInfo
 {
-    using Type             = chip::Percent;
-    using DecodableType    = chip::Percent;
-    using DecodableArgType = chip::Percent;
+    using Type             = int16_t;
+    using DecodableType    = int16_t;
+    using DecodableArgType = int16_t;
 
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
-    static constexpr AttributeId GetAttributeId() { return Attributes::ShowerPercent::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ShowerTemperature::Id; }
     static constexpr bool MustUseTimedWrite() { return false; }
 };
-} // namespace ShowerPercent
+} // namespace ShowerTemperature
+namespace ShowerHysteresis {
+struct TypeInfo
+{
+    using Type             = int16_t;
+    using DecodableType    = int16_t;
+    using DecodableArgType = int16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ShowerHysteresis::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ShowerHysteresis
 namespace ShowerState {
 struct TypeInfo
 {
@@ -79,18 +91,18 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace ShowerState
-namespace DisplayUpdateInterval {
+namespace DefaultShowerFlowLPM {
 struct TypeInfo
 {
-    using Type             = uint32_t;
-    using DecodableType    = uint32_t;
-    using DecodableArgType = uint32_t;
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
 
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
-    static constexpr AttributeId GetAttributeId() { return Attributes::DisplayUpdateInterval::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DefaultShowerFlowLPM::Id; }
     static constexpr bool MustUseTimedWrite() { return false; }
 };
-} // namespace DisplayUpdateInterval
+} // namespace DefaultShowerFlowLPM
 namespace StandardModeSetpoint {
 struct TypeInfo
 {
@@ -164,6 +176,42 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace CoolDownTimeout
+namespace ResetCounterTimeout {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ResetCounterTimeout::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ResetCounterTimeout
+namespace ResetCounterTimeout {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ResetCounterTimeout::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ResetCounterTimeout
+namespace DisplayActiveTimeout {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DisplayActiveTimeout::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace DisplayActiveTimeout
 namespace DisplayErrorTimeout {
 struct TypeInfo
 {
@@ -236,6 +284,66 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace RapidRiseDelta
+namespace RapidRiseWindow {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::RapidRiseWindow::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace RapidRiseWindow
+namespace PreviousTargetHeaterTemperature {
+struct TypeInfo
+{
+    using Type             = int16_t;
+    using DecodableType    = int16_t;
+    using DecodableArgType = int16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::PreviousTargetHeaterTemperature::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace PreviousTargetHeaterTemperature
+namespace HeaterMaximumPower {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::HeaterMaximumPower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace HeaterMaximumPower
+namespace DiagnosticsConfirmTimeList {
+struct TypeInfo
+{
+    using Type             = chip::app::DataModel::List<const uint32_t>;
+    using DecodableType    = chip::app::DataModel::DecodableList<uint32_t>;
+    using DecodableArgType = const chip::app::DataModel::DecodableList<uint32_t> &;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DiagnosticsConfirmTimeList::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace DiagnosticsConfirmTimeList
+namespace DiagnosticsRehabTimeList {
+struct TypeInfo
+{
+    using Type             = chip::app::DataModel::List<const uint32_t>;
+    using DecodableType    = chip::app::DataModel::DecodableList<uint32_t>;
+    using DecodableArgType = const chip::app::DataModel::DecodableList<uint32_t> &;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DiagnosticsRehabTimeList::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace DiagnosticsRehabTimeList
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -276,22 +384,32 @@ struct TypeInfo
         CHIP_ERROR Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path);
 
         Attributes::ColdWaterTemperature::TypeInfo::DecodableType coldWaterTemperature = static_cast<int16_t>(0);
-        Attributes::ShowerPercent::TypeInfo::DecodableType showerPercent               = static_cast<chip::Percent>(0);
+        Attributes::ShowerTemperature::TypeInfo::DecodableType showerTemperature       = static_cast<int16_t>(0);
+        Attributes::ShowerHysteresis::TypeInfo::DecodableType showerHysteresis         = static_cast<int16_t>(0);
         Attributes::ShowerState::TypeInfo::DecodableType showerState =
             static_cast<chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum>(0);
-        Attributes::DisplayUpdateInterval::TypeInfo::DecodableType displayUpdateInterval = static_cast<uint32_t>(0);
-        Attributes::StandardModeSetpoint::TypeInfo::DecodableType standardModeSetpoint   = static_cast<int16_t>(0);
-        Attributes::EcoModeSetpoint::TypeInfo::DecodableType ecoModeSetpoint             = static_cast<int16_t>(0);
+        Attributes::DefaultShowerFlowLPM::TypeInfo::DecodableType defaultShowerFlowLPM = static_cast<uint16_t>(0);
+        Attributes::StandardModeSetpoint::TypeInfo::DecodableType standardModeSetpoint = static_cast<int16_t>(0);
+        Attributes::EcoModeSetpoint::TypeInfo::DecodableType ecoModeSetpoint           = static_cast<int16_t>(0);
         Attributes::BoostModeSetpoint::TypeInfo::DecodableType boostModeSetpoint;
         Attributes::DisplayTemperatureStep::TypeInfo::DecodableType displayTemperatureStep             = static_cast<int16_t>(0);
         Attributes::ResetTimeout::TypeInfo::DecodableType resetTimeout                                 = static_cast<uint32_t>(0);
         Attributes::CoolDownTimeout::TypeInfo::DecodableType coolDownTimeout                           = static_cast<uint32_t>(0);
+        Attributes::ResetCounterTimeout::TypeInfo::DecodableType resetCounterTimeout                   = static_cast<uint32_t>(0);
+        Attributes::ResetCounterTimeout::TypeInfo::DecodableType resetCounterTimeout                   = static_cast<uint32_t>(0);
+        Attributes::DisplayActiveTimeout::TypeInfo::DecodableType displayActiveTimeout                 = static_cast<uint32_t>(0);
         Attributes::DisplayErrorTimeout::TypeInfo::DecodableType displayErrorTimeout                   = static_cast<uint32_t>(0);
         Attributes::DisplayTargetTimeout::TypeInfo::DecodableType displayTargetTimeout                 = static_cast<uint32_t>(0);
         Attributes::TemperatureSensorMinValid::TypeInfo::DecodableType temperatureSensorMinValid       = static_cast<int16_t>(0);
         Attributes::TemperatureSensorMaxValid::TypeInfo::DecodableType temperatureSensorMaxValid       = static_cast<int16_t>(0);
         Attributes::OverheatThresholdTemperature::TypeInfo::DecodableType overheatThresholdTemperature = static_cast<int16_t>(0);
         Attributes::RapidRiseDelta::TypeInfo::DecodableType rapidRiseDelta                             = static_cast<int16_t>(0);
+        Attributes::RapidRiseWindow::TypeInfo::DecodableType rapidRiseWindow                           = static_cast<uint32_t>(0);
+        Attributes::PreviousTargetHeaterTemperature::TypeInfo::DecodableType previousTargetHeaterTemperature =
+            static_cast<int16_t>(0);
+        Attributes::HeaterMaximumPower::TypeInfo::DecodableType heaterMaximumPower = static_cast<uint16_t>(0);
+        Attributes::DiagnosticsConfirmTimeList::TypeInfo::DecodableType diagnosticsConfirmTimeList;
+        Attributes::DiagnosticsRehabTimeList::TypeInfo::DecodableType diagnosticsRehabTimeList;
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

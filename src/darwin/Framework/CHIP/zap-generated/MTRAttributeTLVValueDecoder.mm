@@ -21543,15 +21543,26 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         value = [NSNumber numberWithShort:cppValue];
         return value;
     }
-    case Attributes::ShowerPercent::Id: {
-        using TypeInfo = Attributes::ShowerPercent::TypeInfo;
+    case Attributes::ShowerTemperature::Id: {
+        using TypeInfo = Attributes::ShowerTemperature::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
             return nil;
         }
         NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedChar:cppValue];
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::ShowerHysteresis::Id: {
+        using TypeInfo = Attributes::ShowerHysteresis::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
         return value;
     }
     case Attributes::ShowerState::Id: {
@@ -21565,15 +21576,15 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         value = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue)];
         return value;
     }
-    case Attributes::DisplayUpdateInterval::Id: {
-        using TypeInfo = Attributes::DisplayUpdateInterval::TypeInfo;
+    case Attributes::DefaultShowerFlowLPM::Id: {
+        using TypeInfo = Attributes::DefaultShowerFlowLPM::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
             return nil;
         }
         NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue];
+        value = [NSNumber numberWithUnsignedShort:cppValue];
         return value;
     }
     case Attributes::StandardModeSetpoint::Id: {
@@ -21668,6 +21679,39 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         value = [NSNumber numberWithUnsignedInt:cppValue];
         return value;
     }
+    case Attributes::ResetCounterTimeout::Id: {
+        using TypeInfo = Attributes::ResetCounterTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::ResetCounterTimeout::Id: {
+        using TypeInfo = Attributes::ResetCounterTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::DisplayActiveTimeout::Id: {
+        using TypeInfo = Attributes::DisplayActiveTimeout::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
     case Attributes::DisplayErrorTimeout::Id: {
         using TypeInfo = Attributes::DisplayErrorTimeout::TypeInfo;
         TypeInfo::DecodableType cppValue;
@@ -21732,6 +21776,91 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         }
         NSNumber * _Nonnull value;
         value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::RapidRiseWindow::Id: {
+        using TypeInfo = Attributes::RapidRiseWindow::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::PreviousTargetHeaterTemperature::Id: {
+        using TypeInfo = Attributes::PreviousTargetHeaterTemperature::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithShort:cppValue];
+        return value;
+    }
+    case Attributes::HeaterMaximumPower::Id: {
+        using TypeInfo = Attributes::HeaterMaximumPower::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedShort:cppValue];
+        return value;
+    }
+    case Attributes::DiagnosticsConfirmTimeList::Id: {
+        using TypeInfo = Attributes::DiagnosticsConfirmTimeList::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSArray * _Nonnull value;
+        { // Scope for our temporary variables
+            auto * array_0 = [NSMutableArray new];
+            auto iter_0 = cppValue.begin();
+            while (iter_0.Next()) {
+                auto & entry_0 = iter_0.GetValue();
+                NSNumber * newElement_0;
+                newElement_0 = [NSNumber numberWithUnsignedInt:entry_0];
+                [array_0 addObject:newElement_0];
+            }
+            CHIP_ERROR err = iter_0.GetStatus();
+            if (err != CHIP_NO_ERROR) {
+                *aError = err;
+                return nil;
+            }
+            value = array_0;
+        }
+        return value;
+    }
+    case Attributes::DiagnosticsRehabTimeList::Id: {
+        using TypeInfo = Attributes::DiagnosticsRehabTimeList::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSArray * _Nonnull value;
+        { // Scope for our temporary variables
+            auto * array_0 = [NSMutableArray new];
+            auto iter_0 = cppValue.begin();
+            while (iter_0.Next()) {
+                auto & entry_0 = iter_0.GetValue();
+                NSNumber * newElement_0;
+                newElement_0 = [NSNumber numberWithUnsignedInt:entry_0];
+                [array_0 addObject:newElement_0];
+            }
+            CHIP_ERROR err = iter_0.GetStatus();
+            if (err != CHIP_NO_ERROR) {
+                *aError = err;
+                return nil;
+            }
+            value = array_0;
+        }
         return value;
     }
     default: {

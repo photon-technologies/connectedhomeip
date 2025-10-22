@@ -35,8 +35,9 @@ enum class AlarmBitmap : uint32_t
     kSensorOverRange    = 0x2,
     kHeaterOverTemp     = 0x4,
     kNoHeatingElement   = 0x8,
-    kHeatingLatchedOn   = 0x10,
-    kAnodeChangeRequest = 0x20,
+    kFastTempRise       = 0x10,
+    kHeatingLatchedOn   = 0x20,
+    kAnodeChangeRequest = 0x40,
 };
 
 // Bitmap for Feature

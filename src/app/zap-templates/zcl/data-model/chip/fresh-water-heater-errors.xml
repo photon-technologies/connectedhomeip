@@ -8,8 +8,9 @@
     <field name="SensorOverRange" mask="0x00000002"/>
     <field name="HeaterOverTemp" mask="0x00000004"/>
     <field name="NoHeatingElement" mask="0x00000008"/>
-    <field name="HeatingLatchedOn" mask="0x00000010"/>
-    <field name="AnodeChangeRequest" mask="0x00000020"/>
+    <field name="FastTempRise" mask="0x00000010"/>
+    <field name="HeatingLatchedOn" mask="0x00000020"/>
+    <field name="AnodeChangeRequest" mask="0x00000040"/>
   </bitmap>
   <cluster>
     <name>Fresh Water Heater Errors Alarm</name>

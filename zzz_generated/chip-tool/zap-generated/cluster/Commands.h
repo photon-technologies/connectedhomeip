@@ -17792,21 +17792,30 @@ private:
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
 | * ColdWaterTemperature                                              | 0x0000 |
-| * ShowerPercent                                                     | 0x0001 |
-| * ShowerState                                                       | 0x0002 |
-| * DisplayUpdateInterval                                             | 0x0003 |
-| * StandardModeSetpoint                                              | 0x0004 |
-| * EcoModeSetpoint                                                   | 0x0005 |
-| * BoostModeSetpoint                                                 | 0x0006 |
-| * DisplayTemperatureStep                                            | 0x0007 |
-| * ResetTimeout                                                      | 0x0008 |
-| * CoolDownTimeout                                                   | 0x0009 |
-| * DisplayErrorTimeout                                               | 0x000A |
-| * DisplayTargetTimeout                                              | 0x000B |
-| * TemperatureSensorMinValid                                         | 0x000C |
-| * TemperatureSensorMaxValid                                         | 0x000D |
-| * OverheatThresholdTemperature                                      | 0x000E |
-| * RapidRiseDelta                                                    | 0x000F |
+| * ShowerTemperature                                                 | 0x0001 |
+| * ShowerHysteresis                                                  | 0x0002 |
+| * ShowerState                                                       | 0x0003 |
+| * DefaultShowerFlowLPM                                              | 0x0004 |
+| * StandardModeSetpoint                                              | 0x0005 |
+| * EcoModeSetpoint                                                   | 0x0006 |
+| * BoostModeSetpoint                                                 | 0x0007 |
+| * DisplayTemperatureStep                                            | 0x0008 |
+| * ResetTimeout                                                      | 0x0009 |
+| * CoolDownTimeout                                                   | 0x000A |
+| * ResetCounterTimeout                                               | 0x000B |
+| * ResetCounterTimeout                                               | 0x000C |
+| * DisplayActiveTimeout                                              | 0x000D |
+| * DisplayErrorTimeout                                               | 0x000E |
+| * DisplayTargetTimeout                                              | 0x000F |
+| * TemperatureSensorMinValid                                         | 0x0011 |
+| * TemperatureSensorMaxValid                                         | 0x0012 |
+| * OverheatThresholdTemperature                                      | 0x0013 |
+| * RapidRiseDelta                                                    | 0x0014 |
+| * RapidRiseWindow                                                   | 0x0015 |
+| * PreviousTargetHeaterTemperature                                   | 0x0016 |
+| * HeaterMaximumPower                                                | 0x0017 |
+| * DiagnosticsConfirmTimeList                                        | 0x0018 |
+| * DiagnosticsRehabTimeList                                          | 0x0019 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -32054,15 +32063,19 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         //
         make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                     //
         make_unique<ReadAttribute>(Id, "cold-water-temperature", Attributes::ColdWaterTemperature::Id, credsIssuerConfig),     //
-        make_unique<ReadAttribute>(Id, "shower-percent", Attributes::ShowerPercent::Id, credsIssuerConfig),                    //
+        make_unique<ReadAttribute>(Id, "shower-temperature", Attributes::ShowerTemperature::Id, credsIssuerConfig),            //
+        make_unique<ReadAttribute>(Id, "shower-hysteresis", Attributes::ShowerHysteresis::Id, credsIssuerConfig),              //
         make_unique<ReadAttribute>(Id, "shower-state", Attributes::ShowerState::Id, credsIssuerConfig),                        //
-        make_unique<ReadAttribute>(Id, "display-update-interval", Attributes::DisplayUpdateInterval::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "default-shower-flow-lpm", Attributes::DefaultShowerFlowLPM::Id, credsIssuerConfig),    //
         make_unique<ReadAttribute>(Id, "standard-mode-setpoint", Attributes::StandardModeSetpoint::Id, credsIssuerConfig),     //
         make_unique<ReadAttribute>(Id, "eco-mode-setpoint", Attributes::EcoModeSetpoint::Id, credsIssuerConfig),               //
         make_unique<ReadAttribute>(Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, credsIssuerConfig),           //
         make_unique<ReadAttribute>(Id, "display-temperature-step", Attributes::DisplayTemperatureStep::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                      //
         make_unique<ReadAttribute>(Id, "cool-down-timeout", Attributes::CoolDownTimeout::Id, credsIssuerConfig),               //
+        make_unique<ReadAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),       //
+        make_unique<ReadAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),       //
+        make_unique<ReadAttribute>(Id, "display-active-timeout", Attributes::DisplayActiveTimeout::Id, credsIssuerConfig),     //
         make_unique<ReadAttribute>(Id, "display-error-timeout", Attributes::DisplayErrorTimeout::Id, credsIssuerConfig),       //
         make_unique<ReadAttribute>(Id, "display-target-timeout", Attributes::DisplayTargetTimeout::Id, credsIssuerConfig),     //
         make_unique<ReadAttribute>(Id, "temperature-sensor-min-valid", Attributes::TemperatureSensorMinValid::Id,
@@ -32070,8 +32083,16 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<ReadAttribute>(Id, "temperature-sensor-max-valid", Attributes::TemperatureSensorMaxValid::Id,
                                    credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "overheat-threshold-temperature", Attributes::OverheatThresholdTemperature::Id,
+                                   credsIssuerConfig),                                                           //
+        make_unique<ReadAttribute>(Id, "rapid-rise-delta", Attributes::RapidRiseDelta::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "rapid-rise-window", Attributes::RapidRiseWindow::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "previous-target-heater-temperature", Attributes::PreviousTargetHeaterTemperature::Id,
+                                   credsIssuerConfig),                                                                 //
+        make_unique<ReadAttribute>(Id, "heater-maximum-power", Attributes::HeaterMaximumPower::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id,
                                    credsIssuerConfig),                                                                     //
-        make_unique<ReadAttribute>(Id, "rapid-rise-delta", Attributes::RapidRiseDelta::Id, credsIssuerConfig),             //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -32081,11 +32102,13 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<WriteAttribute<int16_t>>(Id, "cold-water-temperature", INT16_MIN, INT16_MAX,
                                              Attributes::ColdWaterTemperature::Id, WriteCommandType::kForceWrite,
                                              credsIssuerConfig), //
-        make_unique<WriteAttribute<chip::Percent>>(Id, "shower-percent", 0, UINT8_MAX, Attributes::ShowerPercent::Id,
-                                                   WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "shower-temperature", INT16_MIN, INT16_MAX, Attributes::ShowerTemperature::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "shower-hysteresis", INT16_MIN, INT16_MAX, Attributes::ShowerHysteresis::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum>>(
             Id, "shower-state", 0, UINT8_MAX, Attributes::ShowerState::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<uint32_t>>(Id, "display-update-interval", 0, UINT32_MAX, Attributes::DisplayUpdateInterval::Id,
+        make_unique<WriteAttribute<uint16_t>>(Id, "default-shower-flow-lpm", 0, UINT16_MAX, Attributes::DefaultShowerFlowLPM::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "standard-mode-setpoint", INT16_MIN, INT16_MAX,
                                              Attributes::StandardModeSetpoint::Id, WriteCommandType::kForceWrite,
@@ -32102,6 +32125,12 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "cool-down-timeout", 0, UINT32_MAX, Attributes::CoolDownTimeout::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "reset-counter-timeout", 0, UINT32_MAX, Attributes::ResetCounterTimeout::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "reset-counter-timeout", 0, UINT32_MAX, Attributes::ResetCounterTimeout::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "display-active-timeout", 0, UINT32_MAX, Attributes::DisplayActiveTimeout::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-error-timeout", 0, UINT32_MAX, Attributes::DisplayErrorTimeout::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-target-timeout", 0, UINT32_MAX, Attributes::DisplayTargetTimeout::Id,
@@ -32117,6 +32146,19 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "rapid-rise-delta", INT16_MIN, INT16_MAX, Attributes::RapidRiseDelta::Id,
                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "rapid-rise-window", 0, UINT32_MAX, Attributes::RapidRiseWindow::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int16_t>>(Id, "previous-target-heater-temperature", INT16_MIN, INT16_MAX,
+                                             Attributes::PreviousTargetHeaterTemperature::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "heater-maximum-power", 0, UINT16_MAX, Attributes::HeaterMaximumPower::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const uint32_t>>>(
+            Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const uint32_t>>>(
+            Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -32127,19 +32169,23 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig),                                  //
-        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                                   //
-        make_unique<SubscribeAttribute>(Id, "cold-water-temperature", Attributes::ColdWaterTemperature::Id, credsIssuerConfig),   //
-        make_unique<SubscribeAttribute>(Id, "shower-percent", Attributes::ShowerPercent::Id, credsIssuerConfig),                  //
-        make_unique<SubscribeAttribute>(Id, "shower-state", Attributes::ShowerState::Id, credsIssuerConfig),                      //
-        make_unique<SubscribeAttribute>(Id, "display-update-interval", Attributes::DisplayUpdateInterval::Id, credsIssuerConfig), //
-        make_unique<SubscribeAttribute>(Id, "standard-mode-setpoint", Attributes::StandardModeSetpoint::Id, credsIssuerConfig),   //
-        make_unique<SubscribeAttribute>(Id, "eco-mode-setpoint", Attributes::EcoModeSetpoint::Id, credsIssuerConfig),             //
-        make_unique<SubscribeAttribute>(Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, credsIssuerConfig),         //
+                                              WriteCommandType::kForceWrite, credsIssuerConfig),                                 //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                                  //
+        make_unique<SubscribeAttribute>(Id, "cold-water-temperature", Attributes::ColdWaterTemperature::Id, credsIssuerConfig),  //
+        make_unique<SubscribeAttribute>(Id, "shower-temperature", Attributes::ShowerTemperature::Id, credsIssuerConfig),         //
+        make_unique<SubscribeAttribute>(Id, "shower-hysteresis", Attributes::ShowerHysteresis::Id, credsIssuerConfig),           //
+        make_unique<SubscribeAttribute>(Id, "shower-state", Attributes::ShowerState::Id, credsIssuerConfig),                     //
+        make_unique<SubscribeAttribute>(Id, "default-shower-flow-lpm", Attributes::DefaultShowerFlowLPM::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "standard-mode-setpoint", Attributes::StandardModeSetpoint::Id, credsIssuerConfig),  //
+        make_unique<SubscribeAttribute>(Id, "eco-mode-setpoint", Attributes::EcoModeSetpoint::Id, credsIssuerConfig),            //
+        make_unique<SubscribeAttribute>(Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, credsIssuerConfig),        //
         make_unique<SubscribeAttribute>(Id, "display-temperature-step", Attributes::DisplayTemperatureStep::Id,
                                         credsIssuerConfig),                                                                     //
         make_unique<SubscribeAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                  //
         make_unique<SubscribeAttribute>(Id, "cool-down-timeout", Attributes::CoolDownTimeout::Id, credsIssuerConfig),           //
+        make_unique<SubscribeAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "reset-counter-timeout", Attributes::ResetCounterTimeout::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "display-active-timeout", Attributes::DisplayActiveTimeout::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "display-error-timeout", Attributes::DisplayErrorTimeout::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "display-target-timeout", Attributes::DisplayTargetTimeout::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "temperature-sensor-min-valid", Attributes::TemperatureSensorMinValid::Id,
@@ -32147,8 +32193,16 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<SubscribeAttribute>(Id, "temperature-sensor-max-valid", Attributes::TemperatureSensorMaxValid::Id,
                                         credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "overheat-threshold-temperature", Attributes::OverheatThresholdTemperature::Id,
+                                        credsIssuerConfig),                                                           //
+        make_unique<SubscribeAttribute>(Id, "rapid-rise-delta", Attributes::RapidRiseDelta::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "rapid-rise-window", Attributes::RapidRiseWindow::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "previous-target-heater-temperature", Attributes::PreviousTargetHeaterTemperature::Id,
+                                        credsIssuerConfig),                                                                 //
+        make_unique<SubscribeAttribute>(Id, "heater-maximum-power", Attributes::HeaterMaximumPower::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id,
                                         credsIssuerConfig),                                                                     //
-        make_unique<SubscribeAttribute>(Id, "rapid-rise-delta", Attributes::RapidRiseDelta::Id, credsIssuerConfig),             //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
