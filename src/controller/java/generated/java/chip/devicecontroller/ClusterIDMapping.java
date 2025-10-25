@@ -20432,6 +20432,8 @@ public class ClusterIDMapping {
             MqttReportEnabled(3L),
             InsightsEnabled(4L),
             InsightsParams(5L),
+            PublicIpv4Address(6L),
+            PublicIpv4Enabled(7L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),

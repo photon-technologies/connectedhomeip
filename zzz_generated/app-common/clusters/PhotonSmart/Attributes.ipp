@@ -44,6 +44,10 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, insightsEnabled);
     case Attributes::InsightsParams::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, insightsParams);
+    case Attributes::PublicIpv4Address::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, publicIpv4Address);
+    case Attributes::PublicIpv4Enabled::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, publicIpv4Enabled);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

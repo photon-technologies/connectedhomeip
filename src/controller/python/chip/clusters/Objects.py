@@ -52891,6 +52891,8 @@ class PhotonSmart(Cluster):
                 ClusterObjectFieldDescriptor(Label="mqttReportEnabled", Tag=0x00000003, Type=bool),
                 ClusterObjectFieldDescriptor(Label="insightsEnabled", Tag=0x00000004, Type=bool),
                 ClusterObjectFieldDescriptor(Label="insightsParams", Tag=0x00000005, Type=PhotonSmart.Structs.PhotonInsightsParamsStruct),
+                ClusterObjectFieldDescriptor(Label="publicIpv4Address", Tag=0x00000006, Type=uint),
+                ClusterObjectFieldDescriptor(Label="publicIpv4Enabled", Tag=0x00000007, Type=bool),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -52904,6 +52906,8 @@ class PhotonSmart(Cluster):
     mqttReportEnabled: bool = False
     insightsEnabled: bool = False
     insightsParams: PhotonSmart.Structs.PhotonInsightsParamsStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonInsightsParamsStruct())
+    publicIpv4Address: uint = 0
+    publicIpv4Enabled: bool = False
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -53128,6 +53132,38 @@ class PhotonSmart(Cluster):
                 return ClusterObjectFieldDescriptor(Type=PhotonSmart.Structs.PhotonInsightsParamsStruct)
 
             value: PhotonSmart.Structs.PhotonInsightsParamsStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonInsightsParamsStruct())
+
+        @dataclass
+        class PublicIpv4Address(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC00
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000006
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class PublicIpv4Enabled(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC00
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000007
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=bool)
+
+            value: bool = False
 
         @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):

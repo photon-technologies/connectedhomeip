@@ -14648,6 +14648,19 @@ class ChipClusters:
                 "reportable": True,
                 "writable": True,
             },
+            0x00000006: {
+                "attributeName": "PublicIpv4Address",
+                "attributeId": 0x00000006,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000007: {
+                "attributeName": "PublicIpv4Enabled",
+                "attributeId": 0x00000007,
+                "type": "bool",
+                "reportable": True,
+                "writable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,

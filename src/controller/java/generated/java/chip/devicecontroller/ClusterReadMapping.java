@@ -19351,6 +19351,28 @@ public class ClusterReadMapping {
           readPhotonSmartInsightsEnabledCommandParams
         );
         result.put("readInsightsEnabledAttribute", readPhotonSmartInsightsEnabledAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonSmartPublicIpv4AddressCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonSmartPublicIpv4AddressAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonSmartCluster) cluster).readPublicIpv4AddressAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readPhotonSmartPublicIpv4AddressCommandParams
+        );
+        result.put("readPublicIpv4AddressAttribute", readPhotonSmartPublicIpv4AddressAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonSmartPublicIpv4EnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonSmartPublicIpv4EnabledAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonSmartCluster) cluster).readPublicIpv4EnabledAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readPhotonSmartPublicIpv4EnabledCommandParams
+        );
+        result.put("readPublicIpv4EnabledAttribute", readPhotonSmartPublicIpv4EnabledAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readPhotonSmartGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readPhotonSmartGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

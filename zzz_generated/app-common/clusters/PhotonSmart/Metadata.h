@@ -43,6 +43,14 @@ namespace InsightsParams {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(InsightsParams::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kAdminister, Access::Privilege::kAdminister);
 } // namespace InsightsParams
+namespace PublicIpv4Address {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(PublicIpv4Address::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kAdminister, std::nullopt);
+} // namespace PublicIpv4Address
+namespace PublicIpv4Enabled {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(PublicIpv4Enabled::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
+} // namespace PublicIpv4Enabled
 
 } // namespace Attributes
 

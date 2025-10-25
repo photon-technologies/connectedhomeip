@@ -95,6 +95,19 @@
       <description>InsightsParams</description>
     </attribute>
 
+    <attribute side="server" code="0x0006" name="PublicIpv4Address" define="PUBLIC_IPV4_ADDRESS" type="int32u" default="0">
+      <access op="read" privilege="administer"/>
+      <mandatoryConform/>
+      <description>PublicIpv4Address</description>
+    </attribute>
+
+    <attribute side="server" code="0x0007" name="PublicIpv4Enabled" define="PUBLIC_IPV4_ENABLED" type="boolean" default="1" writable="true">
+      <access op="read" privilege="administer"/>
+      <access op="write" privilege="administer"/>
+      <mandatoryConform/>
+      <description>PublicIpv4Enabled</description>
+    </attribute> 
+
 
     <command source="client" code="0x00" name="Reboot" optional="true">
       <description>This command is used to reboot the device.</description>

@@ -3689,6 +3689,28 @@ public class ClusterWriteMapping {
       writePhotonSmartInsightsEnabledCommandParams
     );
     writePhotonSmartInteractionInfo.put("writeInsightsEnabledAttribute", writePhotonSmartInsightsEnabledAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writePhotonSmartPublicIpv4EnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo photonSmartpublicIpv4EnabledCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writePhotonSmartPublicIpv4EnabledCommandParams.put(
+        "value",
+        photonSmartpublicIpv4EnabledCommandParameterInfo
+    );
+    InteractionInfo writePhotonSmartPublicIpv4EnabledAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster).writePublicIpv4EnabledAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writePhotonSmartPublicIpv4EnabledCommandParams
+    );
+    writePhotonSmartInteractionInfo.put("writePublicIpv4EnabledAttribute", writePhotonSmartPublicIpv4EnabledAttributeInteractionInfo);
     writeAttributeMap.put("photonSmart", writePhotonSmartInteractionInfo);
     Map<String, InteractionInfo> writeFreshMideaAirConditionerAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshMideaAirConditionerAlarm", writeFreshMideaAirConditionerAlarmInteractionInfo);

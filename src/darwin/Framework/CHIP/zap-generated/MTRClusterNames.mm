@@ -9066,6 +9066,14 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"InsightsParams";
             break;
 
+        case MTRAttributeIDTypeClusterPhotonSmartAttributePublicIpv4AddressID:
+            result = @"PublicIpv4Address";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonSmartAttributePublicIpv4EnabledID:
+            result = @"PublicIpv4Enabled";
+            break;
+
         case MTRAttributeIDTypeClusterPhotonSmartAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

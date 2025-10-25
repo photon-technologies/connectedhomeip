@@ -116,6 +116,30 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace InsightsParams
+namespace PublicIpv4Address {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::PublicIpv4Address::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace PublicIpv4Address
+namespace PublicIpv4Enabled {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::PublicIpv4Enabled::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace PublicIpv4Enabled
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -161,6 +185,8 @@ struct TypeInfo
         Attributes::MqttReportEnabled::TypeInfo::DecodableType mqttReportEnabled = static_cast<bool>(0);
         Attributes::InsightsEnabled::TypeInfo::DecodableType insightsEnabled     = static_cast<bool>(0);
         Attributes::InsightsParams::TypeInfo::DecodableType insightsParams;
+        Attributes::PublicIpv4Address::TypeInfo::DecodableType publicIpv4Address = static_cast<uint32_t>(0);
+        Attributes::PublicIpv4Enabled::TypeInfo::DecodableType publicIpv4Enabled = static_cast<bool>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

@@ -154,6 +154,7 @@ CHIP_ERROR Instance::Init()
 
     storageDelegate.Get(0x01 /* U8 */, MQTT_ENABLED_NVS_KEY, &mqttEnabled, sizeof(mqttEnabled));
     storageDelegate.Get(0x01 /* U8 */, INSIGHTS_ENABLED_NVS_KEY, &insightsEnabled, sizeof(insightsEnabled));
+    storageDelegate.Get(0x01 /* U8 */, PUBLIC_IPV4_ENABLED_NVS_KEY, &getPublicIpv4, sizeof(getPublicIpv4));
 
     VerifyOrReturnError(AttributeAccessInterfaceRegistry::Instance().Register(this), CHIP_ERROR_INCORRECT_STATE);
 
@@ -428,8 +429,11 @@ CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValu
     case Attributes::InsightsEnabled::Id:
         ReturnErrorOnFailure(aEncoder.Encode(insightsEnabled));
         break;
-        case Attributes::MqttReportEnabled::Id:
+    case Attributes::MqttReportEnabled::Id:
         ReturnErrorOnFailure(aEncoder.Encode(mqttEnabled));
+        break;
+    case Attributes::PublicIpv4Enabled::Id:
+        ReturnErrorOnFailure(aEncoder.Encode(getPublicIpv4));
         break;
     }
     return CHIP_NO_ERROR;
@@ -494,6 +498,29 @@ CHIP_ERROR Instance::Write(const ConcreteDataAttributePath & attributePath, Attr
         err = storageDelegate.Put(0x01 /* Type u8 */, MQTT_ENABLED_NVS_KEY, &mqttEnabled, sizeof(mqttEnabled));
         ReturnErrorOnFailure(err);
         MatterReportingAttributeChangeCallback(ConcreteAttributePath(mEndpointId, Id, Attributes::MqttReportEnabled::Id));
+    }
+    break;
+    case Attributes::PublicIpv4Enabled::Id: {
+        bool newPublicIpv4Enabled;
+        CHIP_ERROR err = aDecoder.Decode(newPublicIpv4Enabled);
+        ChipLogProgress(DeviceLayer, "Write PublicIpv4Enabled %x", err);
+        ReturnErrorOnFailure(err);
+        if(getPublicIpv4 == newPublicIpv4Enabled)
+        {
+            ChipLogProgress(DeviceLayer, "PublicIpv4Enabled not changed");
+            return CHIP_NO_ERROR;
+        }
+        // Update ShouldReboot attribute to true to indicate that a reboot is required to apply the new setting
+        chip::Protocols::InteractionModel::Status status = Attributes::ShouldReboot::Set(mEndpointId, true);
+        ChipLogProgress(DeviceLayer, "Requesting reboot: %d", status);
+        if (status != chip::Protocols::InteractionModel::Status::Success)
+        {
+            return CHIP_ERROR_INCORRECT_STATE;
+        }
+        getPublicIpv4 = newPublicIpv4Enabled;
+        err = storageDelegate.Put(0x01 /* Type u8 */, PUBLIC_IPV4_ENABLED_NVS_KEY, &getPublicIpv4, sizeof(getPublicIpv4));
+        ReturnErrorOnFailure(err);
+        MatterReportingAttributeChangeCallback(ConcreteAttributePath(mEndpointId, Id, Attributes::PublicIpv4Enabled::Id));
     }
     break;
     default: // return CHIP_NO_ERROR and just write to the attribute store in default

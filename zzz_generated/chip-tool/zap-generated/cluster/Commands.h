@@ -17443,6 +17443,8 @@ private:
 | * MqttReportEnabled                                                 | 0x0003 |
 | * InsightsEnabled                                                   | 0x0004 |
 | * InsightsParams                                                    | 0x0005 |
+| * PublicIpv4Address                                                 | 0x0006 |
+| * PublicIpv4Enabled                                                 | 0x0007 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -31617,6 +31619,8 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<ReadAttribute>(Id, "mqtt-report-enabled", Attributes::MqttReportEnabled::Id, credsIssuerConfig),       //
         make_unique<ReadAttribute>(Id, "insights-enabled", Attributes::InsightsEnabled::Id, credsIssuerConfig),            //
         make_unique<ReadAttribute>(Id, "insights-params", Attributes::InsightsParams::Id, credsIssuerConfig),              //
+        make_unique<ReadAttribute>(Id, "public-ipv4address", Attributes::PublicIpv4Address::Id, credsIssuerConfig),        //
+        make_unique<ReadAttribute>(Id, "public-ipv4enabled", Attributes::PublicIpv4Enabled::Id, credsIssuerConfig),        //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -31635,6 +31639,10 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
                                           credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type>>(
             Id, "insights-params", Attributes::InsightsParams::Id, WriteCommandType::kWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "public-ipv4address", 0, UINT32_MAX, Attributes::PublicIpv4Address::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "public-ipv4enabled", 0, 1, Attributes::PublicIpv4Enabled::Id,
+                                          WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -31653,6 +31661,8 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<SubscribeAttribute>(Id, "mqtt-report-enabled", Attributes::MqttReportEnabled::Id, credsIssuerConfig),       //
         make_unique<SubscribeAttribute>(Id, "insights-enabled", Attributes::InsightsEnabled::Id, credsIssuerConfig),            //
         make_unique<SubscribeAttribute>(Id, "insights-params", Attributes::InsightsParams::Id, credsIssuerConfig),              //
+        make_unique<SubscribeAttribute>(Id, "public-ipv4address", Attributes::PublicIpv4Address::Id, credsIssuerConfig),        //
+        make_unique<SubscribeAttribute>(Id, "public-ipv4enabled", Attributes::PublicIpv4Enabled::Id, credsIssuerConfig),        //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //

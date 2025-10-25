@@ -21005,6 +21005,28 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.reportWatermarkPercent = [NSNumber numberWithUnsignedChar:cppValue.reportWatermarkPercent];
         return value;
     }
+    case Attributes::PublicIpv4Address::Id: {
+        using TypeInfo = Attributes::PublicIpv4Address::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::PublicIpv4Enabled::Id: {
+        using TypeInfo = Attributes::PublicIpv4Enabled::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
     default: {
         // Not a known PhotonSmart attribute.
         break;

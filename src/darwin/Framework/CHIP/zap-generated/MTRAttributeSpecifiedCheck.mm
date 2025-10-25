@@ -6602,6 +6602,12 @@ static BOOL AttributeIsSpecifiedInPhotonSmartCluster(AttributeId aAttributeId)
     case Attributes::InsightsParams::Id: {
         return YES;
     }
+    case Attributes::PublicIpv4Address::Id: {
+        return YES;
+    }
+    case Attributes::PublicIpv4Enabled::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

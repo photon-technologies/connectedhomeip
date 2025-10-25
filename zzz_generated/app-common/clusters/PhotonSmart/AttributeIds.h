@@ -36,6 +36,14 @@ namespace InsightsParams {
 inline constexpr AttributeId Id = 0x00000005;
 } // namespace InsightsParams
 
+namespace PublicIpv4Address {
+inline constexpr AttributeId Id = 0x00000006;
+} // namespace PublicIpv4Address
+
+namespace PublicIpv4Enabled {
+inline constexpr AttributeId Id = 0x00000007;
+} // namespace PublicIpv4Enabled
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

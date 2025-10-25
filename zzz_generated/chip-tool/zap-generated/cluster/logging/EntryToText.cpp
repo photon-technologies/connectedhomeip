@@ -4810,6 +4810,10 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "InsightsEnabled";
         case chip::app::Clusters::PhotonSmart::Attributes::InsightsParams::Id:
             return "InsightsParams";
+        case chip::app::Clusters::PhotonSmart::Attributes::PublicIpv4Address::Id:
+            return "PublicIpv4Address";
+        case chip::app::Clusters::PhotonSmart::Attributes::PublicIpv4Enabled::Id:
+            return "PublicIpv4Enabled";
         case chip::app::Clusters::PhotonSmart::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::PhotonSmart::Attributes::AcceptedCommandList::Id:

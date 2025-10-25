@@ -46,6 +46,7 @@ static constexpr char * const MQTT_REPLY_TO_NVS_KEY                 = "mqtt_repl
 static constexpr char * const MQTT_ENABLED_NVS_KEY                  = "mqtt_en";
 static constexpr char * const INSIGHTS_ENABLED_NVS_KEY              = "insights_en";
 static constexpr char * const INSIGHTS_PARAMS_NVS_KEY               = "insights_params";
+static constexpr char * const PUBLIC_IPV4_ENABLED_NVS_KEY           = "pub_ipv4";
 
 namespace chip::DeviceLayer::PersistedStorage {
 class KeyValueStoreManager;
@@ -124,6 +125,7 @@ private:
     photon_insights_params_t insightsParams;
     bool insightsEnabled = true;
     bool mqttEnabled     = true;
+    bool getPublicIpv4   = true;
 
     bool mqttConfigHasChanged(const Structs::PhotonMQTTStruct::Type & aNewMqttConfig);
 
