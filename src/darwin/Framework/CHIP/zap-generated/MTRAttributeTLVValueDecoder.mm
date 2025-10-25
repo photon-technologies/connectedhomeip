@@ -21852,6 +21852,28 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         }
         return value;
     }
+    case Attributes::RequiresAnodeChange::Id: {
+        using TypeInfo = Attributes::RequiresAnodeChange::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::MaximumBoostTime::Id: {
+        using TypeInfo = Attributes::MaximumBoostTime::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
     default: {
         // Not a known FreshWaterHeaterController attribute.
         break;

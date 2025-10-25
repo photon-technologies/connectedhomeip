@@ -6925,6 +6925,12 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     case Attributes::DiagnosticsRehabTimeList::Id: {
         return YES;
     }
+    case Attributes::RequiresAnodeChange::Id: {
+        return YES;
+    }
+    case Attributes::MaximumBoostTime::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

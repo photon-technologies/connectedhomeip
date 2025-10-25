@@ -15273,6 +15273,18 @@ class ChipClusters:
                 "type": "int",
                 "reportable": True,
             },
+            0x00000018: {
+                "attributeName": "RequiresAnodeChange",
+                "attributeId": 0x00000018,
+                "type": "bool",
+                "reportable": True,
+            },
+            0x00000019: {
+                "attributeName": "MaximumBoostTime",
+                "attributeId": 0x00000019,
+                "type": "int",
+                "reportable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,

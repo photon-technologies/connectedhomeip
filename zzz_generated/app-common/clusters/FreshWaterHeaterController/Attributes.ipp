@@ -80,6 +80,10 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, diagnosticsConfirmTimeList);
     case Attributes::DiagnosticsRehabTimeList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, diagnosticsRehabTimeList);
+    case Attributes::RequiresAnodeChange::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, requiresAnodeChange);
+    case Attributes::MaximumBoostTime::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, maximumBoostTime);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

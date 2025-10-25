@@ -108,6 +108,14 @@ namespace DiagnosticsRehabTimeList {
 inline constexpr AttributeId Id = 0x00000017;
 } // namespace DiagnosticsRehabTimeList
 
+namespace RequiresAnodeChange {
+inline constexpr AttributeId Id = 0x00000018;
+} // namespace RequiresAnodeChange
+
+namespace MaximumBoostTime {
+inline constexpr AttributeId Id = 0x00000019;
+} // namespace MaximumBoostTime
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

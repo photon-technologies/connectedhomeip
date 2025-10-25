@@ -22772,6 +22772,16 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("DiagnosticsRehabTimeList", 1, value);
         }
+        case FreshWaterHeaterController::Attributes::RequiresAnodeChange::Id: {
+            bool value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("RequiresAnodeChange", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::MaximumBoostTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("MaximumBoostTime", 1, value);
+        }
         case FreshWaterHeaterController::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));

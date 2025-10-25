@@ -182448,6 +182448,8 @@ public:
 | * HeaterMaximumPower                                                | 0x0015 |
 | * DiagnosticsConfirmTimeList                                        | 0x0016 |
 | * DiagnosticsRehabTimeList                                          | 0x0017 |
+| * RequiresAnodeChange                                               | 0x0018 |
+| * MaximumBoostTime                                                  | 0x0019 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -184531,6 +184533,176 @@ public:
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
                 NSLog(@"FreshWaterHeaterController.DiagnosticsRehabTimeList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute RequiresAnodeChange
+ */
+class ReadFreshWaterHeaterControllerRequiresAnodeChange : public ReadAttribute {
+public:
+    ReadFreshWaterHeaterControllerRequiresAnodeChange()
+        : ReadAttribute("requires-anode-change")
+    {
+    }
+
+    ~ReadFreshWaterHeaterControllerRequiresAnodeChange()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::RequiresAnodeChange::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeRequiresAnodeChangeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshWaterHeaterController.RequiresAnodeChange response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshWaterHeaterController RequiresAnodeChange read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshWaterHeaterControllerRequiresAnodeChange : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshWaterHeaterControllerRequiresAnodeChange()
+        : SubscribeAttribute("requires-anode-change")
+    {
+    }
+
+    ~SubscribeAttributeFreshWaterHeaterControllerRequiresAnodeChange()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::RequiresAnodeChange::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeRequiresAnodeChangeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshWaterHeaterController.RequiresAnodeChange response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute MaximumBoostTime
+ */
+class ReadFreshWaterHeaterControllerMaximumBoostTime : public ReadAttribute {
+public:
+    ReadFreshWaterHeaterControllerMaximumBoostTime()
+        : ReadAttribute("maximum-boost-time")
+    {
+    }
+
+    ~ReadFreshWaterHeaterControllerMaximumBoostTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::MaximumBoostTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeMaximumBoostTimeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshWaterHeaterController.MaximumBoostTime response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshWaterHeaterController MaximumBoostTime read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeFreshWaterHeaterControllerMaximumBoostTime : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshWaterHeaterControllerMaximumBoostTime()
+        : SubscribeAttribute("maximum-boost-time")
+    {
+    }
+
+    ~SubscribeAttributeFreshWaterHeaterControllerMaximumBoostTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::MaximumBoostTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeMaximumBoostTimeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshWaterHeaterController.MaximumBoostTime response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -208025,6 +208197,14 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDiagnosticsRehabTimeList>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDiagnosticsRehabTimeList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshWaterHeaterControllerRequiresAnodeChange>(), //
+        make_unique<SubscribeAttributeFreshWaterHeaterControllerRequiresAnodeChange>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshWaterHeaterControllerMaximumBoostTime>(), //
+        make_unique<SubscribeAttributeFreshWaterHeaterControllerMaximumBoostTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerGeneratedCommandList>(), //

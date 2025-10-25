@@ -20361,6 +20361,28 @@ public class ClusterReadMapping {
           readFreshWaterHeaterControllerDiagnosticsRehabTimeListCommandParams
         );
         result.put("readDiagnosticsRehabTimeListAttribute", readFreshWaterHeaterControllerDiagnosticsRehabTimeListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshWaterHeaterControllerRequiresAnodeChangeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshWaterHeaterControllerRequiresAnodeChangeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).readRequiresAnodeChangeAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readFreshWaterHeaterControllerRequiresAnodeChangeCommandParams
+        );
+        result.put("readRequiresAnodeChangeAttribute", readFreshWaterHeaterControllerRequiresAnodeChangeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshWaterHeaterControllerMaximumBoostTimeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshWaterHeaterControllerMaximumBoostTimeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).readMaximumBoostTimeAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readFreshWaterHeaterControllerMaximumBoostTimeCommandParams
+        );
+        result.put("readMaximumBoostTimeAttribute", readFreshWaterHeaterControllerMaximumBoostTimeAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshWaterHeaterControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshWaterHeaterControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

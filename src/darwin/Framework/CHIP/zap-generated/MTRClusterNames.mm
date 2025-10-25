@@ -9490,6 +9490,14 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"DiagnosticsRehabTimeList";
             break;
 
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRequiresAnodeChangeID:
+            result = @"RequiresAnodeChange";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeMaximumBoostTimeID:
+            result = @"MaximumBoostTime";
+            break;
+
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

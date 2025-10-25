@@ -21072,6 +21072,8 @@ public class ClusterIDMapping {
             HeaterMaximumPower(21L),
             DiagnosticsConfirmTimeList(22L),
             DiagnosticsRehabTimeList(23L),
+            RequiresAnodeChange(24L),
+            MaximumBoostTime(25L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),

@@ -68022,6 +68022,8 @@ public class ChipClusters {
     private static final long HEATER_MAXIMUM_POWER_ATTRIBUTE_ID = 21L;
     private static final long DIAGNOSTICS_CONFIRM_TIME_LIST_ATTRIBUTE_ID = 22L;
     private static final long DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID = 23L;
+    private static final long REQUIRES_ANODE_CHANGE_ATTRIBUTE_ID = 24L;
+    private static final long MAXIMUM_BOOST_TIME_ATTRIBUTE_ID = 25L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -68700,6 +68702,58 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readRequiresAnodeChangeAttribute(
+        BooleanAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, REQUIRES_ANODE_CHANGE_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, REQUIRES_ANODE_CHANGE_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeRequiresAnodeChangeAttribute(
+        BooleanAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, REQUIRES_ANODE_CHANGE_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, REQUIRES_ANODE_CHANGE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readMaximumBoostTimeAttribute(
+        LongAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, MAXIMUM_BOOST_TIME_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, MAXIMUM_BOOST_TIME_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeMaximumBoostTimeAttribute(
+        LongAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, MAXIMUM_BOOST_TIME_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, MAXIMUM_BOOST_TIME_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

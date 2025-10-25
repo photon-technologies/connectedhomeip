@@ -5027,6 +5027,10 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "DiagnosticsConfirmTimeList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::DiagnosticsRehabTimeList::Id:
             return "DiagnosticsRehabTimeList";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::RequiresAnodeChange::Id:
+            return "RequiresAnodeChange";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::MaximumBoostTime::Id:
+            return "MaximumBoostTime";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::AcceptedCommandList::Id:

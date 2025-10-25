@@ -23435,6 +23435,16 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDiagnosticsRehabTimeListID) params:params];
 }
 
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeRequiresAnodeChangeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRequiresAnodeChangeID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeMaximumBoostTimeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeMaximumBoostTimeID) params:params];
+}
+
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID) params:params];

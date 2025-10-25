@@ -17815,6 +17815,8 @@ private:
 | * HeaterMaximumPower                                                | 0x0015 |
 | * DiagnosticsConfirmTimeList                                        | 0x0016 |
 | * DiagnosticsRehabTimeList                                          | 0x0017 |
+| * RequiresAnodeChange                                               | 0x0018 |
+| * MaximumBoostTime                                                  | 0x0019 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -32091,6 +32093,8 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                    credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id,
                                    credsIssuerConfig),                                                                     //
+        make_unique<ReadAttribute>(Id, "requires-anode-change", Attributes::RequiresAnodeChange::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "maximum-boost-time", Attributes::MaximumBoostTime::Id, credsIssuerConfig),         //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -32155,6 +32159,10 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const uint32_t>>>(
             Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "requires-anode-change", 0, 1, Attributes::RequiresAnodeChange::Id,
+                                          WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "maximum-boost-time", 0, UINT32_MAX, Attributes::MaximumBoostTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -32198,6 +32206,8 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                         credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id,
                                         credsIssuerConfig),                                                                     //
+        make_unique<SubscribeAttribute>(Id, "requires-anode-change", Attributes::RequiresAnodeChange::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "maximum-boost-time", Attributes::MaximumBoostTime::Id, credsIssuerConfig),         //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //

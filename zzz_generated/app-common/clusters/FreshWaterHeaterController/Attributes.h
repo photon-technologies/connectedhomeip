@@ -332,6 +332,30 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace DiagnosticsRehabTimeList
+namespace RequiresAnodeChange {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::RequiresAnodeChange::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace RequiresAnodeChange
+namespace MaximumBoostTime {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::MaximumBoostTime::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace MaximumBoostTime
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -397,6 +421,8 @@ struct TypeInfo
         Attributes::HeaterMaximumPower::TypeInfo::DecodableType heaterMaximumPower = static_cast<uint16_t>(0);
         Attributes::DiagnosticsConfirmTimeList::TypeInfo::DecodableType diagnosticsConfirmTimeList;
         Attributes::DiagnosticsRehabTimeList::TypeInfo::DecodableType diagnosticsRehabTimeList;
+        Attributes::RequiresAnodeChange::TypeInfo::DecodableType requiresAnodeChange = static_cast<bool>(0);
+        Attributes::MaximumBoostTime::TypeInfo::DecodableType maximumBoostTime       = static_cast<uint32_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

@@ -123,6 +123,14 @@ inline constexpr DataModel::AttributeEntry
                    BitFlags<DataModel::AttributeQualityFlags>(DataModel::AttributeQualityFlags::kListAttribute),
                    Access::Privilege::kView, std::nullopt);
 } // namespace DiagnosticsRehabTimeList
+namespace RequiresAnodeChange {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(RequiresAnodeChange::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace RequiresAnodeChange
+namespace MaximumBoostTime {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(MaximumBoostTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace MaximumBoostTime
 
 } // namespace Attributes
 

@@ -54650,6 +54650,8 @@ class FreshWaterHeaterController(Cluster):
                 ClusterObjectFieldDescriptor(Label="heaterMaximumPower", Tag=0x00000015, Type=uint),
                 ClusterObjectFieldDescriptor(Label="diagnosticsConfirmTimeList", Tag=0x00000016, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="diagnosticsRehabTimeList", Tag=0x00000017, Type=typing.List[uint]),
+                ClusterObjectFieldDescriptor(Label="requiresAnodeChange", Tag=0x00000018, Type=bool),
+                ClusterObjectFieldDescriptor(Label="maximumBoostTime", Tag=0x00000019, Type=uint),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -54681,6 +54683,8 @@ class FreshWaterHeaterController(Cluster):
     heaterMaximumPower: uint = 0
     diagnosticsConfirmTimeList: typing.List[uint] = field(default_factory=lambda: [])
     diagnosticsRehabTimeList: typing.List[uint] = field(default_factory=lambda: [])
+    requiresAnodeChange: bool = False
+    maximumBoostTime: uint = 0
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -55126,6 +55130,38 @@ class FreshWaterHeaterController(Cluster):
                 return ClusterObjectFieldDescriptor(Type=typing.List[uint])
 
             value: typing.List[uint] = field(default_factory=lambda: [])
+
+        @dataclass
+        class RequiresAnodeChange(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC05
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000018
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=bool)
+
+            value: bool = False
+
+        @dataclass
+        class MaximumBoostTime(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC05
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000019
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
 
         @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):
