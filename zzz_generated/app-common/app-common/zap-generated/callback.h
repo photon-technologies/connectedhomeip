@@ -8482,6 +8482,18 @@ bool emberAfFreshMideaControllerClusterCancelCleanCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::FreshMideaController::Commands::CancelClean::DecodableType & commandData);
 /**
+ * @brief Fresh Midea Controller Cluster SetTimer Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterSetTimerCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::SetTimer::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Controller Cluster cancelTimer Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterCancelTimerCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::CancelTimer::DecodableType & commandData);
+/**
  * @brief Fresh Water Heater Controller Cluster AnodeChangeRequest Command callback (from client)
  */
 bool emberAfFreshWaterHeaterControllerClusterAnodeChangeRequestCallback(

@@ -12825,6 +12825,14 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
             result = @"CancelClean";
             break;
 
+        case MTRCommandIDTypeClusterFreshMideaControllerCommandSetTimerID:
+            result = @"SetTimer";
+            break;
+
+        case MTRCommandIDTypeClusterFreshMideaControllerCommandCancelTimerID:
+            result = @"CancelTimer";
+            break;
+
         default:
             result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
             break;

@@ -53,14 +53,14 @@ Instance::Instance(EndpointId aEndpointId) :
         .drop_wifi_logs = true,
         .report_metrics = true,
         .metrics = {
-            .report_heap_metrics = true,
-            .report_wifi_metrics = true,
             .reporting_mode = {
                 .polling = {
                     .heap_metrics_poll_interval_sec = 150,
                     .wifi_metrics_poll_interval_sec = 150,
                 },
             },
+            .report_heap_metrics = true,
+            .report_wifi_metrics = true,
             .use_polling = true},
         .report_variables = true,
         .variables = {
@@ -79,7 +79,7 @@ Instance::~Instance()
 CHIP_ERROR Instance::Init()
 {
     // Check if the cluster has been selected in zap
-    // VerifyOrDie(emberAfContainsServer(mEndpointId, Id) == true);
+    VerifyOrDie(emberAfContainsServer(mEndpointId, Id) == true);
 
     // Set ShouldReboot to false on init as Init is called only after boot;
     Attributes::ShouldReboot::Set(mEndpointId, false);
@@ -151,6 +151,8 @@ CHIP_ERROR Instance::Init()
     {
         storageDelegate.Put(0x41 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t));
     }
+
+    
 
     storageDelegate.Get(0x01 /* U8 */, MQTT_ENABLED_NVS_KEY, &mqttEnabled, sizeof(mqttEnabled));
     storageDelegate.Get(0x01 /* U8 */, INSIGHTS_ENABLED_NVS_KEY, &insightsEnabled, sizeof(insightsEnabled));

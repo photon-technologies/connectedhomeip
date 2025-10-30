@@ -77,7 +77,7 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(OnTimerMinutes::Id, Bi
 } // namespace OnTimerMinutes
 namespace PlasmaMode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(PlasmaMode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, std::nullopt);
+                                                          Access::Privilege::kView, Access::Privilege::kOperate);
 } // namespace PlasmaMode
 namespace ErrorCode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ErrorCode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
@@ -95,6 +95,14 @@ namespace CancelClean {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(CancelClean::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kOperate);
 } // namespace CancelClean
+namespace SetTimer {
+inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(SetTimer::Id, BitFlags<DataModel::CommandQualityFlags>(),
+                                                                Access::Privilege::kOperate);
+} // namespace SetTimer
+namespace CancelTimer {
+inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(CancelTimer::Id, BitFlags<DataModel::CommandQualityFlags>(),
+                                                                Access::Privilege::kOperate);
+} // namespace CancelTimer
 
 } // namespace Commands
 } // namespace FreshMideaController

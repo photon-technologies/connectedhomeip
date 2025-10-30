@@ -142,6 +142,9 @@ CHIP_ERROR FctryStoreManager::GetTyped(uint8_t type, const char * key, void * va
     default:
         return CHIP_ERROR_INVALID_ARGUMENT;
     }
+
+    ChipLogProgress(DeviceLayer, "FctryStoreManager::GetTyped key:%s type:%d returned size:%d err %d", StringOrNullMarker(key), type,
+                  static_cast<int>(value_size_local), err);
     ReturnMappedErrorOnFailure(err);
 
     if (read_bytes_size)

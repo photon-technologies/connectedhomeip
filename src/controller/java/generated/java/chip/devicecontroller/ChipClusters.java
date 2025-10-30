@@ -67553,6 +67553,50 @@ public class ChipClusters {
         }}, commandId, commandArgs, timedInvokeTimeoutMs);
     }
 
+    public void setTimer(DefaultClusterCallback callback, Boolean mode, Integer minutes) {
+      setTimer(callback, mode, minutes, 0);
+    }
+
+    public void setTimer(DefaultClusterCallback callback, Boolean mode, Integer minutes, int timedInvokeTimeoutMs) {
+      final long commandId = 2L;
+
+      ArrayList<StructElement> elements = new ArrayList<>();
+      final long modeFieldID = 0L;
+      BaseTLVType modetlvValue = new BooleanType(mode);
+      elements.add(new StructElement(modeFieldID, modetlvValue));
+
+      final long minutesFieldID = 1L;
+      BaseTLVType minutestlvValue = new UIntType(minutes);
+      elements.add(new StructElement(minutesFieldID, minutestlvValue));
+
+      StructType commandArgs = new StructType(elements);
+      invoke(new InvokeCallbackImpl(callback) {
+          @Override
+          public void onResponse(StructType invokeStructValue) {
+          callback.onSuccess();
+        }}, commandId, commandArgs, timedInvokeTimeoutMs);
+    }
+
+    public void cancelTimer(DefaultClusterCallback callback, Boolean mode) {
+      cancelTimer(callback, mode, 0);
+    }
+
+    public void cancelTimer(DefaultClusterCallback callback, Boolean mode, int timedInvokeTimeoutMs) {
+      final long commandId = 3L;
+
+      ArrayList<StructElement> elements = new ArrayList<>();
+      final long modeFieldID = 0L;
+      BaseTLVType modetlvValue = new BooleanType(mode);
+      elements.add(new StructElement(modeFieldID, modetlvValue));
+
+      StructType commandArgs = new StructType(elements);
+      invoke(new InvokeCallbackImpl(callback) {
+          @Override
+          public void onResponse(StructType invokeStructValue) {
+          callback.onSuccess();
+        }}, commandId, commandArgs, timedInvokeTimeoutMs);
+    }
+
     public interface GeneratedCommandListAttributeCallback extends BaseAttributeCallback {
       void onSuccess(List<Long> value);
     }
@@ -68003,6 +68047,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, PLASMA_MODE_ATTRIBUTE_ID, true);
+    }
+
+    public void writePlasmaModeAttribute(DefaultClusterCallback callback, Boolean value) {
+      writePlasmaModeAttribute(callback, value, 0);
+    }
+
+    public void writePlasmaModeAttribute(DefaultClusterCallback callback, Boolean value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new BooleanType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), PLASMA_MODE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribePlasmaModeAttribute(

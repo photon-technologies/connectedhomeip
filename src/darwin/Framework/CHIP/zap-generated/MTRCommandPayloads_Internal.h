@@ -2734,6 +2734,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRFreshMideaControllerClusterSetTimerParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRFreshMideaControllerClusterCancelTimerParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRFreshWaterHeaterControllerClusterAnodeChangeRequestParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;

@@ -40,6 +40,7 @@ import matter.controller.cluster.structs.*
 import matter.controller.model.AttributePath
 import matter.controller.model.CommandPath
 import matter.tlv.AnonymousTag
+import matter.tlv.ContextSpecificTag
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
@@ -100,6 +101,51 @@ class FreshMideaControllerCluster(
 
     val tlvWriter = TlvWriter()
     tlvWriter.startStructure(AnonymousTag)
+    tlvWriter.endStructure()
+
+    val request: InvokeRequest =
+      InvokeRequest(
+        CommandPath(endpointId, clusterId = CLUSTER_ID, commandId),
+        tlvPayload = tlvWriter.getEncoded(),
+        timedRequest = timedInvokeTimeout,
+      )
+
+    val response: InvokeResponse = controller.invoke(request)
+    logger.log(Level.FINE, "Invoke command succeeded: ${response}")
+  }
+
+  suspend fun setTimer(mode: Boolean, minutes: UShort, timedInvokeTimeout: Duration? = null) {
+    val commandId: UInt = 2u
+
+    val tlvWriter = TlvWriter()
+    tlvWriter.startStructure(AnonymousTag)
+
+    val TAG_MODE_REQ: Int = 0
+    tlvWriter.put(ContextSpecificTag(TAG_MODE_REQ), mode)
+
+    val TAG_MINUTES_REQ: Int = 1
+    tlvWriter.put(ContextSpecificTag(TAG_MINUTES_REQ), minutes)
+    tlvWriter.endStructure()
+
+    val request: InvokeRequest =
+      InvokeRequest(
+        CommandPath(endpointId, clusterId = CLUSTER_ID, commandId),
+        tlvPayload = tlvWriter.getEncoded(),
+        timedRequest = timedInvokeTimeout,
+      )
+
+    val response: InvokeResponse = controller.invoke(request)
+    logger.log(Level.FINE, "Invoke command succeeded: ${response}")
+  }
+
+  suspend fun cancelTimer(mode: Boolean, timedInvokeTimeout: Duration? = null) {
+    val commandId: UInt = 3u
+
+    val tlvWriter = TlvWriter()
+    tlvWriter.startStructure(AnonymousTag)
+
+    val TAG_MODE_REQ: Int = 0
+    tlvWriter.put(ContextSpecificTag(TAG_MODE_REQ), mode)
     tlvWriter.endStructure()
 
     val request: InvokeRequest =
@@ -1632,6 +1678,46 @@ class FreshMideaControllerCluster(
       }
 
     return decodedValue
+  }
+
+  suspend fun writePlasmaModeAttribute(value: Boolean, timedWriteTimeout: Duration? = null) {
+    val ATTRIBUTE_ID: UInt = 14u
+
+    val tlvWriter = TlvWriter()
+    tlvWriter.put(AnonymousTag, value)
+
+    val writeRequests: WriteRequests =
+      WriteRequests(
+        requests =
+          listOf(
+            WriteRequest(
+              attributePath =
+                AttributePath(endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID),
+              tlvPayload = tlvWriter.getEncoded(),
+            )
+          ),
+        timedRequest = timedWriteTimeout,
+      )
+
+    val response: WriteResponse = controller.write(writeRequests)
+
+    when (response) {
+      is WriteResponse.Success -> {
+        logger.log(Level.FINE, "Write command succeeded")
+      }
+      is WriteResponse.PartialWriteFailure -> {
+        val aggregatedErrorMessage =
+          response.failures.joinToString("\n") { failure ->
+            "Error at ${failure.attributePath}: ${failure.ex.message}"
+          }
+
+        response.failures.forEach { failure ->
+          logger.log(Level.WARNING, "Error at ${failure.attributePath}: ${failure.ex.message}")
+        }
+
+        throw IllegalStateException("Write command failed with errors: \n$aggregatedErrorMessage")
+      }
+    }
   }
 
   suspend fun subscribePlasmaModeAttribute(

@@ -20995,7 +20995,9 @@ public class ClusterIDMapping {
 
         public enum Command {
             Clean(0L),
-            CancelClean(1L),;
+            CancelClean(1L),
+            SetTimer(2L),
+            CancelTimer(3L),;
             private final long id;
             Command(long id) {
                 this.id = id;
@@ -21013,7 +21015,41 @@ public class ClusterIDMapping {
                 }
                 throw new NoSuchFieldError();
             }
-        }@Override
+        }public enum SetTimerCommandField {Mode(0),Minutes(1),;
+                    private final int id;
+                    SetTimerCommandField(int id) {
+                        this.id = id;
+                    }
+
+                    public int getID() {
+                        return id;
+                    }
+                    public static SetTimerCommandField value(int id) throws NoSuchFieldError {
+                        for (SetTimerCommandField field : SetTimerCommandField.values()) {
+                        if (field.getID() == id) {
+                            return field;
+                        }
+                        }
+                        throw new NoSuchFieldError();
+                    }
+                }public enum CancelTimerCommandField {Mode(0),;
+                    private final int id;
+                    CancelTimerCommandField(int id) {
+                        this.id = id;
+                    }
+
+                    public int getID() {
+                        return id;
+                    }
+                    public static CancelTimerCommandField value(int id) throws NoSuchFieldError {
+                        for (CancelTimerCommandField field : CancelTimerCommandField.values()) {
+                        if (field.getID() == id) {
+                            return field;
+                        }
+                        }
+                        throw new NoSuchFieldError();
+                    }
+                }@Override
         public String getAttributeName(long id) throws NoSuchFieldError {
             return Attribute.value(id).toString();
         }

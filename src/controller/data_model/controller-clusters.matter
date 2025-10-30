@@ -11563,7 +11563,7 @@ cluster FreshMideaController = 367524868 {
   readonly attribute boolean onTimer = 11;
   readonly attribute int8u onTimerHours = 12;
   readonly attribute int8u onTimerMinutes = 13;
-  readonly attribute optional boolean plasmaMode = 14;
+  attribute optional boolean plasmaMode = 14;
   readonly attribute int16u errorCode = 16;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
@@ -11571,10 +11571,23 @@ cluster FreshMideaController = 367524868 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
+  request struct SetTimerRequest {
+    boolean mode = 0;
+    int16u minutes = 1;
+  }
+
+  request struct CancelTimerRequest {
+    boolean mode = 0;
+  }
+
   /** This command starts the clean process. */
   command Clean(): DefaultSuccess = 0;
   /** This command cancel the clean process. */
   command CancelClean(): DefaultSuccess = 1;
+  /** This command sets the on/off timer */
+  command SetTimer(SetTimerRequest): DefaultSuccess = 2;
+  /** This command cancels the on/off timer. */
+  command CancelTimer(CancelTimerRequest): DefaultSuccess = 3;
 }
 
 /** Attributes for configuring the Fresh Water Heater Controller. */

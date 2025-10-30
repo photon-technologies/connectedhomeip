@@ -15,8 +15,6 @@ typedef struct __attribute__((packed)) {
   bool drop_wifi_logs;        /*!< Drop wifi logs from insights */
   bool report_metrics;         /*!< Enable reporting of metrics */
   struct params_metrics_t {
-      bool report_heap_metrics;    /*!< Enable reporting of heap metrics */
-      bool report_wifi_metrics;    /*!< Enable reporting of wifi metrics */
       union reporting_t {
           struct polling_t {
               uint32_t heap_metrics_poll_interval_sec; /*!< Polling interval for heap metrics in seconds */
@@ -27,6 +25,8 @@ typedef struct __attribute__((packed)) {
               uint8_t wifi_metrics_report_count; /*!< Number of times wifi metrics will be reported within interval */
           } count;
       } reporting_mode;               /*!< Reporting mode: polling or count based */
+        bool report_heap_metrics;    /*!< Enable reporting of heap metrics */
+        bool report_wifi_metrics;    /*!< Enable reporting of wifi metrics */
       bool use_polling;           /*!< Use polling based reporting if true, else use count based reporting */
   } metrics;
   bool report_variables;       /*!< Enable reporting of variables */

@@ -17683,6 +17683,8 @@ private:
 | Commands:                                                           |        |
 | * Clean                                                             |   0x00 |
 | * CancelClean                                                       |   0x01 |
+| * SetTimer                                                          |   0x02 |
+| * CancelTimer                                                       |   0x03 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
 | * Beep                                                              | 0x0000 |
@@ -17784,6 +17786,82 @@ public:
 
 private:
     chip::app::Clusters::FreshMideaController::Commands::CancelClean::Type mRequest;
+};
+
+/*
+ * Command SetTimer
+ */
+class FreshMideaControllerSetTimer : public ClusterCommand
+{
+public:
+    FreshMideaControllerSetTimer(CredentialIssuerCommands * credsIssuerConfig) : ClusterCommand("set-timer", credsIssuerConfig)
+    {
+        AddArgument("Mode", 0, 1, &mRequest.mode);
+        AddArgument("Minutes", 0, UINT16_MAX, &mRequest.minutes);
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaController::Commands::SetTimer::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
+                        commandId, endpointIds.at(0));
+        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
+    }
+
+    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaController::Commands::SetTimer::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
+                        groupId);
+
+        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
+    }
+
+private:
+    chip::app::Clusters::FreshMideaController::Commands::SetTimer::Type mRequest;
+};
+
+/*
+ * Command CancelTimer
+ */
+class FreshMideaControllerCancelTimer : public ClusterCommand
+{
+public:
+    FreshMideaControllerCancelTimer(CredentialIssuerCommands * credsIssuerConfig) :
+        ClusterCommand("cancel-timer", credsIssuerConfig)
+    {
+        AddArgument("Mode", 0, 1, &mRequest.mode);
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaController::Commands::CancelTimer::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
+                        commandId, endpointIds.at(0));
+        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
+    }
+
+    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaController::Commands::CancelTimer::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
+                        groupId);
+
+        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
+    }
+
+private:
+    chip::app::Clusters::FreshMideaController::Commands::CancelTimer::Type mRequest;
 };
 
 /*----------------------------------------------------------------------------*\
@@ -31953,6 +32031,8 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
         make_unique<ClusterCommand>(Id, credsIssuerConfig),              //
         make_unique<FreshMideaControllerClean>(credsIssuerConfig),       //
         make_unique<FreshMideaControllerCancelClean>(credsIssuerConfig), //
+        make_unique<FreshMideaControllerSetTimer>(credsIssuerConfig),    //
+        make_unique<FreshMideaControllerCancelTimer>(credsIssuerConfig), //
         //
         // Attributes
         //
@@ -32005,7 +32085,7 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint8_t>>(Id, "on-timer-minutes", 0, UINT8_MAX, Attributes::OnTimerMinutes::Id,
                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<bool>>(Id, "plasma-mode", 0, 1, Attributes::PlasmaMode::Id, WriteCommandType::kForceWrite,
+        make_unique<WriteAttribute<bool>>(Id, "plasma-mode", 0, 1, Attributes::PlasmaMode::Id, WriteCommandType::kWrite,
                                           credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "error-code", 0, UINT16_MAX, Attributes::ErrorCode::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //

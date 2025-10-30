@@ -54264,6 +54264,40 @@ class FreshMideaController(Cluster):
                     Fields=[
                     ])
 
+        @dataclass
+        class SetTimer(ClusterCommand):
+            cluster_id: typing.ClassVar[int] = 0x15E7FC04
+            command_id: typing.ClassVar[int] = 0x00000002
+            is_client: typing.ClassVar[bool] = True
+            response_type: typing.ClassVar[typing.Optional[str]] = None
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="mode", Tag=0, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="minutes", Tag=1, Type=uint),
+                    ])
+
+            mode: bool = False
+            minutes: uint = 0
+
+        @dataclass
+        class CancelTimer(ClusterCommand):
+            cluster_id: typing.ClassVar[int] = 0x15E7FC04
+            command_id: typing.ClassVar[int] = 0x00000003
+            is_client: typing.ClassVar[bool] = True
+            response_type: typing.ClassVar[typing.Optional[str]] = None
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="mode", Tag=0, Type=bool),
+                    ])
+
+            mode: bool = False
+
     class Attributes:
         @dataclass
         class Beep(ClusterAttributeDescriptor):

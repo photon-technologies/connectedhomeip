@@ -32185,6 +32185,45 @@ public class ClusterInfoMapping {
     );
     freshMideaControllerClusterInteractionInfoMap.put("cancelClean", freshMideaControllercancelCleanInteractionInfo);
 
+    Map<String, CommandParameterInfo> freshMideaControllersetTimerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo freshMideaControllersetTimermodeCommandParameterInfo = new CommandParameterInfo("mode", Boolean.class, Boolean.class);
+    freshMideaControllersetTimerCommandParams.put("mode",freshMideaControllersetTimermodeCommandParameterInfo);
+
+    CommandParameterInfo freshMideaControllersetTimerminutesCommandParameterInfo = new CommandParameterInfo("minutes", Integer.class, Integer.class);
+    freshMideaControllersetTimerCommandParams.put("minutes",freshMideaControllersetTimerminutesCommandParameterInfo);
+    InteractionInfo freshMideaControllersetTimerInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster)
+        .setTimer((DefaultClusterCallback) callback
+        , (Boolean)
+        commandArguments.get("mode")
+        , (Integer)
+        commandArguments.get("minutes")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        freshMideaControllersetTimerCommandParams
+    );
+    freshMideaControllerClusterInteractionInfoMap.put("setTimer", freshMideaControllersetTimerInteractionInfo);
+
+    Map<String, CommandParameterInfo> freshMideaControllercancelTimerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo freshMideaControllercancelTimermodeCommandParameterInfo = new CommandParameterInfo("mode", Boolean.class, Boolean.class);
+    freshMideaControllercancelTimerCommandParams.put("mode",freshMideaControllercancelTimermodeCommandParameterInfo);
+    InteractionInfo freshMideaControllercancelTimerInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster)
+        .cancelTimer((DefaultClusterCallback) callback
+        , (Boolean)
+        commandArguments.get("mode")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        freshMideaControllercancelTimerCommandParams
+    );
+    freshMideaControllerClusterInteractionInfoMap.put("cancelTimer", freshMideaControllercancelTimerInteractionInfo);
+
     commandMap.put("freshMideaController", freshMideaControllerClusterInteractionInfoMap);
 
     Map<String, InteractionInfo> freshWaterHeaterControllerClusterInteractionInfoMap = new LinkedHashMap<>();
