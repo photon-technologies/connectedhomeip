@@ -31853,10 +31853,10 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
         make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
         make_unique<WriteAttribute<int16_t>>(Id, "fridge-temperature-default", INT16_MIN, INT16_MAX,
-                                             Attributes::FridgeTemperatureDefault::Id, WriteCommandType::kForceWrite,
+                                             Attributes::FridgeTemperatureDefault::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "freezer-temperature-default", INT16_MIN, INT16_MAX,
-                                             Attributes::FreezerTemperatureDefault::Id, WriteCommandType::kForceWrite,
+                                             Attributes::FreezerTemperatureDefault::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "fridge-previous-temperature", INT16_MIN, INT16_MAX,
                                              Attributes::FridgePreviousTemperature::Id, WriteCommandType::kForceWrite,
@@ -31865,27 +31865,27 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
                                              Attributes::FreezerPreviousTemperature::Id, WriteCommandType::kForceWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "super-cool-time", 0, UINT32_MAX, Attributes::SuperCoolTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "super-freeze-time", 0, UINT32_MAX, Attributes::SuperFreezeTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<uint32_t>>(Id, "alarm-time", 0, UINT32_MAX, Attributes::AlarmTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "alarm-time", 0, UINT32_MAX, Attributes::AlarmTime::Id, WriteCommandType::kWrite,
+                                              credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "reset-timeout", 0, UINT32_MAX, Attributes::ResetTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-active-time", 0, UINT32_MAX, Attributes::DisplayActiveTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-error-time", 0, UINT32_MAX, Attributes::DisplayErrorTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "compressor-state", 0, 1, Attributes::CompressorState::Id,
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "defrost-state", 0, 1, Attributes::DefrostState::Id, WriteCommandType::kForceWrite,
                                           credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "fridge-error-margin", INT16_MIN, INT16_MAX, Attributes::FridgeErrorMargin::Id,
-                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                             WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "freezer-error-margin", INT16_MIN, INT16_MAX, Attributes::FreezerErrorMargin::Id,
-                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                             WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "temperature-error-time", 0, UINT32_MAX, Attributes::TemperatureErrorTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "fridge-door-state", 0, 1, Attributes::FridgeDoorState::Id,
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "freezer-door-state", 0, 1, Attributes::FreezerDoorState::Id,

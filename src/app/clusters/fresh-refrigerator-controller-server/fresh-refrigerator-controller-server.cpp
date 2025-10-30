@@ -343,7 +343,7 @@ CHIP_ERROR Instance::SetResetTimeout(uint32_t timeout)
 {
     if (timeout != mResetTimeout)
     {
-        if (timeout < 1 || timeout > 7)
+        if (timeout < 1 || timeout > 15)
         {
             return StatusIB(Protocols::InteractionModel::Status::ConstraintError).ToChipError();
         }

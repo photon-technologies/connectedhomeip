@@ -11,11 +11,11 @@
     <client tick="false" init="false">true</client>
     <server tick="false" init="false">true</server>
     <globalAttribute code="0xFFFD" side="either" value="1"/>
-    <attribute side="server" code="0x0000" name="FridgeTemperatureDefault" define="FRIDGE_TEMPERATURE_DEFAULT" type="temperature" default="500" min="200" max="800" optional="true">
+    <attribute side="server" code="0x0000" name="FridgeTemperatureDefault" define="FRIDGE_TEMPERATURE_DEFAULT" type="temperature" default="500" min="200" max="800" writable="true">
       <description>FridgeTemperatureDefault</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0001" name="FreezerTemperatureDefault" define="FREEZER_TEMPERATURE_DEFAULT" type="temperature" default="-1800" min="-2400" max="-1400">
+    <attribute side="server" code="0x0001" name="FreezerTemperatureDefault" define="FREEZER_TEMPERATURE_DEFAULT" type="temperature" default="-1800" min="-2400" max="-1400" writable="true">
       <description>FreezerTemperatureDefault</description>
       <optionalConform />
     </attribute>
@@ -27,27 +27,27 @@
       <description>FreezerPreviousTemperature</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0004" name="SuperCoolTime" define="SUPER_COOL_TIME" type="int32u" default="21600">
+    <attribute side="server" code="0x0004" name="SuperCoolTime" define="SUPER_COOL_TIME" type="int32u" default="21600" writable="true">
       <description>SuperCoolTime</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0005" name="SuperFreezeTime" define="SUPER_FREEZE_TIME" type="int32u" default="93600">
+    <attribute side="server" code="0x0005" name="SuperFreezeTime" define="SUPER_FREEZE_TIME" type="int32u" default="93600" writable="true">
       <description>SuperFreezeTime</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0006" name="AlarmTime" define="ALARM_TIME" type="int32u" default="60">
+    <attribute side="server" code="0x0006" name="AlarmTime" define="ALARM_TIME" type="int32u" default="60" writable="true">
       <description>AlarmTime</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0007" name="ResetTimeout" define="RESET_TIMEOUT" type="int32u" default="180">
+    <attribute side="server" code="0x0007" name="ResetTimeout" define="RESET_TIMEOUT" type="int32u" default="10" writable="true">
       <description>ResetTimeout</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0008" name="DisplayActiveTime" define="DISPLAY_ACTIVE_TIME" type="int32u" default="60">
+    <attribute side="server" code="0x0008" name="DisplayActiveTime" define="DISPLAY_ACTIVE_TIME" type="int32u" default="60" writable="true">
       <description>DisplayActiveTime</description>
       <optionalConform />
     </attribute>
-    <attribute side="server" code="0x0009" name="DisplayErrorTime" define="DISPLAY_ERROR_TIME" type="int32u" default="5">
+    <attribute side="server" code="0x0009" name="DisplayErrorTime" define="DISPLAY_ERROR_TIME" type="int32u" default="5" writable="true">
       <description>DisplayErrorTime</description>
       <optionalConform />
     </attribute>
@@ -60,17 +60,17 @@
       <optionalConform />
     </attribute>
 
-    <attribute side="server" code="0x000C" name="FridgeErrorMargin" define="FRIDGE_ERROR_MARGIN" type="temperature" default="1500">
+    <attribute side="server" code="0x000C" name="FridgeErrorMargin" define="FRIDGE_ERROR_MARGIN" type="temperature" default="1500" writable="true">
       <description>FridgeErrorMargin</description>
       <optionalConform />
     </attribute>
 
-    <attribute side="server" code="0x000D" name="FreezerErrorMargin" define="FREEZER_ERROR_MARGIN" type="temperature" default="1500" >
+    <attribute side="server" code="0x000D" name="FreezerErrorMargin" define="FREEZER_ERROR_MARGIN" type="temperature" default="1500" writable="true">
       <description>FreezerErrorMargin</description>
       <optionalConform />
     </attribute>
 
-    <attribute side="server" code="0x000E" name="TemperatureErrorTime" define="TEMPERATURE_ERROR_TIME" type="int32u" default="3600">
+    <attribute side="server" code="0x000E" name="TemperatureErrorTime" define="TEMPERATURE_ERROR_TIME" type="int32u" default="3600" writable="true">
       <description>TemperatureErrorTime</description>
       <optionalConform />
     </attribute>
