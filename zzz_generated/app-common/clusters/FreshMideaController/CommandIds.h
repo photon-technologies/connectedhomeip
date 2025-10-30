@@ -19,6 +19,14 @@ namespace CancelClean {
 inline constexpr CommandId Id = 0x00000001;
 } // namespace CancelClean
 
+namespace SetTimer {
+inline constexpr CommandId Id = 0x00000002;
+} // namespace SetTimer
+
+namespace CancelTimer {
+inline constexpr CommandId Id = 0x00000003;
+} // namespace CancelTimer
+
 } // namespace Commands
 } // namespace FreshMideaController
 } // namespace Clusters

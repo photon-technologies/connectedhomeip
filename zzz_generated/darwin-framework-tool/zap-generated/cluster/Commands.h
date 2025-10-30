@@ -180433,6 +180433,8 @@ public:
 | Commands:                                                           |        |
 | * Clean                                                             |   0x00 |
 | * CancelClean                                                       |   0x01 |
+| * SetTimer                                                          |   0x02 |
+| * CancelTimer                                                       |   0x03 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
 | * Beep                                                              | 0x0000 |
@@ -180552,6 +180554,118 @@ public:
     }
 
 private:
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*
+ * Command SetTimer
+ */
+class FreshMideaControllerSetTimer : public ClusterCommand {
+public:
+    FreshMideaControllerSetTimer()
+        : ClusterCommand("set-timer")
+    {
+#if MTR_ENABLE_PROVISIONAL
+        AddArgument("Mode", 0, 1, &mRequest.mode);
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        AddArgument("Minutes", 0, UINT16_MAX, &mRequest.minutes);
+#endif // MTR_ENABLE_PROVISIONAL
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaController::Commands::SetTimer::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId, commandId, endpointId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshMideaController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRFreshMideaControllerClusterSetTimerParams alloc] init];
+        params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+#if MTR_ENABLE_PROVISIONAL
+        params.mode = [NSNumber numberWithBool:mRequest.mode];
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        params.minutes = [NSNumber numberWithUnsignedShort:mRequest.minutes];
+#endif // MTR_ENABLE_PROVISIONAL
+        uint16_t repeatCount = mRepeatCount.ValueOr(1);
+        uint16_t __block responsesNeeded = repeatCount;
+        while (repeatCount--) {
+            [cluster setTimerWithParams:params completion:
+                    ^(NSError * _Nullable error) {
+                        responsesNeeded--;
+                        if (error != nil) {
+                            mError = error;
+                            LogNSError("Error", error);
+                            RemoteDataModelLogger::LogCommandErrorAsJSON(@(endpointId), @(clusterId), @(commandId), error);
+                        }
+                        if (responsesNeeded == 0) {
+                            SetCommandExitStatus(mError);
+                        }
+                    }];
+        }
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::Clusters::FreshMideaController::Commands::SetTimer::Type mRequest;
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*
+ * Command CancelTimer
+ */
+class FreshMideaControllerCancelTimer : public ClusterCommand {
+public:
+    FreshMideaControllerCancelTimer()
+        : ClusterCommand("cancel-timer")
+    {
+#if MTR_ENABLE_PROVISIONAL
+        AddArgument("Mode", 0, 1, &mRequest.mode);
+#endif // MTR_ENABLE_PROVISIONAL
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaController::Commands::CancelTimer::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId, commandId, endpointId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshMideaController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRFreshMideaControllerClusterCancelTimerParams alloc] init];
+        params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+#if MTR_ENABLE_PROVISIONAL
+        params.mode = [NSNumber numberWithBool:mRequest.mode];
+#endif // MTR_ENABLE_PROVISIONAL
+        uint16_t repeatCount = mRepeatCount.ValueOr(1);
+        uint16_t __block responsesNeeded = repeatCount;
+        while (repeatCount--) {
+            [cluster cancelTimerWithParams:params completion:
+                    ^(NSError * _Nullable error) {
+                        responsesNeeded--;
+                        if (error != nil) {
+                            mError = error;
+                            LogNSError("Error", error);
+                            RemoteDataModelLogger::LogCommandErrorAsJSON(@(endpointId), @(clusterId), @(commandId), error);
+                        }
+                        if (responsesNeeded == 0) {
+                            SetCommandExitStatus(mError);
+                        }
+                    }];
+        }
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::Clusters::FreshMideaController::Commands::CancelTimer::Type mRequest;
 };
 
 #endif // MTR_ENABLE_PROVISIONAL
@@ -182070,6 +182184,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshMideaControllerPlasmaMode : public WriteAttribute {
+public:
+    WriteFreshMideaControllerPlasmaMode()
+        : WriteAttribute("plasma-mode")
+    {
+        AddArgument("attr-name", "plasma-mode");
+        AddArgument("attr-value", 0, 1, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshMideaControllerPlasmaMode()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshMideaController::Attributes::PlasmaMode::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshMideaController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithBool:mValue];
+
+        [cluster writeAttributePlasmaModeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshMideaController PlasmaMode write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    bool mValue;
 };
 
 class SubscribeAttributeFreshMideaControllerPlasmaMode : public SubscribeAttribute {
@@ -208208,6 +208363,12 @@ void registerClusterFreshMideaController(Commands & commands)
 #if MTR_ENABLE_PROVISIONAL
         make_unique<FreshMideaControllerCancelClean>(), //
 #endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<FreshMideaControllerSetTimer>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<FreshMideaControllerCancelTimer>(), //
+#endif // MTR_ENABLE_PROVISIONAL
         make_unique<ReadAttribute>(Id), //
         make_unique<WriteAttribute>(Id), //
         make_unique<SubscribeAttribute>(Id), //
@@ -208276,6 +208437,7 @@ void registerClusterFreshMideaController(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshMideaControllerPlasmaMode>(), //
+        make_unique<WriteFreshMideaControllerPlasmaMode>(), //
         make_unique<SubscribeAttributeFreshMideaControllerPlasmaMode>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL

@@ -57,6 +57,16 @@ struct Type;
 struct DecodableType;
 } // namespace CancelClean
 
+namespace SetTimer {
+struct Type;
+struct DecodableType;
+} // namespace SetTimer
+
+namespace CancelTimer {
+struct Type;
+struct DecodableType;
+} // namespace CancelTimer
+
 } // namespace Commands
 
 namespace Commands {
@@ -118,6 +128,77 @@ public:
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
 }; // namespace CancelClean
+namespace SetTimer {
+enum class Fields : uint8_t
+{
+    kMode    = 0,
+    kMinutes = 1,
+};
+
+struct Type
+{
+public:
+    // Use GetCommandId instead of commandId directly to avoid naming conflict with CommandIdentification in ExecutionOfACommand
+    static constexpr CommandId GetCommandId() { return Commands::SetTimer::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+
+    bool mode        = static_cast<bool>(0);
+    uint16_t minutes = static_cast<uint16_t>(0);
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+
+    using ResponseType = DataModel::NullObjectType;
+
+    static constexpr bool MustUseTimedInvoke() { return false; }
+};
+
+struct DecodableType
+{
+public:
+    static constexpr CommandId GetCommandId() { return Commands::SetTimer::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    bool mode        = static_cast<bool>(0);
+    uint16_t minutes = static_cast<uint16_t>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+}; // namespace SetTimer
+namespace CancelTimer {
+enum class Fields : uint8_t
+{
+    kMode = 0,
+};
+
+struct Type
+{
+public:
+    // Use GetCommandId instead of commandId directly to avoid naming conflict with CommandIdentification in ExecutionOfACommand
+    static constexpr CommandId GetCommandId() { return Commands::CancelTimer::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+
+    bool mode = static_cast<bool>(0);
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+
+    using ResponseType = DataModel::NullObjectType;
+
+    static constexpr bool MustUseTimedInvoke() { return false; }
+};
+
+struct DecodableType
+{
+public:
+    static constexpr CommandId GetCommandId() { return Commands::CancelTimer::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    bool mode = static_cast<bool>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+}; // namespace CancelTimer
 } // namespace Commands
 } // namespace FreshMideaController
 } // namespace Clusters

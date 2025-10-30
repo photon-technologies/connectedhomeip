@@ -14993,6 +14993,21 @@ class ChipClusters:
                 "args": {
                 },
             },
+            0x00000002: {
+                "commandId": 0x00000002,
+                "commandName": "SetTimer",
+                "args": {
+                    "mode": "bool",
+                    "minutes": "int",
+                },
+            },
+            0x00000003: {
+                "commandId": 0x00000003,
+                "commandName": "CancelTimer",
+                "args": {
+                    "mode": "bool",
+                },
+            },
         },
         "attributes": {
             0x00000000: {
@@ -15091,6 +15106,7 @@ class ChipClusters:
                 "attributeId": 0x0000000E,
                 "type": "bool",
                 "reportable": True,
+                "writable": True,
             },
             0x00000010: {
                 "attributeName": "ErrorCode",

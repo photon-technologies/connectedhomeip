@@ -114,7 +114,7 @@
       <description>OnTimerMinutes</description>
       <mandatoryConform/>
     </attribute>
-    <attribute side="server" code="0x000E" name="PlasmaMode" define="PLASMA_MODE" type="boolean" default="0">
+    <attribute side="server" code="0x000E" name="PlasmaMode" define="PLASMA_MODE" type="boolean" default="0" writable="true">
       <description>PlasmaMode</description>
       <mandatoryConform>
         <feature name="PLASMA"/>
@@ -136,6 +136,17 @@
       <mandatoryConform>
         <feature name="ACTIVE_CLEAN"/>
       </mandatoryConform>
+    </command>
+
+     <command source="client" code="0x02" name="SetTimer" optional="true">
+      <description>This command sets the on/off timer</description>
+      <arg id="0" name="mode" type="boolean"/> <!-- 0=off timer, 1=on timer -->
+      <arg id="1" name="minutes" type="int16u" min="1" max="1919"/> <!-- max 1919 = 31 hours 59 minutes -->
+    </command>
+
+    <command source="client" code="0x03" name="cancelTimer" optional="true">
+      <description>This command cancels the on/off timer.</description>
+      <arg id="0" name="mode" type="boolean"/> <!-- 0=off timer, 1=on timer -->
     </command>
 
     <event code="0x0000" name="ActiveCleanStarted" priority="info" side="server">

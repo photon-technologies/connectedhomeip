@@ -6659,6 +6659,10 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Clean";
         case chip::app::Clusters::FreshMideaController::Commands::CancelClean::Id:
             return "CancelClean";
+        case chip::app::Clusters::FreshMideaController::Commands::SetTimer::Id:
+            return "SetTimer";
+        case chip::app::Clusters::FreshMideaController::Commands::CancelTimer::Id:
+            return "CancelTimer";
         default:
             return "Unknown";
         }

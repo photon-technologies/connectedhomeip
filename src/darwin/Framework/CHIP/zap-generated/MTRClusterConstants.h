@@ -7375,6 +7375,8 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     // Cluster FreshMideaController commands
     MTRCommandIDTypeClusterFreshMideaControllerCommandCleanID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRCommandIDTypeClusterFreshMideaControllerCommandCancelCleanID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRCommandIDTypeClusterFreshMideaControllerCommandSetTimerID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRCommandIDTypeClusterFreshMideaControllerCommandCancelTimerID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
 
     // Cluster FreshWaterHeaterController commands
     MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeRequestID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
