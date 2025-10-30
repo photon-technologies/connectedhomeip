@@ -273,7 +273,7 @@ CHIP_ERROR Instance::SetPreviousFridgeTemperature(int16_t temp)
 
 CHIP_ERROR Instance::SetPreviousFreezerTemperature(int16_t temp)
 {
-    if (temp != mDefaultFreezerTemperature)
+    if (temp != mPreviousFreezerTemperature)
     {
         if (temp < -2400 || temp > -1400)
         {
@@ -281,7 +281,7 @@ CHIP_ERROR Instance::SetPreviousFreezerTemperature(int16_t temp)
         }
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::FreezerPreviousTemperature::Id);
         ReturnErrorOnFailure(storageDelagate.Put("previous-freezer-temperature", temp));
-        mPreviousFridgeTemperature = temp;
+        mPreviousFreezerTemperature = temp;
         MatterReportingAttributeChangeCallback(path);
         MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&temp));
     }
