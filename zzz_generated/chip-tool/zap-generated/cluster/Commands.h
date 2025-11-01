@@ -32192,67 +32192,65 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
         make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
         make_unique<WriteAttribute<int16_t>>(Id, "cold-water-temperature", INT16_MIN, INT16_MAX,
-                                             Attributes::ColdWaterTemperature::Id, WriteCommandType::kForceWrite,
-                                             credsIssuerConfig), //
+                                             Attributes::ColdWaterTemperature::Id, WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "shower-temperature", INT16_MIN, INT16_MAX, Attributes::ShowerTemperature::Id,
-                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                             WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "shower-hysteresis", INT16_MIN, INT16_MAX, Attributes::ShowerHysteresis::Id,
-                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                             WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum>>(
             Id, "shower-state", 0, UINT8_MAX, Attributes::ShowerState::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "default-shower-flow-lpm", 0, UINT16_MAX, Attributes::DefaultShowerFlowLPM::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "standard-mode-setpoint", INT16_MIN, INT16_MAX,
-                                             Attributes::StandardModeSetpoint::Id, WriteCommandType::kForceWrite,
-                                             credsIssuerConfig), //
+                                             Attributes::StandardModeSetpoint::Id, WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "eco-mode-setpoint", INT16_MIN, INT16_MAX, Attributes::EcoModeSetpoint::Id,
-                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                             WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<
             WriteAttributeAsComplex<chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type>>(
-            Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+            Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "display-temperature-step", INT16_MIN, INT16_MAX,
-                                             Attributes::DisplayTemperatureStep::Id, WriteCommandType::kForceWrite,
+                                             Attributes::DisplayTemperatureStep::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "reset-timeout", 0, UINT32_MAX, Attributes::ResetTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "cool-down-timeout", 0, UINT32_MAX, Attributes::CoolDownTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "reset-counter-timeout", 0, UINT32_MAX, Attributes::ResetCounterTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-active-timeout", 0, UINT32_MAX, Attributes::DisplayActiveTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-error-timeout", 0, UINT32_MAX, Attributes::DisplayErrorTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "display-target-timeout", 0, UINT32_MAX, Attributes::DisplayTargetTimeout::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "temperature-sensor-min-valid", INT16_MIN, INT16_MAX,
-                                             Attributes::TemperatureSensorMinValid::Id, WriteCommandType::kForceWrite,
+                                             Attributes::TemperatureSensorMinValid::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "temperature-sensor-max-valid", INT16_MIN, INT16_MAX,
-                                             Attributes::TemperatureSensorMaxValid::Id, WriteCommandType::kForceWrite,
+                                             Attributes::TemperatureSensorMaxValid::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "overheat-threshold-temperature", INT16_MIN, INT16_MAX,
-                                             Attributes::OverheatThresholdTemperature::Id, WriteCommandType::kForceWrite,
+                                             Attributes::OverheatThresholdTemperature::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "rapid-rise-delta", INT16_MIN, INT16_MAX, Attributes::RapidRiseDelta::Id,
-                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                             WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "rapid-rise-window", 0, UINT32_MAX, Attributes::RapidRiseWindow::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "previous-target-heater-temperature", INT16_MIN, INT16_MAX,
                                              Attributes::PreviousTargetHeaterTemperature::Id, WriteCommandType::kForceWrite,
                                              credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "heater-maximum-power", 0, UINT16_MAX, Attributes::HeaterMaximumPower::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const uint32_t>>>(
-            Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id, WriteCommandType::kForceWrite,
+            Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id, WriteCommandType::kWrite,
             credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const uint32_t>>>(
-            Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id, WriteCommandType::kForceWrite,
+            Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id, WriteCommandType::kWrite,
             credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "requires-anode-change", 0, 1, Attributes::RequiresAnodeChange::Id,
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "maximum-boost-time", 0, UINT32_MAX, Attributes::MaximumBoostTime::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //

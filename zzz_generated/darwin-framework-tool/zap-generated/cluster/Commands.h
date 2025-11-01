@@ -183364,6 +183364,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerColdWaterTemperature : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerColdWaterTemperature()
+        : WriteAttribute("cold-water-temperature")
+    {
+        AddArgument("attr-name", "cold-water-temperature");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerColdWaterTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ColdWaterTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeColdWaterTemperatureWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController ColdWaterTemperature write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerColdWaterTemperature : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerColdWaterTemperature()
@@ -183449,6 +183490,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerShowerTemperature : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerShowerTemperature()
+        : WriteAttribute("shower-temperature")
+    {
+        AddArgument("attr-name", "shower-temperature");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerShowerTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ShowerTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeShowerTemperatureWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController ShowerTemperature write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerShowerTemperature : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerShowerTemperature()
@@ -183532,6 +183614,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerShowerHysteresis : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerShowerHysteresis()
+        : WriteAttribute("shower-hysteresis")
+    {
+        AddArgument("attr-name", "shower-hysteresis");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerShowerHysteresis()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ShowerHysteresis::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeShowerHysteresisWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController ShowerHysteresis write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerShowerHysteresis : public SubscribeAttribute {
@@ -183704,6 +183827,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerDefaultShowerFlowLPM : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDefaultShowerFlowLPM()
+        : WriteAttribute("default-shower-flow-lpm")
+    {
+        AddArgument("attr-name", "default-shower-flow-lpm");
+        AddArgument("attr-value", 0, UINT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDefaultShowerFlowLPM()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DefaultShowerFlowLPM::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedShort:mValue];
+
+        [cluster writeAttributeDefaultShowerFlowLPMWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DefaultShowerFlowLPM write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerDefaultShowerFlowLPM : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerDefaultShowerFlowLPM()
@@ -183787,6 +183951,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerStandardModeSetpoint : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerStandardModeSetpoint()
+        : WriteAttribute("standard-mode-setpoint")
+    {
+        AddArgument("attr-name", "standard-mode-setpoint");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerStandardModeSetpoint()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::StandardModeSetpoint::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeStandardModeSetpointWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController StandardModeSetpoint write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerStandardModeSetpoint : public SubscribeAttribute {
@@ -183874,6 +184079,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerEcoModeSetpoint : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerEcoModeSetpoint()
+        : WriteAttribute("eco-mode-setpoint")
+    {
+        AddArgument("attr-name", "eco-mode-setpoint");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerEcoModeSetpoint()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::EcoModeSetpoint::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeEcoModeSetpointWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController EcoModeSetpoint write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerEcoModeSetpoint : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerEcoModeSetpoint()
@@ -183957,6 +184203,76 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerBoostModeSetpoint : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerBoostModeSetpoint()
+        : WriteAttribute("boost-mode-setpoint")
+        , mComplex(&mValue)
+    {
+        AddArgument("attr-name", "boost-mode-setpoint");
+        AddArgument("attr-value", &mComplex);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerBoostModeSetpoint()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::BoostModeSetpoint::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nonnull value;
+        value = [MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct new];
+        value.duration = [NSNumber numberWithUnsignedInt:mValue.duration];
+        if (mValue.oneShot.HasValue()) {
+            value.oneShot = [NSNumber numberWithBool:mValue.oneShot.Value()];
+        } else {
+            value.oneShot = nil;
+        }
+        if (mValue.emergencyBoost.HasValue()) {
+            value.emergencyBoost = [NSNumber numberWithBool:mValue.emergencyBoost.Value()];
+        } else {
+            value.emergencyBoost = nil;
+        }
+        if (mValue.temporarySetpoint.HasValue()) {
+            value.temporarySetpoint = [NSNumber numberWithShort:mValue.temporarySetpoint.Value()];
+        } else {
+            value.temporarySetpoint = nil;
+        }
+        if (mValue.targetPercentage.HasValue()) {
+            value.targetPercentage = [NSNumber numberWithUnsignedChar:mValue.targetPercentage.Value()];
+        } else {
+            value.targetPercentage = nil;
+        }
+        if (mValue.targetReheat.HasValue()) {
+            value.targetReheat = [NSNumber numberWithUnsignedChar:mValue.targetReheat.Value()];
+        } else {
+            value.targetReheat = nil;
+        }
+
+        [cluster writeAttributeBoostModeSetpointWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController BoostModeSetpoint write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type mValue;
+    TypedComplexArgument<chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type> mComplex;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerBoostModeSetpoint : public SubscribeAttribute {
@@ -184044,6 +184360,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerDisplayTemperatureStep : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDisplayTemperatureStep()
+        : WriteAttribute("display-temperature-step")
+    {
+        AddArgument("attr-name", "display-temperature-step");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDisplayTemperatureStep()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayTemperatureStep::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeDisplayTemperatureStepWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DisplayTemperatureStep write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerDisplayTemperatureStep : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerDisplayTemperatureStep()
@@ -184127,6 +184484,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerResetTimeout : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerResetTimeout()
+        : WriteAttribute("reset-timeout")
+    {
+        AddArgument("attr-name", "reset-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerResetTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeResetTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController ResetTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerResetTimeout : public SubscribeAttribute {
@@ -184214,6 +184612,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerCoolDownTimeout : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerCoolDownTimeout()
+        : WriteAttribute("cool-down-timeout")
+    {
+        AddArgument("attr-name", "cool-down-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerCoolDownTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::CoolDownTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeCoolDownTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController CoolDownTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerCoolDownTimeout : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerCoolDownTimeout()
@@ -184297,6 +184736,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerResetCounterTimeout : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerResetCounterTimeout()
+        : WriteAttribute("reset-counter-timeout")
+    {
+        AddArgument("attr-name", "reset-counter-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerResetCounterTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetCounterTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeResetCounterTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController ResetCounterTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerResetCounterTimeout : public SubscribeAttribute {
@@ -184384,6 +184864,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerDisplayActiveTimeout : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDisplayActiveTimeout()
+        : WriteAttribute("display-active-timeout")
+    {
+        AddArgument("attr-name", "display-active-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDisplayActiveTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayActiveTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeDisplayActiveTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DisplayActiveTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerDisplayActiveTimeout : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerDisplayActiveTimeout()
@@ -184467,6 +184988,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerDisplayErrorTimeout : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDisplayErrorTimeout()
+        : WriteAttribute("display-error-timeout")
+    {
+        AddArgument("attr-name", "display-error-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDisplayErrorTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayErrorTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeDisplayErrorTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DisplayErrorTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerDisplayErrorTimeout : public SubscribeAttribute {
@@ -184554,6 +185116,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerDisplayTargetTimeout : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDisplayTargetTimeout()
+        : WriteAttribute("display-target-timeout")
+    {
+        AddArgument("attr-name", "display-target-timeout");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDisplayTargetTimeout()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayTargetTimeout::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeDisplayTargetTimeoutWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DisplayTargetTimeout write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerDisplayTargetTimeout : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerDisplayTargetTimeout()
@@ -184637,6 +185240,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerTemperatureSensorMinValid : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerTemperatureSensorMinValid()
+        : WriteAttribute("temperature-sensor-min-valid")
+    {
+        AddArgument("attr-name", "temperature-sensor-min-valid");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerTemperatureSensorMinValid()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::TemperatureSensorMinValid::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeTemperatureSensorMinValidWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController TemperatureSensorMinValid write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerTemperatureSensorMinValid : public SubscribeAttribute {
@@ -184724,6 +185368,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerTemperatureSensorMaxValid : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerTemperatureSensorMaxValid()
+        : WriteAttribute("temperature-sensor-max-valid")
+    {
+        AddArgument("attr-name", "temperature-sensor-max-valid");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerTemperatureSensorMaxValid()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::TemperatureSensorMaxValid::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeTemperatureSensorMaxValidWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController TemperatureSensorMaxValid write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerTemperatureSensorMaxValid : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerTemperatureSensorMaxValid()
@@ -184807,6 +185492,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerOverheatThresholdTemperature : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerOverheatThresholdTemperature()
+        : WriteAttribute("overheat-threshold-temperature")
+    {
+        AddArgument("attr-name", "overheat-threshold-temperature");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerOverheatThresholdTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::OverheatThresholdTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeOverheatThresholdTemperatureWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController OverheatThresholdTemperature write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerOverheatThresholdTemperature : public SubscribeAttribute {
@@ -184894,6 +185620,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerRapidRiseDelta : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerRapidRiseDelta()
+        : WriteAttribute("rapid-rise-delta")
+    {
+        AddArgument("attr-name", "rapid-rise-delta");
+        AddArgument("attr-value", INT16_MIN, INT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerRapidRiseDelta()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::RapidRiseDelta::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithShort:mValue];
+
+        [cluster writeAttributeRapidRiseDeltaWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController RapidRiseDelta write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    int16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerRapidRiseDelta : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerRapidRiseDelta()
@@ -184977,6 +185744,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerRapidRiseWindow : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerRapidRiseWindow()
+        : WriteAttribute("rapid-rise-window")
+    {
+        AddArgument("attr-name", "rapid-rise-window");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerRapidRiseWindow()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::RapidRiseWindow::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeRapidRiseWindowWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController RapidRiseWindow write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerRapidRiseWindow : public SubscribeAttribute {
@@ -185149,6 +185957,47 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerHeaterMaximumPower : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerHeaterMaximumPower()
+        : WriteAttribute("heater-maximum-power")
+    {
+        AddArgument("attr-name", "heater-maximum-power");
+        AddArgument("attr-value", 0, UINT16_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerHeaterMaximumPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::HeaterMaximumPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedShort:mValue];
+
+        [cluster writeAttributeHeaterMaximumPowerWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController HeaterMaximumPower write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint16_t mValue;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerHeaterMaximumPower : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerHeaterMaximumPower()
@@ -185234,6 +186083,58 @@ public:
     }
 };
 
+class WriteFreshWaterHeaterControllerDiagnosticsConfirmTimeList : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDiagnosticsConfirmTimeList()
+        : WriteAttribute("diagnostics-confirm-time-list")
+        , mComplex(&mValue)
+    {
+        AddArgument("attr-name", "diagnostics-confirm-time-list");
+        AddArgument("attr-value", &mComplex);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDiagnosticsConfirmTimeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DiagnosticsConfirmTimeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSArray * _Nonnull value;
+        { // Scope for our temporary variables
+            auto * array_0 = [NSMutableArray new];
+            for (auto & entry_0 : mValue) {
+                NSNumber * newElement_0;
+                newElement_0 = [NSNumber numberWithUnsignedInt:entry_0];
+                [array_0 addObject:newElement_0];
+            }
+            value = array_0;
+        }
+
+        [cluster writeAttributeDiagnosticsConfirmTimeListWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DiagnosticsConfirmTimeList write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::DataModel::List<const uint32_t> mValue;
+    TypedComplexArgument<chip::app::DataModel::List<const uint32_t>> mComplex;
+};
+
 class SubscribeAttributeFreshWaterHeaterControllerDiagnosticsConfirmTimeList : public SubscribeAttribute {
 public:
     SubscribeAttributeFreshWaterHeaterControllerDiagnosticsConfirmTimeList()
@@ -185317,6 +186218,58 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerDiagnosticsRehabTimeList : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerDiagnosticsRehabTimeList()
+        : WriteAttribute("diagnostics-rehab-time-list")
+        , mComplex(&mValue)
+    {
+        AddArgument("attr-name", "diagnostics-rehab-time-list");
+        AddArgument("attr-value", &mComplex);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerDiagnosticsRehabTimeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::DiagnosticsRehabTimeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSArray * _Nonnull value;
+        { // Scope for our temporary variables
+            auto * array_0 = [NSMutableArray new];
+            for (auto & entry_0 : mValue) {
+                NSNumber * newElement_0;
+                newElement_0 = [NSNumber numberWithUnsignedInt:entry_0];
+                [array_0 addObject:newElement_0];
+            }
+            value = array_0;
+        }
+
+        [cluster writeAttributeDiagnosticsRehabTimeListWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController DiagnosticsRehabTimeList write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::DataModel::List<const uint32_t> mValue;
+    TypedComplexArgument<chip::app::DataModel::List<const uint32_t>> mComplex;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerDiagnosticsRehabTimeList : public SubscribeAttribute {
@@ -185487,6 +186440,47 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
+};
+
+class WriteFreshWaterHeaterControllerMaximumBoostTime : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerMaximumBoostTime()
+        : WriteAttribute("maximum-boost-time")
+    {
+        AddArgument("attr-name", "maximum-boost-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerMaximumBoostTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::MaximumBoostTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeMaximumBoostTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController MaximumBoostTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
 };
 
 class SubscribeAttributeFreshWaterHeaterControllerMaximumBoostTime : public SubscribeAttribute {
@@ -208950,14 +209944,17 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
         make_unique<SubscribeAttribute>(Id), //
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerColdWaterTemperature>(), //
+        make_unique<WriteFreshWaterHeaterControllerColdWaterTemperature>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerColdWaterTemperature>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerShowerTemperature>(), //
+        make_unique<WriteFreshWaterHeaterControllerShowerTemperature>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerShowerTemperature>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerShowerHysteresis>(), //
+        make_unique<WriteFreshWaterHeaterControllerShowerHysteresis>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerShowerHysteresis>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
@@ -208966,66 +209963,82 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDefaultShowerFlowLPM>(), //
+        make_unique<WriteFreshWaterHeaterControllerDefaultShowerFlowLPM>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDefaultShowerFlowLPM>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerStandardModeSetpoint>(), //
+        make_unique<WriteFreshWaterHeaterControllerStandardModeSetpoint>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerStandardModeSetpoint>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerEcoModeSetpoint>(), //
+        make_unique<WriteFreshWaterHeaterControllerEcoModeSetpoint>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerEcoModeSetpoint>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerBoostModeSetpoint>(), //
+        make_unique<WriteFreshWaterHeaterControllerBoostModeSetpoint>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerBoostModeSetpoint>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDisplayTemperatureStep>(), //
+        make_unique<WriteFreshWaterHeaterControllerDisplayTemperatureStep>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDisplayTemperatureStep>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerResetTimeout>(), //
+        make_unique<WriteFreshWaterHeaterControllerResetTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerResetTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerCoolDownTimeout>(), //
+        make_unique<WriteFreshWaterHeaterControllerCoolDownTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerCoolDownTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerResetCounterTimeout>(), //
+        make_unique<WriteFreshWaterHeaterControllerResetCounterTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerResetCounterTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDisplayActiveTimeout>(), //
+        make_unique<WriteFreshWaterHeaterControllerDisplayActiveTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDisplayActiveTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDisplayErrorTimeout>(), //
+        make_unique<WriteFreshWaterHeaterControllerDisplayErrorTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDisplayErrorTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDisplayTargetTimeout>(), //
+        make_unique<WriteFreshWaterHeaterControllerDisplayTargetTimeout>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDisplayTargetTimeout>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerTemperatureSensorMinValid>(), //
+        make_unique<WriteFreshWaterHeaterControllerTemperatureSensorMinValid>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerTemperatureSensorMinValid>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerTemperatureSensorMaxValid>(), //
+        make_unique<WriteFreshWaterHeaterControllerTemperatureSensorMaxValid>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerTemperatureSensorMaxValid>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerOverheatThresholdTemperature>(), //
+        make_unique<WriteFreshWaterHeaterControllerOverheatThresholdTemperature>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerOverheatThresholdTemperature>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerRapidRiseDelta>(), //
+        make_unique<WriteFreshWaterHeaterControllerRapidRiseDelta>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerRapidRiseDelta>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerRapidRiseWindow>(), //
+        make_unique<WriteFreshWaterHeaterControllerRapidRiseWindow>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerRapidRiseWindow>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
@@ -209034,14 +210047,17 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerHeaterMaximumPower>(), //
+        make_unique<WriteFreshWaterHeaterControllerHeaterMaximumPower>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerHeaterMaximumPower>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDiagnosticsConfirmTimeList>(), //
+        make_unique<WriteFreshWaterHeaterControllerDiagnosticsConfirmTimeList>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDiagnosticsConfirmTimeList>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerDiagnosticsRehabTimeList>(), //
+        make_unique<WriteFreshWaterHeaterControllerDiagnosticsRehabTimeList>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerDiagnosticsRehabTimeList>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
@@ -209050,6 +210066,7 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerMaximumBoostTime>(), //
+        make_unique<WriteFreshWaterHeaterControllerMaximumBoostTime>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerMaximumBoostTime>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL

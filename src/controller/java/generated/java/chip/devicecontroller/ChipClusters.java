@@ -66853,15 +66853,6 @@ public class ChipClusters {
         }, FRIDGE_PREVIOUS_TEMPERATURE_ATTRIBUTE_ID, true);
     }
 
-    public void writeFridgePreviousTemperatureAttribute(DefaultClusterCallback callback, Integer value) {
-      writeFridgePreviousTemperatureAttribute(callback, value, 0);
-    }
-
-    public void writeFridgePreviousTemperatureAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
-      BaseTLVType tlvValue = new IntType(value);
-      writeAttribute(new WriteAttributesCallbackImpl(callback), FRIDGE_PREVIOUS_TEMPERATURE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
-    }
-
     public void subscribeFridgePreviousTemperatureAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, FRIDGE_PREVIOUS_TEMPERATURE_ATTRIBUTE_ID);
@@ -66886,15 +66877,6 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, FREEZER_PREVIOUS_TEMPERATURE_ATTRIBUTE_ID, true);
-    }
-
-    public void writeFreezerPreviousTemperatureAttribute(DefaultClusterCallback callback, Integer value) {
-      writeFreezerPreviousTemperatureAttribute(callback, value, 0);
-    }
-
-    public void writeFreezerPreviousTemperatureAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
-      BaseTLVType tlvValue = new IntType(value);
-      writeAttribute(new WriteAttributesCallbackImpl(callback), FREEZER_PREVIOUS_TEMPERATURE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeFreezerPreviousTemperatureAttribute(
@@ -68326,6 +68308,15 @@ public class ChipClusters {
         }, COLD_WATER_TEMPERATURE_ATTRIBUTE_ID, true);
     }
 
+    public void writeColdWaterTemperatureAttribute(DefaultClusterCallback callback, Integer value) {
+      writeColdWaterTemperatureAttribute(callback, value, 0);
+    }
+
+    public void writeColdWaterTemperatureAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), COLD_WATER_TEMPERATURE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeColdWaterTemperatureAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, COLD_WATER_TEMPERATURE_ATTRIBUTE_ID);
@@ -68352,6 +68343,15 @@ public class ChipClusters {
         }, SHOWER_TEMPERATURE_ATTRIBUTE_ID, true);
     }
 
+    public void writeShowerTemperatureAttribute(DefaultClusterCallback callback, Integer value) {
+      writeShowerTemperatureAttribute(callback, value, 0);
+    }
+
+    public void writeShowerTemperatureAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), SHOWER_TEMPERATURE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeShowerTemperatureAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, SHOWER_TEMPERATURE_ATTRIBUTE_ID);
@@ -68376,6 +68376,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, SHOWER_HYSTERESIS_ATTRIBUTE_ID, true);
+    }
+
+    public void writeShowerHysteresisAttribute(DefaultClusterCallback callback, Integer value) {
+      writeShowerHysteresisAttribute(callback, value, 0);
+    }
+
+    public void writeShowerHysteresisAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), SHOWER_HYSTERESIS_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeShowerHysteresisAttribute(
@@ -68430,6 +68439,15 @@ public class ChipClusters {
         }, DEFAULT_SHOWER_FLOW_LPM_ATTRIBUTE_ID, true);
     }
 
+    public void writeDefaultShowerFlowLPMAttribute(DefaultClusterCallback callback, Integer value) {
+      writeDefaultShowerFlowLPMAttribute(callback, value, 0);
+    }
+
+    public void writeDefaultShowerFlowLPMAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DEFAULT_SHOWER_FLOW_LPM_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeDefaultShowerFlowLPMAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEFAULT_SHOWER_FLOW_LPM_ATTRIBUTE_ID);
@@ -68454,6 +68472,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, STANDARD_MODE_SETPOINT_ATTRIBUTE_ID, true);
+    }
+
+    public void writeStandardModeSetpointAttribute(DefaultClusterCallback callback, Integer value) {
+      writeStandardModeSetpointAttribute(callback, value, 0);
+    }
+
+    public void writeStandardModeSetpointAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), STANDARD_MODE_SETPOINT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeStandardModeSetpointAttribute(
@@ -68482,6 +68509,15 @@ public class ChipClusters {
         }, ECO_MODE_SETPOINT_ATTRIBUTE_ID, true);
     }
 
+    public void writeEcoModeSetpointAttribute(DefaultClusterCallback callback, Integer value) {
+      writeEcoModeSetpointAttribute(callback, value, 0);
+    }
+
+    public void writeEcoModeSetpointAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), ECO_MODE_SETPOINT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeEcoModeSetpointAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ECO_MODE_SETPOINT_ATTRIBUTE_ID);
@@ -68506,6 +68542,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, BOOST_MODE_SETPOINT_ATTRIBUTE_ID, true);
+    }
+
+    public void writeBoostModeSetpointAttribute(DefaultClusterCallback callback, ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value) {
+      writeBoostModeSetpointAttribute(callback, value, 0);
+    }
+
+    public void writeBoostModeSetpointAttribute(DefaultClusterCallback callback, ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = value.encodeTlv();
+      writeAttribute(new WriteAttributesCallbackImpl(callback), BOOST_MODE_SETPOINT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeBoostModeSetpointAttribute(
@@ -68534,6 +68579,15 @@ public class ChipClusters {
         }, DISPLAY_TEMPERATURE_STEP_ATTRIBUTE_ID, true);
     }
 
+    public void writeDisplayTemperatureStepAttribute(DefaultClusterCallback callback, Integer value) {
+      writeDisplayTemperatureStepAttribute(callback, value, 0);
+    }
+
+    public void writeDisplayTemperatureStepAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DISPLAY_TEMPERATURE_STEP_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeDisplayTemperatureStepAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DISPLAY_TEMPERATURE_STEP_ATTRIBUTE_ID);
@@ -68558,6 +68612,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, RESET_TIMEOUT_ATTRIBUTE_ID, true);
+    }
+
+    public void writeResetTimeoutAttribute(DefaultClusterCallback callback, Long value) {
+      writeResetTimeoutAttribute(callback, value, 0);
+    }
+
+    public void writeResetTimeoutAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), RESET_TIMEOUT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeResetTimeoutAttribute(
@@ -68586,6 +68649,15 @@ public class ChipClusters {
         }, COOL_DOWN_TIMEOUT_ATTRIBUTE_ID, true);
     }
 
+    public void writeCoolDownTimeoutAttribute(DefaultClusterCallback callback, Long value) {
+      writeCoolDownTimeoutAttribute(callback, value, 0);
+    }
+
+    public void writeCoolDownTimeoutAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), COOL_DOWN_TIMEOUT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeCoolDownTimeoutAttribute(
         LongAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, COOL_DOWN_TIMEOUT_ATTRIBUTE_ID);
@@ -68610,6 +68682,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID, true);
+    }
+
+    public void writeResetCounterTimeoutAttribute(DefaultClusterCallback callback, Long value) {
+      writeResetCounterTimeoutAttribute(callback, value, 0);
+    }
+
+    public void writeResetCounterTimeoutAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), RESET_COUNTER_TIMEOUT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeResetCounterTimeoutAttribute(
@@ -68638,6 +68719,15 @@ public class ChipClusters {
         }, DISPLAY_ACTIVE_TIMEOUT_ATTRIBUTE_ID, true);
     }
 
+    public void writeDisplayActiveTimeoutAttribute(DefaultClusterCallback callback, Long value) {
+      writeDisplayActiveTimeoutAttribute(callback, value, 0);
+    }
+
+    public void writeDisplayActiveTimeoutAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DISPLAY_ACTIVE_TIMEOUT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeDisplayActiveTimeoutAttribute(
         LongAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DISPLAY_ACTIVE_TIMEOUT_ATTRIBUTE_ID);
@@ -68662,6 +68752,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, DISPLAY_ERROR_TIMEOUT_ATTRIBUTE_ID, true);
+    }
+
+    public void writeDisplayErrorTimeoutAttribute(DefaultClusterCallback callback, Long value) {
+      writeDisplayErrorTimeoutAttribute(callback, value, 0);
+    }
+
+    public void writeDisplayErrorTimeoutAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DISPLAY_ERROR_TIMEOUT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeDisplayErrorTimeoutAttribute(
@@ -68690,6 +68789,15 @@ public class ChipClusters {
         }, DISPLAY_TARGET_TIMEOUT_ATTRIBUTE_ID, true);
     }
 
+    public void writeDisplayTargetTimeoutAttribute(DefaultClusterCallback callback, Long value) {
+      writeDisplayTargetTimeoutAttribute(callback, value, 0);
+    }
+
+    public void writeDisplayTargetTimeoutAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DISPLAY_TARGET_TIMEOUT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeDisplayTargetTimeoutAttribute(
         LongAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DISPLAY_TARGET_TIMEOUT_ATTRIBUTE_ID);
@@ -68714,6 +68822,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, TEMPERATURE_SENSOR_MIN_VALID_ATTRIBUTE_ID, true);
+    }
+
+    public void writeTemperatureSensorMinValidAttribute(DefaultClusterCallback callback, Integer value) {
+      writeTemperatureSensorMinValidAttribute(callback, value, 0);
+    }
+
+    public void writeTemperatureSensorMinValidAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), TEMPERATURE_SENSOR_MIN_VALID_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeTemperatureSensorMinValidAttribute(
@@ -68742,6 +68859,15 @@ public class ChipClusters {
         }, TEMPERATURE_SENSOR_MAX_VALID_ATTRIBUTE_ID, true);
     }
 
+    public void writeTemperatureSensorMaxValidAttribute(DefaultClusterCallback callback, Integer value) {
+      writeTemperatureSensorMaxValidAttribute(callback, value, 0);
+    }
+
+    public void writeTemperatureSensorMaxValidAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), TEMPERATURE_SENSOR_MAX_VALID_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeTemperatureSensorMaxValidAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, TEMPERATURE_SENSOR_MAX_VALID_ATTRIBUTE_ID);
@@ -68766,6 +68892,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, OVERHEAT_THRESHOLD_TEMPERATURE_ATTRIBUTE_ID, true);
+    }
+
+    public void writeOverheatThresholdTemperatureAttribute(DefaultClusterCallback callback, Integer value) {
+      writeOverheatThresholdTemperatureAttribute(callback, value, 0);
+    }
+
+    public void writeOverheatThresholdTemperatureAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), OVERHEAT_THRESHOLD_TEMPERATURE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeOverheatThresholdTemperatureAttribute(
@@ -68794,6 +68929,15 @@ public class ChipClusters {
         }, RAPID_RISE_DELTA_ATTRIBUTE_ID, true);
     }
 
+    public void writeRapidRiseDeltaAttribute(DefaultClusterCallback callback, Integer value) {
+      writeRapidRiseDeltaAttribute(callback, value, 0);
+    }
+
+    public void writeRapidRiseDeltaAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new IntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), RAPID_RISE_DELTA_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeRapidRiseDeltaAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, RAPID_RISE_DELTA_ATTRIBUTE_ID);
@@ -68818,6 +68962,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, RAPID_RISE_WINDOW_ATTRIBUTE_ID, true);
+    }
+
+    public void writeRapidRiseWindowAttribute(DefaultClusterCallback callback, Long value) {
+      writeRapidRiseWindowAttribute(callback, value, 0);
+    }
+
+    public void writeRapidRiseWindowAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), RAPID_RISE_WINDOW_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeRapidRiseWindowAttribute(
@@ -68872,6 +69025,15 @@ public class ChipClusters {
         }, HEATER_MAXIMUM_POWER_ATTRIBUTE_ID, true);
     }
 
+    public void writeHeaterMaximumPowerAttribute(DefaultClusterCallback callback, Integer value) {
+      writeHeaterMaximumPowerAttribute(callback, value, 0);
+    }
+
+    public void writeHeaterMaximumPowerAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), HEATER_MAXIMUM_POWER_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeHeaterMaximumPowerAttribute(
         IntegerAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, HEATER_MAXIMUM_POWER_ATTRIBUTE_ID);
@@ -68898,6 +69060,15 @@ public class ChipClusters {
         }, DIAGNOSTICS_CONFIRM_TIME_LIST_ATTRIBUTE_ID, true);
     }
 
+    public void writeDiagnosticsConfirmTimeListAttribute(DefaultClusterCallback callback, ArrayList<Long> value) {
+      writeDiagnosticsConfirmTimeListAttribute(callback, value, 0);
+    }
+
+    public void writeDiagnosticsConfirmTimeListAttribute(DefaultClusterCallback callback, ArrayList<Long> value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = ArrayType.generateArrayType(value, (elementvalue) -> new UIntType(elementvalue));
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DIAGNOSTICS_CONFIRM_TIME_LIST_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
     public void subscribeDiagnosticsConfirmTimeListAttribute(
         DiagnosticsConfirmTimeListAttributeCallback callback, int minInterval, int maxInterval) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DIAGNOSTICS_CONFIRM_TIME_LIST_ATTRIBUTE_ID);
@@ -68922,6 +69093,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID, true);
+    }
+
+    public void writeDiagnosticsRehabTimeListAttribute(DefaultClusterCallback callback, ArrayList<Long> value) {
+      writeDiagnosticsRehabTimeListAttribute(callback, value, 0);
+    }
+
+    public void writeDiagnosticsRehabTimeListAttribute(DefaultClusterCallback callback, ArrayList<Long> value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = ArrayType.generateArrayType(value, (elementvalue) -> new UIntType(elementvalue));
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeDiagnosticsRehabTimeListAttribute(
@@ -68974,6 +69154,15 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, MAXIMUM_BOOST_TIME_ATTRIBUTE_ID, true);
+    }
+
+    public void writeMaximumBoostTimeAttribute(DefaultClusterCallback callback, Long value) {
+      writeMaximumBoostTimeAttribute(callback, value, 0);
+    }
+
+    public void writeMaximumBoostTimeAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), MAXIMUM_BOOST_TIME_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeMaximumBoostTimeAttribute(

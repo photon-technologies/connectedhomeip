@@ -32,12 +32,12 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerTemperatureDefa
 namespace FridgePreviousTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgePreviousTemperature::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
-                                                          Access::Privilege::kOperate);
+                                                          std::nullopt);
 } // namespace FridgePreviousTemperature
 namespace FreezerPreviousTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FreezerPreviousTemperature::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
-                                                          Access::Privilege::kOperate);
+                                                          std::nullopt);
 } // namespace FreezerPreviousTemperature
 namespace SuperCoolTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(SuperCoolTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
