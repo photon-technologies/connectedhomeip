@@ -48,17 +48,18 @@ class FreshWaterHeaterControllerCluster(
   private val controller: MatterController,
   private val endpointId: UShort,
 ) {
-  class BoostModeSetpointAttribute(
+  class DefaultBoostModeSetpointAttribute(
     val value: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct
   )
 
-  sealed class BoostModeSetpointAttributeSubscriptionState {
+  sealed class DefaultBoostModeSetpointAttributeSubscriptionState {
     data class Success(val value: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct) :
-      BoostModeSetpointAttributeSubscriptionState()
+      DefaultBoostModeSetpointAttributeSubscriptionState()
 
-    data class Error(val exception: Exception) : BoostModeSetpointAttributeSubscriptionState()
+    data class Error(val exception: Exception) :
+      DefaultBoostModeSetpointAttributeSubscriptionState()
 
-    object SubscriptionEstablished : BoostModeSetpointAttributeSubscriptionState()
+    object SubscriptionEstablished : DefaultBoostModeSetpointAttributeSubscriptionState()
   }
 
   class DiagnosticsConfirmTimeListAttribute(val value: List<UInt>)
@@ -83,6 +84,20 @@ class FreshWaterHeaterControllerCluster(
       DiagnosticsRehabTimeListAttributeSubscriptionState()
 
     object SubscriptionEstablished : DiagnosticsRehabTimeListAttributeSubscriptionState()
+  }
+
+  class CurrentBoostModeSetpointAttribute(
+    val value: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct?
+  )
+
+  sealed class CurrentBoostModeSetpointAttributeSubscriptionState {
+    data class Success(val value: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct?) :
+      CurrentBoostModeSetpointAttributeSubscriptionState()
+
+    data class Error(val exception: Exception) :
+      CurrentBoostModeSetpointAttributeSubscriptionState()
+
+    object SubscriptionEstablished : CurrentBoostModeSetpointAttributeSubscriptionState()
   }
 
   class GeneratedCommandListAttribute(val value: List<UInt>)
@@ -117,6 +132,24 @@ class FreshWaterHeaterControllerCluster(
 
   suspend fun anodeChangeRequest(timedInvokeTimeout: Duration? = null) {
     val commandId: UInt = 0u
+
+    val tlvWriter = TlvWriter()
+    tlvWriter.startStructure(AnonymousTag)
+    tlvWriter.endStructure()
+
+    val request: InvokeRequest =
+      InvokeRequest(
+        CommandPath(endpointId, clusterId = CLUSTER_ID, commandId),
+        tlvPayload = tlvWriter.getEncoded(),
+        timedRequest = timedInvokeTimeout,
+      )
+
+    val response: InvokeResponse = controller.invoke(request)
+    logger.log(Level.FINE, "Invoke command succeeded: ${response}")
+  }
+
+  suspend fun anodeChangeConfirmed(timedInvokeTimeout: Duration? = null) {
+    val commandId: UInt = 1u
 
     val tlvWriter = TlvWriter()
     tlvWriter.startStructure(AnonymousTag)
@@ -961,7 +994,7 @@ class FreshWaterHeaterControllerCluster(
     }
   }
 
-  suspend fun readBoostModeSetpointAttribute(): BoostModeSetpointAttribute {
+  suspend fun readDefaultBoostModeSetpointAttribute(): DefaultBoostModeSetpointAttribute {
     val ATTRIBUTE_ID: UInt = 7u
 
     val attributePath =
@@ -983,63 +1016,20 @@ class FreshWaterHeaterControllerCluster(
         it.path.attributeId == ATTRIBUTE_ID
       }
 
-    requireNotNull(attributeData) { "Boostmodesetpoint attribute not found in response" }
+    requireNotNull(attributeData) { "Defaultboostmodesetpoint attribute not found in response" }
 
     // Decode the TLV data into the appropriate type
     val tlvReader = TlvReader(attributeData.data)
     val decodedValue: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct =
       FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct.fromTlv(AnonymousTag, tlvReader)
 
-    return BoostModeSetpointAttribute(decodedValue)
+    return DefaultBoostModeSetpointAttribute(decodedValue)
   }
 
-  suspend fun writeBoostModeSetpointAttribute(
-    value: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct,
-    timedWriteTimeout: Duration? = null,
-  ) {
-    val ATTRIBUTE_ID: UInt = 7u
-
-    val tlvWriter = TlvWriter()
-    value.toTlv(AnonymousTag, tlvWriter)
-
-    val writeRequests: WriteRequests =
-      WriteRequests(
-        requests =
-          listOf(
-            WriteRequest(
-              attributePath =
-                AttributePath(endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID),
-              tlvPayload = tlvWriter.getEncoded(),
-            )
-          ),
-        timedRequest = timedWriteTimeout,
-      )
-
-    val response: WriteResponse = controller.write(writeRequests)
-
-    when (response) {
-      is WriteResponse.Success -> {
-        logger.log(Level.FINE, "Write command succeeded")
-      }
-      is WriteResponse.PartialWriteFailure -> {
-        val aggregatedErrorMessage =
-          response.failures.joinToString("\n") { failure ->
-            "Error at ${failure.attributePath}: ${failure.ex.message}"
-          }
-
-        response.failures.forEach { failure ->
-          logger.log(Level.WARNING, "Error at ${failure.attributePath}: ${failure.ex.message}")
-        }
-
-        throw IllegalStateException("Write command failed with errors: \n$aggregatedErrorMessage")
-      }
-    }
-  }
-
-  suspend fun subscribeBoostModeSetpointAttribute(
+  suspend fun subscribeDefaultBoostModeSetpointAttribute(
     minInterval: Int,
     maxInterval: Int,
-  ): Flow<BoostModeSetpointAttributeSubscriptionState> {
+  ): Flow<DefaultBoostModeSetpointAttributeSubscriptionState> {
     val ATTRIBUTE_ID: UInt = 7u
     val attributePaths =
       listOf(
@@ -1058,7 +1048,7 @@ class FreshWaterHeaterControllerCluster(
       when (subscriptionState) {
         is SubscriptionState.SubscriptionErrorNotification -> {
           emit(
-            BoostModeSetpointAttributeSubscriptionState.Error(
+            DefaultBoostModeSetpointAttributeSubscriptionState.Error(
               Exception(
                 "Subscription terminated with error code: ${subscriptionState.terminationCause}"
               )
@@ -1072,7 +1062,7 @@ class FreshWaterHeaterControllerCluster(
               .firstOrNull { it.path.attributeId == ATTRIBUTE_ID }
 
           requireNotNull(attributeData) {
-            "Boostmodesetpoint attribute not found in Node State update"
+            "Defaultboostmodesetpoint attribute not found in Node State update"
           }
 
           // Decode the TLV data into the appropriate type
@@ -1083,10 +1073,10 @@ class FreshWaterHeaterControllerCluster(
               tlvReader,
             )
 
-          emit(BoostModeSetpointAttributeSubscriptionState.Success(decodedValue))
+          emit(DefaultBoostModeSetpointAttributeSubscriptionState.Success(decodedValue))
         }
         SubscriptionState.SubscriptionEstablished -> {
-          emit(BoostModeSetpointAttributeSubscriptionState.SubscriptionEstablished)
+          emit(DefaultBoostModeSetpointAttributeSubscriptionState.SubscriptionEstablished)
         }
       }
     }
@@ -3275,6 +3265,185 @@ class FreshWaterHeaterControllerCluster(
         }
         SubscriptionState.SubscriptionEstablished -> {
           emit(UIntSubscriptionState.SubscriptionEstablished)
+        }
+      }
+    }
+  }
+
+  suspend fun readCurrentBoostModeSetpointAttribute(): CurrentBoostModeSetpointAttribute {
+    val ATTRIBUTE_ID: UInt = 26u
+
+    val attributePath =
+      AttributePath(endpointId = endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID)
+
+    val readRequest = ReadRequest(eventPaths = emptyList(), attributePaths = listOf(attributePath))
+
+    val response = controller.read(readRequest)
+
+    if (response.successes.isEmpty()) {
+      logger.log(Level.WARNING, "Read command failed")
+      throw IllegalStateException("Read command failed with failures: ${response.failures}")
+    }
+
+    logger.log(Level.FINE, "Read command succeeded")
+
+    val attributeData =
+      response.successes.filterIsInstance<ReadData.Attribute>().firstOrNull {
+        it.path.attributeId == ATTRIBUTE_ID
+      }
+
+    requireNotNull(attributeData) { "Currentboostmodesetpoint attribute not found in response" }
+
+    // Decode the TLV data into the appropriate type
+    val tlvReader = TlvReader(attributeData.data)
+    val decodedValue: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct? =
+      if (!tlvReader.isNull()) {
+        FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct.fromTlv(AnonymousTag, tlvReader)
+      } else {
+        tlvReader.getNull(AnonymousTag)
+        null
+      }
+
+    return CurrentBoostModeSetpointAttribute(decodedValue)
+  }
+
+  suspend fun subscribeCurrentBoostModeSetpointAttribute(
+    minInterval: Int,
+    maxInterval: Int,
+  ): Flow<CurrentBoostModeSetpointAttributeSubscriptionState> {
+    val ATTRIBUTE_ID: UInt = 26u
+    val attributePaths =
+      listOf(
+        AttributePath(endpointId = endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID)
+      )
+
+    val subscribeRequest: SubscribeRequest =
+      SubscribeRequest(
+        eventPaths = emptyList(),
+        attributePaths = attributePaths,
+        minInterval = Duration.ofSeconds(minInterval.toLong()),
+        maxInterval = Duration.ofSeconds(maxInterval.toLong()),
+      )
+
+    return controller.subscribe(subscribeRequest).transform { subscriptionState ->
+      when (subscriptionState) {
+        is SubscriptionState.SubscriptionErrorNotification -> {
+          emit(
+            CurrentBoostModeSetpointAttributeSubscriptionState.Error(
+              Exception(
+                "Subscription terminated with error code: ${subscriptionState.terminationCause}"
+              )
+            )
+          )
+        }
+        is SubscriptionState.NodeStateUpdate -> {
+          val attributeData =
+            subscriptionState.updateState.successes
+              .filterIsInstance<ReadData.Attribute>()
+              .firstOrNull { it.path.attributeId == ATTRIBUTE_ID }
+
+          requireNotNull(attributeData) {
+            "Currentboostmodesetpoint attribute not found in Node State update"
+          }
+
+          // Decode the TLV data into the appropriate type
+          val tlvReader = TlvReader(attributeData.data)
+          val decodedValue: FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct? =
+            if (!tlvReader.isNull()) {
+              FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct.fromTlv(
+                AnonymousTag,
+                tlvReader,
+              )
+            } else {
+              tlvReader.getNull(AnonymousTag)
+              null
+            }
+
+          decodedValue?.let { emit(CurrentBoostModeSetpointAttributeSubscriptionState.Success(it)) }
+        }
+        SubscriptionState.SubscriptionEstablished -> {
+          emit(CurrentBoostModeSetpointAttributeSubscriptionState.SubscriptionEstablished)
+        }
+      }
+    }
+  }
+
+  suspend fun readErrorCodeAttribute(): UByte {
+    val ATTRIBUTE_ID: UInt = 27u
+
+    val attributePath =
+      AttributePath(endpointId = endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID)
+
+    val readRequest = ReadRequest(eventPaths = emptyList(), attributePaths = listOf(attributePath))
+
+    val response = controller.read(readRequest)
+
+    if (response.successes.isEmpty()) {
+      logger.log(Level.WARNING, "Read command failed")
+      throw IllegalStateException("Read command failed with failures: ${response.failures}")
+    }
+
+    logger.log(Level.FINE, "Read command succeeded")
+
+    val attributeData =
+      response.successes.filterIsInstance<ReadData.Attribute>().firstOrNull {
+        it.path.attributeId == ATTRIBUTE_ID
+      }
+
+    requireNotNull(attributeData) { "Errorcode attribute not found in response" }
+
+    // Decode the TLV data into the appropriate type
+    val tlvReader = TlvReader(attributeData.data)
+    val decodedValue: UByte = tlvReader.getUByte(AnonymousTag)
+
+    return decodedValue
+  }
+
+  suspend fun subscribeErrorCodeAttribute(
+    minInterval: Int,
+    maxInterval: Int,
+  ): Flow<UByteSubscriptionState> {
+    val ATTRIBUTE_ID: UInt = 27u
+    val attributePaths =
+      listOf(
+        AttributePath(endpointId = endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID)
+      )
+
+    val subscribeRequest: SubscribeRequest =
+      SubscribeRequest(
+        eventPaths = emptyList(),
+        attributePaths = attributePaths,
+        minInterval = Duration.ofSeconds(minInterval.toLong()),
+        maxInterval = Duration.ofSeconds(maxInterval.toLong()),
+      )
+
+    return controller.subscribe(subscribeRequest).transform { subscriptionState ->
+      when (subscriptionState) {
+        is SubscriptionState.SubscriptionErrorNotification -> {
+          emit(
+            UByteSubscriptionState.Error(
+              Exception(
+                "Subscription terminated with error code: ${subscriptionState.terminationCause}"
+              )
+            )
+          )
+        }
+        is SubscriptionState.NodeStateUpdate -> {
+          val attributeData =
+            subscriptionState.updateState.successes
+              .filterIsInstance<ReadData.Attribute>()
+              .firstOrNull { it.path.attributeId == ATTRIBUTE_ID }
+
+          requireNotNull(attributeData) { "Errorcode attribute not found in Node State update" }
+
+          // Decode the TLV data into the appropriate type
+          val tlvReader = TlvReader(attributeData.data)
+          val decodedValue: UByte = tlvReader.getUByte(AnonymousTag)
+
+          emit(UByteSubscriptionState.Success(decodedValue))
+        }
+        SubscriptionState.SubscriptionEstablished -> {
+          emit(UByteSubscriptionState.SubscriptionEstablished)
         }
       }
     }

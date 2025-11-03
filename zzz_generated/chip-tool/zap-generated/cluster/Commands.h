@@ -17869,6 +17869,7 @@ private:
 |------------------------------------------------------------------------------|
 | Commands:                                                           |        |
 | * AnodeChangeRequest                                                |   0x00 |
+| * AnodeChangeConfirmed                                              |   0x01 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
 | * ColdWaterTemperature                                              | 0x0000 |
@@ -17878,7 +17879,7 @@ private:
 | * DefaultShowerFlowLPM                                              | 0x0004 |
 | * StandardModeSetpoint                                              | 0x0005 |
 | * EcoModeSetpoint                                                   | 0x0006 |
-| * BoostModeSetpoint                                                 | 0x0007 |
+| * DefaultBoostModeSetpoint                                          | 0x0007 |
 | * DisplayTemperatureStep                                            | 0x0008 |
 | * ResetTimeout                                                      | 0x0009 |
 | * CoolDownTimeout                                                   | 0x000A |
@@ -17897,6 +17898,8 @@ private:
 | * DiagnosticsRehabTimeList                                          | 0x0017 |
 | * RequiresAnodeChange                                               | 0x0018 |
 | * MaximumBoostTime                                                  | 0x0019 |
+| * CurrentBoostModeSetpoint                                          | 0x001A |
+| * ErrorCode                                                         | 0x001B |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -17941,6 +17944,43 @@ public:
 
 private:
     chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeRequest::Type mRequest;
+};
+
+/*
+ * Command AnodeChangeConfirmed
+ */
+class FreshWaterHeaterControllerAnodeChangeConfirmed : public ClusterCommand
+{
+public:
+    FreshWaterHeaterControllerAnodeChangeConfirmed(CredentialIssuerCommands * credsIssuerConfig) :
+        ClusterCommand("anode-change-confirmed", credsIssuerConfig)
+    {
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
+                        commandId, endpointIds.at(0));
+        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
+    }
+
+    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
+                        groupId);
+
+        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
+    }
+
+private:
+    chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::Type mRequest;
 };
 
 /*----------------------------------------------------------------------------*\
@@ -32147,20 +32187,22 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         //
         // Commands
         //
-        make_unique<ClusterCommand>(Id, credsIssuerConfig),                           //
-        make_unique<FreshWaterHeaterControllerAnodeChangeRequest>(credsIssuerConfig), //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig),                             //
+        make_unique<FreshWaterHeaterControllerAnodeChangeRequest>(credsIssuerConfig),   //
+        make_unique<FreshWaterHeaterControllerAnodeChangeConfirmed>(credsIssuerConfig), //
         //
         // Attributes
         //
-        make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                     //
-        make_unique<ReadAttribute>(Id, "cold-water-temperature", Attributes::ColdWaterTemperature::Id, credsIssuerConfig),     //
-        make_unique<ReadAttribute>(Id, "shower-temperature", Attributes::ShowerTemperature::Id, credsIssuerConfig),            //
-        make_unique<ReadAttribute>(Id, "shower-hysteresis", Attributes::ShowerHysteresis::Id, credsIssuerConfig),              //
-        make_unique<ReadAttribute>(Id, "shower-state", Attributes::ShowerState::Id, credsIssuerConfig),                        //
-        make_unique<ReadAttribute>(Id, "default-shower-flow-lpm", Attributes::DefaultShowerFlowLPM::Id, credsIssuerConfig),    //
-        make_unique<ReadAttribute>(Id, "standard-mode-setpoint", Attributes::StandardModeSetpoint::Id, credsIssuerConfig),     //
-        make_unique<ReadAttribute>(Id, "eco-mode-setpoint", Attributes::EcoModeSetpoint::Id, credsIssuerConfig),               //
-        make_unique<ReadAttribute>(Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, credsIssuerConfig),           //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                  //
+        make_unique<ReadAttribute>(Id, "cold-water-temperature", Attributes::ColdWaterTemperature::Id, credsIssuerConfig),  //
+        make_unique<ReadAttribute>(Id, "shower-temperature", Attributes::ShowerTemperature::Id, credsIssuerConfig),         //
+        make_unique<ReadAttribute>(Id, "shower-hysteresis", Attributes::ShowerHysteresis::Id, credsIssuerConfig),           //
+        make_unique<ReadAttribute>(Id, "shower-state", Attributes::ShowerState::Id, credsIssuerConfig),                     //
+        make_unique<ReadAttribute>(Id, "default-shower-flow-lpm", Attributes::DefaultShowerFlowLPM::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "standard-mode-setpoint", Attributes::StandardModeSetpoint::Id, credsIssuerConfig),  //
+        make_unique<ReadAttribute>(Id, "eco-mode-setpoint", Attributes::EcoModeSetpoint::Id, credsIssuerConfig),            //
+        make_unique<ReadAttribute>(Id, "default-boost-mode-setpoint", Attributes::DefaultBoostModeSetpoint::Id,
+                                   credsIssuerConfig),                                                                         //
         make_unique<ReadAttribute>(Id, "display-temperature-step", Attributes::DisplayTemperatureStep::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                      //
         make_unique<ReadAttribute>(Id, "cool-down-timeout", Attributes::CoolDownTimeout::Id, credsIssuerConfig),               //
@@ -32182,9 +32224,12 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<ReadAttribute>(Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id,
                                    credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id,
+                                   credsIssuerConfig),                                                                   //
+        make_unique<ReadAttribute>(Id, "requires-anode-change", Attributes::RequiresAnodeChange::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "maximum-boost-time", Attributes::MaximumBoostTime::Id, credsIssuerConfig),       //
+        make_unique<ReadAttribute>(Id, "current-boost-mode-setpoint", Attributes::CurrentBoostModeSetpoint::Id,
                                    credsIssuerConfig),                                                                     //
-        make_unique<ReadAttribute>(Id, "requires-anode-change", Attributes::RequiresAnodeChange::Id, credsIssuerConfig),   //
-        make_unique<ReadAttribute>(Id, "maximum-boost-time", Attributes::MaximumBoostTime::Id, credsIssuerConfig),         //
+        make_unique<ReadAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -32207,7 +32252,8 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<
             WriteAttributeAsComplex<chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type>>(
-            Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, WriteCommandType::kWrite, credsIssuerConfig), //
+            Id, "default-boost-mode-setpoint", Attributes::DefaultBoostModeSetpoint::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "display-temperature-step", INT16_MIN, INT16_MAX,
                                              Attributes::DisplayTemperatureStep::Id, WriteCommandType::kWrite,
                                              credsIssuerConfig), //
@@ -32251,6 +32297,12 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "maximum-boost-time", 0, UINT32_MAX, Attributes::MaximumBoostTime::Id,
                                               WriteCommandType::kWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::Nullable<
+            chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type>>>(
+            Id, "current-boost-mode-setpoint", Attributes::CurrentBoostModeSetpoint::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "error-code", 0, UINT8_MAX, Attributes::ErrorCode::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -32270,7 +32322,8 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<SubscribeAttribute>(Id, "default-shower-flow-lpm", Attributes::DefaultShowerFlowLPM::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "standard-mode-setpoint", Attributes::StandardModeSetpoint::Id, credsIssuerConfig),  //
         make_unique<SubscribeAttribute>(Id, "eco-mode-setpoint", Attributes::EcoModeSetpoint::Id, credsIssuerConfig),            //
-        make_unique<SubscribeAttribute>(Id, "boost-mode-setpoint", Attributes::BoostModeSetpoint::Id, credsIssuerConfig),        //
+        make_unique<SubscribeAttribute>(Id, "default-boost-mode-setpoint", Attributes::DefaultBoostModeSetpoint::Id,
+                                        credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "display-temperature-step", Attributes::DisplayTemperatureStep::Id,
                                         credsIssuerConfig),                                                                     //
         make_unique<SubscribeAttribute>(Id, "reset-timeout", Attributes::ResetTimeout::Id, credsIssuerConfig),                  //
@@ -32293,9 +32346,12 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<SubscribeAttribute>(Id, "diagnostics-confirm-time-list", Attributes::DiagnosticsConfirmTimeList::Id,
                                         credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "diagnostics-rehab-time-list", Attributes::DiagnosticsRehabTimeList::Id,
+                                        credsIssuerConfig),                                                                   //
+        make_unique<SubscribeAttribute>(Id, "requires-anode-change", Attributes::RequiresAnodeChange::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "maximum-boost-time", Attributes::MaximumBoostTime::Id, credsIssuerConfig),       //
+        make_unique<SubscribeAttribute>(Id, "current-boost-mode-setpoint", Attributes::CurrentBoostModeSetpoint::Id,
                                         credsIssuerConfig),                                                                     //
-        make_unique<SubscribeAttribute>(Id, "requires-anode-change", Attributes::RequiresAnodeChange::Id, credsIssuerConfig),   //
-        make_unique<SubscribeAttribute>(Id, "maximum-boost-time", Attributes::MaximumBoostTime::Id, credsIssuerConfig),         //
+        make_unique<SubscribeAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //

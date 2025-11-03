@@ -112291,6 +112291,34 @@ public:
                                              queue:self.callbackQueue
                                         completion:responseHandler];
 }
+- (void)anodeChangeConfirmedWithCompletion:(MTRStatusCompletion)completion
+{
+    [self anodeChangeConfirmedWithParams:nil completion:completion];
+}
+- (void)anodeChangeConfirmedWithParams:(MTRFreshWaterHeaterControllerClusterAnodeChangeConfirmedParams * _Nullable)params completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRFreshWaterHeaterControllerClusterAnodeChangeConfirmedParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = FreshWaterHeaterController::Commands::AnodeChangeConfirmed::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
 
 - (void)readAttributeColdWaterTemperatureWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
 {
@@ -112712,9 +112740,9 @@ public:
                                      completion:completion];
 }
 
-- (void)readAttributeBoostModeSetpointWithCompletion:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))completion
+- (void)readAttributeDefaultBoostModeSetpointWithCompletion:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))completion
 {
-    using TypeInfo = FreshWaterHeaterController::Attributes::BoostModeSetpoint::TypeInfo;
+    using TypeInfo = FreshWaterHeaterController::Attributes::DefaultBoostModeSetpoint::TypeInfo;
     [self.device _readKnownAttributeWithEndpointID:self.endpointID
                                          clusterID:@(TypeInfo::GetClusterId())
                                        attributeID:@(TypeInfo::GetAttributeId())
@@ -112723,59 +112751,11 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeBoostModeSetpointWithValue:(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nonnull)value completion:(MTRStatusCompletion)completion
+- (void)subscribeAttributeDefaultBoostModeSetpointWithParams:(MTRSubscribeParams * _Nonnull)params
+                                     subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                               reportHandler:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))reportHandler
 {
-    [self writeAttributeBoostModeSetpointWithValue:(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeBoostModeSetpointWithValue:(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = FreshWaterHeaterController::Attributes::BoostModeSetpoint::TypeInfo;
-        TypeInfo::Type cppValue;
-             cppValue.duration = value.duration.unsignedIntValue;
-     if (value.oneShot != nil) {
-       auto & definedValue_1 = cppValue.oneShot.Emplace();
-         definedValue_1 = value.oneShot.boolValue;
-  }
-     if (value.emergencyBoost != nil) {
-       auto & definedValue_1 = cppValue.emergencyBoost.Emplace();
-         definedValue_1 = value.emergencyBoost.boolValue;
-  }
-     if (value.temporarySetpoint != nil) {
-       auto & definedValue_1 = cppValue.temporarySetpoint.Emplace();
-         definedValue_1 = value.temporarySetpoint.shortValue;
-  }
-     if (value.targetPercentage != nil) {
-       auto & definedValue_1 = cppValue.targetPercentage.Emplace();
-         definedValue_1 = value.targetPercentage.unsignedCharValue;
-  }
-     if (value.targetReheat != nil) {
-       auto & definedValue_1 = cppValue.targetReheat.Emplace();
-         definedValue_1 = value.targetReheat.unsignedCharValue;
-  }
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
-- (void)subscribeAttributeBoostModeSetpointWithParams:(MTRSubscribeParams * _Nonnull)params
-                              subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
-                                        reportHandler:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))reportHandler
-{
-    using TypeInfo = FreshWaterHeaterController::Attributes::BoostModeSetpoint::TypeInfo;
+    using TypeInfo = FreshWaterHeaterController::Attributes::DefaultBoostModeSetpoint::TypeInfo;
     [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
                                                 clusterID:@(TypeInfo::GetClusterId())
                                               attributeID:@(TypeInfo::GetAttributeId())
@@ -112785,9 +112765,9 @@ public:
                                   subscriptionEstablished:subscriptionEstablished];
 }
 
-+ (void)readAttributeBoostModeSetpointWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))completion
++ (void)readAttributeDefaultBoostModeSetpointWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))completion
 {
-    using TypeInfo = FreshWaterHeaterController::Attributes::BoostModeSetpoint::TypeInfo;
+    using TypeInfo = FreshWaterHeaterController::Attributes::DefaultBoostModeSetpoint::TypeInfo;
     [clusterStateCacheContainer
         _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
                                       clusterID:TypeInfo::GetClusterId()
@@ -113928,6 +113908,78 @@ public:
 + (void)readAttributeMaximumBoostTimeWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
 {
     using TypeInfo = FreshWaterHeaterController::Attributes::MaximumBoostTime::TypeInfo;
+    [clusterStateCacheContainer
+        _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
+                                      clusterID:TypeInfo::GetClusterId()
+                                    attributeID:TypeInfo::GetAttributeId()
+                                          queue:queue
+                                     completion:completion];
+}
+
+- (void)readAttributeCurrentBoostModeSetpointWithCompletion:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshWaterHeaterController::Attributes::CurrentBoostModeSetpoint::TypeInfo;
+    [self.device _readKnownAttributeWithEndpointID:self.endpointID
+                                         clusterID:@(TypeInfo::GetClusterId())
+                                       attributeID:@(TypeInfo::GetAttributeId())
+                                            params:nil
+                                             queue:self.callbackQueue
+                                        completion:completion];
+}
+
+- (void)subscribeAttributeCurrentBoostModeSetpointWithParams:(MTRSubscribeParams * _Nonnull)params
+                                     subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                               reportHandler:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))reportHandler
+{
+    using TypeInfo = FreshWaterHeaterController::Attributes::CurrentBoostModeSetpoint::TypeInfo;
+    [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
+                                                clusterID:@(TypeInfo::GetClusterId())
+                                              attributeID:@(TypeInfo::GetAttributeId())
+                                                   params:params
+                                                    queue:self.callbackQueue
+                                            reportHandler:reportHandler
+                                  subscriptionEstablished:subscriptionEstablished];
+}
+
++ (void)readAttributeCurrentBoostModeSetpointWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshWaterHeaterController::Attributes::CurrentBoostModeSetpoint::TypeInfo;
+    [clusterStateCacheContainer
+        _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
+                                      clusterID:TypeInfo::GetClusterId()
+                                    attributeID:TypeInfo::GetAttributeId()
+                                          queue:queue
+                                     completion:completion];
+}
+
+- (void)readAttributeErrorCodeWithCompletion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshWaterHeaterController::Attributes::ErrorCode::TypeInfo;
+    [self.device _readKnownAttributeWithEndpointID:self.endpointID
+                                         clusterID:@(TypeInfo::GetClusterId())
+                                       attributeID:@(TypeInfo::GetAttributeId())
+                                            params:nil
+                                             queue:self.callbackQueue
+                                        completion:completion];
+}
+
+- (void)subscribeAttributeErrorCodeWithParams:(MTRSubscribeParams * _Nonnull)params
+                      subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                                reportHandler:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))reportHandler
+{
+    using TypeInfo = FreshWaterHeaterController::Attributes::ErrorCode::TypeInfo;
+    [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
+                                                clusterID:@(TypeInfo::GetClusterId())
+                                              attributeID:@(TypeInfo::GetAttributeId())
+                                                   params:params
+                                                    queue:self.callbackQueue
+                                            reportHandler:reportHandler
+                                  subscriptionEstablished:subscriptionEstablished];
+}
+
++ (void)readAttributeErrorCodeWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion
+{
+    using TypeInfo = FreshWaterHeaterController::Attributes::ErrorCode::TypeInfo;
     [clusterStateCacheContainer
         _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
                                       clusterID:TypeInfo::GetClusterId()

@@ -809,7 +809,10 @@
             "InsightsParams",
             "MqttReportEnabled"
         ],
-        "Fresh Water Heater Controller": ["BoostModeSetpoint"]
+        "Fresh Water Heater Controller": [
+            "DefaultBoostModeSetpoint",
+            "CurrentBoostModeSetpoint"
+        ]
     },
     "mandatoryDeviceTypes": "0x0016",
     "defaultReportingPolicy": "mandatory",

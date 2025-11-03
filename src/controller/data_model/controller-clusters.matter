@@ -11620,7 +11620,7 @@ cluster FreshWaterHeaterController = 367524869 {
   attribute int16u defaultShowerFlowLPM = 4;
   attribute temperature standardModeSetpoint = 5;
   attribute temperature ecoModeSetpoint = 6;
-  attribute WaterHeaterBoostInfoStruct boostModeSetpoint = 7;
+  readonly attribute WaterHeaterBoostInfoStruct defaultBoostModeSetpoint = 7;
   attribute temperature displayTemperatureStep = 8;
   attribute elapsed_s resetTimeout = 9;
   attribute elapsed_s coolDownTimeout = 10;
@@ -11639,6 +11639,8 @@ cluster FreshWaterHeaterController = 367524869 {
   attribute int32u diagnosticsRehabTimeList[] = 23;
   readonly attribute boolean requiresAnodeChange = 24;
   attribute int32u maximumBoostTime = 25;
+  readonly attribute nullable WaterHeaterBoostInfoStruct currentBoostModeSetpoint = 26;
+  readonly attribute int8u errorCode = 27;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -11647,6 +11649,8 @@ cluster FreshWaterHeaterController = 367524869 {
 
   /** Allows a client to request that the water heater is put into an Anode Change Mode. */
   command access(invoke: administer) AnodeChangeRequest(): DefaultSuccess = 0;
+  /** Allows a Admin to respond to an Anode Change Request. */
+  command access(invoke: administer) AnodeChangeConfirmed(): DefaultSuccess = 1;
 }
 
 /** Attributes and commands for configuring the Fresh Water Heater Errors alarm. */

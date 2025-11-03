@@ -68220,7 +68220,7 @@ public class ChipClusters {
     private static final long DEFAULT_SHOWER_FLOW_LPM_ATTRIBUTE_ID = 4L;
     private static final long STANDARD_MODE_SETPOINT_ATTRIBUTE_ID = 5L;
     private static final long ECO_MODE_SETPOINT_ATTRIBUTE_ID = 6L;
-    private static final long BOOST_MODE_SETPOINT_ATTRIBUTE_ID = 7L;
+    private static final long DEFAULT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID = 7L;
     private static final long DISPLAY_TEMPERATURE_STEP_ATTRIBUTE_ID = 8L;
     private static final long RESET_TIMEOUT_ATTRIBUTE_ID = 9L;
     private static final long COOL_DOWN_TIMEOUT_ATTRIBUTE_ID = 10L;
@@ -68239,6 +68239,8 @@ public class ChipClusters {
     private static final long DIAGNOSTICS_REHAB_TIME_LIST_ATTRIBUTE_ID = 23L;
     private static final long REQUIRES_ANODE_CHANGE_ATTRIBUTE_ID = 24L;
     private static final long MAXIMUM_BOOST_TIME_ATTRIBUTE_ID = 25L;
+    private static final long CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID = 26L;
+    private static final long ERROR_CODE_ATTRIBUTE_ID = 27L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -68271,7 +68273,23 @@ public class ChipClusters {
         }}, commandId, commandArgs, timedInvokeTimeoutMs);
     }
 
-    public interface BoostModeSetpointAttributeCallback extends BaseAttributeCallback {
+    public void anodeChangeConfirmed(DefaultClusterCallback callback) {
+      anodeChangeConfirmed(callback, 0);
+    }
+
+    public void anodeChangeConfirmed(DefaultClusterCallback callback, int timedInvokeTimeoutMs) {
+      final long commandId = 1L;
+
+      ArrayList<StructElement> elements = new ArrayList<>();
+      StructType commandArgs = new StructType(elements);
+      invoke(new InvokeCallbackImpl(callback) {
+          @Override
+          public void onResponse(StructType invokeStructValue) {
+          callback.onSuccess();
+        }}, commandId, commandArgs, timedInvokeTimeoutMs);
+    }
+
+    public interface DefaultBoostModeSetpointAttributeCallback extends BaseAttributeCallback {
       void onSuccess(ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value);
     }
 
@@ -68281,6 +68299,10 @@ public class ChipClusters {
 
     public interface DiagnosticsRehabTimeListAttributeCallback extends BaseAttributeCallback {
       void onSuccess(List<Long> value);
+    }
+
+    public interface CurrentBoostModeSetpointAttributeCallback extends BaseAttributeCallback {
+      void onSuccess(@Nullable ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value);
     }
 
     public interface GeneratedCommandListAttributeCallback extends BaseAttributeCallback {
@@ -68531,9 +68553,9 @@ public class ChipClusters {
         }, ECO_MODE_SETPOINT_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
-    public void readBoostModeSetpointAttribute(
-        BoostModeSetpointAttributeCallback callback) {
-      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, BOOST_MODE_SETPOINT_ATTRIBUTE_ID);
+    public void readDefaultBoostModeSetpointAttribute(
+        DefaultBoostModeSetpointAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEFAULT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID);
 
       readAttribute(new ReportCallbackImpl(callback, path) {
           @Override
@@ -68541,21 +68563,12 @@ public class ChipClusters {
             ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
-        }, BOOST_MODE_SETPOINT_ATTRIBUTE_ID, true);
+        }, DEFAULT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID, true);
     }
 
-    public void writeBoostModeSetpointAttribute(DefaultClusterCallback callback, ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value) {
-      writeBoostModeSetpointAttribute(callback, value, 0);
-    }
-
-    public void writeBoostModeSetpointAttribute(DefaultClusterCallback callback, ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value, int timedWriteTimeoutMs) {
-      BaseTLVType tlvValue = value.encodeTlv();
-      writeAttribute(new WriteAttributesCallbackImpl(callback), BOOST_MODE_SETPOINT_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
-    }
-
-    public void subscribeBoostModeSetpointAttribute(
-        BoostModeSetpointAttributeCallback callback, int minInterval, int maxInterval) {
-      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, BOOST_MODE_SETPOINT_ATTRIBUTE_ID);
+    public void subscribeDefaultBoostModeSetpointAttribute(
+        DefaultBoostModeSetpointAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEFAULT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID);
 
       subscribeAttribute(new ReportCallbackImpl(callback, path) {
           @Override
@@ -68563,7 +68576,7 @@ public class ChipClusters {
             ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
-        }, BOOST_MODE_SETPOINT_ATTRIBUTE_ID, minInterval, maxInterval);
+        }, DEFAULT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readDisplayTemperatureStepAttribute(
@@ -69176,6 +69189,58 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, MAXIMUM_BOOST_TIME_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readCurrentBoostModeSetpointAttribute(
+        CurrentBoostModeSetpointAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            @Nullable ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeCurrentBoostModeSetpointAttribute(
+        CurrentBoostModeSetpointAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            @Nullable ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readErrorCodeAttribute(
+        IntegerAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ERROR_CODE_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, ERROR_CODE_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeErrorCodeAttribute(
+        IntegerAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ERROR_CODE_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, ERROR_CODE_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

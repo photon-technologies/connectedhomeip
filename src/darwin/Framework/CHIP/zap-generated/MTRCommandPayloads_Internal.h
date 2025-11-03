@@ -2752,6 +2752,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRFreshWaterHeaterControllerClusterAnodeChangeConfirmedParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRFreshWaterHeaterErrorsAlarmClusterResetParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;

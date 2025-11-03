@@ -59,8 +59,8 @@
             <description>Display Eco Mode setpoint</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0007" name="BoostModeSetpoint" define="BOOST_MODE_SETPOINT" type="WaterHeaterBoostInfoStruct" writable="true">
-            <description>Display Boost Mode setpoint</description>
+        <attribute side="server" code="0x0007" name="DefaultBoostModeSetpoint" define="DEFAULT_BOOST_MODE_SETPOINT" type="WaterHeaterBoostInfoStruct">
+            <description>Default Display Boost Mode setpoint</description>
             <mandatoryConform />
         </attribute>
         <attribute side="server" code="0x0008" name="DisplayTemperatureStep" define="DISPLAY_TEMPERATURE_STEP" type="temperature" default="100" writable="true">
@@ -138,9 +138,24 @@
             <description>Maximum Boost Time</description>
             <mandatoryConform/>
         </attribute>
+        <attribute side="server" code="0x001A" name="CurrentBoostModeSetpoint" define="CURRENT_BOOST_MODE_SETPOINT" type="WaterHeaterBoostInfoStruct" isNullable="true">
+            <description>Current Active Boost Mode setpoint</description>
+            <mandatoryConform />
+        </attribute>
+
+        <attribute side="server" code="0x001B" name="ErrorCode" define="ERROR_CODE" type="int8u" default="0">
+            <description>Error Code</description>
+            <mandatoryConform />
+        </attribute>
 
         <command code="0x00" source="client" name="AnodeChangeRequest" optional="false">
             <description>Allows a client to request that the water heater is put into an Anode Change Mode.</description>
+            <access op="invoke" privilege="administer"/>
+            <mandatoryConform/>
+        </command>
+
+        <command code="0x01" source="client" name="AnodeChangeConfirmed" optional="false">
+            <description>Allows a Admin to respond to an Anode Change Request.</description>
             <access op="invoke" privilege="administer"/>
             <mandatoryConform/>
         </command>

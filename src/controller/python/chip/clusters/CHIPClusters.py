@@ -15167,6 +15167,12 @@ class ChipClusters:
                 "args": {
                 },
             },
+            0x00000001: {
+                "commandId": 0x00000001,
+                "commandName": "AnodeChangeConfirmed",
+                "args": {
+                },
+            },
         },
         "attributes": {
             0x00000000: {
@@ -15218,11 +15224,10 @@ class ChipClusters:
                 "writable": True,
             },
             0x00000007: {
-                "attributeName": "BoostModeSetpoint",
+                "attributeName": "DefaultBoostModeSetpoint",
                 "attributeId": 0x00000007,
                 "type": "",
                 "reportable": True,
-                "writable": True,
             },
             0x00000008: {
                 "attributeName": "DisplayTemperatureStep",
@@ -15347,6 +15352,18 @@ class ChipClusters:
                 "type": "int",
                 "reportable": True,
                 "writable": True,
+            },
+            0x0000001A: {
+                "attributeName": "CurrentBoostModeSetpoint",
+                "attributeId": 0x0000001A,
+                "type": "",
+                "reportable": True,
+            },
+            0x0000001B: {
+                "attributeName": "ErrorCode",
+                "attributeId": 0x0000001B,
+                "type": "int",
+                "reportable": True,
             },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",

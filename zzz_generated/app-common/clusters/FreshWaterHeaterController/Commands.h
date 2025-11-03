@@ -52,6 +52,11 @@ struct Type;
 struct DecodableType;
 } // namespace AnodeChangeRequest
 
+namespace AnodeChangeConfirmed {
+struct Type;
+struct DecodableType;
+} // namespace AnodeChangeConfirmed
+
 } // namespace Commands
 
 namespace Commands {
@@ -84,6 +89,35 @@ public:
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
 }; // namespace AnodeChangeRequest
+namespace AnodeChangeConfirmed {
+enum class Fields : uint8_t
+{
+};
+
+struct Type
+{
+public:
+    // Use GetCommandId instead of commandId directly to avoid naming conflict with CommandIdentification in ExecutionOfACommand
+    static constexpr CommandId GetCommandId() { return Commands::AnodeChangeConfirmed::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+
+    using ResponseType = DataModel::NullObjectType;
+
+    static constexpr bool MustUseTimedInvoke() { return false; }
+};
+
+struct DecodableType
+{
+public:
+    static constexpr CommandId GetCommandId() { return Commands::AnodeChangeConfirmed::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+}; // namespace AnodeChangeConfirmed
 } // namespace Commands
 } // namespace FreshWaterHeaterController
 } // namespace Clusters

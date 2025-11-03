@@ -20405,6 +20405,17 @@ public class ClusterReadMapping {
           readFreshWaterHeaterControllerMaximumBoostTimeCommandParams
         );
         result.put("readMaximumBoostTimeAttribute", readFreshWaterHeaterControllerMaximumBoostTimeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshWaterHeaterControllerErrorCodeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshWaterHeaterControllerErrorCodeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).readErrorCodeAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readFreshWaterHeaterControllerErrorCodeCommandParams
+        );
+        result.put("readErrorCodeAttribute", readFreshWaterHeaterControllerErrorCodeAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshWaterHeaterControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshWaterHeaterControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

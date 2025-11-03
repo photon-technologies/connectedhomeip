@@ -8500,6 +8500,12 @@ bool emberAfFreshWaterHeaterControllerClusterAnodeChangeRequestCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeRequest::DecodableType & commandData);
 /**
+ * @brief Fresh Water Heater Controller Cluster AnodeChangeConfirmed Command callback (from client)
+ */
+bool emberAfFreshWaterHeaterControllerClusterAnodeChangeConfirmedCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::DecodableType & commandData);
+/**
  * @brief Fresh Water Heater Errors Alarm Cluster Reset Command callback (from client)
  */
 bool emberAfFreshWaterHeaterErrorsAlarmClusterResetCallback(

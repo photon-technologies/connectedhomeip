@@ -6880,7 +6880,7 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     case Attributes::EcoModeSetpoint::Id: {
         return YES;
     }
-    case Attributes::BoostModeSetpoint::Id: {
+    case Attributes::DefaultBoostModeSetpoint::Id: {
         return YES;
     }
     case Attributes::DisplayTemperatureStep::Id: {
@@ -6935,6 +6935,12 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
         return YES;
     }
     case Attributes::MaximumBoostTime::Id: {
+        return YES;
+    }
+    case Attributes::CurrentBoostModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::ErrorCode::Id: {
         return YES;
     }
     case Attributes::GeneratedCommandList::Id: {

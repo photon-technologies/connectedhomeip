@@ -21093,7 +21093,7 @@ public class ClusterIDMapping {
             DefaultShowerFlowLPM(4L),
             StandardModeSetpoint(5L),
             EcoModeSetpoint(6L),
-            BoostModeSetpoint(7L),
+            DefaultBoostModeSetpoint(7L),
             DisplayTemperatureStep(8L),
             ResetTimeout(9L),
             CoolDownTimeout(10L),
@@ -21112,6 +21112,8 @@ public class ClusterIDMapping {
             DiagnosticsRehabTimeList(23L),
             RequiresAnodeChange(24L),
             MaximumBoostTime(25L),
+            CurrentBoostModeSetpoint(26L),
+            ErrorCode(27L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),
@@ -21157,7 +21159,8 @@ public class ClusterIDMapping {
         }
 
         public enum Command {
-            AnodeChangeRequest(0L),;
+            AnodeChangeRequest(0L),
+            AnodeChangeConfirmed(1L),;
             private final long id;
             Command(long id) {
                 this.id = id;

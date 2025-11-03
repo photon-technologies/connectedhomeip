@@ -22697,10 +22697,10 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("EcoModeSetpoint", 1, value);
         }
-        case FreshWaterHeaterController::Attributes::BoostModeSetpoint::Id: {
+        case FreshWaterHeaterController::Attributes::DefaultBoostModeSetpoint::Id: {
             chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("BoostModeSetpoint", 1, value);
+            return DataModelLogger::LogValue("DefaultBoostModeSetpoint", 1, value);
         }
         case FreshWaterHeaterController::Attributes::DisplayTemperatureStep::Id: {
             int16_t value;
@@ -22791,6 +22791,18 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             uint32_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("MaximumBoostTime", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::CurrentBoostModeSetpoint::Id: {
+            chip::app::DataModel::Nullable<
+                chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType>
+                value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("CurrentBoostModeSetpoint", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::ErrorCode::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ErrorCode", 1, value);
         }
         case FreshWaterHeaterController::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;

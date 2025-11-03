@@ -9430,8 +9430,8 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"EcoModeSetpoint";
             break;
 
-        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeBoostModeSetpointID:
-            result = @"BoostModeSetpoint";
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDefaultBoostModeSetpointID:
+            result = @"DefaultBoostModeSetpoint";
             break;
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTemperatureStepID:
@@ -9504,6 +9504,14 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeMaximumBoostTimeID:
             result = @"MaximumBoostTime";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeCurrentBoostModeSetpointID:
+            result = @"CurrentBoostModeSetpoint";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeErrorCodeID:
+            result = @"ErrorCode";
             break;
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID:
@@ -12845,6 +12853,10 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
 
         case MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeRequestID:
             result = @"AnodeChangeRequest";
+            break;
+
+        case MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeConfirmedID:
+            result = @"AnodeChangeConfirmed";
             break;
 
         default:

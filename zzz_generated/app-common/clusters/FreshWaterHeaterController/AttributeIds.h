@@ -40,9 +40,9 @@ namespace EcoModeSetpoint {
 inline constexpr AttributeId Id = 0x00000006;
 } // namespace EcoModeSetpoint
 
-namespace BoostModeSetpoint {
+namespace DefaultBoostModeSetpoint {
 inline constexpr AttributeId Id = 0x00000007;
-} // namespace BoostModeSetpoint
+} // namespace DefaultBoostModeSetpoint
 
 namespace DisplayTemperatureStep {
 inline constexpr AttributeId Id = 0x00000008;
@@ -115,6 +115,14 @@ inline constexpr AttributeId Id = 0x00000018;
 namespace MaximumBoostTime {
 inline constexpr AttributeId Id = 0x00000019;
 } // namespace MaximumBoostTime
+
+namespace CurrentBoostModeSetpoint {
+inline constexpr AttributeId Id = 0x0000001A;
+} // namespace CurrentBoostModeSetpoint
+
+namespace ErrorCode {
+inline constexpr AttributeId Id = 0x0000001B;
+} // namespace ErrorCode
 
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;

@@ -15,6 +15,10 @@ namespace AnodeChangeRequest {
 inline constexpr CommandId Id = 0x00000000;
 } // namespace AnodeChangeRequest
 
+namespace AnodeChangeConfirmed {
+inline constexpr CommandId Id = 0x00000001;
+} // namespace AnodeChangeConfirmed
+
 } // namespace Commands
 } // namespace FreshWaterHeaterController
 } // namespace Clusters

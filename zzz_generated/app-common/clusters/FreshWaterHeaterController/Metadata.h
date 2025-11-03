@@ -47,10 +47,11 @@ namespace EcoModeSetpoint {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(EcoModeSetpoint::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
 } // namespace EcoModeSetpoint
-namespace BoostModeSetpoint {
-inline constexpr DataModel::AttributeEntry kMetadataEntry(BoostModeSetpoint::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kView, Access::Privilege::kOperate);
-} // namespace BoostModeSetpoint
+namespace DefaultBoostModeSetpoint {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(DefaultBoostModeSetpoint::Id,
+                                                          BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
+                                                          std::nullopt);
+} // namespace DefaultBoostModeSetpoint
 namespace DisplayTemperatureStep {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DisplayTemperatureStep::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
@@ -131,6 +132,15 @@ namespace MaximumBoostTime {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(MaximumBoostTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
 } // namespace MaximumBoostTime
+namespace CurrentBoostModeSetpoint {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(CurrentBoostModeSetpoint::Id,
+                                                          BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
+                                                          std::nullopt);
+} // namespace CurrentBoostModeSetpoint
+namespace ErrorCode {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(ErrorCode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace ErrorCode
 
 } // namespace Attributes
 
@@ -139,6 +149,10 @@ namespace AnodeChangeRequest {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(AnodeChangeRequest::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kAdminister);
 } // namespace AnodeChangeRequest
+namespace AnodeChangeConfirmed {
+inline constexpr DataModel::AcceptedCommandEntry
+    kMetadataEntry(AnodeChangeConfirmed::Id, BitFlags<DataModel::CommandQualityFlags>(), Access::Privilege::kAdminister);
+} // namespace AnodeChangeConfirmed
 
 } // namespace Commands
 } // namespace FreshWaterHeaterController

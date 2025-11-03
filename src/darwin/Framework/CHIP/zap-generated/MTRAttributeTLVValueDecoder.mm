@@ -21631,8 +21631,8 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         value = [NSNumber numberWithShort:cppValue];
         return value;
     }
-    case Attributes::BoostModeSetpoint::Id: {
-        using TypeInfo = Attributes::BoostModeSetpoint::TypeInfo;
+    case Attributes::DefaultBoostModeSetpoint::Id: {
+        using TypeInfo = Attributes::DefaultBoostModeSetpoint::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
@@ -21894,6 +21894,58 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         }
         NSNumber * _Nonnull value;
         value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
+    case Attributes::CurrentBoostModeSetpoint::Id: {
+        using TypeInfo = Attributes::CurrentBoostModeSetpoint::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct * _Nullable value;
+        if (cppValue.IsNull()) {
+            value = nil;
+        } else {
+            value = [MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct new];
+            value.duration = [NSNumber numberWithUnsignedInt:cppValue.Value().duration];
+            if (cppValue.Value().oneShot.HasValue()) {
+                value.oneShot = [NSNumber numberWithBool:cppValue.Value().oneShot.Value()];
+            } else {
+                value.oneShot = nil;
+            }
+            if (cppValue.Value().emergencyBoost.HasValue()) {
+                value.emergencyBoost = [NSNumber numberWithBool:cppValue.Value().emergencyBoost.Value()];
+            } else {
+                value.emergencyBoost = nil;
+            }
+            if (cppValue.Value().temporarySetpoint.HasValue()) {
+                value.temporarySetpoint = [NSNumber numberWithShort:cppValue.Value().temporarySetpoint.Value()];
+            } else {
+                value.temporarySetpoint = nil;
+            }
+            if (cppValue.Value().targetPercentage.HasValue()) {
+                value.targetPercentage = [NSNumber numberWithUnsignedChar:cppValue.Value().targetPercentage.Value()];
+            } else {
+                value.targetPercentage = nil;
+            }
+            if (cppValue.Value().targetReheat.HasValue()) {
+                value.targetReheat = [NSNumber numberWithUnsignedChar:cppValue.Value().targetReheat.Value()];
+            } else {
+                value.targetReheat = nil;
+            }
+        }
+        return value;
+    }
+    case Attributes::ErrorCode::Id: {
+        using TypeInfo = Attributes::ErrorCode::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedChar:cppValue];
         return value;
     }
     default: {

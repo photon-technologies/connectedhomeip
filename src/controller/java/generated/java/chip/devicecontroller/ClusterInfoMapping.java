@@ -21320,7 +21320,7 @@ public class ClusterInfoMapping {
     }
   }
 
-  public static class DelegatedFreshWaterHeaterControllerClusterBoostModeSetpointAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.BoostModeSetpointAttributeCallback, DelegatedClusterCallback {
+  public static class DelegatedFreshWaterHeaterControllerClusterDefaultBoostModeSetpointAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.DefaultBoostModeSetpointAttributeCallback, DelegatedClusterCallback {
     private ClusterCommandCallback callback;
     @Override
     public void setCallbackDelegate(ClusterCommandCallback callback) {
@@ -21374,6 +21374,27 @@ public class ClusterInfoMapping {
       Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
       CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
       responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedFreshWaterHeaterControllerClusterCurrentBoostModeSetpointAttributeCallback implements ChipClusters.FreshWaterHeaterControllerCluster.CurrentBoostModeSetpointAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(@Nullable ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct value) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "ChipStructs.FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct");
+      responseValues.put(commandResponseInfo, value);
       callback.onSuccess(responseValues);
     }
 
@@ -32239,6 +32260,18 @@ public class ClusterInfoMapping {
         freshWaterHeaterControlleranodeChangeRequestCommandParams
     );
     freshWaterHeaterControllerClusterInteractionInfoMap.put("anodeChangeRequest", freshWaterHeaterControlleranodeChangeRequestInteractionInfo);
+
+    Map<String, CommandParameterInfo> freshWaterHeaterControlleranodeChangeConfirmedCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    InteractionInfo freshWaterHeaterControlleranodeChangeConfirmedInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshWaterHeaterControllerCluster) cluster)
+        .anodeChangeConfirmed((DefaultClusterCallback) callback
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        freshWaterHeaterControlleranodeChangeConfirmedCommandParams
+    );
+    freshWaterHeaterControllerClusterInteractionInfoMap.put("anodeChangeConfirmed", freshWaterHeaterControlleranodeChangeConfirmedInteractionInfo);
 
     commandMap.put("freshWaterHeaterController", freshWaterHeaterControllerClusterInteractionInfoMap);
 

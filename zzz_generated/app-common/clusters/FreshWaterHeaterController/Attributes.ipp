@@ -46,8 +46,8 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, standardModeSetpoint);
     case Attributes::EcoModeSetpoint::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, ecoModeSetpoint);
-    case Attributes::BoostModeSetpoint::TypeInfo::GetAttributeId():
-        return DataModel::Decode(reader, boostModeSetpoint);
+    case Attributes::DefaultBoostModeSetpoint::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, defaultBoostModeSetpoint);
     case Attributes::DisplayTemperatureStep::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, displayTemperatureStep);
     case Attributes::ResetTimeout::TypeInfo::GetAttributeId():
@@ -84,6 +84,10 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, requiresAnodeChange);
     case Attributes::MaximumBoostTime::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, maximumBoostTime);
+    case Attributes::CurrentBoostModeSetpoint::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, currentBoostModeSetpoint);
+    case Attributes::ErrorCode::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, errorCode);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

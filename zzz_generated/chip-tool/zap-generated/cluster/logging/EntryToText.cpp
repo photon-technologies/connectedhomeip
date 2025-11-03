@@ -4997,8 +4997,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "StandardModeSetpoint";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::EcoModeSetpoint::Id:
             return "EcoModeSetpoint";
-        case chip::app::Clusters::FreshWaterHeaterController::Attributes::BoostModeSetpoint::Id:
-            return "BoostModeSetpoint";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::DefaultBoostModeSetpoint::Id:
+            return "DefaultBoostModeSetpoint";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::DisplayTemperatureStep::Id:
             return "DisplayTemperatureStep";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::ResetTimeout::Id:
@@ -5035,6 +5035,10 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "RequiresAnodeChange";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::MaximumBoostTime::Id:
             return "MaximumBoostTime";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::CurrentBoostModeSetpoint::Id:
+            return "CurrentBoostModeSetpoint";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::ErrorCode::Id:
+            return "ErrorCode";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::AcceptedCommandList::Id:
@@ -6672,6 +6676,8 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
         {
         case chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeRequest::Id:
             return "AnodeChangeRequest";
+        case chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::Id:
+            return "AnodeChangeConfirmed";
         default:
             return "Unknown";
         }

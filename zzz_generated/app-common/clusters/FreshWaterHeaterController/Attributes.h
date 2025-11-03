@@ -127,7 +127,7 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace EcoModeSetpoint
-namespace BoostModeSetpoint {
+namespace DefaultBoostModeSetpoint {
 struct TypeInfo
 {
     using Type          = chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type;
@@ -136,10 +136,10 @@ struct TypeInfo
         const chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType &;
 
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
-    static constexpr AttributeId GetAttributeId() { return Attributes::BoostModeSetpoint::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DefaultBoostModeSetpoint::Id; }
     static constexpr bool MustUseTimedWrite() { return false; }
 };
-} // namespace BoostModeSetpoint
+} // namespace DefaultBoostModeSetpoint
 namespace DisplayTemperatureStep {
 struct TypeInfo
 {
@@ -356,6 +356,33 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace MaximumBoostTime
+namespace CurrentBoostModeSetpoint {
+struct TypeInfo
+{
+    using Type =
+        chip::app::DataModel::Nullable<chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::Type>;
+    using DecodableType = chip::app::DataModel::Nullable<
+        chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType>;
+    using DecodableArgType = const chip::app::DataModel::Nullable<
+        chip::app::Clusters::FreshWaterHeaterController::Structs::WaterHeaterBoostInfoStruct::DecodableType> &;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::CurrentBoostModeSetpoint::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace CurrentBoostModeSetpoint
+namespace ErrorCode {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ErrorCode::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ErrorCode
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -403,7 +430,7 @@ struct TypeInfo
         Attributes::DefaultShowerFlowLPM::TypeInfo::DecodableType defaultShowerFlowLPM = static_cast<uint16_t>(0);
         Attributes::StandardModeSetpoint::TypeInfo::DecodableType standardModeSetpoint = static_cast<int16_t>(0);
         Attributes::EcoModeSetpoint::TypeInfo::DecodableType ecoModeSetpoint           = static_cast<int16_t>(0);
-        Attributes::BoostModeSetpoint::TypeInfo::DecodableType boostModeSetpoint;
+        Attributes::DefaultBoostModeSetpoint::TypeInfo::DecodableType defaultBoostModeSetpoint;
         Attributes::DisplayTemperatureStep::TypeInfo::DecodableType displayTemperatureStep             = static_cast<int16_t>(0);
         Attributes::ResetTimeout::TypeInfo::DecodableType resetTimeout                                 = static_cast<uint32_t>(0);
         Attributes::CoolDownTimeout::TypeInfo::DecodableType coolDownTimeout                           = static_cast<uint32_t>(0);
@@ -423,6 +450,8 @@ struct TypeInfo
         Attributes::DiagnosticsRehabTimeList::TypeInfo::DecodableType diagnosticsRehabTimeList;
         Attributes::RequiresAnodeChange::TypeInfo::DecodableType requiresAnodeChange = static_cast<bool>(0);
         Attributes::MaximumBoostTime::TypeInfo::DecodableType maximumBoostTime       = static_cast<uint32_t>(0);
+        Attributes::CurrentBoostModeSetpoint::TypeInfo::DecodableType currentBoostModeSetpoint;
+        Attributes::ErrorCode::TypeInfo::DecodableType errorCode = static_cast<uint8_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;
