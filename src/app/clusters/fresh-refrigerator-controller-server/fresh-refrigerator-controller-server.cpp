@@ -19,6 +19,7 @@
 #include <app/AttributeAccessInterfaceRegistry.h>
 #include <src/platform/ESP32/FctryStoreManager.h>
 
+#include "app/persistence/AttributePersistenceProviderInstance.h"
 #include "app/reporting/reporting.h"
 #include "app/util/attribute-storage.h"
 #include "app/util/generic-callbacks.h"
@@ -59,14 +60,19 @@ CHIP_ERROR Instance::Init()
     {
         storageDelagate.Put("default-freezer-temperature", mDefaultFreezerTemperature);
     }
-    if (storageDelagate.Get("previous-fridge-temperature", &mPreviousFridgeTemperature) != CHIP_NO_ERROR)
-    {
-        storageDelagate.Put("previous-fridge-temperature", mPreviousFridgeTemperature);
-    }
-    if (storageDelagate.Get("previous-freezer-temperature", &mPreviousFreezerTemperature) != CHIP_NO_ERROR)
-    {
-        storageDelagate.Put("previous-freezer-temperature", mPreviousFreezerTemperature);
-    }
+
+    ConcreteAttributePath previousFridgeTemperaturePath(mEndpointId, FreshRefrigeratorController::Id,
+                                                        Attributes::FridgePreviousTemperature::Id);
+    MutableByteSpan previousFridgeTemperatureSpan(reinterpret_cast<uint8_t *>(&mPreviousFridgeTemperature),
+                                                  sizeof(mPreviousFridgeTemperature));
+    GetAttributePersistenceProvider()->ReadValue(previousFridgeTemperaturePath, previousFridgeTemperatureSpan);
+
+    ConcreteAttributePath previousFreezerTemperaturePath(mEndpointId, FreshRefrigeratorController::Id,
+                                                         Attributes::FreezerPreviousTemperature::Id);
+    MutableByteSpan previousFreezerTemperatureSpan(reinterpret_cast<uint8_t *>(&mPreviousFreezerTemperature),
+                                                   sizeof(mPreviousFreezerTemperature));
+    GetAttributePersistenceProvider()->ReadValue(previousFreezerTemperaturePath, previousFreezerTemperatureSpan);
+
     if (storageDelagate.Get("super-cool-time", &mSuperCoolTime) != CHIP_NO_ERROR)
     {
         storageDelagate.Put("super-cool-time", mSuperCoolTime);
@@ -215,7 +221,6 @@ CHIP_ERROR Instance::SetDefaultFridgeTemperature(int16_t temp)
         ReturnLogErrorOnFailure(storageDelagate.Put("default-fridge-temperature", temp));
         mDefaultFridgeTemperature = temp;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&temp));
     }
     return CHIP_NO_ERROR;
 }
@@ -232,7 +237,6 @@ CHIP_ERROR Instance::SetDefaultFreezerTemperature(int16_t temp)
         ReturnErrorOnFailure(storageDelagate.Put("default-freezer-temperature", temp));
         mDefaultFreezerTemperature = temp;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&temp));
     }
     return CHIP_NO_ERROR;
 }
@@ -246,10 +250,8 @@ CHIP_ERROR Instance::SetDefrostTemperature(int16_t temp)
             return StatusIB(Protocols::InteractionModel::Status::ConstraintError).ToChipError();
         }
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::DefrostTemperature::Id);
-        ReturnErrorOnFailure(storageDelagate.Put("defrost-temperature", temp));
-        mDefrostTemperature = temp;
+        mDefrostTemperature        = temp;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&temp));
     }
     return CHIP_NO_ERROR;
 }
@@ -263,10 +265,10 @@ CHIP_ERROR Instance::SetPreviousFridgeTemperature(int16_t temp)
             return StatusIB(Protocols::InteractionModel::Status::ConstraintError).ToChipError();
         }
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::FridgePreviousTemperature::Id);
-        ReturnErrorOnFailure(storageDelagate.Put("previous-fridge-temperature", temp));
+        GetAttributePersistenceProvider()->WriteValue(path, ByteSpan(reinterpret_cast<uint8_t *>(&temp), sizeof(temp)));
+
         mPreviousFridgeTemperature = temp;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&temp));
     }
     return CHIP_NO_ERROR;
 }
@@ -280,10 +282,10 @@ CHIP_ERROR Instance::SetPreviousFreezerTemperature(int16_t temp)
             return StatusIB(Protocols::InteractionModel::Status::ConstraintError).ToChipError();
         }
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::FreezerPreviousTemperature::Id);
-        ReturnErrorOnFailure(storageDelagate.Put("previous-freezer-temperature", temp));
+        GetAttributePersistenceProvider()->WriteValue(path, ByteSpan(reinterpret_cast<uint8_t *>(&temp), sizeof(temp)));
+
         mPreviousFreezerTemperature = temp;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&temp));
     }
     return CHIP_NO_ERROR;
 }
@@ -300,7 +302,6 @@ CHIP_ERROR Instance::SetSuperCoolTime(uint32_t time)
         ReturnErrorOnFailure(storageDelagate.Put("super-cool-time", time));
         mSuperCoolTime = time;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&time));
     }
     return CHIP_NO_ERROR;
 }
@@ -317,7 +318,6 @@ CHIP_ERROR Instance::SetSuperFreezeTime(uint32_t time)
         ReturnErrorOnFailure(storageDelagate.Put("super-freeze-time", time));
         mSuperFreezeTime = time;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&time));
     }
     return CHIP_NO_ERROR;
 }
@@ -334,7 +334,6 @@ CHIP_ERROR Instance::SetAlarmTime(uint32_t time)
         ReturnErrorOnFailure(storageDelagate.Put("alarm-time", time));
         mAlarmTime = time;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&time));
     }
     return CHIP_NO_ERROR;
 }
@@ -351,7 +350,6 @@ CHIP_ERROR Instance::SetResetTimeout(uint32_t timeout)
         ReturnErrorOnFailure(storageDelagate.Put("reset-timeout", timeout));
         mResetTimeout = timeout;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&timeout));
     }
     return CHIP_NO_ERROR;
 }
@@ -368,7 +366,6 @@ CHIP_ERROR Instance::SetDisplayActiveTime(uint32_t time)
         ReturnErrorOnFailure(storageDelagate.Put("display-active-time", time));
         mDisplayActiveTime = time;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&time));
     }
     return CHIP_NO_ERROR;
 }
@@ -385,7 +382,6 @@ CHIP_ERROR Instance::SetDisplayErrorTime(uint32_t time)
         ReturnErrorOnFailure(storageDelagate.Put("display-error-time", time));
         mDisplayErrorTime = time;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&time));
     }
     return CHIP_NO_ERROR;
 }
@@ -402,7 +398,6 @@ CHIP_ERROR Instance::SetFridgeErrorMargin(int16_t margin)
         ReturnErrorOnFailure(storageDelagate.Put("fridge-error-margin", margin));
         mFridgeErrorMargin = margin;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&margin));
     }
     return CHIP_NO_ERROR;
 }
@@ -419,7 +414,6 @@ CHIP_ERROR Instance::SetFreezerErrorMargin(int16_t margin)
         ReturnErrorOnFailure(storageDelagate.Put("freezer-error-margin", margin));
         mFreezerErrorMargin = margin;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT16S_ATTRIBUTE_TYPE, sizeof(int16_t), reinterpret_cast<uint8_t *>(&margin));
     }
     return CHIP_NO_ERROR;
 }
@@ -436,7 +430,6 @@ CHIP_ERROR Instance::SetTemperatureErrorTime(uint32_t time)
         ReturnErrorOnFailure(storageDelagate.Put("temperature-error-time", time));
         mTemperatureErrorTime = time;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_INT32U_ATTRIBUTE_TYPE, sizeof(uint32_t), reinterpret_cast<uint8_t *>(&time));
     }
     return CHIP_NO_ERROR;
 }
@@ -448,7 +441,6 @@ CHIP_ERROR Instance::SetCompressorState(bool state)
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::CompressorState::Id);
         mCompressorState           = state;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_BOOLEAN_ATTRIBUTE_TYPE, sizeof(bool), reinterpret_cast<uint8_t *>(&state));
     }
     return CHIP_NO_ERROR;
 }
@@ -460,7 +452,6 @@ CHIP_ERROR Instance::SetDefrostState(bool state)
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::DefrostState::Id);
         mDefrostState              = state;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_BOOLEAN_ATTRIBUTE_TYPE, sizeof(bool), reinterpret_cast<uint8_t *>(&state));
     }
     return CHIP_NO_ERROR;
 }
@@ -472,7 +463,6 @@ CHIP_ERROR Instance::SetFridgeDoorState(bool state)
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::FridgeDoorState::Id);
         mFridgeDoorState           = state;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_BOOLEAN_ATTRIBUTE_TYPE, sizeof(bool), reinterpret_cast<uint8_t *>(&state));
     }
     return CHIP_NO_ERROR;
 }
@@ -484,7 +474,6 @@ CHIP_ERROR Instance::SetFreezerDoorState(bool state)
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::FreezerDoorState::Id);
         mFreezerDoorState          = state;
         MatterReportingAttributeChangeCallback(path);
-        MatterPostAttributeChangeCallback(path, ZCL_BOOLEAN_ATTRIBUTE_TYPE, sizeof(bool), reinterpret_cast<uint8_t *>(&state));
     }
     return CHIP_NO_ERROR;
 }
