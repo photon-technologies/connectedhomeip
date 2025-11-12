@@ -9016,16 +9016,6 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.transport", "transport", value.isMember("transport")));
     ReturnErrorOnFailure(
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.keepAlive", "keepAlive", value.isMember("keepAlive")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillTopic", "lastWillTopic",
-                                                                  value.isMember("lastWillTopic")));
-    ReturnErrorOnFailure(
-        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillMsg", "lastWillMsg", value.isMember("lastWillMsg")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillMsgLen", "lastWillMsgLen",
-                                                                  value.isMember("lastWillMsgLen")));
-    ReturnErrorOnFailure(
-        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillQOS", "lastWillQOS", value.isMember("lastWillQOS")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.lastWillRetain", "lastWillRetain",
-                                                                  value.isMember("lastWillRetain")));
     ReturnErrorOnFailure(
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.cleanSession", "cleanSession", value.isMember("cleanSession")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.reconnectTimeoutMS", "reconnectTimeoutMS",
@@ -9034,8 +9024,6 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.timeoutMS", "timeoutMS", value.isMember("timeoutMS")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
         "PhotonMQTTStruct.refreshConnectionAfterMS", "refreshConnectionAfterMS", value.isMember("refreshConnectionAfterMS")));
-    ReturnErrorOnFailure(
-        ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.replyTo", "replyTo", value.isMember("replyTo")));
 
     char labelWithMember[kMaxLabelLength];
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "host");
@@ -9054,26 +9042,6 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.keepAlive, value["keepAlive"]));
     valueCopy.removeMember("keepAlive");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillTopic");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillTopic, value["lastWillTopic"]));
-    valueCopy.removeMember("lastWillTopic");
-
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillMsg");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillMsg, value["lastWillMsg"]));
-    valueCopy.removeMember("lastWillMsg");
-
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillMsgLen");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillMsgLen, value["lastWillMsgLen"]));
-    valueCopy.removeMember("lastWillMsgLen");
-
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillQOS");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillQOS, value["lastWillQOS"]));
-    valueCopy.removeMember("lastWillQOS");
-
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "lastWillRetain");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.lastWillRetain, value["lastWillRetain"]));
-    valueCopy.removeMember("lastWillRetain");
-
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "cleanSession");
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.cleanSession, value["cleanSession"]));
     valueCopy.removeMember("cleanSession");
@@ -9091,10 +9059,6 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::Setup(labelWithMember, request.refreshConnectionAfterMS, value["refreshConnectionAfterMS"]));
     valueCopy.removeMember("refreshConnectionAfterMS");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "replyTo");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.replyTo, value["replyTo"]));
-    valueCopy.removeMember("replyTo");
-
     return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
 }
 
@@ -9104,16 +9068,10 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::
     ComplexArgumentParser::Finalize(request.port);
     ComplexArgumentParser::Finalize(request.transport);
     ComplexArgumentParser::Finalize(request.keepAlive);
-    ComplexArgumentParser::Finalize(request.lastWillTopic);
-    ComplexArgumentParser::Finalize(request.lastWillMsg);
-    ComplexArgumentParser::Finalize(request.lastWillMsgLen);
-    ComplexArgumentParser::Finalize(request.lastWillQOS);
-    ComplexArgumentParser::Finalize(request.lastWillRetain);
     ComplexArgumentParser::Finalize(request.cleanSession);
     ComplexArgumentParser::Finalize(request.reconnectTimeoutMS);
     ComplexArgumentParser::Finalize(request.timeoutMS);
     ComplexArgumentParser::Finalize(request.refreshConnectionAfterMS);
-    ComplexArgumentParser::Finalize(request.replyTo);
 }
 
 CHIP_ERROR

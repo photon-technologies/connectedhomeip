@@ -141,16 +141,10 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kPort), port);
     encoder.Encode(to_underlying(Fields::kTransport), transport);
     encoder.Encode(to_underlying(Fields::kKeepAlive), keepAlive);
-    encoder.Encode(to_underlying(Fields::kLastWillTopic), lastWillTopic);
-    encoder.Encode(to_underlying(Fields::kLastWillMsg), lastWillMsg);
-    encoder.Encode(to_underlying(Fields::kLastWillMsgLen), lastWillMsgLen);
-    encoder.Encode(to_underlying(Fields::kLastWillQOS), lastWillQOS);
-    encoder.Encode(to_underlying(Fields::kLastWillRetain), lastWillRetain);
     encoder.Encode(to_underlying(Fields::kCleanSession), cleanSession);
     encoder.Encode(to_underlying(Fields::kReconnectTimeoutMS), reconnectTimeoutMS);
     encoder.Encode(to_underlying(Fields::kTimeoutMS), timeoutMS);
     encoder.Encode(to_underlying(Fields::kRefreshConnectionAfterMS), refreshConnectionAfterMS);
-    encoder.Encode(to_underlying(Fields::kReplyTo), replyTo);
     return encoder.Finalize();
 }
 
@@ -180,26 +174,6 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         {
             err = DataModel::Decode(reader, keepAlive);
         }
-        else if (__context_tag == to_underlying(Fields::kLastWillTopic))
-        {
-            err = DataModel::Decode(reader, lastWillTopic);
-        }
-        else if (__context_tag == to_underlying(Fields::kLastWillMsg))
-        {
-            err = DataModel::Decode(reader, lastWillMsg);
-        }
-        else if (__context_tag == to_underlying(Fields::kLastWillMsgLen))
-        {
-            err = DataModel::Decode(reader, lastWillMsgLen);
-        }
-        else if (__context_tag == to_underlying(Fields::kLastWillQOS))
-        {
-            err = DataModel::Decode(reader, lastWillQOS);
-        }
-        else if (__context_tag == to_underlying(Fields::kLastWillRetain))
-        {
-            err = DataModel::Decode(reader, lastWillRetain);
-        }
         else if (__context_tag == to_underlying(Fields::kCleanSession))
         {
             err = DataModel::Decode(reader, cleanSession);
@@ -215,10 +189,6 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         else if (__context_tag == to_underlying(Fields::kRefreshConnectionAfterMS))
         {
             err = DataModel::Decode(reader, refreshConnectionAfterMS);
-        }
-        else if (__context_tag == to_underlying(Fields::kReplyTo))
-        {
-            err = DataModel::Decode(reader, replyTo);
         }
 
         ReturnErrorOnFailure(err);

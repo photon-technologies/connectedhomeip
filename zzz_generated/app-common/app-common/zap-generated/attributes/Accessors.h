@@ -5966,17 +5966,6 @@ Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, Mar
 namespace PhotonSmart {
 namespace Attributes {
 
-namespace HomeId {
-Protocols::InteractionModel::Status Get(EndpointId endpoint, DataModel::Nullable<chip::MutableCharSpan> & value); // char_string
-Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::CharSpan value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::CharSpan value, MarkAttributeDirty markDirty);
-Protocols::InteractionModel::Status SetNull(EndpointId endpoint);
-Protocols::InteractionModel::Status SetNull(EndpointId endpoint, MarkAttributeDirty markDirty);
-Protocols::InteractionModel::Status Set(EndpointId endpoint, const chip::app::DataModel::Nullable<chip::CharSpan> & value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint, const chip::app::DataModel::Nullable<chip::CharSpan> & value,
-                                        MarkAttributeDirty markDirty);
-} // namespace HomeId
-
 namespace ShouldReboot {
 Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
 Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);

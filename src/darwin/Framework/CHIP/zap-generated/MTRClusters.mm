@@ -22651,20 +22651,9 @@ using chip::System::Clock::Timeout;
                                         completion:responseHandler];
 }
 
-- (NSDictionary<NSString *, id> * _Nullable)readAttributeHomeIdWithParams:(MTRReadParams * _Nullable)params
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeDeviceIdWithParams:(MTRReadParams * _Nullable)params
 {
-    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID) params:params];
-}
-
-- (void)writeAttributeHomeIdWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
-{
-    [self writeAttributeHomeIdWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
-}
-- (void)writeAttributeHomeIdWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
-{
-    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
-
-    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypePhotonSmartID) attributeID:@(MTRAttributeIDTypeClusterPhotonSmartAttributeDeviceIdID) params:params];
 }
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeShouldRebootWithParams:(MTRReadParams * _Nullable)params

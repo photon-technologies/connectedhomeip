@@ -19745,61 +19745,37 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   public Integer port;
   public Integer transport;
   public Integer keepAlive;
-  public String lastWillTopic;
-  public byte[] lastWillMsg;
-  public Integer lastWillMsgLen;
-  public Integer lastWillQOS;
-  public Boolean lastWillRetain;
   public Boolean cleanSession;
   public Long reconnectTimeoutMS;
   public Long timeoutMS;
   public Long refreshConnectionAfterMS;
-  public String replyTo;
   private static final long HOST_ID = 1L;
   private static final long PORT_ID = 2L;
   private static final long TRANSPORT_ID = 3L;
   private static final long KEEP_ALIVE_ID = 4L;
-  private static final long LAST_WILL_TOPIC_ID = 5L;
-  private static final long LAST_WILL_MSG_ID = 6L;
-  private static final long LAST_WILL_MSG_LEN_ID = 7L;
-  private static final long LAST_WILL_QOS_ID = 8L;
-  private static final long LAST_WILL_RETAIN_ID = 9L;
-  private static final long CLEAN_SESSION_ID = 10L;
-  private static final long RECONNECT_TIMEOUT_MS_ID = 11L;
-  private static final long TIMEOUT_MS_ID = 12L;
-  private static final long REFRESH_CONNECTION_AFTER_MS_ID = 13L;
-  private static final long REPLY_TO_ID = 14L;
+  private static final long CLEAN_SESSION_ID = 5L;
+  private static final long RECONNECT_TIMEOUT_MS_ID = 6L;
+  private static final long TIMEOUT_MS_ID = 7L;
+  private static final long REFRESH_CONNECTION_AFTER_MS_ID = 8L;
 
   public PhotonSmartClusterPhotonMQTTStruct(
     String host,
     Integer port,
     Integer transport,
     Integer keepAlive,
-    String lastWillTopic,
-    byte[] lastWillMsg,
-    Integer lastWillMsgLen,
-    Integer lastWillQOS,
-    Boolean lastWillRetain,
     Boolean cleanSession,
     Long reconnectTimeoutMS,
     Long timeoutMS,
-    Long refreshConnectionAfterMS,
-    String replyTo
+    Long refreshConnectionAfterMS
   ) {
     this.host = host;
     this.port = port;
     this.transport = transport;
     this.keepAlive = keepAlive;
-    this.lastWillTopic = lastWillTopic;
-    this.lastWillMsg = lastWillMsg;
-    this.lastWillMsgLen = lastWillMsgLen;
-    this.lastWillQOS = lastWillQOS;
-    this.lastWillRetain = lastWillRetain;
     this.cleanSession = cleanSession;
     this.reconnectTimeoutMS = reconnectTimeoutMS;
     this.timeoutMS = timeoutMS;
     this.refreshConnectionAfterMS = refreshConnectionAfterMS;
-    this.replyTo = replyTo;
   }
 
   public StructType encodeTlv() {
@@ -19808,16 +19784,10 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     values.add(new StructElement(PORT_ID, new UIntType(port)));
     values.add(new StructElement(TRANSPORT_ID, new UIntType(transport)));
     values.add(new StructElement(KEEP_ALIVE_ID, new UIntType(keepAlive)));
-    values.add(new StructElement(LAST_WILL_TOPIC_ID, new StringType(lastWillTopic)));
-    values.add(new StructElement(LAST_WILL_MSG_ID, new ByteArrayType(lastWillMsg)));
-    values.add(new StructElement(LAST_WILL_MSG_LEN_ID, new UIntType(lastWillMsgLen)));
-    values.add(new StructElement(LAST_WILL_QOS_ID, new UIntType(lastWillQOS)));
-    values.add(new StructElement(LAST_WILL_RETAIN_ID, new BooleanType(lastWillRetain)));
     values.add(new StructElement(CLEAN_SESSION_ID, new BooleanType(cleanSession)));
     values.add(new StructElement(RECONNECT_TIMEOUT_MS_ID, new UIntType(reconnectTimeoutMS)));
     values.add(new StructElement(TIMEOUT_MS_ID, new UIntType(timeoutMS)));
     values.add(new StructElement(REFRESH_CONNECTION_AFTER_MS_ID, new UIntType(refreshConnectionAfterMS)));
-    values.add(new StructElement(REPLY_TO_ID, new StringType(replyTo)));
 
     return new StructType(values);
   }
@@ -19830,16 +19800,10 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Integer port = null;
     Integer transport = null;
     Integer keepAlive = null;
-    String lastWillTopic = null;
-    byte[] lastWillMsg = null;
-    Integer lastWillMsgLen = null;
-    Integer lastWillQOS = null;
-    Boolean lastWillRetain = null;
     Boolean cleanSession = null;
     Long reconnectTimeoutMS = null;
     Long timeoutMS = null;
     Long refreshConnectionAfterMS = null;
-    String replyTo = null;
     for (StructElement element: ((StructType)tlvValue).value()) {
       if (element.contextTagNum() == HOST_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.String) {
@@ -19861,31 +19825,6 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
           UIntType castingValue = element.value(UIntType.class);
           keepAlive = castingValue.value(Integer.class);
         }
-      } else if (element.contextTagNum() == LAST_WILL_TOPIC_ID) {
-        if (element.value(BaseTLVType.class).type() == TLVType.String) {
-          StringType castingValue = element.value(StringType.class);
-          lastWillTopic = castingValue.value(String.class);
-        }
-      } else if (element.contextTagNum() == LAST_WILL_MSG_ID) {
-        if (element.value(BaseTLVType.class).type() == TLVType.ByteArray) {
-          ByteArrayType castingValue = element.value(ByteArrayType.class);
-          lastWillMsg = castingValue.value(byte[].class);
-        }
-      } else if (element.contextTagNum() == LAST_WILL_MSG_LEN_ID) {
-        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
-          UIntType castingValue = element.value(UIntType.class);
-          lastWillMsgLen = castingValue.value(Integer.class);
-        }
-      } else if (element.contextTagNum() == LAST_WILL_QOS_ID) {
-        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
-          UIntType castingValue = element.value(UIntType.class);
-          lastWillQOS = castingValue.value(Integer.class);
-        }
-      } else if (element.contextTagNum() == LAST_WILL_RETAIN_ID) {
-        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
-          BooleanType castingValue = element.value(BooleanType.class);
-          lastWillRetain = castingValue.value(Boolean.class);
-        }
       } else if (element.contextTagNum() == CLEAN_SESSION_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
           BooleanType castingValue = element.value(BooleanType.class);
@@ -19906,11 +19845,6 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
           UIntType castingValue = element.value(UIntType.class);
           refreshConnectionAfterMS = castingValue.value(Long.class);
         }
-      } else if (element.contextTagNum() == REPLY_TO_ID) {
-        if (element.value(BaseTLVType.class).type() == TLVType.String) {
-          StringType castingValue = element.value(StringType.class);
-          replyTo = castingValue.value(String.class);
-        }
       }
     }
     return new PhotonSmartClusterPhotonMQTTStruct(
@@ -19918,16 +19852,10 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
       port,
       transport,
       keepAlive,
-      lastWillTopic,
-      lastWillMsg,
-      lastWillMsgLen,
-      lastWillQOS,
-      lastWillRetain,
       cleanSession,
       reconnectTimeoutMS,
       timeoutMS,
-      refreshConnectionAfterMS,
-      replyTo
+      refreshConnectionAfterMS
     );
   }
 
@@ -19947,21 +19875,6 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     output.append("\tkeepAlive: ");
     output.append(keepAlive);
     output.append("\n");
-    output.append("\tlastWillTopic: ");
-    output.append(lastWillTopic);
-    output.append("\n");
-    output.append("\tlastWillMsg: ");
-    output.append(Arrays.toString(lastWillMsg));
-    output.append("\n");
-    output.append("\tlastWillMsgLen: ");
-    output.append(lastWillMsgLen);
-    output.append("\n");
-    output.append("\tlastWillQOS: ");
-    output.append(lastWillQOS);
-    output.append("\n");
-    output.append("\tlastWillRetain: ");
-    output.append(lastWillRetain);
-    output.append("\n");
     output.append("\tcleanSession: ");
     output.append(cleanSession);
     output.append("\n");
@@ -19973,9 +19886,6 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     output.append("\n");
     output.append("\trefreshConnectionAfterMS: ");
     output.append(refreshConnectionAfterMS);
-    output.append("\n");
-    output.append("\treplyTo: ");
-    output.append(replyTo);
     output.append("\n");
     output.append("}\n");
     return output.toString();

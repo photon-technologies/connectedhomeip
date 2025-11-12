@@ -3623,28 +3623,6 @@ public class ClusterWriteMapping {
     Map<String, InteractionInfo> writeCommodityMeteringInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("commodityMetering", writeCommodityMeteringInteractionInfo);
     Map<String, InteractionInfo> writePhotonSmartInteractionInfo = new LinkedHashMap<>();
-    Map<String, CommandParameterInfo> writePhotonSmartHomeIdCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-    CommandParameterInfo photonSmarthomeIdCommandParameterInfo =
-        new CommandParameterInfo(
-            "value", 
-            String.class, 
-            String.class 
-        );
-    writePhotonSmartHomeIdCommandParams.put(
-        "value",
-        photonSmarthomeIdCommandParameterInfo
-    );
-    InteractionInfo writePhotonSmartHomeIdAttributeInteractionInfo = new InteractionInfo(
-      (cluster, callback, commandArguments) -> {
-        ((ChipClusters.PhotonSmartCluster) cluster).writeHomeIdAttribute(
-          (DefaultClusterCallback) callback,
-          (String) commandArguments.get("value")
-        );
-      },
-      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
-      writePhotonSmartHomeIdCommandParams
-    );
-    writePhotonSmartInteractionInfo.put("writeHomeIdAttribute", writePhotonSmartHomeIdAttributeInteractionInfo);
     Map<String, CommandParameterInfo> writePhotonSmartMqttReportEnabledCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
     CommandParameterInfo photonSmartmqttReportEnabledCommandParameterInfo =
         new CommandParameterInfo(

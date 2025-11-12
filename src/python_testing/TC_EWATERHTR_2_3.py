@@ -43,6 +43,7 @@
 
 
 import logging
+import time
 
 import chip.clusters as Clusters
 from chip.testing.event_attribute_reporting import EventChangeCallback
@@ -174,6 +175,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("4")
         await self.send_test_event_trigger_basic_installation_test_event()
+        time.sleep(3)
 
         self.step("4a")
         await self.check_whm_attribute("HeatDemand", 0)
@@ -190,6 +192,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("5")
         await self.send_boost_command(duration=600, target_percentage=100)
+        time.sleep(3)
 
         event_data = events_callback.wait_for_event_report(Clusters.WaterHeaterManagement.Events.BoostStarted)
         asserts.assert_equal(event_data.boostInfo.duration, 600)
@@ -205,6 +208,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("6")
         await self.send_test_event_trigger_water_temperature61C_test_event()
+        time.sleep(3)
 
         self.step("6a")
         heatDemand = await self.read_whm_attribute_expect_success(attribute="HeatDemand")
@@ -218,6 +222,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("7")
         await self.send_test_event_trigger_draw_off_hot_water_test_event()
+        time.sleep(3)
 
         self.step("7a")
         heatDemand = await self.read_whm_attribute_expect_success(attribute="HeatDemand")
@@ -232,6 +237,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("8")
         await self.send_cancel_boost_command()
+        time.sleep(3)
 
         event_data = events_callback.wait_for_event_report(Clusters.WaterHeaterManagement.Events.BoostEnded)
 
@@ -246,6 +252,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("9")
         await self.send_boost_command(duration=400, target_percentage=100, target_reheat=65)
+        time.sleep(3)
 
         event_data = events_callback.wait_for_event_report(Clusters.WaterHeaterManagement.Events.BoostStarted)
         asserts.assert_equal(event_data.boostInfo.duration, 400)
@@ -265,6 +272,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("10")
         await self.send_test_event_trigger_water_temperature61C_test_event()
+        time.sleep(3)
 
         self.step("10a")
         await self.check_whm_attribute("HeatDemand", 0)
@@ -277,6 +285,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("11")
         await self.send_test_event_trigger_draw_off_hot_water_test_event()
+        time.sleep(3)
 
         self.step("11a")
         await self.check_whm_attribute("HeatDemand", 0)
@@ -289,6 +298,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("12")
         await self.send_test_event_trigger_draw_off_hot_water_test_event()
+        time.sleep(3)
 
         self.step("12a")
         heatDemand = await self.read_whm_attribute_expect_success(attribute="HeatDemand")
@@ -303,6 +313,7 @@ class TC_EWATERHTR_2_3(MatterBaseTest, EWATERHTRBase):
 
         self.step("13")
         await self.send_cancel_boost_command()
+        time.sleep(3)
 
         event_data = events_callback.wait_for_event_report(Clusters.WaterHeaterManagement.Events.BoostEnded)
 

@@ -6584,7 +6584,7 @@ static BOOL AttributeIsSpecifiedInPhotonSmartCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::PhotonSmart;
     switch (aAttributeId) {
-    case Attributes::HomeId::Id: {
+    case Attributes::DeviceId::Id: {
         return YES;
     }
     case Attributes::ShouldReboot::Id: {

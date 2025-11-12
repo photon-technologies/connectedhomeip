@@ -2,6 +2,7 @@
 
 #include <app-common/zap-generated/cluster-objects.h>
 #include <protocols/interaction_model/StatusCode.h>
+#include <lib/support/Span.h>
 
 namespace chip {
 namespace app {
@@ -45,6 +46,7 @@ public:
     // virtual void OnMqttConfigUpdated(const Structs::PhotonMQTTStruct::Type & aNewMqttConfig) = 0;
     virtual void OnInsightsParamsUpdated(photon_insights_params_t *aNewInsightsParams) = 0;
     virtual void OnInsightsEnabledUpdated(bool aNewInsightsEnabled) = 0;
+    virtual void GetDeviceId(MutableCharSpan & aDeviceId) = 0;
 };
 
 } // namespace PhotonSmart

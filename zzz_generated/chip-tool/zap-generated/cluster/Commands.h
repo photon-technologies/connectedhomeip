@@ -17437,7 +17437,7 @@ private:
 | * FactoryReset                                                      |   0x01 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
-| * HomeId                                                            | 0x0000 |
+| * DeviceId                                                          | 0x0000 |
 | * ShouldReboot                                                      | 0x0001 |
 | * MqttConfig                                                        | 0x0002 |
 | * MqttReportEnabled                                                 | 0x0003 |
@@ -31731,7 +31731,7 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         // Attributes
         //
         make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                 //
-        make_unique<ReadAttribute>(Id, "home-id", Attributes::HomeId::Id, credsIssuerConfig),                              //
+        make_unique<ReadAttribute>(Id, "device-id", Attributes::DeviceId::Id, credsIssuerConfig),                          //
         make_unique<ReadAttribute>(Id, "should-reboot", Attributes::ShouldReboot::Id, credsIssuerConfig),                  //
         make_unique<ReadAttribute>(Id, "mqtt-config", Attributes::MqttConfig::Id, credsIssuerConfig),                      //
         make_unique<ReadAttribute>(Id, "mqtt-report-enabled", Attributes::MqttReportEnabled::Id, credsIssuerConfig),       //
@@ -31745,8 +31745,8 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
         make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
         make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
-        make_unique<WriteAttribute<chip::app::DataModel::Nullable<chip::CharSpan>>>(Id, "home-id", Attributes::HomeId::Id,
-                                                                                    WriteCommandType::kWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::CharSpan>>(Id, "device-id", Attributes::DeviceId::Id, WriteCommandType::kForceWrite,
+                                                    credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "should-reboot", 0, 1, Attributes::ShouldReboot::Id, WriteCommandType::kForceWrite,
                                           credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type>>(
@@ -31773,7 +31773,7 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig),                                //
         make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                                 //
-        make_unique<SubscribeAttribute>(Id, "home-id", Attributes::HomeId::Id, credsIssuerConfig),                              //
+        make_unique<SubscribeAttribute>(Id, "device-id", Attributes::DeviceId::Id, credsIssuerConfig),                          //
         make_unique<SubscribeAttribute>(Id, "should-reboot", Attributes::ShouldReboot::Id, credsIssuerConfig),                  //
         make_unique<SubscribeAttribute>(Id, "mqtt-config", Attributes::MqttConfig::Id, credsIssuerConfig),                      //
         make_unique<SubscribeAttribute>(Id, "mqtt-report-enabled", Attributes::MqttReportEnabled::Id, credsIssuerConfig),       //

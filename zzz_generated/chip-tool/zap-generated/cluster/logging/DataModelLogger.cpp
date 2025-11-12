@@ -8041,46 +8041,6 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         }
     }
     {
-        CHIP_ERROR err = LogValue("LastWillTopic", indent + 1, value.lastWillTopic);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillTopic'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("LastWillMsg", indent + 1, value.lastWillMsg);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillMsg'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("LastWillMsgLen", indent + 1, value.lastWillMsgLen);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillMsgLen'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("LastWillQOS", indent + 1, value.lastWillQOS);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillQOS'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("LastWillRetain", indent + 1, value.lastWillRetain);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'LastWillRetain'");
-            return err;
-        }
-    }
-    {
         CHIP_ERROR err = LogValue("CleanSession", indent + 1, value.cleanSession);
         if (err != CHIP_NO_ERROR)
         {
@@ -8109,14 +8069,6 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'RefreshConnectionAfterMS'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("ReplyTo", indent + 1, value.replyTo);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReplyTo'");
             return err;
         }
     }
@@ -22257,10 +22209,10 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
     case PhotonSmart::Id: {
         switch (path.mAttributeId)
         {
-        case PhotonSmart::Attributes::HomeId::Id: {
-            chip::app::DataModel::Nullable<chip::CharSpan> value;
+        case PhotonSmart::Attributes::DeviceId::Id: {
+            chip::CharSpan value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("HomeId", 1, value);
+            return DataModelLogger::LogValue("DeviceId", 1, value);
         }
         case PhotonSmart::Attributes::ShouldReboot::Id: {
             bool value;

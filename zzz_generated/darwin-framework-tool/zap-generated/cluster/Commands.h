@@ -175237,7 +175237,7 @@ public:
 | * FactoryReset                                                      |   0x01 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
-| * HomeId                                                            | 0x0000 |
+| * DeviceId                                                          | 0x0000 |
 | * ShouldReboot                                                      | 0x0001 |
 | * MqttConfig                                                        | 0x0002 |
 | * MqttReportEnabled                                                 | 0x0003 |
@@ -175364,34 +175364,34 @@ private:
 #if MTR_ENABLE_PROVISIONAL
 
 /*
- * Attribute HomeId
+ * Attribute DeviceId
  */
-class ReadPhotonSmartHomeId : public ReadAttribute {
+class ReadPhotonSmartDeviceId : public ReadAttribute {
 public:
-    ReadPhotonSmartHomeId()
-        : ReadAttribute("home-id")
+    ReadPhotonSmartDeviceId()
+        : ReadAttribute("device-id")
     {
     }
 
-    ~ReadPhotonSmartHomeId()
+    ~ReadPhotonSmartDeviceId()
     {
     }
 
     CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
     {
         constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
-        constexpr chip::AttributeId attributeId = chip::app::Clusters::PhotonSmart::Attributes::HomeId::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::PhotonSmart::Attributes::DeviceId::Id;
 
         ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
 
         dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
         __auto_type * cluster = [[MTRBaseClusterPhotonSmart alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        [cluster readAttributeHomeIdWithCompletion:^(NSString * _Nullable value, NSError * _Nullable error) {
-            NSLog(@"PhotonSmart.HomeId response %@", [value description]);
+        [cluster readAttributeDeviceIdWithCompletion:^(NSString * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"PhotonSmart.DeviceId response %@", [value description]);
             if (error == nil) {
                 RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
             } else {
-                LogNSError("PhotonSmart HomeId read Error", error);
+                LogNSError("PhotonSmart DeviceId read Error", error);
                 RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
             }
             SetCommandExitStatus(error);
@@ -175400,65 +175400,21 @@ public:
     }
 };
 
-class WritePhotonSmartHomeId : public WriteAttribute {
+class SubscribeAttributePhotonSmartDeviceId : public SubscribeAttribute {
 public:
-    WritePhotonSmartHomeId()
-        : WriteAttribute("home-id")
+    SubscribeAttributePhotonSmartDeviceId()
+        : SubscribeAttribute("device-id")
     {
-        AddArgument("attr-name", "home-id");
-        AddArgument("attr-value", &mValue);
-        WriteAttribute::AddArguments();
     }
 
-    ~WritePhotonSmartHomeId()
+    ~SubscribeAttributePhotonSmartDeviceId()
     {
     }
 
     CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
     {
         constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
-        constexpr chip::AttributeId attributeId = chip::app::Clusters::PhotonSmart::Attributes::HomeId::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
-        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
-        __auto_type * cluster = [[MTRBaseClusterPhotonSmart alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        __auto_type * params = [[MTRWriteParams alloc] init];
-        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
-        NSString * _Nullable value = nil;
-        if (!mValue.IsNull()) {
-            value = [[NSString alloc] initWithBytes:mValue.Value().data() length:mValue.Value().size() encoding:NSUTF8StringEncoding];
-        }
-
-        [cluster writeAttributeHomeIdWithValue:value params:params completion:^(NSError * _Nullable error) {
-            if (error != nil) {
-                LogNSError("PhotonSmart HomeId write Error", error);
-                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
-            }
-            SetCommandExitStatus(error);
-        }];
-        return CHIP_NO_ERROR;
-    }
-
-private:
-    chip::app::DataModel::Nullable<chip::ByteSpan> mValue;
-};
-
-class SubscribeAttributePhotonSmartHomeId : public SubscribeAttribute {
-public:
-    SubscribeAttributePhotonSmartHomeId()
-        : SubscribeAttribute("home-id")
-    {
-    }
-
-    ~SubscribeAttributePhotonSmartHomeId()
-    {
-    }
-
-    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
-        constexpr chip::CommandId attributeId = chip::app::Clusters::PhotonSmart::Attributes::HomeId::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::PhotonSmart::Attributes::DeviceId::Id;
 
         ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
         dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
@@ -175473,10 +175429,10 @@ public:
         if (mAutoResubscribe.HasValue()) {
             params.resubscribeAutomatically = mAutoResubscribe.Value();
         }
-        [cluster subscribeAttributeHomeIdWithParams:params
+        [cluster subscribeAttributeDeviceIdWithParams:params
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSString * _Nullable value, NSError * _Nullable error) {
-                NSLog(@"PhotonSmart.HomeId response %@", [value description]);
+                NSLog(@"PhotonSmart.DeviceId response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -175646,16 +175602,10 @@ public:
         value.port = [NSNumber numberWithUnsignedShort:mValue.port];
         value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(mValue.transport)];
         value.keepAlive = [NSNumber numberWithUnsignedShort:mValue.keepAlive];
-        value.lastWillTopic = [[NSString alloc] initWithBytes:mValue.lastWillTopic.data() length:mValue.lastWillTopic.size() encoding:NSUTF8StringEncoding];
-        value.lastWillMsg = [NSData dataWithBytes:mValue.lastWillMsg.data() length:mValue.lastWillMsg.size()];
-        value.lastWillMsgLen = [NSNumber numberWithUnsignedShort:mValue.lastWillMsgLen];
-        value.lastWillQOS = [NSNumber numberWithUnsignedChar:mValue.lastWillQOS];
-        value.lastWillRetain = [NSNumber numberWithBool:mValue.lastWillRetain];
         value.cleanSession = [NSNumber numberWithBool:mValue.cleanSession];
         value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:mValue.reconnectTimeoutMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:mValue.timeoutMS];
         value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:mValue.refreshConnectionAfterMS];
-        value.replyTo = [[NSString alloc] initWithBytes:mValue.replyTo.data() length:mValue.replyTo.size() encoding:NSUTF8StringEncoding];
 
         [cluster writeAttributeMqttConfigWithValue:value params:params completion:^(NSError * _Nullable error) {
             if (error != nil) {
@@ -209655,9 +209605,8 @@ void registerClusterPhotonSmart(Commands & commands)
         make_unique<WriteAttribute>(Id), //
         make_unique<SubscribeAttribute>(Id), //
 #if MTR_ENABLE_PROVISIONAL
-        make_unique<ReadPhotonSmartHomeId>(), //
-        make_unique<WritePhotonSmartHomeId>(), //
-        make_unique<SubscribeAttributePhotonSmartHomeId>(), //
+        make_unique<ReadPhotonSmartDeviceId>(), //
+        make_unique<SubscribeAttributePhotonSmartDeviceId>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadPhotonSmartShouldReboot>(), //

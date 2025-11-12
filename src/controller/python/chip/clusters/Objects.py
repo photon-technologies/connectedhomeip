@@ -52885,7 +52885,7 @@ class PhotonSmart(Cluster):
     def descriptor(cls) -> ClusterObjectDescriptor:
         return ClusterObjectDescriptor(
             Fields=[
-                ClusterObjectFieldDescriptor(Label="homeId", Tag=0x00000000, Type=typing.Union[Nullable, str]),
+                ClusterObjectFieldDescriptor(Label="deviceId", Tag=0x00000000, Type=str),
                 ClusterObjectFieldDescriptor(Label="shouldReboot", Tag=0x00000001, Type=bool),
                 ClusterObjectFieldDescriptor(Label="mqttConfig", Tag=0x00000002, Type=PhotonSmart.Structs.PhotonMQTTStruct),
                 ClusterObjectFieldDescriptor(Label="mqttReportEnabled", Tag=0x00000003, Type=bool),
@@ -52900,7 +52900,7 @@ class PhotonSmart(Cluster):
                 ClusterObjectFieldDescriptor(Label="clusterRevision", Tag=0x0000FFFD, Type=uint),
             ])
 
-    homeId: typing.Union[Nullable, str] = NullValue
+    deviceId: str = ""
     shouldReboot: bool = False
     mqttConfig: PhotonSmart.Structs.PhotonMQTTStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonMQTTStruct())
     mqttReportEnabled: bool = False
@@ -52976,32 +52976,20 @@ class PhotonSmart(Cluster):
                         ClusterObjectFieldDescriptor(Label="port", Tag=2, Type=uint),
                         ClusterObjectFieldDescriptor(Label="transport", Tag=3, Type=PhotonSmart.Enums.MqttTransport),
                         ClusterObjectFieldDescriptor(Label="keepAlive", Tag=4, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="lastWillTopic", Tag=5, Type=str),
-                        ClusterObjectFieldDescriptor(Label="lastWillMsg", Tag=6, Type=bytes),
-                        ClusterObjectFieldDescriptor(Label="lastWillMsgLen", Tag=7, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="lastWillQOS", Tag=8, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="lastWillRetain", Tag=9, Type=bool),
-                        ClusterObjectFieldDescriptor(Label="cleanSession", Tag=10, Type=bool),
-                        ClusterObjectFieldDescriptor(Label="reconnectTimeoutMS", Tag=11, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="timeoutMS", Tag=12, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="refreshConnectionAfterMS", Tag=13, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="replyTo", Tag=14, Type=str),
+                        ClusterObjectFieldDescriptor(Label="cleanSession", Tag=5, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="reconnectTimeoutMS", Tag=6, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="timeoutMS", Tag=7, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="refreshConnectionAfterMS", Tag=8, Type=uint),
                     ])
 
             host: 'str' = ""
             port: 'uint' = 0
             transport: 'PhotonSmart.Enums.MqttTransport' = 0
             keepAlive: 'uint' = 0
-            lastWillTopic: 'str' = ""
-            lastWillMsg: 'bytes' = b""
-            lastWillMsgLen: 'uint' = 0
-            lastWillQOS: 'uint' = 0
-            lastWillRetain: 'bool' = False
             cleanSession: 'bool' = False
             reconnectTimeoutMS: 'uint' = 0
             timeoutMS: 'uint' = 0
             refreshConnectionAfterMS: 'uint' = 0
-            replyTo: 'str' = ""
 
     class Commands:
         @dataclass
@@ -53038,7 +53026,7 @@ class PhotonSmart(Cluster):
 
     class Attributes:
         @dataclass
-        class HomeId(ClusterAttributeDescriptor):
+        class DeviceId(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
                 return 0x15E7FC00
@@ -53049,9 +53037,9 @@ class PhotonSmart(Cluster):
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:
-                return ClusterObjectFieldDescriptor(Type=typing.Union[Nullable, str])
+                return ClusterObjectFieldDescriptor(Type=str)
 
-            value: typing.Union[Nullable, str] = NullValue
+            value: str = ""
 
         @dataclass
         class ShouldReboot(ClusterAttributeDescriptor):

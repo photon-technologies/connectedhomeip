@@ -22,7 +22,7 @@ import matter.tlv.Tag
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-class FreshMideaControllerClusterNotifyErrorEvent(val code: UByte) {
+class FreshMideaControllerClusterNotifyErrorEvent(val code: UShort) {
   override fun toString(): String = buildString {
     append("FreshMideaControllerClusterNotifyErrorEvent {\n")
     append("\tcode : $code\n")
@@ -42,7 +42,7 @@ class FreshMideaControllerClusterNotifyErrorEvent(val code: UByte) {
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): FreshMideaControllerClusterNotifyErrorEvent {
       tlvReader.enterStructure(tlvTag)
-      val code = tlvReader.getUByte(ContextSpecificTag(TAG_CODE))
+      val code = tlvReader.getUShort(ContextSpecificTag(TAG_CODE))
 
       tlvReader.exitContainer()
 

@@ -108655,9 +108655,9 @@ public:
                                         completion:responseHandler];
 }
 
-- (void)readAttributeHomeIdWithCompletion:(void (^)(NSString * _Nullable value, NSError * _Nullable error))completion
+- (void)readAttributeDeviceIdWithCompletion:(void (^)(NSString * _Nullable value, NSError * _Nullable error))completion
 {
-    using TypeInfo = PhotonSmart::Attributes::HomeId::TypeInfo;
+    using TypeInfo = PhotonSmart::Attributes::DeviceId::TypeInfo;
     [self.device _readKnownAttributeWithEndpointID:self.endpointID
                                          clusterID:@(TypeInfo::GetClusterId())
                                        attributeID:@(TypeInfo::GetAttributeId())
@@ -108666,44 +108666,11 @@ public:
                                         completion:completion];
 }
 
-- (void)writeAttributeHomeIdWithValue:(NSString * _Nullable)value completion:(MTRStatusCompletion)completion
+- (void)subscribeAttributeDeviceIdWithParams:(MTRSubscribeParams * _Nonnull)params
+                     subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
+                               reportHandler:(void (^)(NSString * _Nullable value, NSError * _Nullable error))reportHandler
 {
-    [self writeAttributeHomeIdWithValue:(NSString * _Nullable) value params:nil completion:completion];
-}
-- (void)writeAttributeHomeIdWithValue:(NSString * _Nullable)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = PhotonSmart::Attributes::HomeId::TypeInfo;
-        TypeInfo::Type cppValue;
-          if (value == nil) {
-            cppValue.SetNull();
-          } else {
-            auto & nonNullValue_0 = cppValue.SetNonNull();
-              nonNullValue_0 = AsCharSpan(value);
-          }
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
-}
-
-- (void)subscribeAttributeHomeIdWithParams:(MTRSubscribeParams * _Nonnull)params
-                   subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
-                             reportHandler:(void (^)(NSString * _Nullable value, NSError * _Nullable error))reportHandler
-{
-    using TypeInfo = PhotonSmart::Attributes::HomeId::TypeInfo;
+    using TypeInfo = PhotonSmart::Attributes::DeviceId::TypeInfo;
     [self.device _subscribeToKnownAttributeWithEndpointID:self.endpointID
                                                 clusterID:@(TypeInfo::GetClusterId())
                                               attributeID:@(TypeInfo::GetAttributeId())
@@ -108713,9 +108680,9 @@ public:
                                   subscriptionEstablished:subscriptionEstablished];
 }
 
-+ (void)readAttributeHomeIdWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSString * _Nullable value, NSError * _Nullable error))completion
++ (void)readAttributeDeviceIdWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSString * _Nullable value, NSError * _Nullable error))completion
 {
-    using TypeInfo = PhotonSmart::Attributes::HomeId::TypeInfo;
+    using TypeInfo = PhotonSmart::Attributes::DeviceId::TypeInfo;
     [clusterStateCacheContainer
         _readKnownCachedAttributeWithEndpointID:static_cast<chip::EndpointId>([endpoint unsignedShortValue])
                                       clusterID:TypeInfo::GetClusterId()
@@ -108796,16 +108763,10 @@ public:
      cppValue.port = value.port.unsignedShortValue;
      cppValue.transport = static_cast<std::remove_reference_t<decltype(cppValue.transport)>>(value.transport.unsignedCharValue);
      cppValue.keepAlive = value.keepAlive.unsignedShortValue;
-     cppValue.lastWillTopic = AsCharSpan(value.lastWillTopic);
-     cppValue.lastWillMsg = AsByteSpan(value.lastWillMsg);
-     cppValue.lastWillMsgLen = value.lastWillMsgLen.unsignedShortValue;
-     cppValue.lastWillQOS = value.lastWillQOS.unsignedCharValue;
-     cppValue.lastWillRetain = value.lastWillRetain.boolValue;
      cppValue.cleanSession = value.cleanSession.boolValue;
      cppValue.reconnectTimeoutMS = value.reconnectTimeoutMS.unsignedIntValue;
      cppValue.timeoutMS = value.timeoutMS.unsignedIntValue;
      cppValue.refreshConnectionAfterMS = value.refreshConnectionAfterMS.unsignedIntValue;
-     cppValue.replyTo = AsCharSpan(value.replyTo);
 
         chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
         return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });

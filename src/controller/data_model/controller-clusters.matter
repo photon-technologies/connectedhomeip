@@ -11340,19 +11340,13 @@ cluster PhotonSmart = 367524864 {
     int16u port = 2;
     MqttTransport transport = 3;
     int16u keepAlive = 4;
-    char_string<254> lastWillTopic = 5;
-    octet_string<1000> lastWillMsg = 6;
-    int16u lastWillMsgLen = 7;
-    int8u lastWillQOS = 8;
-    boolean lastWillRetain = 9;
-    boolean cleanSession = 10;
-    int32u reconnectTimeoutMS = 11;
-    int32u timeoutMS = 12;
-    int32u refreshConnectionAfterMS = 13;
-    char_string<128> replyTo = 14;
+    boolean cleanSession = 5;
+    int32u reconnectTimeoutMS = 6;
+    int32u timeoutMS = 7;
+    int32u refreshConnectionAfterMS = 8;
   }
 
-  attribute access(read: administer, write: administer) nullable char_string<150> homeId = 0;
+  readonly attribute access(read: administer) char_string<36> deviceId = 0;
   readonly attribute boolean shouldReboot = 1;
   attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
   attribute access(read: administer, write: administer) boolean mqttReportEnabled = 3;
@@ -11546,7 +11540,7 @@ cluster FreshMideaController = 367524868 {
   }
 
   info event NotifyError = 2 {
-    int8u code = 0;
+    int16u code = 0;
   }
 
   attribute boolean beep = 0;

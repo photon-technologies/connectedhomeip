@@ -804,10 +804,12 @@
         "TLS Client Management": ["ClusterRevision", "MaxProvisioned"],
         "Thermostat": ["CurrentThermostatSuggestion"],
         "Photon Smart": [
+            "DeviceId",
             "MqttConfig",
             "InsightsEnabled",
             "InsightsParams",
-            "MqttReportEnabled"
+            "MqttReportEnabled",
+            "PublicIpv4Enabled"
         ],
         "Fresh Water Heater Controller": [
             "DefaultBoostModeSetpoint",

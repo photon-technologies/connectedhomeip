@@ -14608,11 +14608,10 @@ class ChipClusters:
         },
         "attributes": {
             0x00000000: {
-                "attributeName": "HomeId",
+                "attributeName": "DeviceId",
                 "attributeId": 0x00000000,
                 "type": "str",
                 "reportable": True,
-                "writable": True,
             },
             0x00000001: {
                 "attributeName": "ShouldReboot",

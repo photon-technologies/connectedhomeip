@@ -4798,8 +4798,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
     case chip::app::Clusters::PhotonSmart::Id: {
         switch (id)
         {
-        case chip::app::Clusters::PhotonSmart::Attributes::HomeId::Id:
-            return "HomeId";
+        case chip::app::Clusters::PhotonSmart::Attributes::DeviceId::Id:
+            return "DeviceId";
         case chip::app::Clusters::PhotonSmart::Attributes::ShouldReboot::Id:
             return "ShouldReboot";
         case chip::app::Clusters::PhotonSmart::Attributes::MqttConfig::Id:

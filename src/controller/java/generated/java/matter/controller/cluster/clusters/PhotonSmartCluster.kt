@@ -28,6 +28,7 @@ import matter.controller.InvokeResponse
 import matter.controller.MatterController
 import matter.controller.ReadData
 import matter.controller.ReadRequest
+import matter.controller.StringSubscriptionState
 import matter.controller.SubscribeRequest
 import matter.controller.SubscriptionState
 import matter.controller.UIntSubscriptionState
@@ -44,16 +45,6 @@ import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
 class PhotonSmartCluster(private val controller: MatterController, private val endpointId: UShort) {
-  class HomeIdAttribute(val value: String?)
-
-  sealed class HomeIdAttributeSubscriptionState {
-    data class Success(val value: String?) : HomeIdAttributeSubscriptionState()
-
-    data class Error(val exception: Exception) : HomeIdAttributeSubscriptionState()
-
-    object SubscriptionEstablished : HomeIdAttributeSubscriptionState()
-  }
-
   class MqttConfigAttribute(val value: PhotonSmartClusterPhotonMQTTStruct)
 
   sealed class MqttConfigAttributeSubscriptionState {
@@ -148,7 +139,7 @@ class PhotonSmartCluster(private val controller: MatterController, private val e
     logger.log(Level.FINE, "Invoke command succeeded: ${response}")
   }
 
-  suspend fun readHomeIdAttribute(): HomeIdAttribute {
+  suspend fun readDeviceIdAttribute(): String {
     val ATTRIBUTE_ID: UInt = 0u
 
     val attributePath =
@@ -170,65 +161,19 @@ class PhotonSmartCluster(private val controller: MatterController, private val e
         it.path.attributeId == ATTRIBUTE_ID
       }
 
-    requireNotNull(attributeData) { "Homeid attribute not found in response" }
+    requireNotNull(attributeData) { "Deviceid attribute not found in response" }
 
     // Decode the TLV data into the appropriate type
     val tlvReader = TlvReader(attributeData.data)
-    val decodedValue: String? =
-      if (!tlvReader.isNull()) {
-        tlvReader.getString(AnonymousTag)
-      } else {
-        tlvReader.getNull(AnonymousTag)
-        null
-      }
+    val decodedValue: String = tlvReader.getString(AnonymousTag)
 
-    return HomeIdAttribute(decodedValue)
+    return decodedValue
   }
 
-  suspend fun writeHomeIdAttribute(value: String, timedWriteTimeout: Duration? = null) {
-    val ATTRIBUTE_ID: UInt = 0u
-
-    val tlvWriter = TlvWriter()
-    tlvWriter.put(AnonymousTag, value)
-
-    val writeRequests: WriteRequests =
-      WriteRequests(
-        requests =
-          listOf(
-            WriteRequest(
-              attributePath =
-                AttributePath(endpointId, clusterId = CLUSTER_ID, attributeId = ATTRIBUTE_ID),
-              tlvPayload = tlvWriter.getEncoded(),
-            )
-          ),
-        timedRequest = timedWriteTimeout,
-      )
-
-    val response: WriteResponse = controller.write(writeRequests)
-
-    when (response) {
-      is WriteResponse.Success -> {
-        logger.log(Level.FINE, "Write command succeeded")
-      }
-      is WriteResponse.PartialWriteFailure -> {
-        val aggregatedErrorMessage =
-          response.failures.joinToString("\n") { failure ->
-            "Error at ${failure.attributePath}: ${failure.ex.message}"
-          }
-
-        response.failures.forEach { failure ->
-          logger.log(Level.WARNING, "Error at ${failure.attributePath}: ${failure.ex.message}")
-        }
-
-        throw IllegalStateException("Write command failed with errors: \n$aggregatedErrorMessage")
-      }
-    }
-  }
-
-  suspend fun subscribeHomeIdAttribute(
+  suspend fun subscribeDeviceIdAttribute(
     minInterval: Int,
     maxInterval: Int,
-  ): Flow<HomeIdAttributeSubscriptionState> {
+  ): Flow<StringSubscriptionState> {
     val ATTRIBUTE_ID: UInt = 0u
     val attributePaths =
       listOf(
@@ -247,7 +192,7 @@ class PhotonSmartCluster(private val controller: MatterController, private val e
       when (subscriptionState) {
         is SubscriptionState.SubscriptionErrorNotification -> {
           emit(
-            HomeIdAttributeSubscriptionState.Error(
+            StringSubscriptionState.Error(
               Exception(
                 "Subscription terminated with error code: ${subscriptionState.terminationCause}"
               )
@@ -260,22 +205,16 @@ class PhotonSmartCluster(private val controller: MatterController, private val e
               .filterIsInstance<ReadData.Attribute>()
               .firstOrNull { it.path.attributeId == ATTRIBUTE_ID }
 
-          requireNotNull(attributeData) { "Homeid attribute not found in Node State update" }
+          requireNotNull(attributeData) { "Deviceid attribute not found in Node State update" }
 
           // Decode the TLV data into the appropriate type
           val tlvReader = TlvReader(attributeData.data)
-          val decodedValue: String? =
-            if (!tlvReader.isNull()) {
-              tlvReader.getString(AnonymousTag)
-            } else {
-              tlvReader.getNull(AnonymousTag)
-              null
-            }
+          val decodedValue: String = tlvReader.getString(AnonymousTag)
 
-          decodedValue?.let { emit(HomeIdAttributeSubscriptionState.Success(it)) }
+          emit(StringSubscriptionState.Success(decodedValue))
         }
         SubscriptionState.SubscriptionEstablished -> {
-          emit(HomeIdAttributeSubscriptionState.SubscriptionEstablished)
+          emit(StringSubscriptionState.SubscriptionEstablished)
         }
       }
     }

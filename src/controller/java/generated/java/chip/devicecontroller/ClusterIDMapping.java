@@ -20426,7 +20426,7 @@ public class ClusterIDMapping {
         }
 
         public enum Attribute {
-            HomeId(0L),
+            DeviceId(0L),
             ShouldReboot(1L),
             MqttConfig(2L),
             MqttReportEnabled(3L),

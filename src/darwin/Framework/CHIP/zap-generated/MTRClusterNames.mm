@@ -9042,8 +9042,8 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         switch (attributeID) {
 
             // Cluster PhotonSmart attributes
-        case MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID:
-            result = @"HomeId";
+        case MTRAttributeIDTypeClusterPhotonSmartAttributeDeviceIdID:
+            result = @"DeviceId";
             break;
 
         case MTRAttributeIDTypeClusterPhotonSmartAttributeShouldRebootID:

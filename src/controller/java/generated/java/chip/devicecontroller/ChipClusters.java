@@ -65660,7 +65660,7 @@ public class ChipClusters {
   public static class PhotonSmartCluster extends BaseChipCluster {
     public static final long CLUSTER_ID = 367524864L;
 
-    private static final long HOME_ID_ATTRIBUTE_ID = 0L;
+    private static final long DEVICE_ID_ATTRIBUTE_ID = 0L;
     private static final long SHOULD_REBOOT_ATTRIBUTE_ID = 1L;
     private static final long MQTT_CONFIG_ATTRIBUTE_ID = 2L;
     private static final long MQTT_REPORT_ENABLED_ATTRIBUTE_ID = 3L;
@@ -65724,10 +65724,6 @@ public class ChipClusters {
         }}, commandId, commandArgs, timedInvokeTimeoutMs);
     }
 
-    public interface HomeIdAttributeCallback extends BaseAttributeCallback {
-      void onSuccess(@Nullable String value);
-    }
-
     public interface MqttConfigAttributeCallback extends BaseAttributeCallback {
       void onSuccess(ChipStructs.PhotonSmartClusterPhotonMQTTStruct value);
     }
@@ -65748,39 +65744,30 @@ public class ChipClusters {
       void onSuccess(List<Long> value);
     }
 
-    public void readHomeIdAttribute(
-        HomeIdAttributeCallback callback) {
-      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, HOME_ID_ATTRIBUTE_ID);
+    public void readDeviceIdAttribute(
+        CharStringAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEVICE_ID_ATTRIBUTE_ID);
 
       readAttribute(new ReportCallbackImpl(callback, path) {
           @Override
           public void onSuccess(byte[] tlv) {
-            @Nullable String value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            String value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
-        }, HOME_ID_ATTRIBUTE_ID, true);
+        }, DEVICE_ID_ATTRIBUTE_ID, true);
     }
 
-    public void writeHomeIdAttribute(DefaultClusterCallback callback, String value) {
-      writeHomeIdAttribute(callback, value, 0);
-    }
-
-    public void writeHomeIdAttribute(DefaultClusterCallback callback, String value, int timedWriteTimeoutMs) {
-      BaseTLVType tlvValue = value != null ? new StringType(value) : new NullType();
-      writeAttribute(new WriteAttributesCallbackImpl(callback), HOME_ID_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
-    }
-
-    public void subscribeHomeIdAttribute(
-        HomeIdAttributeCallback callback, int minInterval, int maxInterval) {
-      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, HOME_ID_ATTRIBUTE_ID);
+    public void subscribeDeviceIdAttribute(
+        CharStringAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DEVICE_ID_ATTRIBUTE_ID);
 
       subscribeAttribute(new ReportCallbackImpl(callback, path) {
           @Override
           public void onSuccess(byte[] tlv) {
-            @Nullable String value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            String value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
-        }, HOME_ID_ATTRIBUTE_ID, minInterval, maxInterval);
+        }, DEVICE_ID_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readShouldRebootAttribute(

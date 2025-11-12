@@ -13,16 +13,10 @@
     <item fieldId="2" name="Port" type="int16u"/>
     <item fieldId="3" name="Transport" type="MqttTransport" default="0"/>
     <item fieldId="4" name="KeepAlive" type="int16u"/>
-    <item fieldId="5" name="LastWillTopic" type="char_string" length="254"/>
-    <item fieldId="6" name="LastWillMsg" type="octet_string" length="1000"/>
-    <item fieldId="7" name="LastWillMsgLen" type="int16u" min="1" max="1000"/>
-    <item fieldId="8" name="LastWillQOS" type="int8u" min="0" max="2" default="1"/>
-    <item fieldId="9" name="LastWillRetain" type="boolean" default="0"/>
-    <item fieldId="10" name="CleanSession" type="boolean" default="1"/>
-    <item fieldId="11" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
-    <item fieldId="12" name="TimeoutMS" type="int32u" default="10000"/>
-    <item fieldId="13" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
-    <item fieldId="14" name="replyTo" type="char_string" length="128"/>
+    <item fieldId="5" name="CleanSession" type="boolean" default="1"/>
+    <item fieldId="6" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
+    <item fieldId="7" name="TimeoutMS" type="int32u" default="10000"/>
+    <item fieldId="8" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
   </struct>
   <struct name="PhotonInsightsParamsStruct">
   <cluster code="0x15E7FC00"/>
@@ -55,10 +49,9 @@
 
     <globalAttribute code="0xFFFD" side="either" value="1"/>
 
-    <attribute side="server" code="0x0000" name="HomeId" define="HOME_ID" type="char_string" length="150" isNullable="true" writable="true">
-      <description>HomeId</description>
+    <attribute side="server" code="0x0000" name="DeviceId" define="DEVICE_ID" type="char_string" length="36">
+      <description>DeviceId</description>
       <access op="read" privilege="administer"/>
-      <access op="write" privilege="administer"/>
       <mandatoryConform/>
     </attribute>
 

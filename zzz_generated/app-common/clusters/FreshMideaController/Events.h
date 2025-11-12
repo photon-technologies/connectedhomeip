@@ -115,7 +115,7 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
     static constexpr bool kIsFabricScoped = false;
 
-    uint8_t code = static_cast<uint8_t>(0);
+    uint16_t code = static_cast<uint16_t>(0);
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
@@ -127,7 +127,7 @@ public:
     static constexpr EventId GetEventId() { return Events::NotifyError::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
 
-    uint8_t code = static_cast<uint8_t>(0);
+    uint16_t code = static_cast<uint16_t>(0);
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

@@ -12,9 +12,9 @@ namespace app {
 namespace Clusters {
 namespace PhotonSmart {
 namespace Attributes {
-namespace HomeId {
+namespace DeviceId {
 inline constexpr AttributeId Id = 0x00000000;
-} // namespace HomeId
+} // namespace DeviceId
 
 namespace ShouldReboot {
 inline constexpr AttributeId Id = 0x00000001;

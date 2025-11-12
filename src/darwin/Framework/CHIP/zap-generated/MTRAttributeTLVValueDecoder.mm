@@ -20885,23 +20885,19 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
 {
     using namespace Clusters::PhotonSmart;
     switch (aAttributeId) {
-    case Attributes::HomeId::Id: {
-        using TypeInfo = Attributes::HomeId::TypeInfo;
+    case Attributes::DeviceId::Id: {
+        using TypeInfo = Attributes::DeviceId::TypeInfo;
         TypeInfo::DecodableType cppValue;
         *aError = DataModel::Decode(aReader, cppValue);
         if (*aError != CHIP_NO_ERROR) {
             return nil;
         }
-        NSString * _Nullable value;
-        if (cppValue.IsNull()) {
-            value = nil;
-        } else {
-            value = AsString(cppValue.Value());
-            if (value == nil) {
-                CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
-                *aError = err;
-                return nil;
-            }
+        NSString * _Nonnull value;
+        value = AsString(cppValue);
+        if (value == nil) {
+            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+            *aError = err;
+            return nil;
         }
         return value;
     }
@@ -20934,26 +20930,10 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.port = [NSNumber numberWithUnsignedShort:cppValue.port];
         value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue.transport)];
         value.keepAlive = [NSNumber numberWithUnsignedShort:cppValue.keepAlive];
-        value.lastWillTopic = AsString(cppValue.lastWillTopic);
-        if (value.lastWillTopic == nil) {
-            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
-            *aError = err;
-            return nil;
-        }
-        value.lastWillMsg = AsData(cppValue.lastWillMsg);
-        value.lastWillMsgLen = [NSNumber numberWithUnsignedShort:cppValue.lastWillMsgLen];
-        value.lastWillQOS = [NSNumber numberWithUnsignedChar:cppValue.lastWillQOS];
-        value.lastWillRetain = [NSNumber numberWithBool:cppValue.lastWillRetain];
         value.cleanSession = [NSNumber numberWithBool:cppValue.cleanSession];
         value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
         value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:cppValue.refreshConnectionAfterMS];
-        value.replyTo = AsString(cppValue.replyTo);
-        if (value.replyTo == nil) {
-            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
-            *aError = err;
-            return nil;
-        }
         return value;
     }
     case Attributes::MqttReportEnabled::Id: {

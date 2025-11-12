@@ -43,19 +43,19 @@ namespace Clusters {
 namespace PhotonSmart {
 namespace Attributes {
 
-namespace HomeId {
+namespace DeviceId {
 struct TypeInfo
 {
-    using Type             = chip::app::DataModel::Nullable<chip::CharSpan>;
-    using DecodableType    = chip::app::DataModel::Nullable<chip::CharSpan>;
-    using DecodableArgType = const chip::app::DataModel::Nullable<chip::CharSpan> &;
+    using Type             = chip::CharSpan;
+    using DecodableType    = chip::CharSpan;
+    using DecodableArgType = chip::CharSpan;
 
     static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
-    static constexpr AttributeId GetAttributeId() { return Attributes::HomeId::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::DeviceId::Id; }
     static constexpr bool MustUseTimedWrite() { return false; }
-    static constexpr size_t MaxLength() { return 150; }
+    static constexpr size_t MaxLength() { return 36; }
 };
-} // namespace HomeId
+} // namespace DeviceId
 namespace ShouldReboot {
 struct TypeInfo
 {
@@ -179,7 +179,7 @@ struct TypeInfo
 
         CHIP_ERROR Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path);
 
-        Attributes::HomeId::TypeInfo::DecodableType homeId;
+        Attributes::DeviceId::TypeInfo::DecodableType deviceId;
         Attributes::ShouldReboot::TypeInfo::DecodableType shouldReboot = static_cast<bool>(0);
         Attributes::MqttConfig::TypeInfo::DecodableType mqttConfig;
         Attributes::MqttReportEnabled::TypeInfo::DecodableType mqttReportEnabled = static_cast<bool>(0);

@@ -2729,16 +2729,10 @@ MTR_PROVISIONALLY_AVAILABLE
 @property (nonatomic, copy) NSNumber * _Nonnull port MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull transport MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull keepAlive MTR_PROVISIONALLY_AVAILABLE;
-@property (nonatomic, copy) NSString * _Nonnull lastWillTopic MTR_PROVISIONALLY_AVAILABLE;
-@property (nonatomic, copy) NSData * _Nonnull lastWillMsg MTR_PROVISIONALLY_AVAILABLE;
-@property (nonatomic, copy) NSNumber * _Nonnull lastWillMsgLen MTR_PROVISIONALLY_AVAILABLE;
-@property (nonatomic, copy) NSNumber * _Nonnull lastWillQOS MTR_PROVISIONALLY_AVAILABLE;
-@property (nonatomic, copy) NSNumber * _Nonnull lastWillRetain MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull cleanSession MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull reconnectTimeoutMS MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull timeoutMS MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull refreshConnectionAfterMS MTR_PROVISIONALLY_AVAILABLE;
-@property (nonatomic, copy) NSString * _Nonnull replyTo MTR_PROVISIONALLY_AVAILABLE;
 @end
 
 MTR_PROVISIONALLY_AVAILABLE

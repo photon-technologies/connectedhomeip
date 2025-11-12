@@ -95,35 +95,23 @@ enum class Fields : uint8_t
     kPort                     = 2,
     kTransport                = 3,
     kKeepAlive                = 4,
-    kLastWillTopic            = 5,
-    kLastWillMsg              = 6,
-    kLastWillMsgLen           = 7,
-    kLastWillQOS              = 8,
-    kLastWillRetain           = 9,
-    kCleanSession             = 10,
-    kReconnectTimeoutMS       = 11,
-    kTimeoutMS                = 12,
-    kRefreshConnectionAfterMS = 13,
-    kReplyTo                  = 14,
+    kCleanSession             = 5,
+    kReconnectTimeoutMS       = 6,
+    kTimeoutMS                = 7,
+    kRefreshConnectionAfterMS = 8,
 };
 
 struct Type
 {
 public:
     chip::CharSpan host;
-    uint16_t port           = static_cast<uint16_t>(0);
-    MqttTransport transport = static_cast<MqttTransport>(0);
-    uint16_t keepAlive      = static_cast<uint16_t>(0);
-    chip::CharSpan lastWillTopic;
-    chip::ByteSpan lastWillMsg;
-    uint16_t lastWillMsgLen           = static_cast<uint16_t>(0);
-    uint8_t lastWillQOS               = static_cast<uint8_t>(0);
-    bool lastWillRetain               = static_cast<bool>(0);
+    uint16_t port                     = static_cast<uint16_t>(0);
+    MqttTransport transport           = static_cast<MqttTransport>(0);
+    uint16_t keepAlive                = static_cast<uint16_t>(0);
     bool cleanSession                 = static_cast<bool>(0);
     uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(0);
     uint32_t timeoutMS                = static_cast<uint32_t>(0);
     uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
-    chip::CharSpan replyTo;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 

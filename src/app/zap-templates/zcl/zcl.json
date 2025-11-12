@@ -803,6 +803,7 @@
         "TLS Client Management": ["ClusterRevision", "MaxProvisioned"],
         "Thermostat": ["CurrentThermostatSuggestion"],
         "Photon Smart": [
+            "DeviceId",
             "MqttConfig",
             "InsightsEnabled",
             "InsightsParams",

@@ -5299,7 +5299,7 @@ static id _Nullable DecodeEventPayloadForFreshMideaControllerCluster(EventId aEv
 
         do {
             NSNumber * _Nonnull memberValue;
-            memberValue = [NSNumber numberWithUnsignedChar:cppValue.code];
+            memberValue = [NSNumber numberWithUnsignedShort:cppValue.code];
             value.code = memberValue;
         } while (0);
 

@@ -11498,16 +11498,6 @@ NS_ASSUME_NONNULL_BEGIN
 
         _keepAlive = @(0);
 
-        _lastWillTopic = @"";
-
-        _lastWillMsg = [NSData data];
-
-        _lastWillMsgLen = @(0);
-
-        _lastWillQOS = @(0);
-
-        _lastWillRetain = @(0);
-
         _cleanSession = @(0);
 
         _reconnectTimeoutMS = @(0);
@@ -11515,8 +11505,6 @@ NS_ASSUME_NONNULL_BEGIN
         _timeoutMS = @(0);
 
         _refreshConnectionAfterMS = @(0);
-
-        _replyTo = @"";
     }
     return self;
 }
@@ -11529,23 +11517,17 @@ NS_ASSUME_NONNULL_BEGIN
     other.port = self.port;
     other.transport = self.transport;
     other.keepAlive = self.keepAlive;
-    other.lastWillTopic = self.lastWillTopic;
-    other.lastWillMsg = self.lastWillMsg;
-    other.lastWillMsgLen = self.lastWillMsgLen;
-    other.lastWillQOS = self.lastWillQOS;
-    other.lastWillRetain = self.lastWillRetain;
     other.cleanSession = self.cleanSession;
     other.reconnectTimeoutMS = self.reconnectTimeoutMS;
     other.timeoutMS = self.timeoutMS;
     other.refreshConnectionAfterMS = self.refreshConnectionAfterMS;
-    other.replyTo = self.replyTo;
 
     return other;
 }
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; lastWillTopic:%@; lastWillMsg:%@; lastWillMsgLen:%@; lastWillQOS:%@; lastWillRetain:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; replyTo:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _lastWillTopic, [_lastWillMsg base64EncodedStringWithOptions:0], _lastWillMsgLen, _lastWillQOS, _lastWillRetain, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _replyTo];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS];
     return descriptionString;
 }
 

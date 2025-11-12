@@ -33,16 +33,11 @@
 static constexpr char * const MQTT_HOST_NVS_KEY                     = "mqtt_host";
 static constexpr char * const MQTT_PORT_NVS_KEY                     = "mqtt_port";
 static constexpr char * const MQTT_TRANSPORT_NVS_KEY                = "mqtt_transport";
-static constexpr char * const MQTT_LAST_WILL_TOPIC_NVS_KEY          = "lwt_topic";
-static constexpr char * const MQTT_LAST_WILL_MSG_NVS_KEY            = "lwt_msg";
-static constexpr char * const MQTT_LAST_WILL_QOS_NVS_KEY            = "lwt_qos";
-static constexpr char * const MQTT_LAST_WILL_RETAIN_NVS_KEY         = "lwt_retain";
 static constexpr char * const MQTT_CLEAN_SESSION_NVS_KEY            = "clean_session";
 static constexpr char * const MQTT_KEEP_ALIVE_NVS_KEY               = "keep_alive";
 static constexpr char * const MQTT_RECONNECT_TIMEOUT_NVS_KEY        = "recon_timeout";
 static constexpr char * const MQTT_NETWORK_TIMEOUT_NVS_KEY          = "net_timeout";
 static constexpr char * const MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY = "ref_con_after";
-static constexpr char * const MQTT_REPLY_TO_NVS_KEY                 = "mqtt_reply_to";
 static constexpr char * const MQTT_ENABLED_NVS_KEY                  = "mqtt_en";
 static constexpr char * const INSIGHTS_ENABLED_NVS_KEY              = "insights_en";
 static constexpr char * const INSIGHTS_PARAMS_NVS_KEY               = "insights_params";
@@ -109,18 +104,10 @@ private:
     uint16_t port      = static_cast<uint16_t>(8883);
     uint8_t transport  = static_cast<uint8_t>(2);
     uint16_t keepAlive = static_cast<uint16_t>(120);
-    uint8_t lastWillTopic[254];
-    size_t lastWillTopicLen = 0;
-    uint8_t lastWillMsg[1000];
-    size_t lastWillMsgLen             = 0;
-    uint8_t lastWillQOS               = static_cast<uint8_t>(0);
-    bool lastWillRetain               = static_cast<bool>(0);
     bool cleanSession                 = static_cast<bool>(1);
     uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(10000);
     uint32_t timeoutMS                = static_cast<uint32_t>(10000);
     uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
-    uint8_t replyTo[128];   
-    size_t replyToLen = 0;
     
     photon_insights_params_t insightsParams;
     bool insightsEnabled = true;
@@ -133,6 +120,8 @@ private:
     CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
     CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override;
 };
+
+void SetDelegate(Delegate * delegate);
 
 } // namespace PhotonSmart
 } // namespace Clusters

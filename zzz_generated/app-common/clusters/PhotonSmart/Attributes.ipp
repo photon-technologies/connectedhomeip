@@ -32,8 +32,8 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
 {
     switch (path.mAttributeId)
     {
-    case Attributes::HomeId::TypeInfo::GetAttributeId():
-        return DataModel::Decode(reader, homeId);
+    case Attributes::DeviceId::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, deviceId);
     case Attributes::ShouldReboot::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, shouldReboot);
     case Attributes::MqttConfig::TypeInfo::GetAttributeId():

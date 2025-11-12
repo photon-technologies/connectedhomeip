@@ -4921,7 +4921,7 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterCommodityMeteringAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
 
     // Cluster PhotonSmart attributes
-    MTRAttributeIDTypeClusterPhotonSmartAttributeHomeIdID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeDeviceIdID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRAttributeIDTypeClusterPhotonSmartAttributeShouldRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
     MTRAttributeIDTypeClusterPhotonSmartAttributeMqttConfigID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
     MTRAttributeIDTypeClusterPhotonSmartAttributeMqttReportEnabledID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,

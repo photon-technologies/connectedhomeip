@@ -51179,8 +51179,8 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
         using namespace app::Clusters::PhotonSmart;
         switch (aPath.mAttributeId)
         {
-        case Attributes::HomeId::Id: {
-            using TypeInfo = Attributes::HomeId::TypeInfo;
+        case Attributes::DeviceId::Id: {
+            using TypeInfo = Attributes::DeviceId::TypeInfo;
             TypeInfo::DecodableType cppValue;
             *aError = app::DataModel::Decode(aReader, cppValue);
             if (*aError != CHIP_NO_ERROR)
@@ -51188,14 +51188,7 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                 return nullptr;
             }
             jobject value;
-            if (cppValue.IsNull())
-            {
-                value = nullptr;
-            }
-            else
-            {
-                LogErrorOnFailure(chip::JniReferences::GetInstance().CharToStringUTF(cppValue.Value(), value));
-            }
+            LogErrorOnFailure(chip::JniReferences::GetInstance().CharToStringUTF(cppValue, value));
             return value;
         }
         case Attributes::ShouldReboot::Id: {
@@ -51243,34 +51236,6 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
             jint jnivalue_keepAlive                  = static_cast<jint>(cppValue.keepAlive);
             chip::JniReferences::GetInstance().CreateBoxedObject<jint>(
                 value_keepAliveClassName.c_str(), value_keepAliveCtorSignature.c_str(), jnivalue_keepAlive, value_keepAlive);
-            jobject value_lastWillTopic;
-            LogErrorOnFailure(chip::JniReferences::GetInstance().CharToStringUTF(cppValue.lastWillTopic, value_lastWillTopic));
-            jobject value_lastWillMsg;
-            jbyteArray value_lastWillMsgByteArray = env->NewByteArray(static_cast<jsize>(cppValue.lastWillMsg.size()));
-            env->SetByteArrayRegion(value_lastWillMsgByteArray, 0, static_cast<jsize>(cppValue.lastWillMsg.size()),
-                                    reinterpret_cast<const jbyte *>(cppValue.lastWillMsg.data()));
-            value_lastWillMsg = value_lastWillMsgByteArray;
-            jobject value_lastWillMsgLen;
-            std::string value_lastWillMsgLenClassName     = "java/lang/Integer";
-            std::string value_lastWillMsgLenCtorSignature = "(I)V";
-            jint jnivalue_lastWillMsgLen                  = static_cast<jint>(cppValue.lastWillMsgLen);
-            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_lastWillMsgLenClassName.c_str(),
-                                                                       value_lastWillMsgLenCtorSignature.c_str(),
-                                                                       jnivalue_lastWillMsgLen, value_lastWillMsgLen);
-            jobject value_lastWillQOS;
-            std::string value_lastWillQOSClassName     = "java/lang/Integer";
-            std::string value_lastWillQOSCtorSignature = "(I)V";
-            jint jnivalue_lastWillQOS                  = static_cast<jint>(cppValue.lastWillQOS);
-            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_lastWillQOSClassName.c_str(),
-                                                                       value_lastWillQOSCtorSignature.c_str(), jnivalue_lastWillQOS,
-                                                                       value_lastWillQOS);
-            jobject value_lastWillRetain;
-            std::string value_lastWillRetainClassName     = "java/lang/Boolean";
-            std::string value_lastWillRetainCtorSignature = "(Z)V";
-            jboolean jnivalue_lastWillRetain              = static_cast<jboolean>(cppValue.lastWillRetain);
-            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_lastWillRetainClassName.c_str(),
-                                                                           value_lastWillRetainCtorSignature.c_str(),
-                                                                           jnivalue_lastWillRetain, value_lastWillRetain);
             jobject value_cleanSession;
             std::string value_cleanSessionClassName     = "java/lang/Boolean";
             std::string value_cleanSessionCtorSignature = "(Z)V";
@@ -51298,8 +51263,6 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
             chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
                 value_refreshConnectionAfterMSClassName.c_str(), value_refreshConnectionAfterMSCtorSignature.c_str(),
                 jnivalue_refreshConnectionAfterMS, value_refreshConnectionAfterMS);
-            jobject value_replyTo;
-            LogErrorOnFailure(chip::JniReferences::GetInstance().CharToStringUTF(cppValue.replyTo, value_replyTo));
 
             {
                 jclass photonMQTTStructStructClass_0;
@@ -51314,9 +51277,8 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                 jmethodID photonMQTTStructStructCtor_0;
                 err = chip::JniReferences::GetInstance().FindMethod(
                     env, photonMQTTStructStructClass_0, "<init>",
-                    "(Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;[BLjava/lang/"
-                    "Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/"
-                    "Long;Ljava/lang/String;)V",
+                    "(Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/"
+                    "Long;Ljava/lang/Long;Ljava/lang/Long;)V",
                     &photonMQTTStructStructCtor_0);
                 if (err != CHIP_NO_ERROR || photonMQTTStructStructCtor_0 == nullptr)
                 {
@@ -51325,9 +51287,8 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                 }
 
                 value = env->NewObject(photonMQTTStructStructClass_0, photonMQTTStructStructCtor_0, value_host, value_port,
-                                       value_transport, value_keepAlive, value_lastWillTopic, value_lastWillMsg,
-                                       value_lastWillMsgLen, value_lastWillQOS, value_lastWillRetain, value_cleanSession,
-                                       value_reconnectTimeoutMS, value_timeoutMS, value_refreshConnectionAfterMS, value_replyTo);
+                                       value_transport, value_keepAlive, value_cleanSession, value_reconnectTimeoutMS,
+                                       value_timeoutMS, value_refreshConnectionAfterMS);
             }
             return value;
         }

@@ -19307,17 +19307,17 @@ public class ClusterReadMapping {
        return result;
     }
     private static Map<String, InteractionInfo> readPhotonSmartInteractionInfo() {
-       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readPhotonSmartHomeIdCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readPhotonSmartHomeIdAttributeInteractionInfo = new InteractionInfo(
+       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readPhotonSmartDeviceIdCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonSmartDeviceIdAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {
-            ((ChipClusters.PhotonSmartCluster) cluster).readHomeIdAttribute(
-              (ChipClusters.PhotonSmartCluster.HomeIdAttributeCallback) callback
+            ((ChipClusters.PhotonSmartCluster) cluster).readDeviceIdAttribute(
+              (ChipClusters.CharStringAttributeCallback) callback
             );
           },
-          () -> new ClusterInfoMapping.DelegatedPhotonSmartClusterHomeIdAttributeCallback(),
-          readPhotonSmartHomeIdCommandParams
+          () -> new ClusterInfoMapping.DelegatedCharStringAttributeCallback(),
+          readPhotonSmartDeviceIdCommandParams
         );
-        result.put("readHomeIdAttribute", readPhotonSmartHomeIdAttributeInteractionInfo);
+        result.put("readDeviceIdAttribute", readPhotonSmartDeviceIdAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readPhotonSmartShouldRebootCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readPhotonSmartShouldRebootAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {
