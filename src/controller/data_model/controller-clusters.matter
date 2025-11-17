@@ -11531,6 +11531,7 @@ cluster FreshMideaController = 367524868 {
     kTemperatureUnit = 0x10;
     kActiveClean = 0x20;
     kPlasma = 0x40;
+    kBreezeAway = 0x80;
   }
 
   info event ActiveCleanStarted = 0 {
@@ -11558,6 +11559,7 @@ cluster FreshMideaController = 367524868 {
   readonly attribute int8u onTimerHours = 12;
   readonly attribute int8u onTimerMinutes = 13;
   attribute optional boolean plasmaMode = 14;
+  attribute optional boolean breezeAwayMode = 15;
   readonly attribute int16u errorCode = 16;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
@@ -11607,6 +11609,13 @@ cluster FreshWaterHeaterController = 367524869 {
     optional percent targetReheat = 5;
   }
 
+  info event AntiLegionellaCycleStarted = 0 {
+  }
+
+  info event AntiLegionellaCycleCompleted = 1 {
+    boolean status = 0;
+  }
+
   attribute temperature coldWaterTemperature = 0;
   attribute temperature showerTemperature = 1;
   attribute temperature showerHysteresis = 2;
@@ -11635,6 +11644,7 @@ cluster FreshWaterHeaterController = 367524869 {
   attribute int32u maximumBoostTime = 25;
   readonly attribute nullable WaterHeaterBoostInfoStruct currentBoostModeSetpoint = 26;
   readonly attribute int8u errorCode = 27;
+  readonly attribute AntiLegionellaStateEnum antiLegionellaState = 28;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

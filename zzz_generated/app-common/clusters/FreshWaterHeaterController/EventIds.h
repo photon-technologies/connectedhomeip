@@ -10,7 +10,16 @@ namespace chip {
 namespace app {
 namespace Clusters {
 namespace FreshWaterHeaterController {
-namespace Events {} // namespace Events
+namespace Events {
+namespace AntiLegionellaCycleStarted {
+inline constexpr EventId Id = 0x00000000;
+} // namespace AntiLegionellaCycleStarted
+
+namespace AntiLegionellaCycleCompleted {
+inline constexpr EventId Id = 0x00000001;
+} // namespace AntiLegionellaCycleCompleted
+
+} // namespace Events
 } // namespace FreshWaterHeaterController
 } // namespace Clusters
 } // namespace app

@@ -67473,6 +67473,7 @@ public class ChipClusters {
     private static final long ON_TIMER_HOURS_ATTRIBUTE_ID = 12L;
     private static final long ON_TIMER_MINUTES_ATTRIBUTE_ID = 13L;
     private static final long PLASMA_MODE_ATTRIBUTE_ID = 14L;
+    private static final long BREEZE_AWAY_MODE_ATTRIBUTE_ID = 15L;
     private static final long ERROR_CODE_ATTRIBUTE_ID = 16L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
@@ -68040,6 +68041,41 @@ public class ChipClusters {
         }, PLASMA_MODE_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
+    public void readBreezeAwayModeAttribute(
+        BooleanAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, BREEZE_AWAY_MODE_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, BREEZE_AWAY_MODE_ATTRIBUTE_ID, true);
+    }
+
+    public void writeBreezeAwayModeAttribute(DefaultClusterCallback callback, Boolean value) {
+      writeBreezeAwayModeAttribute(callback, value, 0);
+    }
+
+    public void writeBreezeAwayModeAttribute(DefaultClusterCallback callback, Boolean value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new BooleanType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), BREEZE_AWAY_MODE_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeBreezeAwayModeAttribute(
+        BooleanAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, BREEZE_AWAY_MODE_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Boolean value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, BREEZE_AWAY_MODE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
     public void readErrorCodeAttribute(
         IntegerAttributeCallback callback) {
       ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ERROR_CODE_ATTRIBUTE_ID);
@@ -68228,6 +68264,7 @@ public class ChipClusters {
     private static final long MAXIMUM_BOOST_TIME_ATTRIBUTE_ID = 25L;
     private static final long CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID = 26L;
     private static final long ERROR_CODE_ATTRIBUTE_ID = 27L;
+    private static final long ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID = 28L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -69228,6 +69265,32 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, ERROR_CODE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readAntiLegionellaStateAttribute(
+        IntegerAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID, true);
+    }
+
+    public void subscribeAntiLegionellaStateAttribute(
+        IntegerAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

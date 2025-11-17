@@ -2775,6 +2775,15 @@ MTR_PROVISIONALLY_AVAILABLE
 @end
 
 MTR_PROVISIONALLY_AVAILABLE
+@interface MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent : NSObject <NSCopying>
+@end
+
+MTR_PROVISIONALLY_AVAILABLE
+@interface MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent : NSObject <NSCopying>
+@property (nonatomic, copy) NSNumber * _Nonnull status MTR_PROVISIONALLY_AVAILABLE;
+@end
+
+MTR_PROVISIONALLY_AVAILABLE
 @interface MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent : NSObject <NSCopying>
 @property (nonatomic, copy) NSNumber * _Nonnull active MTR_PROVISIONALLY_AVAILABLE;
 @property (nonatomic, copy) NSNumber * _Nonnull inactive MTR_PROVISIONALLY_AVAILABLE;

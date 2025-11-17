@@ -6831,6 +6831,9 @@ static BOOL AttributeIsSpecifiedInFreshMideaControllerCluster(AttributeId aAttri
     case Attributes::PlasmaMode::Id: {
         return YES;
     }
+    case Attributes::BreezeAwayMode::Id: {
+        return YES;
+    }
     case Attributes::ErrorCode::Id: {
         return YES;
     }
@@ -6941,6 +6944,9 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
         return YES;
     }
     case Attributes::ErrorCode::Id: {
+        return YES;
+    }
+    case Attributes::AntiLegionellaState::Id: {
         return YES;
     }
     case Attributes::GeneratedCommandList::Id: {

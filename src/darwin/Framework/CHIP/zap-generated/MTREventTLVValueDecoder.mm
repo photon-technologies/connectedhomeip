@@ -5318,6 +5318,34 @@ static id _Nullable DecodeEventPayloadForFreshWaterHeaterControllerCluster(Event
 {
     using namespace Clusters::FreshWaterHeaterController;
     switch (aEventId) {
+    case Events::AntiLegionellaCycleStarted::Id: {
+        Events::AntiLegionellaCycleStarted::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+
+        __auto_type * value = [MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent new];
+
+        return value;
+    }
+    case Events::AntiLegionellaCycleCompleted::Id: {
+        Events::AntiLegionellaCycleCompleted::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+
+        __auto_type * value = [MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent new];
+
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithBool:cppValue.status];
+            value.status = memberValue;
+        } while (0);
+
+        return value;
+    }
     default: {
         // Not a known FreshWaterHeaterController event.
         break;

@@ -42,7 +42,69 @@ namespace chip {
 namespace app {
 namespace Clusters {
 namespace FreshWaterHeaterController {
-namespace Events {} // namespace Events
+namespace Events {
+namespace AntiLegionellaCycleStarted {
+static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
+
+enum class Fields : uint8_t
+{
+};
+
+struct Type
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::AntiLegionellaCycleStarted::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+};
+
+struct DecodableType
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::AntiLegionellaCycleStarted::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+} // namespace AntiLegionellaCycleStarted
+namespace AntiLegionellaCycleCompleted {
+static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
+
+enum class Fields : uint8_t
+{
+    kStatus = 0,
+};
+
+struct Type
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::AntiLegionellaCycleCompleted::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    bool status = static_cast<bool>(0);
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+};
+
+struct DecodableType
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::AntiLegionellaCycleCompleted::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+
+    bool status = static_cast<bool>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+} // namespace AntiLegionellaCycleCompleted
+} // namespace Events
 } // namespace FreshWaterHeaterController
 } // namespace Clusters
 } // namespace app

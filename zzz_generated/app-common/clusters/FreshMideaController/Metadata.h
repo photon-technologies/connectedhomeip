@@ -79,6 +79,10 @@ namespace PlasmaMode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(PlasmaMode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
 } // namespace PlasmaMode
+namespace BreezeAwayMode {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(BreezeAwayMode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+} // namespace BreezeAwayMode
 namespace ErrorCode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ErrorCode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);

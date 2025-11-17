@@ -21510,6 +21510,17 @@ static id _Nullable DecodeAttributeValueForFreshMideaControllerCluster(Attribute
         value = [NSNumber numberWithBool:cppValue];
         return value;
     }
+    case Attributes::BreezeAwayMode::Id: {
+        using TypeInfo = Attributes::BreezeAwayMode::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
     case Attributes::ErrorCode::Id: {
         using TypeInfo = Attributes::ErrorCode::TypeInfo;
         TypeInfo::DecodableType cppValue;
@@ -21926,6 +21937,17 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         }
         NSNumber * _Nonnull value;
         value = [NSNumber numberWithUnsignedChar:cppValue];
+        return value;
+    }
+    case Attributes::AntiLegionellaState::Id: {
+        using TypeInfo = Attributes::AntiLegionellaState::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue)];
         return value;
     }
     default: {

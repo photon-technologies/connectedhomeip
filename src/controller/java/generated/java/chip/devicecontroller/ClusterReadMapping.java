@@ -20060,6 +20060,17 @@ public class ClusterReadMapping {
           readFreshMideaControllerPlasmaModeCommandParams
         );
         result.put("readPlasmaModeAttribute", readFreshMideaControllerPlasmaModeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshMideaControllerBreezeAwayModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshMideaControllerBreezeAwayModeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshMideaControllerCluster) cluster).readBreezeAwayModeAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readFreshMideaControllerBreezeAwayModeCommandParams
+        );
+        result.put("readBreezeAwayModeAttribute", readFreshMideaControllerBreezeAwayModeAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshMideaControllerErrorCodeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshMideaControllerErrorCodeAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {
@@ -20416,6 +20427,17 @@ public class ClusterReadMapping {
           readFreshWaterHeaterControllerErrorCodeCommandParams
         );
         result.put("readErrorCodeAttribute", readFreshWaterHeaterControllerErrorCodeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshWaterHeaterControllerAntiLegionellaStateCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshWaterHeaterControllerAntiLegionellaStateAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).readAntiLegionellaStateAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readFreshWaterHeaterControllerAntiLegionellaStateCommandParams
+        );
+        result.put("readAntiLegionellaStateAttribute", readFreshWaterHeaterControllerAntiLegionellaStateAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshWaterHeaterControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshWaterHeaterControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

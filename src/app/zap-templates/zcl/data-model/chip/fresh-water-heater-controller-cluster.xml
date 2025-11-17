@@ -148,6 +148,11 @@
             <mandatoryConform />
         </attribute>
 
+        <attribute side="server" code="0x001C" name="AntiLegionellaState" define="ANTI_LEGIONELLA_STATE" type="AntiLegionellaStateEnum" default="0">
+            <description>Anti Legionella State</description>
+            <mandatoryConform />
+        </attribute>
+
         <command code="0x00" source="client" name="AnodeChangeRequest" optional="false">
             <description>Allows a client to request that the water heater is put into an Anode Change Mode.</description>
             <access op="invoke" privilege="administer"/>
@@ -159,5 +164,14 @@
             <access op="invoke" privilege="administer"/>
             <mandatoryConform/>
         </command>
+
+        <event code="0x0000" name="AntiLegionellaCycleStarted" priority="info" side="server">
+            <description>This event SHALL be generated whenever an Anti-Legionella cycle starts.</description>
+        </event>
+
+        <event code="0x0001" name="AntiLegionellaCycleCompleted" priority="info" side="server">
+            <description>This event SHALL be generated whenever an Anti-Legionella cycle is completed.</description>
+            <field id="0" name="Status" type="boolean"/>
+        </event>
     </cluster>
 </configurator>

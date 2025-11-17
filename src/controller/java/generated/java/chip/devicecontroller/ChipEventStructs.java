@@ -6928,6 +6928,80 @@ public static class FreshMideaControllerClusterNotifyErrorEvent {
     return output.toString();
   }
 }
+public static class FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent {
+
+  public FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent(
+  ) {
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+
+    return new StructType(values);
+  }
+
+  public static FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    return new FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent(
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent {\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
+public static class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {
+  public Boolean status;
+  private static final long STATUS_ID = 0L;
+
+  public FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(
+    Boolean status
+  ) {
+    this.status = status;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(STATUS_ID, new BooleanType(status)));
+
+    return new StructType(values);
+  }
+
+  public static FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Boolean status = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == STATUS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          status = castingValue.value(Boolean.class);
+        }
+      }
+    }
+    return new FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(
+      status
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {\n");
+    output.append("\tstatus: ");
+    output.append(status);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
 public static class FreshWaterHeaterErrorsAlarmClusterNotifyEvent {
   public Long active;
   public Long inactive;

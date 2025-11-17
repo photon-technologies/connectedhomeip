@@ -4115,6 +4115,28 @@ public class ClusterWriteMapping {
       writeFreshMideaControllerPlasmaModeCommandParams
     );
     writeFreshMideaControllerInteractionInfo.put("writePlasmaModeAttribute", writeFreshMideaControllerPlasmaModeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshMideaControllerBreezeAwayModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshMideaControllerbreezeAwayModeCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Boolean.class, 
+            Boolean.class 
+        );
+    writeFreshMideaControllerBreezeAwayModeCommandParams.put(
+        "value",
+        freshMideaControllerbreezeAwayModeCommandParameterInfo
+    );
+    InteractionInfo writeFreshMideaControllerBreezeAwayModeAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshMideaControllerCluster) cluster).writeBreezeAwayModeAttribute(
+          (DefaultClusterCallback) callback,
+          (Boolean) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshMideaControllerBreezeAwayModeCommandParams
+    );
+    writeFreshMideaControllerInteractionInfo.put("writeBreezeAwayModeAttribute", writeFreshMideaControllerBreezeAwayModeAttributeInteractionInfo);
     writeAttributeMap.put("freshMideaController", writeFreshMideaControllerInteractionInfo);
     Map<String, InteractionInfo> writeFreshWaterHeaterControllerInteractionInfo = new LinkedHashMap<>();
     Map<String, CommandParameterInfo> writeFreshWaterHeaterControllerColdWaterTemperatureCommandParams = new LinkedHashMap<String, CommandParameterInfo>();

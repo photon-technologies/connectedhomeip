@@ -9366,6 +9366,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"PlasmaMode";
             break;
 
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeBreezeAwayModeID:
+            result = @"BreezeAwayMode";
+            break;
+
         case MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID:
             result = @"ErrorCode";
             break;
@@ -9512,6 +9516,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeErrorCodeID:
             result = @"ErrorCode";
+            break;
+
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAntiLegionellaStateID:
+            result = @"AntiLegionellaState";
             break;
 
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID:
@@ -16879,6 +16887,15 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
     case MTRClusterIDTypeFreshWaterHeaterControllerID:
 
         switch (eventID) {
+
+            // Cluster FreshWaterHeaterController events
+        case MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleStartedID:
+            result = @"AntiLegionellaCycleStarted";
+            break;
+
+        case MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleCompletedID:
+            result = @"AntiLegionellaCycleCompleted";
+            break;
 
         default:
             result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];

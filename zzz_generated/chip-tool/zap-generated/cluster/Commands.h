@@ -17702,6 +17702,7 @@ private:
 | * OnTimerHours                                                      | 0x000C |
 | * OnTimerMinutes                                                    | 0x000D |
 | * PlasmaMode                                                        | 0x000E |
+| * BreezeAwayMode                                                    | 0x000F |
 | * ErrorCode                                                         | 0x0010 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
@@ -17900,6 +17901,7 @@ private:
 | * MaximumBoostTime                                                  | 0x0019 |
 | * CurrentBoostModeSetpoint                                          | 0x001A |
 | * ErrorCode                                                         | 0x001B |
+| * AntiLegionellaState                                               | 0x001C |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -17907,6 +17909,8 @@ private:
 | * ClusterRevision                                                   | 0xFFFD |
 |------------------------------------------------------------------------------|
 | Events:                                                             |        |
+| * AntiLegionellaCycleStarted                                        | 0x0000 |
+| * AntiLegionellaCycleCompleted                                      | 0x0001 |
 \*----------------------------------------------------------------------------*/
 
 /*
@@ -32092,6 +32096,7 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
         make_unique<ReadAttribute>(Id, "on-timer-hours", Attributes::OnTimerHours::Id, credsIssuerConfig),                        //
         make_unique<ReadAttribute>(Id, "on-timer-minutes", Attributes::OnTimerMinutes::Id, credsIssuerConfig),                    //
         make_unique<ReadAttribute>(Id, "plasma-mode", Attributes::PlasmaMode::Id, credsIssuerConfig),                             //
+        make_unique<ReadAttribute>(Id, "breeze-away-mode", Attributes::BreezeAwayMode::Id, credsIssuerConfig),                    //
         make_unique<ReadAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                               //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig),        //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),          //
@@ -32127,6 +32132,8 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "plasma-mode", 0, 1, Attributes::PlasmaMode::Id, WriteCommandType::kWrite,
                                           credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "breeze-away-mode", 0, 1, Attributes::BreezeAwayMode::Id, WriteCommandType::kWrite,
+                                          credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "error-code", 0, UINT16_MAX, Attributes::ErrorCode::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
@@ -32156,6 +32163,7 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
         make_unique<SubscribeAttribute>(Id, "on-timer-hours", Attributes::OnTimerHours::Id, credsIssuerConfig),                 //
         make_unique<SubscribeAttribute>(Id, "on-timer-minutes", Attributes::OnTimerMinutes::Id, credsIssuerConfig),             //
         make_unique<SubscribeAttribute>(Id, "plasma-mode", Attributes::PlasmaMode::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "breeze-away-mode", Attributes::BreezeAwayMode::Id, credsIssuerConfig),             //
         make_unique<SubscribeAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
@@ -32230,6 +32238,7 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<ReadAttribute>(Id, "current-boost-mode-setpoint", Attributes::CurrentBoostModeSetpoint::Id,
                                    credsIssuerConfig),                                                                     //
         make_unique<ReadAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
+        make_unique<ReadAttribute>(Id, "anti-legionella-state", Attributes::AntiLegionellaState::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -32303,6 +32312,9 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
             credsIssuerConfig), //
         make_unique<WriteAttribute<uint8_t>>(Id, "error-code", 0, UINT8_MAX, Attributes::ErrorCode::Id,
                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum>>(
+            Id, "anti-legionella-state", 0, UINT8_MAX, Attributes::AntiLegionellaState::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -32352,6 +32364,7 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<SubscribeAttribute>(Id, "current-boost-mode-setpoint", Attributes::CurrentBoostModeSetpoint::Id,
                                         credsIssuerConfig),                                                                     //
         make_unique<SubscribeAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
+        make_unique<SubscribeAttribute>(Id, "anti-legionella-state", Attributes::AntiLegionellaState::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -32360,8 +32373,15 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         //
         // Events
         //
-        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),                                                                          //
+        make_unique<ReadEvent>(Id, "anti-legionella-cycle-started", Events::AntiLegionellaCycleStarted::Id, credsIssuerConfig), //
+        make_unique<ReadEvent>(Id, "anti-legionella-cycle-completed", Events::AntiLegionellaCycleCompleted::Id,
+                               credsIssuerConfig),          //
         make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+        make_unique<SubscribeEvent>(Id, "anti-legionella-cycle-started", Events::AntiLegionellaCycleStarted::Id,
+                                    credsIssuerConfig), //
+        make_unique<SubscribeEvent>(Id, "anti-legionella-cycle-completed", Events::AntiLegionellaCycleCompleted::Id,
+                                    credsIssuerConfig), //
     };
 
     commands.RegisterCluster(clusterName, clusterCommands);

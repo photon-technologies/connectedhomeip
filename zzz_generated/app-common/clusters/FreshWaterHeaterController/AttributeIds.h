@@ -124,6 +124,10 @@ namespace ErrorCode {
 inline constexpr AttributeId Id = 0x0000001B;
 } // namespace ErrorCode
 
+namespace AntiLegionellaState {
+inline constexpr AttributeId Id = 0x0000001C;
+} // namespace AntiLegionellaState
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

@@ -9282,6 +9282,81 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         using namespace app::Clusters::FreshWaterHeaterController;
         switch (aPath.mEventId)
         {
+        case Events::AntiLegionellaCycleStarted::Id: {
+            Events::AntiLegionellaCycleStarted::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jclass antiLegionellaCycleStartedStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent",
+                antiLegionellaCycleStartedStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(
+                    Zcl, "Could not find class ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent");
+                return nullptr;
+            }
+
+            jmethodID antiLegionellaCycleStartedStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, antiLegionellaCycleStartedStructClass, "<init>", "()V",
+                                                                &antiLegionellaCycleStartedStructCtor);
+            if (err != CHIP_NO_ERROR || antiLegionellaCycleStartedStructCtor == nullptr)
+            {
+                ChipLogError(
+                    Zcl,
+                    "Could not find ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(antiLegionellaCycleStartedStructClass, antiLegionellaCycleStartedStructCtor);
+
+            return value;
+        }
+        case Events::AntiLegionellaCycleCompleted::Id: {
+            Events::AntiLegionellaCycleCompleted::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_status;
+            std::string value_statusClassName     = "java/lang/Boolean";
+            std::string value_statusCtorSignature = "(Z)V";
+            jboolean jnivalue_status              = static_cast<jboolean>(cppValue.status);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(
+                value_statusClassName.c_str(), value_statusCtorSignature.c_str(), jnivalue_status, value_status);
+
+            jclass antiLegionellaCycleCompletedStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent",
+                antiLegionellaCycleCompletedStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(
+                    Zcl,
+                    "Could not find class ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent");
+                return nullptr;
+            }
+
+            jmethodID antiLegionellaCycleCompletedStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, antiLegionellaCycleCompletedStructClass, "<init>",
+                                                                "(Ljava/lang/Boolean;)V", &antiLegionellaCycleCompletedStructCtor);
+            if (err != CHIP_NO_ERROR || antiLegionellaCycleCompletedStructCtor == nullptr)
+            {
+                ChipLogError(Zcl,
+                             "Could not find ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent "
+                             "constructor");
+                return nullptr;
+            }
+
+            jobject value =
+                env->NewObject(antiLegionellaCycleCompletedStructClass, antiLegionellaCycleCompletedStructCtor, value_status);
+
+            return value;
+        }
         default:
             *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
             break;

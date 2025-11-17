@@ -43,6 +43,9 @@
       <feature bit="6" code="PLASMA" name="Plasma" summary="Supports air freshening (Plasma) mode for the AC controller">
         <optionalConform/>
       </feature>
+      <feature bit="7" code="BREEZE_AWAY" name="BreezeAway" summary="Supports Breeze Away mode for the AC controller">
+        <optionalConform/>
+      </feature>
     </features>
 
     <attribute side="server" code="0x0000" name="Beep" define="BEEP" type="boolean" default="1" writable="true">
@@ -118,6 +121,13 @@
       <description>PlasmaMode</description>
       <mandatoryConform>
         <feature name="PLASMA"/>
+      </mandatoryConform>
+    </attribute>
+
+    <attribute side="server" code="0x000F" name="BreezeAwayMode" define="BREEZE_AWAY_MODE" type="boolean" default="0" writable="true">
+      <description>BreezeAwayMode</description>
+      <mandatoryConform>
+        <feature name="BREEZE_AWAY"/>
       </mandatoryConform>
     </attribute>
 

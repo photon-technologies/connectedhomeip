@@ -11191,6 +11191,30 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
     return CHIP_NO_ERROR;
 }
 CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
+                                     const FreshWaterHeaterController::Events::AntiLegionellaCycleStarted::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
+                                     const FreshWaterHeaterController::Events::AntiLegionellaCycleCompleted::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("Status", indent + 1, value.status);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Status'");
+            return err;
+        }
+    }
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
                                      const FreshWaterHeaterErrorsAlarm::Events::Notify::DecodableType & value)
 {
     DataModelLogger::LogString(label, indent, "{");
@@ -22578,6 +22602,11 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("PlasmaMode", 1, value);
         }
+        case FreshMideaController::Attributes::BreezeAwayMode::Id: {
+            bool value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("BreezeAwayMode", 1, value);
+        }
         case FreshMideaController::Attributes::ErrorCode::Id: {
             uint16_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
@@ -22755,6 +22784,11 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             uint8_t value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("ErrorCode", 1, value);
+        }
+        case FreshWaterHeaterController::Attributes::AntiLegionellaState::Id: {
+            chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("AntiLegionellaState", 1, value);
         }
         case FreshWaterHeaterController::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;
@@ -25201,6 +25235,22 @@ CHIP_ERROR DataModelLogger::LogEvent(const chip::app::EventHeader & header, chip
             chip::app::Clusters::FreshMideaController::Events::NotifyError::DecodableType value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("NotifyError", 1, value);
+        }
+        }
+        break;
+    }
+    case FreshWaterHeaterController::Id: {
+        switch (header.mPath.mEventId)
+        {
+        case FreshWaterHeaterController::Events::AntiLegionellaCycleStarted::Id: {
+            chip::app::Clusters::FreshWaterHeaterController::Events::AntiLegionellaCycleStarted::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("AntiLegionellaCycleStarted", 1, value);
+        }
+        case FreshWaterHeaterController::Events::AntiLegionellaCycleCompleted::Id: {
+            chip::app::Clusters::FreshWaterHeaterController::Events::AntiLegionellaCycleCompleted::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("AntiLegionellaCycleCompleted", 1, value);
         }
         }
         break;

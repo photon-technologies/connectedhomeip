@@ -15118,6 +15118,13 @@ class ChipClusters:
                 "reportable": True,
                 "writable": True,
             },
+            0x0000000F: {
+                "attributeName": "BreezeAwayMode",
+                "attributeId": 0x0000000F,
+                "type": "bool",
+                "reportable": True,
+                "writable": True,
+            },
             0x00000010: {
                 "attributeName": "ErrorCode",
                 "attributeId": 0x00000010,
@@ -15361,6 +15368,12 @@ class ChipClusters:
             0x0000001B: {
                 "attributeName": "ErrorCode",
                 "attributeId": 0x0000001B,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000001C: {
+                "attributeName": "AntiLegionellaState",
+                "attributeId": 0x0000001C,
                 "type": "int",
                 "reportable": True,
             },

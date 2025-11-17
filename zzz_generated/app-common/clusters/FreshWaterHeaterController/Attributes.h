@@ -383,6 +383,18 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace ErrorCode
+namespace AntiLegionellaState {
+struct TypeInfo
+{
+    using Type             = chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum;
+    using DecodableType    = chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum;
+    using DecodableArgType = chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::AntiLegionellaState::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace AntiLegionellaState
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -452,6 +464,8 @@ struct TypeInfo
         Attributes::MaximumBoostTime::TypeInfo::DecodableType maximumBoostTime       = static_cast<uint32_t>(0);
         Attributes::CurrentBoostModeSetpoint::TypeInfo::DecodableType currentBoostModeSetpoint;
         Attributes::ErrorCode::TypeInfo::DecodableType errorCode = static_cast<uint8_t>(0);
+        Attributes::AntiLegionellaState::TypeInfo::DecodableType antiLegionellaState =
+            static_cast<chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

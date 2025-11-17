@@ -4964,6 +4964,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "OnTimerMinutes";
         case chip::app::Clusters::FreshMideaController::Attributes::PlasmaMode::Id:
             return "PlasmaMode";
+        case chip::app::Clusters::FreshMideaController::Attributes::BreezeAwayMode::Id:
+            return "BreezeAwayMode";
         case chip::app::Clusters::FreshMideaController::Attributes::ErrorCode::Id:
             return "ErrorCode";
         case chip::app::Clusters::FreshMideaController::Attributes::GeneratedCommandList::Id:
@@ -5039,6 +5041,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "CurrentBoostModeSetpoint";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::ErrorCode::Id:
             return "ErrorCode";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::AntiLegionellaState::Id:
+            return "AntiLegionellaState";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::AcceptedCommandList::Id:

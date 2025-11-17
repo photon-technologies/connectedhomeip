@@ -141,6 +141,10 @@ namespace ErrorCode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ErrorCode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace ErrorCode
+namespace AntiLegionellaState {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(AntiLegionellaState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, std::nullopt);
+} // namespace AntiLegionellaState
 
 } // namespace Attributes
 

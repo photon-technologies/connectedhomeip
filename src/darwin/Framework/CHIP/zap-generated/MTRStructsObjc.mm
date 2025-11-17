@@ -11720,6 +11720,56 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent alloc] init];
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _status = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent alloc] init];
+
+    other.status = self.status;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: status:%@; >", NSStringFromClass([self class]), _status];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent
 - (instancetype)init
 {

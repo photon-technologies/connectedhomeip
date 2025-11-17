@@ -1013,11 +1013,13 @@ bool emberAfOperationalCredentialsClusterAttestationRequestCallback(app::Command
 
     if (dacProvider == nullptr)
     {
+        ChipLogError(Zcl, "OpCreds: No DAC provider available");
         err = CHIP_ERROR_INTERNAL;
         VerifyOrExit(dacProvider != nullptr, finalStatus = Status::Failure);
     }
 
     err = dacProvider->GetCertificationDeclaration(certDeclSpan);
+    ChipLogProgress(Zcl, "OpCreds: GetCertificationDeclaration returned %" CHIP_ERROR_FORMAT, err.Format());
     VerifyOrExit(err == CHIP_NO_ERROR, finalStatus = Status::Failure);
 
     attestationElementsLen = TLV::EstimateStructOverhead(certDeclSpan.size(), attestationNonce.size(), sizeof(uint64_t) * 8);

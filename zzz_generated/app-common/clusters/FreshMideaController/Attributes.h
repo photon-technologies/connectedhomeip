@@ -223,6 +223,18 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace PlasmaMode
+namespace BreezeAwayMode {
+struct TypeInfo
+{
+    using Type             = bool;
+    using DecodableType    = bool;
+    using DecodableArgType = bool;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::BreezeAwayMode::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace BreezeAwayMode
 namespace ErrorCode {
 struct TypeInfo
 {
@@ -291,6 +303,7 @@ struct TypeInfo
         Attributes::OnTimerHours::TypeInfo::DecodableType onTimerHours       = static_cast<uint8_t>(0);
         Attributes::OnTimerMinutes::TypeInfo::DecodableType onTimerMinutes   = static_cast<uint8_t>(0);
         Attributes::PlasmaMode::TypeInfo::DecodableType plasmaMode           = static_cast<bool>(0);
+        Attributes::BreezeAwayMode::TypeInfo::DecodableType breezeAwayMode   = static_cast<bool>(0);
         Attributes::ErrorCode::TypeInfo::DecodableType errorCode             = static_cast<uint16_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;

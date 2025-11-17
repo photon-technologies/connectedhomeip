@@ -20945,6 +20945,7 @@ public class ClusterIDMapping {
             OnTimerHours(12L),
             OnTimerMinutes(13L),
             PlasmaMode(14L),
+            BreezeAwayMode(15L),
             ErrorCode(16L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
@@ -21114,6 +21115,7 @@ public class ClusterIDMapping {
             MaximumBoostTime(25L),
             CurrentBoostModeSetpoint(26L),
             ErrorCode(27L),
+            AntiLegionellaState(28L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),
@@ -21138,7 +21140,9 @@ public class ClusterIDMapping {
             }
         }
 
-        public enum Event {;
+        public enum Event {
+            AntiLegionellaCycleStarted(0L),
+            AntiLegionellaCycleCompleted(1L),;
             private final long id;
             Event(long id) {
                 this.id = id;

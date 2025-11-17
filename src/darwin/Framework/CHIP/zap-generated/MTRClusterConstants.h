@@ -4998,6 +4998,7 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerHoursID MTR_PROVISIONALLY_AVAILABLE = 0x0000000C,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerMinutesID MTR_PROVISIONALLY_AVAILABLE = 0x0000000D,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributePlasmaModeID MTR_PROVISIONALLY_AVAILABLE = 0x0000000E,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeBreezeAwayModeID MTR_PROVISIONALLY_AVAILABLE = 0x0000000F,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID MTR_PROVISIONALLY_AVAILABLE = 0x00000010,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
     MTRAttributeIDTypeClusterFreshMideaControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
@@ -5034,6 +5035,7 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeMaximumBoostTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000019,
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeCurrentBoostModeSetpointID MTR_PROVISIONALLY_AVAILABLE = 0x0000001A,
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeErrorCodeID MTR_PROVISIONALLY_AVAILABLE = 0x0000001B,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAntiLegionellaStateID MTR_PROVISIONALLY_AVAILABLE = 0x0000001C,
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
@@ -7994,6 +7996,10 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
     MTREventIDTypeClusterFreshMideaControllerEventActiveCleanStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTREventIDTypeClusterFreshMideaControllerEventActiveCleanEndedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
     MTREventIDTypeClusterFreshMideaControllerEventNotifyErrorID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+
+    // Cluster FreshWaterHeaterController events
+    MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleCompletedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
 
     // Cluster FreshWaterHeaterErrorsAlarm events
     MTREventIDTypeClusterFreshWaterHeaterErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
