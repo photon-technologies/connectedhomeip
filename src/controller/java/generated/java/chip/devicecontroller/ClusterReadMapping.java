@@ -20438,6 +20438,17 @@ public class ClusterReadMapping {
           readFreshWaterHeaterControllerAntiLegionellaStateCommandParams
         );
         result.put("readAntiLegionellaStateAttribute", readFreshWaterHeaterControllerAntiLegionellaStateAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshWaterHeaterControllerEnergyReportIntervalCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshWaterHeaterControllerEnergyReportIntervalAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).readEnergyReportIntervalAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readFreshWaterHeaterControllerEnergyReportIntervalCommandParams
+        );
+        result.put("readEnergyReportIntervalAttribute", readFreshWaterHeaterControllerEnergyReportIntervalAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshWaterHeaterControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshWaterHeaterControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

@@ -183350,6 +183350,7 @@ public:
 | * CurrentBoostModeSetpoint                                          | 0x001A |
 | * ErrorCode                                                         | 0x001B |
 | * AntiLegionellaState                                               | 0x001C |
+| * EnergyReportInterval                                              | 0x001D |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -186830,6 +186831,132 @@ public:
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
                 NSLog(@"FreshWaterHeaterController.AntiLegionellaState response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute EnergyReportInterval
+ */
+class ReadFreshWaterHeaterControllerEnergyReportInterval : public ReadAttribute {
+public:
+    ReadFreshWaterHeaterControllerEnergyReportInterval()
+        : ReadAttribute("energy-report-interval")
+    {
+    }
+
+    ~ReadFreshWaterHeaterControllerEnergyReportInterval()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::EnergyReportInterval::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeEnergyReportIntervalWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshWaterHeaterController.EnergyReportInterval response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshWaterHeaterController EnergyReportInterval read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class WriteFreshWaterHeaterControllerEnergyReportInterval : public WriteAttribute {
+public:
+    WriteFreshWaterHeaterControllerEnergyReportInterval()
+        : WriteAttribute("energy-report-interval")
+    {
+        AddArgument("attr-name", "energy-report-interval");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshWaterHeaterControllerEnergyReportInterval()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::EnergyReportInterval::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeEnergyReportIntervalWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshWaterHeaterController EnergyReportInterval write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
+class SubscribeAttributeFreshWaterHeaterControllerEnergyReportInterval : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshWaterHeaterControllerEnergyReportInterval()
+        : SubscribeAttribute("energy-report-interval")
+    {
+    }
+
+    ~SubscribeAttributeFreshWaterHeaterControllerEnergyReportInterval()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshWaterHeaterController::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshWaterHeaterController::Attributes::EnergyReportInterval::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshWaterHeaterController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeEnergyReportIntervalWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshWaterHeaterController.EnergyReportInterval response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -210400,6 +210527,11 @@ void registerClusterFreshWaterHeaterController(Commands & commands)
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerAntiLegionellaState>(), //
         make_unique<SubscribeAttributeFreshWaterHeaterControllerAntiLegionellaState>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshWaterHeaterControllerEnergyReportInterval>(), //
+        make_unique<WriteFreshWaterHeaterControllerEnergyReportInterval>(), //
+        make_unique<SubscribeAttributeFreshWaterHeaterControllerEnergyReportInterval>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshWaterHeaterControllerGeneratedCommandList>(), //

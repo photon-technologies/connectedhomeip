@@ -6949,6 +6949,9 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     case Attributes::AntiLegionellaState::Id: {
         return YES;
     }
+    case Attributes::EnergyReportInterval::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

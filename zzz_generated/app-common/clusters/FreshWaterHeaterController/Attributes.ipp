@@ -90,6 +90,8 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, errorCode);
     case Attributes::AntiLegionellaState::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, antiLegionellaState);
+    case Attributes::EnergyReportInterval::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, energyReportInterval);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

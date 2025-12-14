@@ -9522,6 +9522,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"AntiLegionellaState";
             break;
 
+        case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEnergyReportIntervalID:
+            result = @"EnergyReportInterval";
+            break;
+
         case MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

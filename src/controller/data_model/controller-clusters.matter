@@ -11645,6 +11645,7 @@ cluster FreshWaterHeaterController = 367524869 {
   readonly attribute nullable WaterHeaterBoostInfoStruct currentBoostModeSetpoint = 26;
   readonly attribute int8u errorCode = 27;
   readonly attribute AntiLegionellaStateEnum antiLegionellaState = 28;
+  attribute elapsed_s energyReportInterval = 29;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

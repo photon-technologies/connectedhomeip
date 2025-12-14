@@ -145,6 +145,10 @@ namespace AntiLegionellaState {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(AntiLegionellaState::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace AntiLegionellaState
+namespace EnergyReportInterval {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(EnergyReportInterval::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+} // namespace EnergyReportInterval
 
 } // namespace Attributes
 

@@ -21116,6 +21116,7 @@ public class ClusterIDMapping {
             CurrentBoostModeSetpoint(26L),
             ErrorCode(27L),
             AntiLegionellaState(28L),
+            EnergyReportInterval(29L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),

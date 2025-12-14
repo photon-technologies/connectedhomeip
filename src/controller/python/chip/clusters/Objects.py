@@ -54732,6 +54732,7 @@ class FreshWaterHeaterController(Cluster):
                 ClusterObjectFieldDescriptor(Label="currentBoostModeSetpoint", Tag=0x0000001A, Type=typing.Union[Nullable, FreshWaterHeaterController.Structs.WaterHeaterBoostInfoStruct]),
                 ClusterObjectFieldDescriptor(Label="errorCode", Tag=0x0000001B, Type=uint),
                 ClusterObjectFieldDescriptor(Label="antiLegionellaState", Tag=0x0000001C, Type=FreshWaterHeaterController.Enums.AntiLegionellaStateEnum),
+                ClusterObjectFieldDescriptor(Label="energyReportInterval", Tag=0x0000001D, Type=uint),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -54768,6 +54769,7 @@ class FreshWaterHeaterController(Cluster):
     currentBoostModeSetpoint: typing.Union[Nullable, FreshWaterHeaterController.Structs.WaterHeaterBoostInfoStruct] = NullValue
     errorCode: uint = 0
     antiLegionellaState: FreshWaterHeaterController.Enums.AntiLegionellaStateEnum = 0
+    energyReportInterval: uint = 0
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -55306,6 +55308,22 @@ class FreshWaterHeaterController(Cluster):
                 return ClusterObjectFieldDescriptor(Type=FreshWaterHeaterController.Enums.AntiLegionellaStateEnum)
 
             value: FreshWaterHeaterController.Enums.AntiLegionellaStateEnum = 0
+
+        @dataclass
+        class EnergyReportInterval(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC05
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x0000001D
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
 
         @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):

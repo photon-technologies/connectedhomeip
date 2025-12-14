@@ -68265,6 +68265,7 @@ public class ChipClusters {
     private static final long CURRENT_BOOST_MODE_SETPOINT_ATTRIBUTE_ID = 26L;
     private static final long ERROR_CODE_ATTRIBUTE_ID = 27L;
     private static final long ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID = 28L;
+    private static final long ENERGY_REPORT_INTERVAL_ATTRIBUTE_ID = 29L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -69291,6 +69292,41 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, ANTI_LEGIONELLA_STATE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readEnergyReportIntervalAttribute(
+        LongAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ENERGY_REPORT_INTERVAL_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, ENERGY_REPORT_INTERVAL_ATTRIBUTE_ID, true);
+    }
+
+    public void writeEnergyReportIntervalAttribute(DefaultClusterCallback callback, Long value) {
+      writeEnergyReportIntervalAttribute(callback, value, 0);
+    }
+
+    public void writeEnergyReportIntervalAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), ENERGY_REPORT_INTERVAL_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeEnergyReportIntervalAttribute(
+        LongAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, ENERGY_REPORT_INTERVAL_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, ENERGY_REPORT_INTERVAL_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

@@ -5043,6 +5043,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "ErrorCode";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::AntiLegionellaState::Id:
             return "AntiLegionellaState";
+        case chip::app::Clusters::FreshWaterHeaterController::Attributes::EnergyReportInterval::Id:
+            return "EnergyReportInterval";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshWaterHeaterController::Attributes::AcceptedCommandList::Id:

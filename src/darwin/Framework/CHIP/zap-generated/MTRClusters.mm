@@ -23945,6 +23945,22 @@ using chip::System::Clock::Timeout;
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAntiLegionellaStateID) params:params];
 }
 
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeEnergyReportIntervalWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEnergyReportIntervalID) params:params];
+}
+
+- (void)writeAttributeEnergyReportIntervalWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
+{
+    [self writeAttributeEnergyReportIntervalWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
+}
+- (void)writeAttributeEnergyReportIntervalWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
+{
+    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
+
+    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEnergyReportIntervalID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
+}
+
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
 {
     return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeFreshWaterHeaterControllerID) attributeID:@(MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID) params:params];

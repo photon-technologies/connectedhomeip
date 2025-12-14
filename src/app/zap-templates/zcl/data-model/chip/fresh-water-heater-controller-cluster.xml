@@ -153,6 +153,11 @@
             <mandatoryConform />
         </attribute>
 
+        <attribute side="server" code="0x001D" name="EnergyReportInterval" define="ENERGY_REPORT_INTERVAL" type="elapsed_s" default="3600" writable="true">
+            <description>Energy Report Interval</description>
+            <mandatoryConform />
+        </attribute>
+
         <command code="0x00" source="client" name="AnodeChangeRequest" optional="false">
             <description>Allows a client to request that the water heater is put into an Anode Change Mode.</description>
             <access op="invoke" privilege="administer"/>

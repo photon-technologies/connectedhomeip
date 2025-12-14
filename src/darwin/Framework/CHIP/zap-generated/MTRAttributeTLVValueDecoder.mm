@@ -21950,6 +21950,17 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
         value = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue)];
         return value;
     }
+    case Attributes::EnergyReportInterval::Id: {
+        using TypeInfo = Attributes::EnergyReportInterval::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
     default: {
         // Not a known FreshWaterHeaterController attribute.
         break;

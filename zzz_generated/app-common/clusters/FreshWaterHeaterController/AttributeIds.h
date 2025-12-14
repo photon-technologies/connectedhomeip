@@ -128,6 +128,10 @@ namespace AntiLegionellaState {
 inline constexpr AttributeId Id = 0x0000001C;
 } // namespace AntiLegionellaState
 
+namespace EnergyReportInterval {
+inline constexpr AttributeId Id = 0x0000001D;
+} // namespace EnergyReportInterval
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

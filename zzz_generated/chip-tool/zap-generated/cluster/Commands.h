@@ -17902,6 +17902,7 @@ private:
 | * CurrentBoostModeSetpoint                                          | 0x001A |
 | * ErrorCode                                                         | 0x001B |
 | * AntiLegionellaState                                               | 0x001C |
+| * EnergyReportInterval                                              | 0x001D |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -32239,6 +32240,7 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                    credsIssuerConfig),                                                                     //
         make_unique<ReadAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
         make_unique<ReadAttribute>(Id, "anti-legionella-state", Attributes::AntiLegionellaState::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "energy-report-interval", Attributes::EnergyReportInterval::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -32315,6 +32317,8 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<WriteAttribute<chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum>>(
             Id, "anti-legionella-state", 0, UINT8_MAX, Attributes::AntiLegionellaState::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "energy-report-interval", 0, UINT32_MAX, Attributes::EnergyReportInterval::Id,
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -32365,6 +32369,7 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
                                         credsIssuerConfig),                                                                     //
         make_unique<SubscribeAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
         make_unique<SubscribeAttribute>(Id, "anti-legionella-state", Attributes::AntiLegionellaState::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "energy-report-interval", Attributes::EnergyReportInterval::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //

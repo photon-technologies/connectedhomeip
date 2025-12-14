@@ -4579,6 +4579,28 @@ public class ClusterWriteMapping {
       writeFreshWaterHeaterControllerMaximumBoostTimeCommandParams
     );
     writeFreshWaterHeaterControllerInteractionInfo.put("writeMaximumBoostTimeAttribute", writeFreshWaterHeaterControllerMaximumBoostTimeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshWaterHeaterControllerEnergyReportIntervalCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshWaterHeaterControllerenergyReportIntervalCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Long.class, 
+            Long.class 
+        );
+    writeFreshWaterHeaterControllerEnergyReportIntervalCommandParams.put(
+        "value",
+        freshWaterHeaterControllerenergyReportIntervalCommandParameterInfo
+    );
+    InteractionInfo writeFreshWaterHeaterControllerEnergyReportIntervalAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshWaterHeaterControllerCluster) cluster).writeEnergyReportIntervalAttribute(
+          (DefaultClusterCallback) callback,
+          (Long) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshWaterHeaterControllerEnergyReportIntervalCommandParams
+    );
+    writeFreshWaterHeaterControllerInteractionInfo.put("writeEnergyReportIntervalAttribute", writeFreshWaterHeaterControllerEnergyReportIntervalAttributeInteractionInfo);
     writeAttributeMap.put("freshWaterHeaterController", writeFreshWaterHeaterControllerInteractionInfo);
     Map<String, InteractionInfo> writeFreshWaterHeaterErrorsAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshWaterHeaterErrorsAlarm", writeFreshWaterHeaterErrorsAlarmInteractionInfo);
