@@ -17,13 +17,18 @@
 package chip.devicecontroller.cluster.eventstructs
 
 import chip.devicecontroller.cluster.*
+import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
+import matter.tlv.TlvParsingException
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-class FreshMideaControllerClusterNotifyErrorEvent(val code: UInt) {
-  override fun toString(): String = buildString {
+import java.util.Optional
+
+class FreshMideaControllerClusterNotifyErrorEvent (
+    val code: UInt) {
+  override fun toString(): String  = buildString {
     append("FreshMideaControllerClusterNotifyErrorEvent {\n")
     append("\tcode : $code\n")
     append("}\n")
@@ -40,10 +45,10 @@ class FreshMideaControllerClusterNotifyErrorEvent(val code: UInt) {
   companion object {
     private const val TAG_CODE = 0
 
-    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): FreshMideaControllerClusterNotifyErrorEvent {
+    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader) : FreshMideaControllerClusterNotifyErrorEvent {
       tlvReader.enterStructure(tlvTag)
       val code = tlvReader.getUInt(ContextSpecificTag(TAG_CODE))
-
+      
       tlvReader.exitContainer()
 
       return FreshMideaControllerClusterNotifyErrorEvent(code)

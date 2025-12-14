@@ -66,6 +66,8 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, breezeAwayMode);
     case Attributes::ErrorCode::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, errorCode);
+    case Attributes::HorizontalLouverPosition::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, horizontalLouverPosition);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

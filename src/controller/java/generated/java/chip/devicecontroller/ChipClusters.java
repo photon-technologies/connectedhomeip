@@ -67475,6 +67475,7 @@ public class ChipClusters {
     private static final long PLASMA_MODE_ATTRIBUTE_ID = 14L;
     private static final long BREEZE_AWAY_MODE_ATTRIBUTE_ID = 15L;
     private static final long ERROR_CODE_ATTRIBUTE_ID = 16L;
+    private static final long HORIZONTAL_LOUVER_POSITION_ATTRIBUTE_ID = 17L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -68100,6 +68101,41 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, ERROR_CODE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readHorizontalLouverPositionAttribute(
+        IntegerAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, HORIZONTAL_LOUVER_POSITION_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, HORIZONTAL_LOUVER_POSITION_ATTRIBUTE_ID, true);
+    }
+
+    public void writeHorizontalLouverPositionAttribute(DefaultClusterCallback callback, Integer value) {
+      writeHorizontalLouverPositionAttribute(callback, value, 0);
+    }
+
+    public void writeHorizontalLouverPositionAttribute(DefaultClusterCallback callback, Integer value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), HORIZONTAL_LOUVER_POSITION_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeHorizontalLouverPositionAttribute(
+        IntegerAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, HORIZONTAL_LOUVER_POSITION_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Integer value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, HORIZONTAL_LOUVER_POSITION_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

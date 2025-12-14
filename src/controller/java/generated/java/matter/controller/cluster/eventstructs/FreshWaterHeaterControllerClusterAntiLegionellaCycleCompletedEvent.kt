@@ -16,13 +16,17 @@
  */
 package matter.controller.cluster.eventstructs
 
+import java.util.Optional
 import matter.controller.cluster.*
+import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(val status: Boolean) {
+class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(
+  val status: Boolean
+) {
   override fun toString(): String = buildString {
     append("FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {\n")
     append("\tstatus : $status\n")
@@ -40,13 +44,10 @@ class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(val sta
   companion object {
     private const val TAG_STATUS = 0
 
-    fun fromTlv(
-      tlvTag: Tag,
-      tlvReader: TlvReader,
-    ): FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {
+    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader) : FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {
       tlvReader.enterStructure(tlvTag)
       val status = tlvReader.getBoolean(ContextSpecificTag(TAG_STATUS))
-
+      
       tlvReader.exitContainer()
 
       return FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(status)

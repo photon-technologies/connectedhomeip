@@ -16,7 +16,9 @@
  */
 package matter.controller.cluster.structs
 
+import java.util.Optional
 import matter.controller.cluster.*
+import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
@@ -30,7 +32,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
   val cleanSession: Boolean,
   val reconnectTimeoutMS: UInt,
   val timeoutMS: UInt,
-  val refreshConnectionAfterMS: UInt,
+  val refreshConnectionAfterMS: UInt
 ) {
   override fun toString(): String = buildString {
     append("PhotonSmartClusterPhotonMQTTStruct {\n")
@@ -79,21 +81,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
       val cleanSession = tlvReader.getBoolean(ContextSpecificTag(TAG_CLEAN_SESSION))
       val reconnectTimeoutMS = tlvReader.getUInt(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS))
       val timeoutMS = tlvReader.getUInt(ContextSpecificTag(TAG_TIMEOUT_MS))
-      val refreshConnectionAfterMS =
-        tlvReader.getUInt(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
-
+      val refreshConnectionAfterMS = tlvReader.getUInt(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
+      
       tlvReader.exitContainer()
 
-      return PhotonSmartClusterPhotonMQTTStruct(
-        host,
-        port,
-        transport,
-        keepAlive,
-        cleanSession,
-        reconnectTimeoutMS,
-        timeoutMS,
-        refreshConnectionAfterMS,
-      )
+      return PhotonSmartClusterPhotonMQTTStruct(host, port, transport, keepAlive, cleanSession, reconnectTimeoutMS, timeoutMS, refreshConnectionAfterMS)
     }
   }
 }

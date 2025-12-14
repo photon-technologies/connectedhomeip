@@ -20082,6 +20082,17 @@ public class ClusterReadMapping {
           readFreshMideaControllerErrorCodeCommandParams
         );
         result.put("readErrorCodeAttribute", readFreshMideaControllerErrorCodeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshMideaControllerHorizontalLouverPositionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshMideaControllerHorizontalLouverPositionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshMideaControllerCluster) cluster).readHorizontalLouverPositionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readFreshMideaControllerHorizontalLouverPositionCommandParams
+        );
+        result.put("readHorizontalLouverPositionAttribute", readFreshMideaControllerHorizontalLouverPositionAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshMideaControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshMideaControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

@@ -54168,6 +54168,7 @@ class FreshMideaController(Cluster):
                 ClusterObjectFieldDescriptor(Label="plasmaMode", Tag=0x0000000E, Type=typing.Optional[bool]),
                 ClusterObjectFieldDescriptor(Label="breezeAwayMode", Tag=0x0000000F, Type=typing.Optional[bool]),
                 ClusterObjectFieldDescriptor(Label="errorCode", Tag=0x00000010, Type=uint),
+                ClusterObjectFieldDescriptor(Label="horizontalLouverPosition", Tag=0x00000011, Type=uint),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -54192,6 +54193,7 @@ class FreshMideaController(Cluster):
     plasmaMode: typing.Optional[bool] = None
     breezeAwayMode: typing.Optional[bool] = None
     errorCode: uint = 0
+    horizontalLouverPosition: uint = 0
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
@@ -54555,6 +54557,22 @@ class FreshMideaController(Cluster):
             @ChipUtility.classproperty
             def attribute_id(cls) -> int:
                 return 0x00000010
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=uint)
+
+            value: uint = 0
+
+        @dataclass
+        class HorizontalLouverPosition(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC04
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000011
 
             @ChipUtility.classproperty
             def attribute_type(cls) -> ClusterObjectFieldDescriptor:

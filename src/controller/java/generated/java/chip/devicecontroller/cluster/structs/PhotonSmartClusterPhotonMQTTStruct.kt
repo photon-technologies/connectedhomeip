@@ -17,22 +17,25 @@
 package chip.devicecontroller.cluster.structs
 
 import chip.devicecontroller.cluster.*
+import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
+import matter.tlv.TlvParsingException
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-class PhotonSmartClusterPhotonMQTTStruct(
-  val host: String,
-  val port: UInt,
-  val transport: UInt,
-  val keepAlive: UInt,
-  val cleanSession: Boolean,
-  val reconnectTimeoutMS: ULong,
-  val timeoutMS: ULong,
-  val refreshConnectionAfterMS: ULong,
-) {
-  override fun toString(): String = buildString {
+import java.util.Optional
+
+class PhotonSmartClusterPhotonMQTTStruct (
+    val host: String,
+    val port: UInt,
+    val transport: UInt,
+    val keepAlive: UInt,
+    val cleanSession: Boolean,
+    val reconnectTimeoutMS: ULong,
+    val timeoutMS: ULong,
+    val refreshConnectionAfterMS: ULong) {
+  override fun toString(): String  = buildString {
     append("PhotonSmartClusterPhotonMQTTStruct {\n")
     append("\thost : $host\n")
     append("\tport : $port\n")
@@ -70,7 +73,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
     private const val TAG_TIMEOUT_MS = 7
     private const val TAG_REFRESH_CONNECTION_AFTER_MS = 8
 
-    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): PhotonSmartClusterPhotonMQTTStruct {
+    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader) : PhotonSmartClusterPhotonMQTTStruct {
       tlvReader.enterStructure(tlvTag)
       val host = tlvReader.getString(ContextSpecificTag(TAG_HOST))
       val port = tlvReader.getUInt(ContextSpecificTag(TAG_PORT))
@@ -79,21 +82,11 @@ class PhotonSmartClusterPhotonMQTTStruct(
       val cleanSession = tlvReader.getBoolean(ContextSpecificTag(TAG_CLEAN_SESSION))
       val reconnectTimeoutMS = tlvReader.getULong(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS))
       val timeoutMS = tlvReader.getULong(ContextSpecificTag(TAG_TIMEOUT_MS))
-      val refreshConnectionAfterMS =
-        tlvReader.getULong(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
-
+      val refreshConnectionAfterMS = tlvReader.getULong(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
+      
       tlvReader.exitContainer()
 
-      return PhotonSmartClusterPhotonMQTTStruct(
-        host,
-        port,
-        transport,
-        keepAlive,
-        cleanSession,
-        reconnectTimeoutMS,
-        timeoutMS,
-        refreshConnectionAfterMS,
-      )
+      return PhotonSmartClusterPhotonMQTTStruct(host, port, transport, keepAlive, cleanSession, reconnectTimeoutMS, timeoutMS, refreshConnectionAfterMS)
     }
   }
 }

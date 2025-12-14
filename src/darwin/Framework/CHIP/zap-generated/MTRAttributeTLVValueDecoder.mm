@@ -21532,6 +21532,17 @@ static id _Nullable DecodeAttributeValueForFreshMideaControllerCluster(Attribute
         value = [NSNumber numberWithUnsignedShort:cppValue];
         return value;
     }
+    case Attributes::HorizontalLouverPosition::Id: {
+        using TypeInfo = Attributes::HorizontalLouverPosition::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedChar:cppValue];
+        return value;
+    }
     default: {
         // Not a known FreshMideaController attribute.
         break;

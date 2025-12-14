@@ -57495,7 +57495,7 @@ public:
     DishwasherAlarmReset()
         : ClusterCommand("reset")
     {
-        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
         ClusterCommand::AddArguments();
     }
 
@@ -57510,7 +57510,7 @@ public:
         __auto_type * cluster = [[MTRBaseClusterDishwasherAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
         __auto_type * params = [[MTRDishwasherAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
         while (repeatCount--) {
@@ -57542,7 +57542,7 @@ public:
     DishwasherAlarmModifyEnabledAlarms()
         : ClusterCommand("modify-enabled-alarms")
     {
-        AddArgument("Mask", 0, UINT32_MAX, &mRequest.mask);
+        AddArgument("Mask", 0, UINT64_MAX, &mRequest.mask);
         ClusterCommand::AddArguments();
     }
 
@@ -57557,7 +57557,7 @@ public:
         __auto_type * cluster = [[MTRBaseClusterDishwasherAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
         __auto_type * params = [[MTRDishwasherAlarmClusterModifyEnabledAlarmsParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.mask = [NSNumber numberWithUnsignedInt:mRequest.mask.Raw()];
+        params.mask = [NSNumber numberWithUnsignedLongLong:mRequest.mask.Raw()];
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
         while (repeatCount--) {
@@ -176734,7 +176734,7 @@ public:
         : ClusterCommand("reset")
     {
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
 #endif // MTR_ENABLE_PROVISIONAL
         ClusterCommand::AddArguments();
     }
@@ -176751,7 +176751,7 @@ public:
         __auto_type * params = [[MTRFreshMideaAirConditionerAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
 #if MTR_ENABLE_PROVISIONAL
-        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
 #endif // MTR_ENABLE_PROVISIONAL
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
@@ -177576,7 +177576,7 @@ public:
         : ClusterCommand("reset")
     {
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
 #endif // MTR_ENABLE_PROVISIONAL
         ClusterCommand::AddArguments();
     }
@@ -177593,7 +177593,7 @@ public:
         __auto_type * params = [[MTRFreshRefrigeratorErrorsAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
 #if MTR_ENABLE_PROVISIONAL
-        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
 #endif // MTR_ENABLE_PROVISIONAL
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
@@ -180855,6 +180855,7 @@ public:
 | * PlasmaMode                                                        | 0x000E |
 | * BreezeAwayMode                                                    | 0x000F |
 | * ErrorCode                                                         | 0x0010 |
+| * HorizontalLouverPosition                                          | 0x0011 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -182873,6 +182874,132 @@ public:
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
                 NSLog(@"FreshMideaController.ErrorCode response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute HorizontalLouverPosition
+ */
+class ReadFreshMideaControllerHorizontalLouverPosition : public ReadAttribute {
+public:
+    ReadFreshMideaControllerHorizontalLouverPosition()
+        : ReadAttribute("horizontal-louver-position")
+    {
+    }
+
+    ~ReadFreshMideaControllerHorizontalLouverPosition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshMideaController::Attributes::HorizontalLouverPosition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshMideaController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeHorizontalLouverPositionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshMideaController.HorizontalLouverPosition response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshMideaController HorizontalLouverPosition read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class WriteFreshMideaControllerHorizontalLouverPosition : public WriteAttribute {
+public:
+    WriteFreshMideaControllerHorizontalLouverPosition()
+        : WriteAttribute("horizontal-louver-position")
+    {
+        AddArgument("attr-name", "horizontal-louver-position");
+        AddArgument("attr-value", 0, UINT8_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshMideaControllerHorizontalLouverPosition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshMideaController::Attributes::HorizontalLouverPosition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshMideaController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedChar:mValue];
+
+        [cluster writeAttributeHorizontalLouverPositionWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshMideaController HorizontalLouverPosition write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint8_t mValue;
+};
+
+class SubscribeAttributeFreshMideaControllerHorizontalLouverPosition : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshMideaControllerHorizontalLouverPosition()
+        : SubscribeAttribute("horizontal-louver-position")
+    {
+    }
+
+    ~SubscribeAttributeFreshMideaControllerHorizontalLouverPosition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaController::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshMideaController::Attributes::HorizontalLouverPosition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshMideaController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeHorizontalLouverPositionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshMideaController.HorizontalLouverPosition response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -187428,7 +187555,7 @@ public:
         : ClusterCommand("reset")
     {
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
 #endif // MTR_ENABLE_PROVISIONAL
         ClusterCommand::AddArguments();
     }
@@ -187445,7 +187572,7 @@ public:
         __auto_type * params = [[MTRFreshWaterHeaterErrorsAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
 #if MTR_ENABLE_PROVISIONAL
-        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
 #endif // MTR_ENABLE_PROVISIONAL
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
@@ -210344,6 +210471,11 @@ void registerClusterFreshMideaController(Commands & commands)
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshMideaControllerErrorCode>(), //
         make_unique<SubscribeAttributeFreshMideaControllerErrorCode>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshMideaControllerHorizontalLouverPosition>(), //
+        make_unique<WriteFreshMideaControllerHorizontalLouverPosition>(), //
+        make_unique<SubscribeAttributeFreshMideaControllerHorizontalLouverPosition>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshMideaControllerGeneratedCommandList>(), //

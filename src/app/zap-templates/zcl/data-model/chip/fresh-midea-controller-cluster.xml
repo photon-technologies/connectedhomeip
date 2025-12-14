@@ -123,16 +123,17 @@
         <feature name="PLASMA"/>
       </mandatoryConform>
     </attribute>
-
     <attribute side="server" code="0x000F" name="BreezeAwayMode" define="BREEZE_AWAY_MODE" type="boolean" default="0" writable="true">
       <description>BreezeAwayMode</description>
       <mandatoryConform>
         <feature name="BREEZE_AWAY"/>
       </mandatoryConform>
     </attribute>
-
     <!-- <attribute side="server" code="0x000F" name="OutdoorTemperature" define="OUTDOOR_TEMP_VALUE" type="temperature" min="-27315" isNullable="true"/> -->
     <attribute side="server" code="0x0010" name="ErrorCode" define="ERROR_CODE" type="int16u" default="0"/>
+    <attribute side="server" code="0x0011" name="HorizontalLouverPosition" define="HORIZONTAL_LOUVER_POSITION" type="int8u" default="0" writable="true">
+      <description>HorizontalLouverPosition</description>
+    </attribute>
 
     <command source="client" code="0x00" name="Clean" optional="true">
       <description>This command starts the clean process.</description>

@@ -11561,6 +11561,7 @@ cluster FreshMideaController = 367524868 {
   attribute optional boolean plasmaMode = 14;
   attribute optional boolean breezeAwayMode = 15;
   readonly attribute int16u errorCode = 16;
+  attribute int8u horizontalLouverPosition = 17;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

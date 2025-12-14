@@ -20947,6 +20947,7 @@ public class ClusterIDMapping {
             PlasmaMode(14L),
             BreezeAwayMode(15L),
             ErrorCode(16L),
+            HorizontalLouverPosition(17L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),

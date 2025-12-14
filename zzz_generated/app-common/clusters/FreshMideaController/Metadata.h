@@ -87,6 +87,11 @@ namespace ErrorCode {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ErrorCode::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace ErrorCode
+namespace HorizontalLouverPosition {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(HorizontalLouverPosition::Id,
+                                                          BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
+                                                          Access::Privilege::kOperate);
+} // namespace HorizontalLouverPosition
 
 } // namespace Attributes
 

@@ -9374,6 +9374,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"ErrorCode";
             break;
 
+        case MTRAttributeIDTypeClusterFreshMideaControllerAttributeHorizontalLouverPositionID:
+            result = @"HorizontalLouverPosition";
+            break;
+
         case MTRAttributeIDTypeClusterFreshMideaControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;

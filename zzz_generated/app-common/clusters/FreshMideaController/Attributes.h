@@ -247,6 +247,18 @@ struct TypeInfo
     static constexpr bool MustUseTimedWrite() { return false; }
 };
 } // namespace ErrorCode
+namespace HorizontalLouverPosition {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshMideaController::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::HorizontalLouverPosition::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace HorizontalLouverPosition
 namespace GeneratedCommandList {
 struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
 {
@@ -296,15 +308,16 @@ struct TypeInfo
             static_cast<chip::app::Clusters::FreshMideaController::TemperatureUnitsEnum>(0);
         Attributes::CleanState::TypeInfo::DecodableType cleanState =
             static_cast<chip::app::Clusters::FreshMideaController::CleanStateEnum>(0);
-        Attributes::OffTimer::TypeInfo::DecodableType offTimer               = static_cast<bool>(0);
-        Attributes::OffTimerHours::TypeInfo::DecodableType offTimerHours     = static_cast<uint8_t>(0);
-        Attributes::OffTimerMinutes::TypeInfo::DecodableType offTimerMinutes = static_cast<uint8_t>(0);
-        Attributes::OnTimer::TypeInfo::DecodableType onTimer                 = static_cast<bool>(0);
-        Attributes::OnTimerHours::TypeInfo::DecodableType onTimerHours       = static_cast<uint8_t>(0);
-        Attributes::OnTimerMinutes::TypeInfo::DecodableType onTimerMinutes   = static_cast<uint8_t>(0);
-        Attributes::PlasmaMode::TypeInfo::DecodableType plasmaMode           = static_cast<bool>(0);
-        Attributes::BreezeAwayMode::TypeInfo::DecodableType breezeAwayMode   = static_cast<bool>(0);
-        Attributes::ErrorCode::TypeInfo::DecodableType errorCode             = static_cast<uint16_t>(0);
+        Attributes::OffTimer::TypeInfo::DecodableType offTimer                                 = static_cast<bool>(0);
+        Attributes::OffTimerHours::TypeInfo::DecodableType offTimerHours                       = static_cast<uint8_t>(0);
+        Attributes::OffTimerMinutes::TypeInfo::DecodableType offTimerMinutes                   = static_cast<uint8_t>(0);
+        Attributes::OnTimer::TypeInfo::DecodableType onTimer                                   = static_cast<bool>(0);
+        Attributes::OnTimerHours::TypeInfo::DecodableType onTimerHours                         = static_cast<uint8_t>(0);
+        Attributes::OnTimerMinutes::TypeInfo::DecodableType onTimerMinutes                     = static_cast<uint8_t>(0);
+        Attributes::PlasmaMode::TypeInfo::DecodableType plasmaMode                             = static_cast<bool>(0);
+        Attributes::BreezeAwayMode::TypeInfo::DecodableType breezeAwayMode                     = static_cast<bool>(0);
+        Attributes::ErrorCode::TypeInfo::DecodableType errorCode                               = static_cast<uint16_t>(0);
+        Attributes::HorizontalLouverPosition::TypeInfo::DecodableType horizontalLouverPosition = static_cast<uint8_t>(0);
         Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
         Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
         Attributes::AttributeList::TypeInfo::DecodableType attributeList;

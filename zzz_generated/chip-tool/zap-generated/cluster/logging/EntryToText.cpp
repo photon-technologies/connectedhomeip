@@ -4968,6 +4968,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "BreezeAwayMode";
         case chip::app::Clusters::FreshMideaController::Attributes::ErrorCode::Id:
             return "ErrorCode";
+        case chip::app::Clusters::FreshMideaController::Attributes::HorizontalLouverPosition::Id:
+            return "HorizontalLouverPosition";
         case chip::app::Clusters::FreshMideaController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshMideaController::Attributes::AcceptedCommandList::Id:

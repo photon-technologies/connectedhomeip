@@ -6837,6 +6837,9 @@ static BOOL AttributeIsSpecifiedInFreshMideaControllerCluster(AttributeId aAttri
     case Attributes::ErrorCode::Id: {
         return YES;
     }
+    case Attributes::HorizontalLouverPosition::Id: {
+        return YES;
+    }
     case Attributes::GeneratedCommandList::Id: {
         return YES;
     }

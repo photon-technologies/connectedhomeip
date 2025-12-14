@@ -17704,6 +17704,7 @@ private:
 | * PlasmaMode                                                        | 0x000E |
 | * BreezeAwayMode                                                    | 0x000F |
 | * ErrorCode                                                         | 0x0010 |
+| * HorizontalLouverPosition                                          | 0x0011 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -32081,24 +32082,26 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
         //
         // Attributes
         //
-        make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                        //
-        make_unique<ReadAttribute>(Id, "beep", Attributes::Beep::Id, credsIssuerConfig),                                          //
-        make_unique<ReadAttribute>(Id, "light", Attributes::Light::Id, credsIssuerConfig),                                        //
-        make_unique<ReadAttribute>(Id, "turbo-mode", Attributes::TurboMode::Id, credsIssuerConfig),                               //
-        make_unique<ReadAttribute>(Id, "eco-mode", Attributes::EcoMode::Id, credsIssuerConfig),                                   //
-        make_unique<ReadAttribute>(Id, "frost-protection-mode", Attributes::FrostProtectionMode::Id, credsIssuerConfig),          //
-        make_unique<ReadAttribute>(Id, "sleep-mode", Attributes::SleepMode::Id, credsIssuerConfig),                               //
-        make_unique<ReadAttribute>(Id, "temperature-unit", Attributes::TemperatureUnit::Id, credsIssuerConfig),                   //
-        make_unique<ReadAttribute>(Id, "clean-state", Attributes::CleanState::Id, credsIssuerConfig),                             //
-        make_unique<ReadAttribute>(Id, "off-timer", Attributes::OffTimer::Id, credsIssuerConfig),                                 //
-        make_unique<ReadAttribute>(Id, "off-timer-hours", Attributes::OffTimerHours::Id, credsIssuerConfig),                      //
-        make_unique<ReadAttribute>(Id, "off-timer-minutes", Attributes::OffTimerMinutes::Id, credsIssuerConfig),                  //
-        make_unique<ReadAttribute>(Id, "on-timer", Attributes::OnTimer::Id, credsIssuerConfig),                                   //
-        make_unique<ReadAttribute>(Id, "on-timer-hours", Attributes::OnTimerHours::Id, credsIssuerConfig),                        //
-        make_unique<ReadAttribute>(Id, "on-timer-minutes", Attributes::OnTimerMinutes::Id, credsIssuerConfig),                    //
-        make_unique<ReadAttribute>(Id, "plasma-mode", Attributes::PlasmaMode::Id, credsIssuerConfig),                             //
-        make_unique<ReadAttribute>(Id, "breeze-away-mode", Attributes::BreezeAwayMode::Id, credsIssuerConfig),                    //
-        make_unique<ReadAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                               //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                               //
+        make_unique<ReadAttribute>(Id, "beep", Attributes::Beep::Id, credsIssuerConfig),                                 //
+        make_unique<ReadAttribute>(Id, "light", Attributes::Light::Id, credsIssuerConfig),                               //
+        make_unique<ReadAttribute>(Id, "turbo-mode", Attributes::TurboMode::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "eco-mode", Attributes::EcoMode::Id, credsIssuerConfig),                          //
+        make_unique<ReadAttribute>(Id, "frost-protection-mode", Attributes::FrostProtectionMode::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "sleep-mode", Attributes::SleepMode::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "temperature-unit", Attributes::TemperatureUnit::Id, credsIssuerConfig),          //
+        make_unique<ReadAttribute>(Id, "clean-state", Attributes::CleanState::Id, credsIssuerConfig),                    //
+        make_unique<ReadAttribute>(Id, "off-timer", Attributes::OffTimer::Id, credsIssuerConfig),                        //
+        make_unique<ReadAttribute>(Id, "off-timer-hours", Attributes::OffTimerHours::Id, credsIssuerConfig),             //
+        make_unique<ReadAttribute>(Id, "off-timer-minutes", Attributes::OffTimerMinutes::Id, credsIssuerConfig),         //
+        make_unique<ReadAttribute>(Id, "on-timer", Attributes::OnTimer::Id, credsIssuerConfig),                          //
+        make_unique<ReadAttribute>(Id, "on-timer-hours", Attributes::OnTimerHours::Id, credsIssuerConfig),               //
+        make_unique<ReadAttribute>(Id, "on-timer-minutes", Attributes::OnTimerMinutes::Id, credsIssuerConfig),           //
+        make_unique<ReadAttribute>(Id, "plasma-mode", Attributes::PlasmaMode::Id, credsIssuerConfig),                    //
+        make_unique<ReadAttribute>(Id, "breeze-away-mode", Attributes::BreezeAwayMode::Id, credsIssuerConfig),           //
+        make_unique<ReadAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "horizontal-louver-position", Attributes::HorizontalLouverPosition::Id,
+                                   credsIssuerConfig),                                                                            //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig),        //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),          //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                       //
@@ -32137,6 +32140,9 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
                                           credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "error-code", 0, UINT16_MAX, Attributes::ErrorCode::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "horizontal-louver-position", 0, UINT8_MAX,
+                                             Attributes::HorizontalLouverPosition::Id, WriteCommandType::kWrite,
+                                             credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -32147,25 +32153,27 @@ void registerClusterFreshMideaController(Commands & commands, CredentialIssuerCo
         make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig),                                //
-        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                                 //
-        make_unique<SubscribeAttribute>(Id, "beep", Attributes::Beep::Id, credsIssuerConfig),                                   //
-        make_unique<SubscribeAttribute>(Id, "light", Attributes::Light::Id, credsIssuerConfig),                                 //
-        make_unique<SubscribeAttribute>(Id, "turbo-mode", Attributes::TurboMode::Id, credsIssuerConfig),                        //
-        make_unique<SubscribeAttribute>(Id, "eco-mode", Attributes::EcoMode::Id, credsIssuerConfig),                            //
-        make_unique<SubscribeAttribute>(Id, "frost-protection-mode", Attributes::FrostProtectionMode::Id, credsIssuerConfig),   //
-        make_unique<SubscribeAttribute>(Id, "sleep-mode", Attributes::SleepMode::Id, credsIssuerConfig),                        //
-        make_unique<SubscribeAttribute>(Id, "temperature-unit", Attributes::TemperatureUnit::Id, credsIssuerConfig),            //
-        make_unique<SubscribeAttribute>(Id, "clean-state", Attributes::CleanState::Id, credsIssuerConfig),                      //
-        make_unique<SubscribeAttribute>(Id, "off-timer", Attributes::OffTimer::Id, credsIssuerConfig),                          //
-        make_unique<SubscribeAttribute>(Id, "off-timer-hours", Attributes::OffTimerHours::Id, credsIssuerConfig),               //
-        make_unique<SubscribeAttribute>(Id, "off-timer-minutes", Attributes::OffTimerMinutes::Id, credsIssuerConfig),           //
-        make_unique<SubscribeAttribute>(Id, "on-timer", Attributes::OnTimer::Id, credsIssuerConfig),                            //
-        make_unique<SubscribeAttribute>(Id, "on-timer-hours", Attributes::OnTimerHours::Id, credsIssuerConfig),                 //
-        make_unique<SubscribeAttribute>(Id, "on-timer-minutes", Attributes::OnTimerMinutes::Id, credsIssuerConfig),             //
-        make_unique<SubscribeAttribute>(Id, "plasma-mode", Attributes::PlasmaMode::Id, credsIssuerConfig),                      //
-        make_unique<SubscribeAttribute>(Id, "breeze-away-mode", Attributes::BreezeAwayMode::Id, credsIssuerConfig),             //
-        make_unique<SubscribeAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                        //
+                                              WriteCommandType::kForceWrite, credsIssuerConfig),                              //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                               //
+        make_unique<SubscribeAttribute>(Id, "beep", Attributes::Beep::Id, credsIssuerConfig),                                 //
+        make_unique<SubscribeAttribute>(Id, "light", Attributes::Light::Id, credsIssuerConfig),                               //
+        make_unique<SubscribeAttribute>(Id, "turbo-mode", Attributes::TurboMode::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "eco-mode", Attributes::EcoMode::Id, credsIssuerConfig),                          //
+        make_unique<SubscribeAttribute>(Id, "frost-protection-mode", Attributes::FrostProtectionMode::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "sleep-mode", Attributes::SleepMode::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "temperature-unit", Attributes::TemperatureUnit::Id, credsIssuerConfig),          //
+        make_unique<SubscribeAttribute>(Id, "clean-state", Attributes::CleanState::Id, credsIssuerConfig),                    //
+        make_unique<SubscribeAttribute>(Id, "off-timer", Attributes::OffTimer::Id, credsIssuerConfig),                        //
+        make_unique<SubscribeAttribute>(Id, "off-timer-hours", Attributes::OffTimerHours::Id, credsIssuerConfig),             //
+        make_unique<SubscribeAttribute>(Id, "off-timer-minutes", Attributes::OffTimerMinutes::Id, credsIssuerConfig),         //
+        make_unique<SubscribeAttribute>(Id, "on-timer", Attributes::OnTimer::Id, credsIssuerConfig),                          //
+        make_unique<SubscribeAttribute>(Id, "on-timer-hours", Attributes::OnTimerHours::Id, credsIssuerConfig),               //
+        make_unique<SubscribeAttribute>(Id, "on-timer-minutes", Attributes::OnTimerMinutes::Id, credsIssuerConfig),           //
+        make_unique<SubscribeAttribute>(Id, "plasma-mode", Attributes::PlasmaMode::Id, credsIssuerConfig),                    //
+        make_unique<SubscribeAttribute>(Id, "breeze-away-mode", Attributes::BreezeAwayMode::Id, credsIssuerConfig),           //
+        make_unique<SubscribeAttribute>(Id, "error-code", Attributes::ErrorCode::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "horizontal-louver-position", Attributes::HorizontalLouverPosition::Id,
+                                        credsIssuerConfig),                                                                     //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
