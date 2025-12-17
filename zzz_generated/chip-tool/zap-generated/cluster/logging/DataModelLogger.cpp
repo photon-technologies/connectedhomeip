@@ -8072,6 +8072,78 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
             return err;
         }
     }
+    {
+        CHIP_ERROR err = LogValue("SessionExpiryIntervalS", indent + 1, value.sessionExpiryIntervalS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'SessionExpiryIntervalS'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("MaxPacketSize", indent + 1, value.maxPacketSize);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'MaxPacketSize'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("MaxReceivePacketCount", indent + 1, value.maxReceivePacketCount);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'MaxReceivePacketCount'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("MaxTopicAlias", indent + 1, value.maxTopicAlias);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'MaxTopicAlias'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("RequestRespInfo", indent + 1, value.requestRespInfo);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'RequestRespInfo'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("RequestProblemInfo", indent + 1, value.requestProblemInfo);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'RequestProblemInfo'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("WillDelayIntervalS", indent + 1, value.willDelayIntervalS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'WillDelayIntervalS'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("MessageExpiryIntervalS", indent + 1, value.messageExpiryIntervalS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'MessageExpiryIntervalS'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("PayloadFormatIndicator", indent + 1, value.payloadFormatIndicator);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'PayloadFormatIndicator'");
+            return err;
+        }
+    }
     DataModelLogger::LogString(indent, "}");
 
     return CHIP_NO_ERROR;

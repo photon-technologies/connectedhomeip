@@ -19749,6 +19749,15 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   public Long reconnectTimeoutMS;
   public Long timeoutMS;
   public Long refreshConnectionAfterMS;
+  public Long sessionExpiryIntervalS;
+  public Long maxPacketSize;
+  public Integer maxReceivePacketCount;
+  public Integer maxTopicAlias;
+  public Boolean requestRespInfo;
+  public Boolean requestProblemInfo;
+  public Long willDelayIntervalS;
+  public Long messageExpiryIntervalS;
+  public Boolean payloadFormatIndicator;
   private static final long HOST_ID = 1L;
   private static final long PORT_ID = 2L;
   private static final long TRANSPORT_ID = 3L;
@@ -19757,6 +19766,15 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   private static final long RECONNECT_TIMEOUT_MS_ID = 6L;
   private static final long TIMEOUT_MS_ID = 7L;
   private static final long REFRESH_CONNECTION_AFTER_MS_ID = 8L;
+  private static final long SESSION_EXPIRY_INTERVAL_S_ID = 9L;
+  private static final long MAX_PACKET_SIZE_ID = 10L;
+  private static final long MAX_RECEIVE_PACKET_COUNT_ID = 11L;
+  private static final long MAX_TOPIC_ALIAS_ID = 12L;
+  private static final long REQUEST_RESP_INFO_ID = 13L;
+  private static final long REQUEST_PROBLEM_INFO_ID = 14L;
+  private static final long WILL_DELAY_INTERVAL_S_ID = 15L;
+  private static final long MESSAGE_EXPIRY_INTERVAL_S_ID = 16L;
+  private static final long PAYLOAD_FORMAT_INDICATOR_ID = 17L;
 
   public PhotonSmartClusterPhotonMQTTStruct(
     String host,
@@ -19766,7 +19784,16 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Boolean cleanSession,
     Long reconnectTimeoutMS,
     Long timeoutMS,
-    Long refreshConnectionAfterMS
+    Long refreshConnectionAfterMS,
+    Long sessionExpiryIntervalS,
+    Long maxPacketSize,
+    Integer maxReceivePacketCount,
+    Integer maxTopicAlias,
+    Boolean requestRespInfo,
+    Boolean requestProblemInfo,
+    Long willDelayIntervalS,
+    Long messageExpiryIntervalS,
+    Boolean payloadFormatIndicator
   ) {
     this.host = host;
     this.port = port;
@@ -19776,6 +19803,15 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     this.reconnectTimeoutMS = reconnectTimeoutMS;
     this.timeoutMS = timeoutMS;
     this.refreshConnectionAfterMS = refreshConnectionAfterMS;
+    this.sessionExpiryIntervalS = sessionExpiryIntervalS;
+    this.maxPacketSize = maxPacketSize;
+    this.maxReceivePacketCount = maxReceivePacketCount;
+    this.maxTopicAlias = maxTopicAlias;
+    this.requestRespInfo = requestRespInfo;
+    this.requestProblemInfo = requestProblemInfo;
+    this.willDelayIntervalS = willDelayIntervalS;
+    this.messageExpiryIntervalS = messageExpiryIntervalS;
+    this.payloadFormatIndicator = payloadFormatIndicator;
   }
 
   public StructType encodeTlv() {
@@ -19788,6 +19824,15 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     values.add(new StructElement(RECONNECT_TIMEOUT_MS_ID, new UIntType(reconnectTimeoutMS)));
     values.add(new StructElement(TIMEOUT_MS_ID, new UIntType(timeoutMS)));
     values.add(new StructElement(REFRESH_CONNECTION_AFTER_MS_ID, new UIntType(refreshConnectionAfterMS)));
+    values.add(new StructElement(SESSION_EXPIRY_INTERVAL_S_ID, new UIntType(sessionExpiryIntervalS)));
+    values.add(new StructElement(MAX_PACKET_SIZE_ID, new UIntType(maxPacketSize)));
+    values.add(new StructElement(MAX_RECEIVE_PACKET_COUNT_ID, new UIntType(maxReceivePacketCount)));
+    values.add(new StructElement(MAX_TOPIC_ALIAS_ID, new UIntType(maxTopicAlias)));
+    values.add(new StructElement(REQUEST_RESP_INFO_ID, new BooleanType(requestRespInfo)));
+    values.add(new StructElement(REQUEST_PROBLEM_INFO_ID, new BooleanType(requestProblemInfo)));
+    values.add(new StructElement(WILL_DELAY_INTERVAL_S_ID, new UIntType(willDelayIntervalS)));
+    values.add(new StructElement(MESSAGE_EXPIRY_INTERVAL_S_ID, new UIntType(messageExpiryIntervalS)));
+    values.add(new StructElement(PAYLOAD_FORMAT_INDICATOR_ID, new BooleanType(payloadFormatIndicator)));
 
     return new StructType(values);
   }
@@ -19804,6 +19849,15 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Long reconnectTimeoutMS = null;
     Long timeoutMS = null;
     Long refreshConnectionAfterMS = null;
+    Long sessionExpiryIntervalS = null;
+    Long maxPacketSize = null;
+    Integer maxReceivePacketCount = null;
+    Integer maxTopicAlias = null;
+    Boolean requestRespInfo = null;
+    Boolean requestProblemInfo = null;
+    Long willDelayIntervalS = null;
+    Long messageExpiryIntervalS = null;
+    Boolean payloadFormatIndicator = null;
     for (StructElement element: ((StructType)tlvValue).value()) {
       if (element.contextTagNum() == HOST_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.String) {
@@ -19845,6 +19899,51 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
           UIntType castingValue = element.value(UIntType.class);
           refreshConnectionAfterMS = castingValue.value(Long.class);
         }
+      } else if (element.contextTagNum() == SESSION_EXPIRY_INTERVAL_S_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          sessionExpiryIntervalS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MAX_PACKET_SIZE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxPacketSize = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MAX_RECEIVE_PACKET_COUNT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxReceivePacketCount = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == MAX_TOPIC_ALIAS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxTopicAlias = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == REQUEST_RESP_INFO_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          requestRespInfo = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REQUEST_PROBLEM_INFO_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          requestProblemInfo = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == WILL_DELAY_INTERVAL_S_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          willDelayIntervalS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MESSAGE_EXPIRY_INTERVAL_S_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          messageExpiryIntervalS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == PAYLOAD_FORMAT_INDICATOR_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          payloadFormatIndicator = castingValue.value(Boolean.class);
+        }
       }
     }
     return new PhotonSmartClusterPhotonMQTTStruct(
@@ -19855,7 +19954,16 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
       cleanSession,
       reconnectTimeoutMS,
       timeoutMS,
-      refreshConnectionAfterMS
+      refreshConnectionAfterMS,
+      sessionExpiryIntervalS,
+      maxPacketSize,
+      maxReceivePacketCount,
+      maxTopicAlias,
+      requestRespInfo,
+      requestProblemInfo,
+      willDelayIntervalS,
+      messageExpiryIntervalS,
+      payloadFormatIndicator
     );
   }
 
@@ -19886,6 +19994,33 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     output.append("\n");
     output.append("\trefreshConnectionAfterMS: ");
     output.append(refreshConnectionAfterMS);
+    output.append("\n");
+    output.append("\tsessionExpiryIntervalS: ");
+    output.append(sessionExpiryIntervalS);
+    output.append("\n");
+    output.append("\tmaxPacketSize: ");
+    output.append(maxPacketSize);
+    output.append("\n");
+    output.append("\tmaxReceivePacketCount: ");
+    output.append(maxReceivePacketCount);
+    output.append("\n");
+    output.append("\tmaxTopicAlias: ");
+    output.append(maxTopicAlias);
+    output.append("\n");
+    output.append("\trequestRespInfo: ");
+    output.append(requestRespInfo);
+    output.append("\n");
+    output.append("\trequestProblemInfo: ");
+    output.append(requestProblemInfo);
+    output.append("\n");
+    output.append("\twillDelayIntervalS: ");
+    output.append(willDelayIntervalS);
+    output.append("\n");
+    output.append("\tmessageExpiryIntervalS: ");
+    output.append(messageExpiryIntervalS);
+    output.append("\n");
+    output.append("\tpayloadFormatIndicator: ");
+    output.append(payloadFormatIndicator);
     output.append("\n");
     output.append("}\n");
     return output.toString();

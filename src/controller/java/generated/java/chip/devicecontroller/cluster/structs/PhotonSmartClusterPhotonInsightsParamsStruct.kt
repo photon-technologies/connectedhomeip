@@ -17,33 +17,30 @@
 package chip.devicecontroller.cluster.structs
 
 import chip.devicecontroller.cluster.*
-import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
-import matter.tlv.TlvParsingException
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-import java.util.Optional
-
-class PhotonSmartClusterPhotonInsightsParamsStruct (
-    val coreDumpEnabled: Boolean,
-    val minInterval: ULong,
-    val maxInterval: ULong,
-    val dropWifiLogs: Boolean,
-    val reportMetrics: Boolean,
-    val reportHeapMetrics: Boolean,
-    val heapPollingInterval: ULong,
-    val heapPollingCount: UInt,
-    val reportWifiMetrics: Boolean,
-    val wifiPollingInterval: ULong,
-    val wifiPollingCount: UInt,
-    val usePolling: Boolean,
-    val reportVariables: Boolean,
-    val reportNetworkVariables: Boolean,
-    val reportMoreNetworkVariables: Boolean,
-    val reportWatermarkPercent: UInt) {
-  override fun toString(): String  = buildString {
+class PhotonSmartClusterPhotonInsightsParamsStruct(
+  val coreDumpEnabled: Boolean,
+  val minInterval: ULong,
+  val maxInterval: ULong,
+  val dropWifiLogs: Boolean,
+  val reportMetrics: Boolean,
+  val reportHeapMetrics: Boolean,
+  val heapPollingInterval: ULong,
+  val heapPollingCount: UInt,
+  val reportWifiMetrics: Boolean,
+  val wifiPollingInterval: ULong,
+  val wifiPollingCount: UInt,
+  val usePolling: Boolean,
+  val reportVariables: Boolean,
+  val reportNetworkVariables: Boolean,
+  val reportMoreNetworkVariables: Boolean,
+  val reportWatermarkPercent: UInt,
+) {
+  override fun toString(): String = buildString {
     append("PhotonSmartClusterPhotonInsightsParamsStruct {\n")
     append("\tcoreDumpEnabled : $coreDumpEnabled\n")
     append("\tminInterval : $minInterval\n")
@@ -105,7 +102,7 @@ class PhotonSmartClusterPhotonInsightsParamsStruct (
     private const val TAG_REPORT_MORE_NETWORK_VARIABLES = 14
     private const val TAG_REPORT_WATERMARK_PERCENT = 15
 
-    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader) : PhotonSmartClusterPhotonInsightsParamsStruct {
+    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): PhotonSmartClusterPhotonInsightsParamsStruct {
       tlvReader.enterStructure(tlvTag)
       val coreDumpEnabled = tlvReader.getBoolean(ContextSpecificTag(TAG_CORE_DUMP_ENABLED))
       val minInterval = tlvReader.getULong(ContextSpecificTag(TAG_MIN_INTERVAL))
@@ -120,13 +117,33 @@ class PhotonSmartClusterPhotonInsightsParamsStruct (
       val wifiPollingCount = tlvReader.getUInt(ContextSpecificTag(TAG_WIFI_POLLING_COUNT))
       val usePolling = tlvReader.getBoolean(ContextSpecificTag(TAG_USE_POLLING))
       val reportVariables = tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_VARIABLES))
-      val reportNetworkVariables = tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_NETWORK_VARIABLES))
-      val reportMoreNetworkVariables = tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_MORE_NETWORK_VARIABLES))
-      val reportWatermarkPercent = tlvReader.getUInt(ContextSpecificTag(TAG_REPORT_WATERMARK_PERCENT))
-      
+      val reportNetworkVariables =
+        tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_NETWORK_VARIABLES))
+      val reportMoreNetworkVariables =
+        tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_MORE_NETWORK_VARIABLES))
+      val reportWatermarkPercent =
+        tlvReader.getUInt(ContextSpecificTag(TAG_REPORT_WATERMARK_PERCENT))
+
       tlvReader.exitContainer()
 
-      return PhotonSmartClusterPhotonInsightsParamsStruct(coreDumpEnabled, minInterval, maxInterval, dropWifiLogs, reportMetrics, reportHeapMetrics, heapPollingInterval, heapPollingCount, reportWifiMetrics, wifiPollingInterval, wifiPollingCount, usePolling, reportVariables, reportNetworkVariables, reportMoreNetworkVariables, reportWatermarkPercent)
+      return PhotonSmartClusterPhotonInsightsParamsStruct(
+        coreDumpEnabled,
+        minInterval,
+        maxInterval,
+        dropWifiLogs,
+        reportMetrics,
+        reportHeapMetrics,
+        heapPollingInterval,
+        heapPollingCount,
+        reportWifiMetrics,
+        wifiPollingInterval,
+        wifiPollingCount,
+        usePolling,
+        reportVariables,
+        reportNetworkVariables,
+        reportMoreNetworkVariables,
+        reportWatermarkPercent,
+      )
     }
   }
 }

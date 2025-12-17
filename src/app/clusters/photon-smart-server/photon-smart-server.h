@@ -42,6 +42,7 @@ static constexpr char * const MQTT_ENABLED_NVS_KEY                  = "mqtt_en";
 static constexpr char * const INSIGHTS_ENABLED_NVS_KEY              = "insights_en";
 static constexpr char * const INSIGHTS_PARAMS_NVS_KEY               = "insights_params";
 static constexpr char * const PUBLIC_IPV4_ENABLED_NVS_KEY           = "pub_ipv4";
+static constexpr char * const MQTT_V5_CONN_NVS_KEY                  = "mqtt5_conn";
 
 namespace chip::DeviceLayer::PersistedStorage {
 class KeyValueStoreManager;
@@ -110,6 +111,17 @@ private:
     uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
     
     photon_insights_params_t insightsParams;
+    photon_mqtt5_conn_config_t mqtt5ConnConfig = {
+        .session_expiry_interval     = 3600,
+        .maximum_packet_size        = 0,
+        .receive_maximum            = 0,
+        .topic_alias_maximum        = 0,
+        .request_resp_info          = false,
+        .request_problem_info       = false,
+        .will_delay_interval        = 30,
+        .message_expiry_interval    = 0,
+        .payload_format_indicator   = false
+    };
     bool insightsEnabled = true;
     bool mqttEnabled     = true;
     bool getPublicIpv4   = true;

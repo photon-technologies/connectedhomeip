@@ -38,6 +38,17 @@ typedef struct __attribute__((packed)) {
   uint8_t watermark_percent;       /*!< Watermark percentage to trigger data send */
 } photon_insights_params_t;
 
+typedef struct __attribute__((packed)) {
+    uint32_t session_expiry_interval;            /*!< The interval time of session expiry */
+    uint32_t maximum_packet_size;                /*!< The maximum packet size that we can receive */
+    uint16_t receive_maximum;                    /*!< The maximum pakcket count that we process concurrently */
+    uint16_t topic_alias_maximum;                /*!< The maximum topic alias that we support */
+    bool request_resp_info;                      /*!< This value to request Server to return Response information */
+    bool request_problem_info;                   /*!< This value to indicate whether the reason string or user properties are sent in case of failures */
+    uint32_t will_delay_interval;                /*!< The time interval that server delays publishing will message  */
+    uint32_t message_expiry_interval;            /*!< The time interval that message expiry */
+    bool payload_format_indicator;               /*!< This value is to indicator will message payload format */
+} photon_mqtt5_conn_config_t;
 class Delegate
 {
 public:

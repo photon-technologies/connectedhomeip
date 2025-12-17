@@ -108767,6 +108767,15 @@ public:
      cppValue.reconnectTimeoutMS = value.reconnectTimeoutMS.unsignedIntValue;
      cppValue.timeoutMS = value.timeoutMS.unsignedIntValue;
      cppValue.refreshConnectionAfterMS = value.refreshConnectionAfterMS.unsignedIntValue;
+     cppValue.sessionExpiryIntervalS = value.sessionExpiryIntervalS.unsignedIntValue;
+     cppValue.maxPacketSize = value.maxPacketSize.unsignedIntValue;
+     cppValue.maxReceivePacketCount = value.maxReceivePacketCount.unsignedShortValue;
+     cppValue.maxTopicAlias = value.maxTopicAlias.unsignedShortValue;
+     cppValue.requestRespInfo = value.requestRespInfo.boolValue;
+     cppValue.requestProblemInfo = value.requestProblemInfo.boolValue;
+     cppValue.willDelayIntervalS = value.willDelayIntervalS.unsignedIntValue;
+     cppValue.messageExpiryIntervalS = value.messageExpiryIntervalS.unsignedIntValue;
+     cppValue.payloadFormatIndicator = value.payloadFormatIndicator.boolValue;
 
         chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
         return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });

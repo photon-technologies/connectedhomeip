@@ -17,18 +17,13 @@
 package chip.devicecontroller.cluster.eventstructs
 
 import chip.devicecontroller.cluster.*
-import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
-import matter.tlv.TlvParsingException
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-import java.util.Optional
-
-class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent (
-    val status: Boolean) {
-  override fun toString(): String  = buildString {
+class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(val status: Boolean) {
+  override fun toString(): String = buildString {
     append("FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {\n")
     append("\tstatus : $status\n")
     append("}\n")
@@ -45,10 +40,13 @@ class FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent (
   companion object {
     private const val TAG_STATUS = 0
 
-    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader) : FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {
+    fun fromTlv(
+      tlvTag: Tag,
+      tlvReader: TlvReader,
+    ): FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent {
       tlvReader.enterStructure(tlvTag)
       val status = tlvReader.getBoolean(ContextSpecificTag(TAG_STATUS))
-      
+
       tlvReader.exitContainer()
 
       return FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent(status)

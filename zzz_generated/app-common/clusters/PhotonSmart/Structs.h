@@ -99,6 +99,15 @@ enum class Fields : uint8_t
     kReconnectTimeoutMS       = 6,
     kTimeoutMS                = 7,
     kRefreshConnectionAfterMS = 8,
+    kSessionExpiryIntervalS   = 9,
+    kMaxPacketSize            = 10,
+    kMaxReceivePacketCount    = 11,
+    kMaxTopicAlias            = 12,
+    kRequestRespInfo          = 13,
+    kRequestProblemInfo       = 14,
+    kWillDelayIntervalS       = 15,
+    kMessageExpiryIntervalS   = 16,
+    kPayloadFormatIndicator   = 17,
 };
 
 struct Type
@@ -112,6 +121,15 @@ public:
     uint32_t reconnectTimeoutMS       = static_cast<uint32_t>(0);
     uint32_t timeoutMS                = static_cast<uint32_t>(0);
     uint32_t refreshConnectionAfterMS = static_cast<uint32_t>(0);
+    uint32_t sessionExpiryIntervalS   = static_cast<uint32_t>(0);
+    uint32_t maxPacketSize            = static_cast<uint32_t>(0);
+    uint16_t maxReceivePacketCount    = static_cast<uint16_t>(0);
+    uint16_t maxTopicAlias            = static_cast<uint16_t>(0);
+    bool requestRespInfo              = static_cast<bool>(0);
+    bool requestProblemInfo           = static_cast<bool>(0);
+    uint32_t willDelayIntervalS       = static_cast<uint32_t>(0);
+    uint32_t messageExpiryIntervalS   = static_cast<uint32_t>(0);
+    bool payloadFormatIndicator       = static_cast<bool>(0);
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 

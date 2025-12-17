@@ -57495,7 +57495,7 @@ public:
     DishwasherAlarmReset()
         : ClusterCommand("reset")
     {
-        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
         ClusterCommand::AddArguments();
     }
 
@@ -57510,7 +57510,7 @@ public:
         __auto_type * cluster = [[MTRBaseClusterDishwasherAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
         __auto_type * params = [[MTRDishwasherAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
         while (repeatCount--) {
@@ -57542,7 +57542,7 @@ public:
     DishwasherAlarmModifyEnabledAlarms()
         : ClusterCommand("modify-enabled-alarms")
     {
-        AddArgument("Mask", 0, UINT64_MAX, &mRequest.mask);
+        AddArgument("Mask", 0, UINT32_MAX, &mRequest.mask);
         ClusterCommand::AddArguments();
     }
 
@@ -57557,7 +57557,7 @@ public:
         __auto_type * cluster = [[MTRBaseClusterDishwasherAlarm alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
         __auto_type * params = [[MTRDishwasherAlarmClusterModifyEnabledAlarmsParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.mask = [NSNumber numberWithUnsignedLongLong:mRequest.mask.Raw()];
+        params.mask = [NSNumber numberWithUnsignedInt:mRequest.mask.Raw()];
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
         while (repeatCount--) {
@@ -175606,6 +175606,15 @@ public:
         value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:mValue.reconnectTimeoutMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:mValue.timeoutMS];
         value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:mValue.refreshConnectionAfterMS];
+        value.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:mValue.sessionExpiryIntervalS];
+        value.maxPacketSize = [NSNumber numberWithUnsignedInt:mValue.maxPacketSize];
+        value.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:mValue.maxReceivePacketCount];
+        value.maxTopicAlias = [NSNumber numberWithUnsignedShort:mValue.maxTopicAlias];
+        value.requestRespInfo = [NSNumber numberWithBool:mValue.requestRespInfo];
+        value.requestProblemInfo = [NSNumber numberWithBool:mValue.requestProblemInfo];
+        value.willDelayIntervalS = [NSNumber numberWithUnsignedInt:mValue.willDelayIntervalS];
+        value.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:mValue.messageExpiryIntervalS];
+        value.payloadFormatIndicator = [NSNumber numberWithBool:mValue.payloadFormatIndicator];
 
         [cluster writeAttributeMqttConfigWithValue:value params:params completion:^(NSError * _Nullable error) {
             if (error != nil) {
@@ -176734,7 +176743,7 @@ public:
         : ClusterCommand("reset")
     {
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
 #endif // MTR_ENABLE_PROVISIONAL
         ClusterCommand::AddArguments();
     }
@@ -176751,7 +176760,7 @@ public:
         __auto_type * params = [[MTRFreshMideaAirConditionerAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
 #if MTR_ENABLE_PROVISIONAL
-        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
 #endif // MTR_ENABLE_PROVISIONAL
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
@@ -177576,7 +177585,7 @@ public:
         : ClusterCommand("reset")
     {
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
 #endif // MTR_ENABLE_PROVISIONAL
         ClusterCommand::AddArguments();
     }
@@ -177593,7 +177602,7 @@ public:
         __auto_type * params = [[MTRFreshRefrigeratorErrorsAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
 #if MTR_ENABLE_PROVISIONAL
-        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
 #endif // MTR_ENABLE_PROVISIONAL
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;
@@ -187555,7 +187564,7 @@ public:
         : ClusterCommand("reset")
     {
 #if MTR_ENABLE_PROVISIONAL
-        AddArgument("Alarms", 0, UINT64_MAX, &mRequest.alarms);
+        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
 #endif // MTR_ENABLE_PROVISIONAL
         ClusterCommand::AddArguments();
     }
@@ -187572,7 +187581,7 @@ public:
         __auto_type * params = [[MTRFreshWaterHeaterErrorsAlarmClusterResetParams alloc] init];
         params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
 #if MTR_ENABLE_PROVISIONAL
-        params.alarms = [NSNumber numberWithUnsignedLongLong:mRequest.alarms.Raw()];
+        params.alarms = [NSNumber numberWithUnsignedInt:mRequest.alarms.Raw()];
 #endif // MTR_ENABLE_PROVISIONAL
         uint16_t repeatCount = mRepeatCount.ValueOr(1);
         uint16_t __block responsesNeeded = repeatCount;

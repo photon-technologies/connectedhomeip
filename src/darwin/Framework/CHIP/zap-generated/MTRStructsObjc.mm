@@ -11505,6 +11505,24 @@ NS_ASSUME_NONNULL_BEGIN
         _timeoutMS = @(0);
 
         _refreshConnectionAfterMS = @(0);
+
+        _sessionExpiryIntervalS = @(0);
+
+        _maxPacketSize = @(0);
+
+        _maxReceivePacketCount = @(0);
+
+        _maxTopicAlias = @(0);
+
+        _requestRespInfo = @(0);
+
+        _requestProblemInfo = @(0);
+
+        _willDelayIntervalS = @(0);
+
+        _messageExpiryIntervalS = @(0);
+
+        _payloadFormatIndicator = @(0);
     }
     return self;
 }
@@ -11521,13 +11539,22 @@ NS_ASSUME_NONNULL_BEGIN
     other.reconnectTimeoutMS = self.reconnectTimeoutMS;
     other.timeoutMS = self.timeoutMS;
     other.refreshConnectionAfterMS = self.refreshConnectionAfterMS;
+    other.sessionExpiryIntervalS = self.sessionExpiryIntervalS;
+    other.maxPacketSize = self.maxPacketSize;
+    other.maxReceivePacketCount = self.maxReceivePacketCount;
+    other.maxTopicAlias = self.maxTopicAlias;
+    other.requestRespInfo = self.requestRespInfo;
+    other.requestProblemInfo = self.requestProblemInfo;
+    other.willDelayIntervalS = self.willDelayIntervalS;
+    other.messageExpiryIntervalS = self.messageExpiryIntervalS;
+    other.payloadFormatIndicator = self.payloadFormatIndicator;
 
     return other;
 }
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; sessionExpiryIntervalS:%@; maxPacketSize:%@; maxReceivePacketCount:%@; maxTopicAlias:%@; requestRespInfo:%@; requestProblemInfo:%@; willDelayIntervalS:%@; messageExpiryIntervalS:%@; payloadFormatIndicator:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _sessionExpiryIntervalS, _maxPacketSize, _maxReceivePacketCount, _maxTopicAlias, _requestRespInfo, _requestProblemInfo, _willDelayIntervalS, _messageExpiryIntervalS, _payloadFormatIndicator];
     return descriptionString;
 }
 

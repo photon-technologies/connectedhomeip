@@ -16,9 +16,7 @@
  */
 package matter.controller.cluster.eventstructs
 
-import java.util.Optional
 import matter.controller.cluster.*
-import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
@@ -28,7 +26,7 @@ class FreshMideaAirConditionerAlarmClusterNotifyEvent(
   val active: ULong,
   val inactive: ULong,
   val state: ULong,
-  val mask: ULong
+  val mask: ULong,
 ) {
   override fun toString(): String = buildString {
     append("FreshMideaAirConditionerAlarmClusterNotifyEvent {\n")
@@ -56,13 +54,16 @@ class FreshMideaAirConditionerAlarmClusterNotifyEvent(
     private const val TAG_STATE = 2
     private const val TAG_MASK = 3
 
-    fun fromTlv(tlvTag: Tag, tlvReader: TlvReader) : FreshMideaAirConditionerAlarmClusterNotifyEvent {
+    fun fromTlv(
+      tlvTag: Tag,
+      tlvReader: TlvReader,
+    ): FreshMideaAirConditionerAlarmClusterNotifyEvent {
       tlvReader.enterStructure(tlvTag)
       val active = tlvReader.getULong(ContextSpecificTag(TAG_ACTIVE))
       val inactive = tlvReader.getULong(ContextSpecificTag(TAG_INACTIVE))
       val state = tlvReader.getULong(ContextSpecificTag(TAG_STATE))
       val mask = tlvReader.getULong(ContextSpecificTag(TAG_MASK))
-      
+
       tlvReader.exitContainer()
 
       return FreshMideaAirConditionerAlarmClusterNotifyEvent(active, inactive, state, mask)

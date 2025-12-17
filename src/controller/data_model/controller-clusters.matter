@@ -11344,6 +11344,15 @@ cluster PhotonSmart = 367524864 {
     int32u reconnectTimeoutMS = 6;
     int32u timeoutMS = 7;
     int32u refreshConnectionAfterMS = 8;
+    int32u sessionExpiryIntervalS = 9;
+    int32u maxPacketSize = 10;
+    int16u maxReceivePacketCount = 11;
+    int16u maxTopicAlias = 12;
+    boolean requestRespInfo = 13;
+    boolean requestProblemInfo = 14;
+    int32u willDelayIntervalS = 15;
+    int32u messageExpiryIntervalS = 16;
+    boolean payloadFormatIndicator = 17;
   }
 
   readonly attribute access(read: administer) char_string<36> deviceId = 0;

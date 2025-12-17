@@ -17,6 +17,15 @@
     <item fieldId="6" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
     <item fieldId="7" name="TimeoutMS" type="int32u" default="10000"/>
     <item fieldId="8" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
+    <item fieldId="9" name="SessionExpiryIntervalS" type="int32u" default="3600"/>
+    <item fieldId="10" name="MaxPacketSize" type="int32u" default="0"/>
+    <item fieldId="11" name="MaxReceivePacketCount" type="int16u" default="0"/>
+    <item fieldId="12" name="MaxTopicAlias" type="int16u" default="0"/>
+    <item fieldId="13" name="RequestRespInfo" type="boolean" default="0"/>
+    <item fieldId="14" name="RequestProblemInfo" type="boolean" default="0"/>
+    <item fieldId="15" name="WillDelayIntervalS" type="int32u" default="30"/>
+    <item fieldId="16" name="MessageExpiryIntervalS" type="int32u" default="0"/>
+    <item fieldId="17" name="PayloadFormatIndicator" type="boolean" default="0"/>
   </struct>
   <struct name="PhotonInsightsParamsStruct">
   <cluster code="0x15E7FC00"/>

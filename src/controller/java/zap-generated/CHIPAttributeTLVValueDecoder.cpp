@@ -51263,6 +51263,69 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
             chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
                 value_refreshConnectionAfterMSClassName.c_str(), value_refreshConnectionAfterMSCtorSignature.c_str(),
                 jnivalue_refreshConnectionAfterMS, value_refreshConnectionAfterMS);
+            jobject value_sessionExpiryIntervalS;
+            std::string value_sessionExpiryIntervalSClassName     = "java/lang/Long";
+            std::string value_sessionExpiryIntervalSCtorSignature = "(J)V";
+            jlong jnivalue_sessionExpiryIntervalS                 = static_cast<jlong>(cppValue.sessionExpiryIntervalS);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_sessionExpiryIntervalSClassName.c_str(), value_sessionExpiryIntervalSCtorSignature.c_str(),
+                jnivalue_sessionExpiryIntervalS, value_sessionExpiryIntervalS);
+            jobject value_maxPacketSize;
+            std::string value_maxPacketSizeClassName     = "java/lang/Long";
+            std::string value_maxPacketSizeCtorSignature = "(J)V";
+            jlong jnivalue_maxPacketSize                 = static_cast<jlong>(cppValue.maxPacketSize);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_maxPacketSizeClassName.c_str(),
+                                                                        value_maxPacketSizeCtorSignature.c_str(),
+                                                                        jnivalue_maxPacketSize, value_maxPacketSize);
+            jobject value_maxReceivePacketCount;
+            std::string value_maxReceivePacketCountClassName     = "java/lang/Integer";
+            std::string value_maxReceivePacketCountCtorSignature = "(I)V";
+            jint jnivalue_maxReceivePacketCount                  = static_cast<jint>(cppValue.maxReceivePacketCount);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_maxReceivePacketCountClassName.c_str(),
+                                                                       value_maxReceivePacketCountCtorSignature.c_str(),
+                                                                       jnivalue_maxReceivePacketCount, value_maxReceivePacketCount);
+            jobject value_maxTopicAlias;
+            std::string value_maxTopicAliasClassName     = "java/lang/Integer";
+            std::string value_maxTopicAliasCtorSignature = "(I)V";
+            jint jnivalue_maxTopicAlias                  = static_cast<jint>(cppValue.maxTopicAlias);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_maxTopicAliasClassName.c_str(),
+                                                                       value_maxTopicAliasCtorSignature.c_str(),
+                                                                       jnivalue_maxTopicAlias, value_maxTopicAlias);
+            jobject value_requestRespInfo;
+            std::string value_requestRespInfoClassName     = "java/lang/Boolean";
+            std::string value_requestRespInfoCtorSignature = "(Z)V";
+            jboolean jnivalue_requestRespInfo              = static_cast<jboolean>(cppValue.requestRespInfo);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_requestRespInfoClassName.c_str(),
+                                                                           value_requestRespInfoCtorSignature.c_str(),
+                                                                           jnivalue_requestRespInfo, value_requestRespInfo);
+            jobject value_requestProblemInfo;
+            std::string value_requestProblemInfoClassName     = "java/lang/Boolean";
+            std::string value_requestProblemInfoCtorSignature = "(Z)V";
+            jboolean jnivalue_requestProblemInfo              = static_cast<jboolean>(cppValue.requestProblemInfo);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(value_requestProblemInfoClassName.c_str(),
+                                                                           value_requestProblemInfoCtorSignature.c_str(),
+                                                                           jnivalue_requestProblemInfo, value_requestProblemInfo);
+            jobject value_willDelayIntervalS;
+            std::string value_willDelayIntervalSClassName     = "java/lang/Long";
+            std::string value_willDelayIntervalSCtorSignature = "(J)V";
+            jlong jnivalue_willDelayIntervalS                 = static_cast<jlong>(cppValue.willDelayIntervalS);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_willDelayIntervalSClassName.c_str(),
+                                                                        value_willDelayIntervalSCtorSignature.c_str(),
+                                                                        jnivalue_willDelayIntervalS, value_willDelayIntervalS);
+            jobject value_messageExpiryIntervalS;
+            std::string value_messageExpiryIntervalSClassName     = "java/lang/Long";
+            std::string value_messageExpiryIntervalSCtorSignature = "(J)V";
+            jlong jnivalue_messageExpiryIntervalS                 = static_cast<jlong>(cppValue.messageExpiryIntervalS);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_messageExpiryIntervalSClassName.c_str(), value_messageExpiryIntervalSCtorSignature.c_str(),
+                jnivalue_messageExpiryIntervalS, value_messageExpiryIntervalS);
+            jobject value_payloadFormatIndicator;
+            std::string value_payloadFormatIndicatorClassName     = "java/lang/Boolean";
+            std::string value_payloadFormatIndicatorCtorSignature = "(Z)V";
+            jboolean jnivalue_payloadFormatIndicator              = static_cast<jboolean>(cppValue.payloadFormatIndicator);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(
+                value_payloadFormatIndicatorClassName.c_str(), value_payloadFormatIndicatorCtorSignature.c_str(),
+                jnivalue_payloadFormatIndicator, value_payloadFormatIndicator);
 
             {
                 jclass photonMQTTStructStructClass_0;
@@ -51278,7 +51341,8 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                 err = chip::JniReferences::GetInstance().FindMethod(
                     env, photonMQTTStructStructClass_0, "<init>",
                     "(Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/"
-                    "Long;Ljava/lang/Long;Ljava/lang/Long;)V",
+                    "Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/"
+                    "Integer;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Boolean;)V",
                     &photonMQTTStructStructCtor_0);
                 if (err != CHIP_NO_ERROR || photonMQTTStructStructCtor_0 == nullptr)
                 {
@@ -51288,7 +51352,10 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
 
                 value = env->NewObject(photonMQTTStructStructClass_0, photonMQTTStructStructCtor_0, value_host, value_port,
                                        value_transport, value_keepAlive, value_cleanSession, value_reconnectTimeoutMS,
-                                       value_timeoutMS, value_refreshConnectionAfterMS);
+                                       value_timeoutMS, value_refreshConnectionAfterMS, value_sessionExpiryIntervalS,
+                                       value_maxPacketSize, value_maxReceivePacketCount, value_maxTopicAlias, value_requestRespInfo,
+                                       value_requestProblemInfo, value_willDelayIntervalS, value_messageExpiryIntervalS,
+                                       value_payloadFormatIndicator);
             }
             return value;
         }

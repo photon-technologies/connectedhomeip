@@ -20934,6 +20934,15 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
         value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:cppValue.refreshConnectionAfterMS];
+        value.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:cppValue.sessionExpiryIntervalS];
+        value.maxPacketSize = [NSNumber numberWithUnsignedInt:cppValue.maxPacketSize];
+        value.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:cppValue.maxReceivePacketCount];
+        value.maxTopicAlias = [NSNumber numberWithUnsignedShort:cppValue.maxTopicAlias];
+        value.requestRespInfo = [NSNumber numberWithBool:cppValue.requestRespInfo];
+        value.requestProblemInfo = [NSNumber numberWithBool:cppValue.requestProblemInfo];
+        value.willDelayIntervalS = [NSNumber numberWithUnsignedInt:cppValue.willDelayIntervalS];
+        value.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:cppValue.messageExpiryIntervalS];
+        value.payloadFormatIndicator = [NSNumber numberWithBool:cppValue.payloadFormatIndicator];
         return value;
     }
     case Attributes::MqttReportEnabled::Id: {

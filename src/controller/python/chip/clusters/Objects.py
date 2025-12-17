@@ -52980,6 +52980,15 @@ class PhotonSmart(Cluster):
                         ClusterObjectFieldDescriptor(Label="reconnectTimeoutMS", Tag=6, Type=uint),
                         ClusterObjectFieldDescriptor(Label="timeoutMS", Tag=7, Type=uint),
                         ClusterObjectFieldDescriptor(Label="refreshConnectionAfterMS", Tag=8, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="sessionExpiryIntervalS", Tag=9, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="maxPacketSize", Tag=10, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="maxReceivePacketCount", Tag=11, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="maxTopicAlias", Tag=12, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="requestRespInfo", Tag=13, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="requestProblemInfo", Tag=14, Type=bool),
+                        ClusterObjectFieldDescriptor(Label="willDelayIntervalS", Tag=15, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="messageExpiryIntervalS", Tag=16, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="payloadFormatIndicator", Tag=17, Type=bool),
                     ])
 
             host: 'str' = ""
@@ -52990,6 +52999,15 @@ class PhotonSmart(Cluster):
             reconnectTimeoutMS: 'uint' = 0
             timeoutMS: 'uint' = 0
             refreshConnectionAfterMS: 'uint' = 0
+            sessionExpiryIntervalS: 'uint' = 0
+            maxPacketSize: 'uint' = 0
+            maxReceivePacketCount: 'uint' = 0
+            maxTopicAlias: 'uint' = 0
+            requestRespInfo: 'bool' = False
+            requestProblemInfo: 'bool' = False
+            willDelayIntervalS: 'uint' = 0
+            messageExpiryIntervalS: 'uint' = 0
+            payloadFormatIndicator: 'bool' = False
 
     class Commands:
         @dataclass

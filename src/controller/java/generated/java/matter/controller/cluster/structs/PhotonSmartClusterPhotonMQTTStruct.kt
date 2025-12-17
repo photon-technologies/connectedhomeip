@@ -16,9 +16,7 @@
  */
 package matter.controller.cluster.structs
 
-import java.util.Optional
 import matter.controller.cluster.*
-import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
@@ -32,7 +30,16 @@ class PhotonSmartClusterPhotonMQTTStruct(
   val cleanSession: Boolean,
   val reconnectTimeoutMS: UInt,
   val timeoutMS: UInt,
-  val refreshConnectionAfterMS: UInt
+  val refreshConnectionAfterMS: UInt,
+  val sessionExpiryIntervalS: UInt,
+  val maxPacketSize: UInt,
+  val maxReceivePacketCount: UShort,
+  val maxTopicAlias: UShort,
+  val requestRespInfo: Boolean,
+  val requestProblemInfo: Boolean,
+  val willDelayIntervalS: UInt,
+  val messageExpiryIntervalS: UInt,
+  val payloadFormatIndicator: Boolean,
 ) {
   override fun toString(): String = buildString {
     append("PhotonSmartClusterPhotonMQTTStruct {\n")
@@ -44,6 +51,15 @@ class PhotonSmartClusterPhotonMQTTStruct(
     append("\treconnectTimeoutMS : $reconnectTimeoutMS\n")
     append("\ttimeoutMS : $timeoutMS\n")
     append("\trefreshConnectionAfterMS : $refreshConnectionAfterMS\n")
+    append("\tsessionExpiryIntervalS : $sessionExpiryIntervalS\n")
+    append("\tmaxPacketSize : $maxPacketSize\n")
+    append("\tmaxReceivePacketCount : $maxReceivePacketCount\n")
+    append("\tmaxTopicAlias : $maxTopicAlias\n")
+    append("\trequestRespInfo : $requestRespInfo\n")
+    append("\trequestProblemInfo : $requestProblemInfo\n")
+    append("\twillDelayIntervalS : $willDelayIntervalS\n")
+    append("\tmessageExpiryIntervalS : $messageExpiryIntervalS\n")
+    append("\tpayloadFormatIndicator : $payloadFormatIndicator\n")
     append("}\n")
   }
 
@@ -58,6 +74,15 @@ class PhotonSmartClusterPhotonMQTTStruct(
       put(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS), reconnectTimeoutMS)
       put(ContextSpecificTag(TAG_TIMEOUT_MS), timeoutMS)
       put(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS), refreshConnectionAfterMS)
+      put(ContextSpecificTag(TAG_SESSION_EXPIRY_INTERVAL_S), sessionExpiryIntervalS)
+      put(ContextSpecificTag(TAG_MAX_PACKET_SIZE), maxPacketSize)
+      put(ContextSpecificTag(TAG_MAX_RECEIVE_PACKET_COUNT), maxReceivePacketCount)
+      put(ContextSpecificTag(TAG_MAX_TOPIC_ALIAS), maxTopicAlias)
+      put(ContextSpecificTag(TAG_REQUEST_RESP_INFO), requestRespInfo)
+      put(ContextSpecificTag(TAG_REQUEST_PROBLEM_INFO), requestProblemInfo)
+      put(ContextSpecificTag(TAG_WILL_DELAY_INTERVAL_S), willDelayIntervalS)
+      put(ContextSpecificTag(TAG_MESSAGE_EXPIRY_INTERVAL_S), messageExpiryIntervalS)
+      put(ContextSpecificTag(TAG_PAYLOAD_FORMAT_INDICATOR), payloadFormatIndicator)
       endStructure()
     }
   }
@@ -71,6 +96,15 @@ class PhotonSmartClusterPhotonMQTTStruct(
     private const val TAG_RECONNECT_TIMEOUT_MS = 6
     private const val TAG_TIMEOUT_MS = 7
     private const val TAG_REFRESH_CONNECTION_AFTER_MS = 8
+    private const val TAG_SESSION_EXPIRY_INTERVAL_S = 9
+    private const val TAG_MAX_PACKET_SIZE = 10
+    private const val TAG_MAX_RECEIVE_PACKET_COUNT = 11
+    private const val TAG_MAX_TOPIC_ALIAS = 12
+    private const val TAG_REQUEST_RESP_INFO = 13
+    private const val TAG_REQUEST_PROBLEM_INFO = 14
+    private const val TAG_WILL_DELAY_INTERVAL_S = 15
+    private const val TAG_MESSAGE_EXPIRY_INTERVAL_S = 16
+    private const val TAG_PAYLOAD_FORMAT_INDICATOR = 17
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): PhotonSmartClusterPhotonMQTTStruct {
       tlvReader.enterStructure(tlvTag)
@@ -81,11 +115,43 @@ class PhotonSmartClusterPhotonMQTTStruct(
       val cleanSession = tlvReader.getBoolean(ContextSpecificTag(TAG_CLEAN_SESSION))
       val reconnectTimeoutMS = tlvReader.getUInt(ContextSpecificTag(TAG_RECONNECT_TIMEOUT_MS))
       val timeoutMS = tlvReader.getUInt(ContextSpecificTag(TAG_TIMEOUT_MS))
-      val refreshConnectionAfterMS = tlvReader.getUInt(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
-      
+      val refreshConnectionAfterMS =
+        tlvReader.getUInt(ContextSpecificTag(TAG_REFRESH_CONNECTION_AFTER_MS))
+      val sessionExpiryIntervalS =
+        tlvReader.getUInt(ContextSpecificTag(TAG_SESSION_EXPIRY_INTERVAL_S))
+      val maxPacketSize = tlvReader.getUInt(ContextSpecificTag(TAG_MAX_PACKET_SIZE))
+      val maxReceivePacketCount =
+        tlvReader.getUShort(ContextSpecificTag(TAG_MAX_RECEIVE_PACKET_COUNT))
+      val maxTopicAlias = tlvReader.getUShort(ContextSpecificTag(TAG_MAX_TOPIC_ALIAS))
+      val requestRespInfo = tlvReader.getBoolean(ContextSpecificTag(TAG_REQUEST_RESP_INFO))
+      val requestProblemInfo = tlvReader.getBoolean(ContextSpecificTag(TAG_REQUEST_PROBLEM_INFO))
+      val willDelayIntervalS = tlvReader.getUInt(ContextSpecificTag(TAG_WILL_DELAY_INTERVAL_S))
+      val messageExpiryIntervalS =
+        tlvReader.getUInt(ContextSpecificTag(TAG_MESSAGE_EXPIRY_INTERVAL_S))
+      val payloadFormatIndicator =
+        tlvReader.getBoolean(ContextSpecificTag(TAG_PAYLOAD_FORMAT_INDICATOR))
+
       tlvReader.exitContainer()
 
-      return PhotonSmartClusterPhotonMQTTStruct(host, port, transport, keepAlive, cleanSession, reconnectTimeoutMS, timeoutMS, refreshConnectionAfterMS)
+      return PhotonSmartClusterPhotonMQTTStruct(
+        host,
+        port,
+        transport,
+        keepAlive,
+        cleanSession,
+        reconnectTimeoutMS,
+        timeoutMS,
+        refreshConnectionAfterMS,
+        sessionExpiryIntervalS,
+        maxPacketSize,
+        maxReceivePacketCount,
+        maxTopicAlias,
+        requestRespInfo,
+        requestProblemInfo,
+        willDelayIntervalS,
+        messageExpiryIntervalS,
+        payloadFormatIndicator,
+      )
     }
   }
 }

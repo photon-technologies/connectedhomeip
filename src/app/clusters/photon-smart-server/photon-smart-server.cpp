@@ -129,6 +129,11 @@ CHIP_ERROR Instance::Init()
         storageDelegate.Put(0x41 /* Type blob */, INSIGHTS_PARAMS_NVS_KEY, &insightsParams, sizeof(photon_insights_params_t));
     }
 
+    if (storageDelegate.Get(0x41 /* Type blob */, MQTT_V5_CONN_NVS_KEY, &mqtt5ConnConfig, sizeof(photon_mqtt5_conn_config_t)) != CHIP_NO_ERROR)
+    {
+        storageDelegate.Put(0x41 /* Type blob */, MQTT_V5_CONN_NVS_KEY, &mqtt5ConnConfig, sizeof(photon_mqtt5_conn_config_t));
+    }
+
     
 
     storageDelegate.Get(0x01 /* U8 */, MQTT_ENABLED_NVS_KEY, &mqttEnabled, sizeof(mqttEnabled));
@@ -173,6 +178,42 @@ bool Instance::mqttConfigHasChanged(const Structs::PhotonMQTTStruct::Type & aNew
         dataHasChanged = true;
     }
     if (aNewMqttConfig.refreshConnectionAfterMS != refreshConnectionAfterMS)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.sessionExpiryIntervalS != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.maxPacketSize != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.maxReceivePacketCount != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.maxTopicAlias != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.requestRespInfo != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.requestProblemInfo != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.willDelayIntervalS != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.messageExpiryIntervalS != mqtt5ConnConfig.session_expiry_interval)
+    {
+        dataHasChanged = true;
+    }
+    if (aNewMqttConfig.payloadFormatIndicator != mqtt5ConnConfig.session_expiry_interval)
     {
         dataHasChanged = true;
     }
@@ -254,6 +295,19 @@ CHIP_ERROR Instance::UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttCo
     storageDelegate.Put(0x04 /* Type u32 */, MQTT_NETWORK_TIMEOUT_NVS_KEY, &timeoutMS, sizeof(timeoutMS));
     refreshConnectionAfterMS = aNewMqttConfig.refreshConnectionAfterMS;
     storageDelegate.Put(0x04 /* Type u32 */, MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY, &refreshConnectionAfterMS, sizeof(refreshConnectionAfterMS));
+    photon_mqtt5_conn_config_t newMqtt5ConnConfig = {
+        .session_expiry_interval = aNewMqttConfig.sessionExpiryIntervalS,
+        .maximum_packet_size = aNewMqttConfig.maxPacketSize,
+        .receive_maximum = aNewMqttConfig.maxReceivePacketCount,
+        .topic_alias_maximum = aNewMqttConfig.maxTopicAlias,
+        .request_resp_info = aNewMqttConfig.requestRespInfo,
+        .request_problem_info = aNewMqttConfig.requestProblemInfo,
+        .will_delay_interval = aNewMqttConfig.willDelayIntervalS,
+        .message_expiry_interval = aNewMqttConfig.messageExpiryIntervalS,
+        .payload_format_indicator = aNewMqttConfig.payloadFormatIndicator,
+    };
+    mqtt5ConnConfig = newMqtt5ConnConfig;
+    storageDelegate.Put(0x41 /* Type blob */, MQTT_V5_CONN_NVS_KEY, &mqtt5ConnConfig, sizeof(photon_mqtt5_conn_config_t));
 
     MatterReportingAttributeChangeCallback(ConcreteAttributePath(mEndpointId, Id, Attributes::MqttConfig::Id));
     return CHIP_NO_ERROR;
@@ -280,6 +334,16 @@ Structs::PhotonMQTTStruct::Type Instance::GetMqttConfig()
     mMqttConfig.reconnectTimeoutMS       = reconnectTimeoutMS;
     mMqttConfig.timeoutMS                = timeoutMS;
     mMqttConfig.refreshConnectionAfterMS = refreshConnectionAfterMS;
+
+    mMqttConfig.sessionExpiryIntervalS   = mqtt5ConnConfig.session_expiry_interval;
+    mMqttConfig.maxPacketSize            = mqtt5ConnConfig.maximum_packet_size;
+    mMqttConfig.maxReceivePacketCount    = mqtt5ConnConfig.receive_maximum;
+    mMqttConfig.maxTopicAlias            = mqtt5ConnConfig.topic_alias_maximum;
+    mMqttConfig.requestRespInfo          = mqtt5ConnConfig.request_resp_info;
+    mMqttConfig.requestProblemInfo       = mqtt5ConnConfig.request_problem_info;
+    mMqttConfig.willDelayIntervalS       = mqtt5ConnConfig.will_delay_interval;
+    mMqttConfig.messageExpiryIntervalS   = mqtt5ConnConfig.message_expiry_interval;
+    mMqttConfig.payloadFormatIndicator   = mqtt5ConnConfig.payload_format_indicator;
     
     return mMqttConfig;
 }

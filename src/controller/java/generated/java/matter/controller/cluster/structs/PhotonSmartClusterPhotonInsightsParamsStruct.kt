@@ -16,9 +16,7 @@
  */
 package matter.controller.cluster.structs
 
-import java.util.Optional
 import matter.controller.cluster.*
-import matter.tlv.AnonymousTag
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
@@ -40,7 +38,7 @@ class PhotonSmartClusterPhotonInsightsParamsStruct(
   val reportVariables: Boolean,
   val reportNetworkVariables: Boolean,
   val reportMoreNetworkVariables: Boolean,
-  val reportWatermarkPercent: UByte
+  val reportWatermarkPercent: UByte,
 ) {
   override fun toString(): String = buildString {
     append("PhotonSmartClusterPhotonInsightsParamsStruct {\n")
@@ -119,13 +117,33 @@ class PhotonSmartClusterPhotonInsightsParamsStruct(
       val wifiPollingCount = tlvReader.getUByte(ContextSpecificTag(TAG_WIFI_POLLING_COUNT))
       val usePolling = tlvReader.getBoolean(ContextSpecificTag(TAG_USE_POLLING))
       val reportVariables = tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_VARIABLES))
-      val reportNetworkVariables = tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_NETWORK_VARIABLES))
-      val reportMoreNetworkVariables = tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_MORE_NETWORK_VARIABLES))
-      val reportWatermarkPercent = tlvReader.getUByte(ContextSpecificTag(TAG_REPORT_WATERMARK_PERCENT))
-      
+      val reportNetworkVariables =
+        tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_NETWORK_VARIABLES))
+      val reportMoreNetworkVariables =
+        tlvReader.getBoolean(ContextSpecificTag(TAG_REPORT_MORE_NETWORK_VARIABLES))
+      val reportWatermarkPercent =
+        tlvReader.getUByte(ContextSpecificTag(TAG_REPORT_WATERMARK_PERCENT))
+
       tlvReader.exitContainer()
 
-      return PhotonSmartClusterPhotonInsightsParamsStruct(coreDumpEnabled, minInterval, maxInterval, dropWifiLogs, reportMetrics, reportHeapMetrics, heapPollingInterval, heapPollingCount, reportWifiMetrics, wifiPollingInterval, wifiPollingCount, usePolling, reportVariables, reportNetworkVariables, reportMoreNetworkVariables, reportWatermarkPercent)
+      return PhotonSmartClusterPhotonInsightsParamsStruct(
+        coreDumpEnabled,
+        minInterval,
+        maxInterval,
+        dropWifiLogs,
+        reportMetrics,
+        reportHeapMetrics,
+        heapPollingInterval,
+        heapPollingCount,
+        reportWifiMetrics,
+        wifiPollingInterval,
+        wifiPollingCount,
+        usePolling,
+        reportVariables,
+        reportNetworkVariables,
+        reportMoreNetworkVariables,
+        reportWatermarkPercent,
+      )
     }
   }
 }

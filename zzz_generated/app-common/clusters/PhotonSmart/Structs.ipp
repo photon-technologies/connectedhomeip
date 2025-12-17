@@ -145,6 +145,15 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kReconnectTimeoutMS), reconnectTimeoutMS);
     encoder.Encode(to_underlying(Fields::kTimeoutMS), timeoutMS);
     encoder.Encode(to_underlying(Fields::kRefreshConnectionAfterMS), refreshConnectionAfterMS);
+    encoder.Encode(to_underlying(Fields::kSessionExpiryIntervalS), sessionExpiryIntervalS);
+    encoder.Encode(to_underlying(Fields::kMaxPacketSize), maxPacketSize);
+    encoder.Encode(to_underlying(Fields::kMaxReceivePacketCount), maxReceivePacketCount);
+    encoder.Encode(to_underlying(Fields::kMaxTopicAlias), maxTopicAlias);
+    encoder.Encode(to_underlying(Fields::kRequestRespInfo), requestRespInfo);
+    encoder.Encode(to_underlying(Fields::kRequestProblemInfo), requestProblemInfo);
+    encoder.Encode(to_underlying(Fields::kWillDelayIntervalS), willDelayIntervalS);
+    encoder.Encode(to_underlying(Fields::kMessageExpiryIntervalS), messageExpiryIntervalS);
+    encoder.Encode(to_underlying(Fields::kPayloadFormatIndicator), payloadFormatIndicator);
     return encoder.Finalize();
 }
 
@@ -189,6 +198,42 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         else if (__context_tag == to_underlying(Fields::kRefreshConnectionAfterMS))
         {
             err = DataModel::Decode(reader, refreshConnectionAfterMS);
+        }
+        else if (__context_tag == to_underlying(Fields::kSessionExpiryIntervalS))
+        {
+            err = DataModel::Decode(reader, sessionExpiryIntervalS);
+        }
+        else if (__context_tag == to_underlying(Fields::kMaxPacketSize))
+        {
+            err = DataModel::Decode(reader, maxPacketSize);
+        }
+        else if (__context_tag == to_underlying(Fields::kMaxReceivePacketCount))
+        {
+            err = DataModel::Decode(reader, maxReceivePacketCount);
+        }
+        else if (__context_tag == to_underlying(Fields::kMaxTopicAlias))
+        {
+            err = DataModel::Decode(reader, maxTopicAlias);
+        }
+        else if (__context_tag == to_underlying(Fields::kRequestRespInfo))
+        {
+            err = DataModel::Decode(reader, requestRespInfo);
+        }
+        else if (__context_tag == to_underlying(Fields::kRequestProblemInfo))
+        {
+            err = DataModel::Decode(reader, requestProblemInfo);
+        }
+        else if (__context_tag == to_underlying(Fields::kWillDelayIntervalS))
+        {
+            err = DataModel::Decode(reader, willDelayIntervalS);
+        }
+        else if (__context_tag == to_underlying(Fields::kMessageExpiryIntervalS))
+        {
+            err = DataModel::Decode(reader, messageExpiryIntervalS);
+        }
+        else if (__context_tag == to_underlying(Fields::kPayloadFormatIndicator))
+        {
+            err = DataModel::Decode(reader, payloadFormatIndicator);
         }
 
         ReturnErrorOnFailure(err);
