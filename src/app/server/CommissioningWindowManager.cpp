@@ -79,7 +79,7 @@ void CommissioningWindowManager::OnPlatformEvent(const DeviceLayer::ChipDeviceEv
     }
     else if (event->Type == DeviceLayer::DeviceEventType::kFailSafeTimerExpired)
     {
-        ChipLogError(AppServer, "Failsafe timer expired");
+        ChipLogProgress(AppServer, "Failsafe timer expired");
         if (mPASESession)
         {
             mPASESession->AsSecureSession()->MarkForEviction();

@@ -298,7 +298,7 @@ void CleanupSessionsForFabric(SessionManager & sessionMgr, FabricIndex fabricInd
 
 void FailSafeCleanup(const chip::DeviceLayer::ChipDeviceEvent * event)
 {
-    ChipLogError(Zcl, "OpCreds: Proceeding to FailSafeCleanup on fail-safe expiry!");
+    ChipLogProgress(Zcl, "OpCreds: Proceeding to FailSafeCleanup on fail-safe expiry!");
 
     bool nocAddedDuringFailsafe          = event->FailSafeTimerExpired.addNocCommandHasBeenInvoked;
     bool nocUpdatedDuringFailsafe        = event->FailSafeTimerExpired.updateNocCommandHasBeenInvoked;
@@ -360,7 +360,7 @@ void OnPlatformEventHandler(const chip::DeviceLayer::ChipDeviceEvent * event, in
 {
     if (event->Type == DeviceLayer::DeviceEventType::kFailSafeTimerExpired)
     {
-        ChipLogError(Zcl, "OpCreds: Got FailSafeTimerExpired");
+        ChipLogProgress(Zcl, "OpCreds: Got FailSafeTimerExpired");
         FailSafeCleanup(event);
     }
 }

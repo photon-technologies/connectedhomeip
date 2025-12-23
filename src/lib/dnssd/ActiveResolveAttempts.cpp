@@ -241,7 +241,7 @@ std::optional<ActiveResolveAttempts::ScheduledAttempt> ActiveResolveAttempts::Ne
 
         if (entry.nextRetryDelay > kMaxRetryDelay)
         {
-            ChipLogError(Discovery, "Timeout waiting for mDNS resolution.");
+            ChipLogProgress(Discovery, "Timeout waiting for mDNS resolution.");
             entry.attempt.Clear();
             continue;
         }

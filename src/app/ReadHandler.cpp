@@ -405,7 +405,7 @@ bool ReadHandler::IsFromSubscriber(Messaging::ExchangeContext & apExchangeContex
 
 void ReadHandler::OnResponseTimeout(Messaging::ExchangeContext * apExchangeContext)
 {
-    ChipLogError(DataManagement, "Time out! failed to receive status response from Exchange: " ChipLogFormatExchange,
+    ChipLogProgress(DataManagement, "Time out! failed to receive status response from Exchange: " ChipLogFormatExchange,
                  ChipLogValueExchange(apExchangeContext));
 #if CHIP_CONFIG_PERSIST_SUBSCRIPTIONS
     Close(CloseOptions::kKeepPersistedSubscription);

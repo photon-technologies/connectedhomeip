@@ -152,7 +152,7 @@ DataModel::ActionReturnStatus RetrieveClusterData(DataModel::Provider * dataMode
     }
     else
     {
-        ChipLogError(DataManagement, "Read request on unknown cluster - no data version available");
+        ChipLogProgress(DataManagement, "Read request on unknown cluster - no data version available");
     }
 
     TLV::TLVWriter checkpoint;
@@ -484,7 +484,7 @@ CHIP_ERROR Engine::BuildSingleReportDataAttributeReportIBs(ReportDataMessage::Bu
 
                     if (!status.IsOutOfSpaceEncodingResponse())
                     {
-                        ChipLogError(DataManagement,
+                        ChipLogProgress(DataManagement,
                                      "Fail to retrieve data, roll back and encode status on clusterId: " ChipLogFormatMEI
                                      ", attributeId: " ChipLogFormatMEI "err = %" CHIP_ERROR_FORMAT,
                                      ChipLogValueMEI(pathForRetrieval.mClusterId), ChipLogValueMEI(pathForRetrieval.mAttributeId),

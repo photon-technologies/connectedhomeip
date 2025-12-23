@@ -129,7 +129,7 @@ void SubscriptionResumptionSessionEstablisher::HandleDeviceConnectionFailure(voi
     AutoDeleteEstablisher establisher(static_cast<SubscriptionResumptionSessionEstablisher *>(context));
     InteractionModelEngine * imEngine                                  = InteractionModelEngine::GetInstance();
     SubscriptionResumptionStorage::SubscriptionInfo & subscriptionInfo = establisher->mSubscriptionInfo;
-    ChipLogError(DataManagement, "Failed to establish CASE for subscription-resumption with error '%" CHIP_ERROR_FORMAT "'",
+    ChipLogProgress(DataManagement, "Failed to establish CASE for subscription-resumption with error '%" CHIP_ERROR_FORMAT "'",
                  error.Format());
 
     // Decrement the number of subscriptions to resume since we have completed our retry attempt for a given subscription.
