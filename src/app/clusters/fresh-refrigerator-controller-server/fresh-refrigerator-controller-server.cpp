@@ -247,7 +247,7 @@ CHIP_ERROR Instance::SetDefrostTemperature(int16_t temp)
 {
     if (temp != mDefrostTemperature)
     {
-        if (temp < -5000 || temp > -5000)
+        if (temp < -5000 || temp > 5000)
         {
             return StatusIB(Protocols::InteractionModel::Status::ConstraintError).ToChipError();
         }
