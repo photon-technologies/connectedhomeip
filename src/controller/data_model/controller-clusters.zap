@@ -312,6 +312,15 @@
           ]
         },
         {
+          "name": "Pulse Width Modulation",
+          "code": 28,
+          "mfgCode": null,
+          "define": "PWM_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "deprecated"
+        },
+        {
           "name": "Descriptor",
           "code": 29,
           "mfgCode": null,
@@ -1102,6 +1111,30 @@
           "enabled": 1
         },
         {
+          "name": "Proxy Configuration",
+          "code": 66,
+          "mfgCode": null,
+          "define": "PROXY_CONFIGURATION_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Proxy Discovery",
+          "code": 67,
+          "mfgCode": null,
+          "define": "PROXY_DISCOVERY_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Proxy Valid",
+          "code": 68,
+          "mfgCode": null,
+          "define": "PROXY_VALID_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
           "name": "Boolean State",
           "code": 69,
           "mfgCode": null,
@@ -1529,7 +1562,6 @@
           "define": "SCENES_CLUSTER",
           "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional",
           "commands": [
             {
               "name": "AddScene",
@@ -1638,6 +1670,56 @@
           ]
         },
         {
+          "name": "Groupcast",
+          "code": 101,
+          "mfgCode": null,
+          "define": "GROUPCAST_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "JoinGroup",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "LeaveGroup",
+              "code": 1,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "LeaveGroupResponse",
+              "code": 2,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "UpdateGroupKey",
+              "code": 3,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ExpireGracePeriod",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
           "name": "HEPA Filter Monitoring",
           "code": 113,
           "mfgCode": null,
@@ -1652,6 +1734,48 @@
           "define": "ACTIVATED_CARBON_FILTER_MONITORING_CLUSTER",
           "side": "client",
           "enabled": 1
+        },
+        {
+          "name": "Water Tank Level Monitoring",
+          "code": 121,
+          "mfgCode": null,
+          "define": "WATER_TANK_LEVEL_MONITORING_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Boolean State Configuration",
+          "code": 128,
+          "mfgCode": null,
+          "define": "BOOLEAN_STATE_CONFIGURATION_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Valve Configuration and Control",
+          "code": 129,
+          "mfgCode": null,
+          "define": "VALVE_CONFIGURATION_AND_CONTROL_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "Open",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "Close",
+              "code": 1,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
         },
         {
           "name": "Electrical Power Measurement",
@@ -1676,7 +1800,6 @@
           "define": "WATER_HEATER_MANAGEMENT_CLUSTER",
           "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional",
           "commands": [
             {
               "name": "Boost",
@@ -1702,8 +1825,33 @@
           "mfgCode": null,
           "define": "COMMODITY_PRICE_CLUSTER",
           "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Messages",
+          "code": 151,
+          "mfgCode": null,
+          "define": "MESSAGES_CLUSTER",
+          "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional"
+          "commands": [
+            {
+              "name": "PresentMessagesRequest",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "CancelMessagesRequest",
+              "code": 1,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
         },
         {
           "name": "Device Energy Management",
@@ -1711,8 +1859,7 @@
           "mfgCode": null,
           "define": "DEVICE_ENERGY_MANAGEMENT_CLUSTER",
           "side": "client",
-          "enabled": 1,
-          "apiMaturity": "provisional"
+          "enabled": 1
         },
         {
           "name": "Energy EVSE",
@@ -1739,6 +1886,15 @@
               "isEnabled": 1
             }
           ]
+        },
+        {
+          "name": "Energy Preference",
+          "code": 155,
+          "mfgCode": null,
+          "define": "ENERGY_PREFERENCE_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "provisional"
         },
         {
           "name": "Power Topology",
@@ -1807,7 +1963,6 @@
           "define": "DEVICE_ENERGY_MANAGEMENT_MODE_CLUSTER",
           "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional",
           "commands": [
             {
               "name": "ChangeToMode",
@@ -1833,8 +1988,7 @@
           "mfgCode": null,
           "define": "ELECTRICAL_GRID_CONDITIONS_CLUSTER",
           "side": "client",
-          "enabled": 1,
-          "apiMaturity": "provisional"
+          "enabled": 1
         },
         {
           "name": "Door Lock",
@@ -2100,6 +2254,68 @@
               "mfgCode": null,
               "source": "client",
               "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Closure Control",
+          "code": 260,
+          "mfgCode": null,
+          "define": "CLOSURE_CONTROL_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "MoveTo",
+              "code": 1,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Closure Dimension",
+          "code": 261,
+          "mfgCode": null,
+          "define": "CLOSURE_DIMENSION_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "SetTarget",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Service Area",
+          "code": 336,
+          "mfgCode": null,
+          "define": "SERVICE_AREA_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "SelectAreas",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "SelectAreasResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
               "isEnabled": 1
             }
           ]
@@ -2483,8 +2699,33 @@
           "mfgCode": null,
           "define": "SOIL_MEASUREMENT_CLUSTER",
           "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Wi-Fi Network Management",
+          "code": 1105,
+          "mfgCode": null,
+          "define": "WIFI_NETWORK_MANAGEMENT_CLUSTER",
+          "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional"
+          "commands": [
+            {
+              "name": "NetworkPassphraseRequest",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "NetworkPassphraseResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            }
+          ]
         },
         {
           "name": "Thread Border Router Management",
@@ -2983,13 +3224,299 @@
           ]
         },
         {
+          "name": "Content Control",
+          "code": 1295,
+          "mfgCode": null,
+          "define": "CONTENT_CONTROL_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "provisional",
+          "commands": [
+            {
+              "name": "Enable",
+              "code": 3,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "Disable",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Content App Observer",
+          "code": 1296,
+          "mfgCode": null,
+          "define": "CONTENT_APP_OBSERVER_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "ContentAppMessage",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ContentAppMessageResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Zone Management",
+          "code": 1360,
+          "mfgCode": null,
+          "define": "ZONE_MANAGEMENT_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "CreateOrUpdateTrigger",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "RemoveTrigger",
+              "code": 5,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Camera AV Stream Management",
+          "code": 1361,
+          "mfgCode": null,
+          "define": "CAMERA_AV_STREAM_MANAGEMENT_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "SetStreamPriorities",
+              "code": 11,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Camera AV Settings User Level Management",
+          "code": 1362,
+          "mfgCode": null,
+          "define": "CAMERA_AV_SETTINGS_USER_LEVEL_MANAGEMENT_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "WebRTC Transport Provider",
+          "code": 1363,
+          "mfgCode": null,
+          "define": "WEB_RTC_TRANSPORT_PROVIDER_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "SolicitOffer",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "SolicitOfferResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvideOffer",
+              "code": 2,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvideOfferResponse",
+              "code": 3,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvideAnswer",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvideICECandidates",
+              "code": 5,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "EndSession",
+              "code": 6,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "WebRTC Transport Requestor",
+          "code": 1364,
+          "mfgCode": null,
+          "define": "WEB_RTC_TRANSPORT_REQUESTOR_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "Offer",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "Answer",
+              "code": 1,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ICECandidates",
+              "code": 2,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "End",
+              "code": 3,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Push AV Stream Transport",
+          "code": 1365,
+          "mfgCode": null,
+          "define": "PUSH_AV_STREAM_TRANSPORT_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "AllocatePushTransport",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "AllocatePushTransportResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "DeallocatePushTransport",
+              "code": 2,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ModifyPushTransport",
+              "code": 3,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "SetTransportStatus",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ManuallyTriggerTransport",
+              "code": 5,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindTransport",
+              "code": 6,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindTransportResponse",
+              "code": 7,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
           "name": "Chime",
           "code": 1366,
           "mfgCode": null,
           "define": "CHIME_CLUSTER",
           "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional",
           "commands": [
             {
               "name": "PlayChimeSound",
@@ -3008,7 +3535,6 @@
           "define": "COMMODITY_TARIFF_CLUSTER",
           "side": "client",
           "enabled": 1,
-          "apiMaturity": "provisional",
           "commands": [
             {
               "name": "GetTariffComponentResponse",
@@ -3040,6 +3566,48 @@
               "mfgCode": null,
               "source": "client",
               "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Ecosystem Information",
+          "code": 1872,
+          "mfgCode": null,
+          "define": "ECOSYSTEM_INFORMATION_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Commissioner Control",
+          "code": 1873,
+          "mfgCode": null,
+          "define": "COMMISSIONER_CONTROL_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "RequestCommissioningApproval",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "CommissionNode",
+              "code": 1,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ReverseOpenCommissioningWindow",
+              "code": 2,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
               "isEnabled": 1
             }
           ]
@@ -3299,13 +3867,192 @@
           ]
         },
         {
+          "name": "TLS Certificate Management",
+          "code": 2049,
+          "mfgCode": null,
+          "define": "TLS_CERTIFICATE_MANAGEMENT_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "ProvisionRootCertificate",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvisionRootCertificateResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindRootCertificate",
+              "code": 2,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindRootCertificateResponse",
+              "code": 3,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "LookupRootCertificate",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "LookupRootCertificateResponse",
+              "code": 5,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "RemoveRootCertificate",
+              "code": 6,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ClientCSR",
+              "code": 7,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ClientCSRResponse",
+              "code": 8,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvisionClientCertificate",
+              "code": 9,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindClientCertificate",
+              "code": 10,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindClientCertificateResponse",
+              "code": 11,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "LookupClientCertificate",
+              "code": 12,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "LookupClientCertificateResponse",
+              "code": 13,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "RemoveClientCertificate",
+              "code": 14,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "TLS Client Management",
+          "code": 2050,
+          "mfgCode": null,
+          "define": "TLS_CLIENT_MANAGEMENT_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "ProvisionEndpoint",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "ProvisionEndpointResponse",
+              "code": 1,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindEndpoint",
+              "code": 2,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FindEndpointResponse",
+              "code": 3,
+              "mfgCode": null,
+              "source": "server",
+              "isIncoming": 1,
+              "isEnabled": 1
+            },
+            {
+              "name": "RemoveEndpoint",
+              "code": 4,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
           "name": "Meter Identification",
           "code": 2822,
           "mfgCode": null,
           "define": "METER_IDENTIFICATION_CLUSTER",
           "side": "client",
-          "enabled": 1,
-          "apiMaturity": "provisional"
+          "enabled": 1
         },
         {
           "name": "Commodity Metering",
@@ -3313,8 +4060,7 @@
           "mfgCode": null,
           "define": "COMMODITY_METERING_CLUSTER",
           "side": "client",
-          "enabled": 1,
-          "apiMaturity": "provisional"
+          "enabled": 1
         },
         {
           "name": "Photon Smart",
@@ -3594,6 +4340,33 @@
             {
               "name": "TestEmitTestEventRequest",
               "code": 20,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Fault Injection",
+          "code": 4294048774,
+          "mfgCode": null,
+          "define": "FAULT_INJECTION_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "internal",
+          "commands": [
+            {
+              "name": "FailAtFault",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            },
+            {
+              "name": "FailRandomlyAtFault",
+              "code": 1,
               "mfgCode": null,
               "source": "client",
               "isIncoming": 0,

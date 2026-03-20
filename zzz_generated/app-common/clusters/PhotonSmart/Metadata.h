@@ -5,6 +5,7 @@
 #pragma once
 
 #include <app/data-model-provider/MetadataTypes.h>
+#include <array>
 #include <lib/core/DataModelTypes.h>
 
 #include <cstdint>
@@ -19,6 +20,7 @@ namespace PhotonSmart {
 inline constexpr uint32_t kRevision = 1;
 
 namespace Attributes {
+
 namespace DeviceId {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DeviceId::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kAdminister, std::nullopt);
@@ -51,10 +53,17 @@ namespace PublicIpv4Enabled {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(PublicIpv4Enabled::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kAdminister, Access::Privilege::kAdminister);
 } // namespace PublicIpv4Enabled
+constexpr std::array<DataModel::AttributeEntry, 8> kMandatoryMetadata = {
+    DeviceId::kMetadataEntry,          ShouldReboot::kMetadataEntry,      MqttConfig::kMetadataEntry,
+    MqttReportEnabled::kMetadataEntry, InsightsEnabled::kMetadataEntry,   InsightsParams::kMetadataEntry,
+    PublicIpv4Address::kMetadataEntry, PublicIpv4Enabled::kMetadataEntry,
+
+};
 
 } // namespace Attributes
 
 namespace Commands {
+
 namespace Reboot {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(Reboot::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kAdminister);
@@ -65,6 +74,8 @@ inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(FactoryReset::Id
 } // namespace FactoryReset
 
 } // namespace Commands
+
+namespace Events {} // namespace Events
 } // namespace PhotonSmart
 } // namespace Clusters
 } // namespace app

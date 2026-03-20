@@ -1427,6 +1427,76 @@ void emberAfCommodityMeteringClusterShutdownCallback(chip::EndpointId endpoint);
 /**
  * @param endpoint    Endpoint that is being initialized
  */
+void emberAfPhotonSmartClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfPhotonSmartClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorControllerClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshRefrigeratorControllerClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaControllerClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshMideaControllerClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshWaterHeaterControllerClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshWaterHeaterControllerClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshWaterHeaterErrorsAlarmClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfFreshWaterHeaterErrorsAlarmClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
 void emberAfUnitTestingClusterInitCallback(chip::EndpointId endpoint);
 
 /**
@@ -6825,6 +6895,275 @@ MatterCommodityMeteringClusterServerPreAttributeChangedCallback(const chip::app:
 void emberAfCommodityMeteringClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
+// Photon Smart Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfPhotonSmartClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterPhotonSmartClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfPhotonSmartClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterPhotonSmartClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status
+MatterPhotonSmartClusterServerPreAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath,
+                                                          EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfPhotonSmartClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
+// Fresh Midea Air Conditioner Alarm Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshMideaAirConditionerAlarmClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshMideaAirConditionerAlarmClusterServerAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshMideaAirConditionerAlarmClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshMideaAirConditionerAlarmClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
+// Fresh Refrigerator Errors Alarm Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshRefrigeratorErrorsAlarmClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshRefrigeratorErrorsAlarmClusterServerAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshRefrigeratorErrorsAlarmClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshRefrigeratorErrorsAlarmClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
+// Fresh Refrigerator Controller Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorControllerClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshRefrigeratorControllerClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshRefrigeratorControllerClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshRefrigeratorControllerClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshRefrigeratorControllerClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshRefrigeratorControllerClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
+// Fresh Midea Controller Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaControllerClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshMideaControllerClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshMideaControllerClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshMideaControllerClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshMideaControllerClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshMideaControllerClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
+// Fresh Water Heater Controller Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshWaterHeaterControllerClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshWaterHeaterControllerClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshWaterHeaterControllerClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshWaterHeaterControllerClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshWaterHeaterControllerClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshWaterHeaterControllerClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
+// Fresh Water Heater Errors Alarm Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshWaterHeaterErrorsAlarmClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterFreshWaterHeaterErrorsAlarmClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfFreshWaterHeaterErrorsAlarmClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterFreshWaterHeaterErrorsAlarmClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterFreshWaterHeaterErrorsAlarmClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfFreshWaterHeaterErrorsAlarmClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
 // Unit Testing Cluster
 //
 
@@ -8011,6 +8350,72 @@ bool emberAfJointFabricDatastoreClusterAddACLToNodeCallback(
 bool emberAfJointFabricDatastoreClusterRemoveACLFromNodeCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::JointFabricDatastore::Commands::RemoveACLFromNode::DecodableType & commandData);
+/**
+ * @brief Photon Smart Cluster Reboot Command callback (from client)
+ */
+bool emberAfPhotonSmartClusterRebootCallback(chip::app::CommandHandler * commandObj,
+                                             const chip::app::ConcreteCommandPath & commandPath,
+                                             const chip::app::Clusters::PhotonSmart::Commands::Reboot::DecodableType & commandData);
+/**
+ * @brief Photon Smart Cluster FactoryReset Command callback (from client)
+ */
+bool emberAfPhotonSmartClusterFactoryResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::PhotonSmart::Commands::FactoryReset::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Air Conditioner Alarm Cluster Reset Command callback (from client)
+ */
+bool emberAfFreshMideaAirConditionerAlarmClusterResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::DecodableType & commandData);
+/**
+ * @brief Fresh Refrigerator Errors Alarm Cluster Reset Command callback (from client)
+ */
+bool emberAfFreshRefrigeratorErrorsAlarmClusterResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Commands::Reset::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Controller Cluster Clean Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterCleanCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::Clean::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Controller Cluster CancelClean Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterCancelCleanCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::CancelClean::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Controller Cluster SetTimer Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterSetTimerCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::SetTimer::DecodableType & commandData);
+/**
+ * @brief Fresh Midea Controller Cluster cancelTimer Command callback (from client)
+ */
+bool emberAfFreshMideaControllerClusterCancelTimerCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshMideaController::Commands::CancelTimer::DecodableType & commandData);
+/**
+ * @brief Fresh Water Heater Controller Cluster AnodeChangeRequest Command callback (from client)
+ */
+bool emberAfFreshWaterHeaterControllerClusterAnodeChangeRequestCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeRequest::DecodableType & commandData);
+/**
+ * @brief Fresh Water Heater Controller Cluster AnodeChangeConfirmed Command callback (from client)
+ */
+bool emberAfFreshWaterHeaterControllerClusterAnodeChangeConfirmedCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::DecodableType & commandData);
+/**
+ * @brief Fresh Water Heater Errors Alarm Cluster Reset Command callback (from client)
+ */
+bool emberAfFreshWaterHeaterErrorsAlarmClusterResetCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::FreshWaterHeaterErrorsAlarm::Commands::Reset::DecodableType & commandData);
 /**
  * @brief Unit Testing Cluster Test Command callback (from client)
  */

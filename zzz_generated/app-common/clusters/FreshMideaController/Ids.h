@@ -1,6 +1,6 @@
 // DO NOT EDIT MANUALLY - Generated file
 //
-// Identifier constant values for cluster FreshMideaController (cluster code: 367524868/0x0415E7FC04)
+// Identifier constant values for cluster FreshMideaController (cluster code: 367524868/0x15E7FC04)
 // based on src/controller/data_model/controller-clusters.matter
 #pragma once
 

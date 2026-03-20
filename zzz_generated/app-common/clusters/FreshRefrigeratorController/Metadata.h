@@ -5,6 +5,7 @@
 #pragma once
 
 #include <app/data-model-provider/MetadataTypes.h>
+#include <array>
 #include <lib/core/DataModelTypes.h>
 
 #include <cstdint>
@@ -19,6 +20,7 @@ namespace FreshRefrigeratorController {
 inline constexpr uint32_t kRevision = 1;
 
 namespace Attributes {
+
 namespace FridgeTemperatureDefault {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(FridgeTemperatureDefault::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
@@ -95,10 +97,15 @@ namespace DefrostTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DefrostTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace DefrostTemperature
+constexpr std::array<DataModel::AttributeEntry, 0> kMandatoryMetadata = {
+
+};
 
 } // namespace Attributes
 
 namespace Commands {} // namespace Commands
+
+namespace Events {} // namespace Events
 } // namespace FreshRefrigeratorController
 } // namespace Clusters
 } // namespace app

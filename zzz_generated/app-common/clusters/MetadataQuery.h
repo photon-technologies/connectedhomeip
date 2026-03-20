@@ -112,6 +112,18 @@
 #include <clusters/FlowMeasurement/MetadataProvider.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Ids.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/MetadataProvider.h>
+#include <clusters/FreshMideaAirConditionerAlarm/Ids.h>
+#include <clusters/FreshMideaAirConditionerAlarm/MetadataProvider.h>
+#include <clusters/FreshMideaController/Ids.h>
+#include <clusters/FreshMideaController/MetadataProvider.h>
+#include <clusters/FreshRefrigeratorController/Ids.h>
+#include <clusters/FreshRefrigeratorController/MetadataProvider.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Ids.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/MetadataProvider.h>
+#include <clusters/FreshWaterHeaterController/Ids.h>
+#include <clusters/FreshWaterHeaterController/MetadataProvider.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/Ids.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/MetadataProvider.h>
 #include <clusters/GeneralCommissioning/Ids.h>
 #include <clusters/GeneralCommissioning/MetadataProvider.h>
 #include <clusters/GeneralDiagnostics/Ids.h>
@@ -184,6 +196,8 @@
 #include <clusters/OvenMode/MetadataProvider.h>
 #include <clusters/OzoneConcentrationMeasurement/Ids.h>
 #include <clusters/OzoneConcentrationMeasurement/MetadataProvider.h>
+#include <clusters/PhotonSmart/Ids.h>
+#include <clusters/PhotonSmart/MetadataProvider.h>
 #include <clusters/Pm10ConcentrationMeasurement/Ids.h>
 #include <clusters/Pm10ConcentrationMeasurement/MetadataProvider.h>
 #include <clusters/Pm1ConcentrationMeasurement/Ids.h>
@@ -568,6 +582,36 @@ std::optional<DataModel::AcceptedCommandEntry> AcceptedCommandEntryFor(ClusterId
             return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FormaldehydeConcentrationMeasurement::Id>::EntryFor(
                 command);
     }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == FreshMideaAirConditionerAlarm::Id) || ...))
+    {
+        if (id == FreshMideaAirConditionerAlarm::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FreshMideaAirConditionerAlarm::Id>::EntryFor(command);
+    }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == FreshMideaController::Id) || ...))
+    {
+        if (id == FreshMideaController::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FreshMideaController::Id>::EntryFor(command);
+    }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == FreshRefrigeratorController::Id) || ...))
+    {
+        if (id == FreshRefrigeratorController::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FreshRefrigeratorController::Id>::EntryFor(command);
+    }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == FreshRefrigeratorErrorsAlarm::Id) || ...))
+    {
+        if (id == FreshRefrigeratorErrorsAlarm::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FreshRefrigeratorErrorsAlarm::Id>::EntryFor(command);
+    }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == FreshWaterHeaterController::Id) || ...))
+    {
+        if (id == FreshWaterHeaterController::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FreshWaterHeaterController::Id>::EntryFor(command);
+    }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == FreshWaterHeaterErrorsAlarm::Id) || ...))
+    {
+        if (id == FreshWaterHeaterErrorsAlarm::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, FreshWaterHeaterErrorsAlarm::Id>::EntryFor(command);
+    }
     if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == GeneralCommissioning::Id) || ...))
     {
         if (id == GeneralCommissioning::Id)
@@ -748,6 +792,11 @@ std::optional<DataModel::AcceptedCommandEntry> AcceptedCommandEntryFor(ClusterId
     {
         if (id == OzoneConcentrationMeasurement::Id)
             return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, OzoneConcentrationMeasurement::Id>::EntryFor(command);
+    }
+    if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == PhotonSmart::Id) || ...))
+    {
+        if (id == PhotonSmart::Id)
+            return ClusterMetadataProvider<DataModel::AcceptedCommandEntry, PhotonSmart::Id>::EntryFor(command);
     }
     if constexpr (sizeof...(TClusterIds) == 0 || ((TClusterIds == Pm10ConcentrationMeasurement::Id) || ...))
     {

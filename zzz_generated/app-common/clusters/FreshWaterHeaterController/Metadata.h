@@ -5,6 +5,7 @@
 #pragma once
 
 #include <app/data-model-provider/MetadataTypes.h>
+#include <array>
 #include <lib/core/DataModelTypes.h>
 
 #include <cstdint>
@@ -19,6 +20,7 @@ namespace FreshWaterHeaterController {
 inline constexpr uint32_t kRevision = 1;
 
 namespace Attributes {
+
 namespace ColdWaterTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(ColdWaterTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
@@ -149,10 +151,44 @@ namespace EnergyReportInterval {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(EnergyReportInterval::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
 } // namespace EnergyReportInterval
+constexpr std::array<DataModel::AttributeEntry, 30> kMandatoryMetadata = {
+    ColdWaterTemperature::kMetadataEntry,
+    ShowerTemperature::kMetadataEntry,
+    ShowerHysteresis::kMetadataEntry,
+    ShowerState::kMetadataEntry,
+    DefaultShowerFlowLPM::kMetadataEntry,
+    StandardModeSetpoint::kMetadataEntry,
+    EcoModeSetpoint::kMetadataEntry,
+    DefaultBoostModeSetpoint::kMetadataEntry,
+    DisplayTemperatureStep::kMetadataEntry,
+    ResetTimeout::kMetadataEntry,
+    CoolDownTimeout::kMetadataEntry,
+    ResetCounterTimeout::kMetadataEntry,
+    DisplayActiveTimeout::kMetadataEntry,
+    DisplayErrorTimeout::kMetadataEntry,
+    DisplayTargetTimeout::kMetadataEntry,
+    TemperatureSensorMinValid::kMetadataEntry,
+    TemperatureSensorMaxValid::kMetadataEntry,
+    OverheatThresholdTemperature::kMetadataEntry,
+    RapidRiseDelta::kMetadataEntry,
+    RapidRiseWindow::kMetadataEntry,
+    PreviousTargetHeaterTemperature::kMetadataEntry,
+    HeaterMaximumPower::kMetadataEntry,
+    DiagnosticsConfirmTimeList::kMetadataEntry,
+    DiagnosticsRehabTimeList::kMetadataEntry,
+    RequiresAnodeChange::kMetadataEntry,
+    MaximumBoostTime::kMetadataEntry,
+    CurrentBoostModeSetpoint::kMetadataEntry,
+    ErrorCode::kMetadataEntry,
+    AntiLegionellaState::kMetadataEntry,
+    EnergyReportInterval::kMetadataEntry,
+
+};
 
 } // namespace Attributes
 
 namespace Commands {
+
 namespace AnodeChangeRequest {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(AnodeChangeRequest::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kAdminister);
@@ -163,6 +199,16 @@ inline constexpr DataModel::AcceptedCommandEntry
 } // namespace AnodeChangeConfirmed
 
 } // namespace Commands
+
+namespace Events {
+namespace AntiLegionellaCycleStarted {
+inline constexpr DataModel::EventEntry kMetadataEntry{ Access::Privilege::kView };
+} // namespace AntiLegionellaCycleStarted
+namespace AntiLegionellaCycleCompleted {
+inline constexpr DataModel::EventEntry kMetadataEntry{ Access::Privilege::kView };
+} // namespace AntiLegionellaCycleCompleted
+
+} // namespace Events
 } // namespace FreshWaterHeaterController
 } // namespace Clusters
 } // namespace app

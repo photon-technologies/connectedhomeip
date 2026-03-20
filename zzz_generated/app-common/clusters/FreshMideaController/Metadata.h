@@ -5,6 +5,7 @@
 #pragma once
 
 #include <app/data-model-provider/MetadataTypes.h>
+#include <array>
 #include <lib/core/DataModelTypes.h>
 
 #include <cstdint>
@@ -19,6 +20,7 @@ namespace FreshMideaController {
 inline constexpr uint32_t kRevision = 1;
 
 namespace Attributes {
+
 namespace Beep {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(Beep::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, Access::Privilege::kOperate);
@@ -92,10 +94,24 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(HorizontalLouverPositi
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,
                                                           Access::Privilege::kOperate);
 } // namespace HorizontalLouverPosition
+constexpr std::array<DataModel::AttributeEntry, 10> kMandatoryMetadata = {
+    Beep::kMetadataEntry,
+    Light::kMetadataEntry,
+    OffTimer::kMetadataEntry,
+    OffTimerHours::kMetadataEntry,
+    OffTimerMinutes::kMetadataEntry,
+    OnTimer::kMetadataEntry,
+    OnTimerHours::kMetadataEntry,
+    OnTimerMinutes::kMetadataEntry,
+    ErrorCode::kMetadataEntry,
+    HorizontalLouverPosition::kMetadataEntry,
+
+};
 
 } // namespace Attributes
 
 namespace Commands {
+
 namespace Clean {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(Clean::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kOperate);
@@ -114,6 +130,19 @@ inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(CancelTimer::Id,
 } // namespace CancelTimer
 
 } // namespace Commands
+
+namespace Events {
+namespace ActiveCleanStarted {
+inline constexpr DataModel::EventEntry kMetadataEntry{ Access::Privilege::kView };
+} // namespace ActiveCleanStarted
+namespace ActiveCleanEnded {
+inline constexpr DataModel::EventEntry kMetadataEntry{ Access::Privilege::kView };
+} // namespace ActiveCleanEnded
+namespace NotifyError {
+inline constexpr DataModel::EventEntry kMetadataEntry{ Access::Privilege::kView };
+} // namespace NotifyError
+
+} // namespace Events
 } // namespace FreshMideaController
 } // namespace Clusters
 } // namespace app

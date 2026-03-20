@@ -5,6 +5,7 @@
 #pragma once
 
 #include <app/data-model-provider/MetadataTypes.h>
+#include <array>
 #include <lib/core/DataModelTypes.h>
 
 #include <cstdint>
@@ -19,6 +20,7 @@ namespace FreshMideaAirConditionerAlarm {
 inline constexpr uint32_t kRevision = 1;
 
 namespace Attributes {
+
 namespace Mask {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(Mask::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
@@ -35,16 +37,30 @@ namespace Supported {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(Supported::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace Supported
+constexpr std::array<DataModel::AttributeEntry, 3> kMandatoryMetadata = {
+    Mask::kMetadataEntry,
+    State::kMetadataEntry,
+    Supported::kMetadataEntry,
+
+};
 
 } // namespace Attributes
 
 namespace Commands {
+
 namespace Reset {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(Reset::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kOperate);
 } // namespace Reset
 
 } // namespace Commands
+
+namespace Events {
+namespace Notify {
+inline constexpr DataModel::EventEntry kMetadataEntry{ Access::Privilege::kView };
+} // namespace Notify
+
+} // namespace Events
 } // namespace FreshMideaAirConditionerAlarm
 } // namespace Clusters
 } // namespace app
