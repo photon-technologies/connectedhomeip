@@ -147,7 +147,14 @@
         "window-covering.xml",
         "matter-devices.xml",
         "sample-mei-cluster.xml",
-        "zone-management-cluster.xml"
+        "zone-management-cluster.xml",
+        "fresh-ac-error-cluster.xml",
+        "fresh-refrigerator-controller.xml",
+        "fresh-refrigerator-errors.xml",
+        "fresh-midea-controller-cluster.xml",
+        "photon-smart-cluster.xml",
+        "fresh-water-heater-controller-cluster.xml",
+        "fresh-water-heater-errors.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {
@@ -853,6 +860,18 @@
             "TwoDCartesianMax",
             "FeatureMap",
             "ClusterRevision"
+        ],
+        "Photon Smart": [
+            "DeviceId",
+            "MqttConfig",
+            "InsightsEnabled",
+            "InsightsParams",
+            "MqttReportEnabled",
+            "PublicIpv4Enabled"
+        ],
+        "Fresh Water Heater Controller": [
+            "DefaultBoostModeSetpoint",
+            "CurrentBoostModeSetpoint"
         ]
     },
     "mandatoryDeviceTypes": "0x0016",

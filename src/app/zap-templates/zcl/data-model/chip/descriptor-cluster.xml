@@ -36,7 +36,7 @@ Git: 0.7-summer-2025-596-gf0e61cb16
     <description>The Descriptor Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for describing a node, its endpoints and clusters.</description>
     <client init="false" tick="false">true</client>
     <server init="false" tick="false">true</server>
-    <globalAttribute side="either" code="0xFFFD" value="3"/>
+    <globalAttribute side="either" code="0xFFFD" value="2"/>
     <features>
       <feature bit="0" code="TAGLIST" name="TagList" summary="The TagList attribute is present">
         <describedConform/>

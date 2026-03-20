@@ -103,6 +103,9 @@ class TC_PICS_Checker(MatterBaseTest, BasicCompositionTests):
         self.step(1)
         self.endpoint_id = self.get_endpoint(default=None)
         asserts.assert_not_equal(self.endpoint_id, None, "An explicit endpoint is required for this test, please use --endpoint")
+        print(self.endpoint_id)
+        print("-----------------------------")
+        print(self.endpoints_tlv)
         self.endpoint = self.endpoints_tlv[self.endpoint_id]
         self.success = True
 

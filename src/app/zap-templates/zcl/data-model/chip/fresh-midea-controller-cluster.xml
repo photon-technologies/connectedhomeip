@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<configurator>
+  <domain name="CHIP"/>
+    <enum name="TemperatureUnitsEnum" type="enum8">
+      <cluster code="0x15E7FC04"/>
+      <item name="Celsius" value="0x00"/>
+      <item name="Fahrenheit" value="0x01"/>
+    </enum>
+    <enum name="CleanStateEnum" type="enum8">
+      <cluster code="0x15E7FC04"/>
+      <item name="Inactive" value="0x00"/>
+      <item name="Active" value="0x01"/>
+    </enum>
+  <cluster>
+    <name>Fresh Midea Controller</name>
+    <domain>FRESH</domain>
+    <description>Attributes and commands for configuring the Fresh Midea AC Controller.</description>
+    <code>0x15E7FC04</code>
+    <define>FRESH_MIDEA_CONTROLLER_CLUSTER</define>
+    <client tick="false" init="false">true</client>
+    <server tick="false" init="false">true</server>
+    <globalAttribute code="0xFFFD" side="either" value="1"/>
+    <features>
+      <feature bit="0" code="TURBO" name="Turbo" summary="Supports turbo mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="1" code="ECO" name="eco" summary="Supports eco mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="2" code="FROST_PROTECTION" name="FrostProtection" summary="Supports Frost Protection mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="3" code="SLEEP" name="Sleep" summary="Supports Sleep mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="4" code="TEMP_UNIT" name="TemperatureUnit" summary="Supports Switching Temperature Unit on Device Display">
+        <optionalConform/>
+      </feature>
+      <feature bit="5" code="ACTIVE_CLEAN" name="ActiveClean" summary="Supports Active Clean mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="6" code="PLASMA" name="Plasma" summary="Supports air freshening (Plasma) mode for the AC controller">
+        <optionalConform/>
+      </feature>
+      <feature bit="7" code="BREEZE_AWAY" name="BreezeAway" summary="Supports Breeze Away mode for the AC controller">
+        <optionalConform/>
+      </feature>
+    </features>
+
+    <attribute side="server" code="0x0000" name="Beep" define="BEEP" type="boolean" default="1" writable="true">
+      <description>Beep</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x0001" name="Light" define="LIGHT" type="boolean" default="1" writable="true">
+      <description>Light</description>
+      <mandatoryConform/>
+    </attribute>
+
+    <attribute side="server" code="0x0002" name="TurboMode" define="TURBO_MODE" type="boolean" default="0" writable="true">
+      <description>TurboMode</description>
+      <mandatoryConform>
+        <feature name="TURBO"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x0003" name="EcoMode" define="ECO_MODE" type="boolean" default="0" writable="true">
+      <description>EcoMode</description>
+      <mandatoryConform>
+        <feature name="ECO"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x0004" name="FrostProtectionMode" define="FROST_PROTECTION_MODE" type="boolean" default="0" writable="true">
+      <description>FrostProtectionMode</description>
+      <mandatoryConform>
+        <feature name="FROST_PROTECTION"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x0005" name="SleepMode" define="SLEEP_MODE" type="boolean" default="0" writable="true">
+      <description>SleepMode</description>
+      <mandatoryConform>
+        <feature name="SLEEP"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x0006" name="TemperatureUnit" define="TEMP_UNIT" type="TemperatureUnitsEnum" default="0" writable="true">
+      <description>TemperatureUnit</description>
+      <mandatoryConform>
+        <feature name="TEMP_UNIT"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x0007" name="CleanState" define="CLEAN_STATE" type="CleanStateEnum" default="0" min="0x00" max="0x01">
+      <description>TemperatureUnit</description>
+      <mandatoryConform>
+        <feature name="ACTIVE_CLEAN"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x0008" name="OffTimer" define="OFF_TIMER" type="boolean" default="0">
+      <description>OffTimer</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x0009" name="offTimerHours" define="OFF_TIMER_HOURS" type="int8u" default="0" min="0" max="24">
+      <description>OffTimerHours</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x000A" name="offTimerMinutes" define="OFF_TIMER_MINUTES" type="int8u" default="0" min="0" max="60">
+      <description>OffTimerMinutes</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x000B" name="OnTimer" define="ON_TIMER" type="boolean" default="0">
+      <description>OnTimer</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x000C" name="onTimerHours" define="ON_TIMER_HOURS" type="int8u" default="0" min="0" max="24">
+      <description>OnTimerHours</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x000D" name="onTimerMinutes" define="ON_TIMER_MINUTES" type="int8u" default="0" min="0" max="60">
+      <description>OnTimerMinutes</description>
+      <mandatoryConform/>
+    </attribute>
+    <attribute side="server" code="0x000E" name="PlasmaMode" define="PLASMA_MODE" type="boolean" default="0" writable="true">
+      <description>PlasmaMode</description>
+      <mandatoryConform>
+        <feature name="PLASMA"/>
+      </mandatoryConform>
+    </attribute>
+    <attribute side="server" code="0x000F" name="BreezeAwayMode" define="BREEZE_AWAY_MODE" type="boolean" default="0" writable="true">
+      <description>BreezeAwayMode</description>
+      <mandatoryConform>
+        <feature name="BREEZE_AWAY"/>
+      </mandatoryConform>
+    </attribute>
+    <!-- <attribute side="server" code="0x000F" name="OutdoorTemperature" define="OUTDOOR_TEMP_VALUE" type="temperature" min="-27315" isNullable="true"/> -->
+    <attribute side="server" code="0x0010" name="ErrorCode" define="ERROR_CODE" type="int16u" default="0"/>
+    <attribute side="server" code="0x0011" name="HorizontalLouverPosition" define="HORIZONTAL_LOUVER_POSITION" type="int8u" default="0" writable="true">
+      <description>HorizontalLouverPosition</description>
+    </attribute>
+
+    <command source="client" code="0x00" name="Clean" optional="true">
+      <description>This command starts the clean process.</description>
+      <mandatoryConform>
+        <feature name="ACTIVE_CLEAN"/>
+      </mandatoryConform>
+    </command>
+
+    <command source="client" code="0x01" name="CancelClean" optional="true">
+      <description>This command cancel the clean process.</description>
+      <mandatoryConform>
+        <feature name="ACTIVE_CLEAN"/>
+      </mandatoryConform>
+    </command>
+
+     <command source="client" code="0x02" name="SetTimer" optional="true">
+      <description>This command sets the on/off timer</description>
+      <arg id="0" name="mode" type="boolean"/> <!-- 0=off timer, 1=on timer -->
+      <arg id="1" name="minutes" type="int16u" min="1" max="1919"/> <!-- max 1919 = 31 hours 59 minutes -->
+    </command>
+
+    <command source="client" code="0x03" name="cancelTimer" optional="true">
+      <description>This command cancels the on/off timer.</description>
+      <arg id="0" name="mode" type="boolean"/> <!-- 0=off timer, 1=on timer -->
+    </command>
+
+    <event code="0x0000" name="ActiveCleanStarted" priority="info" side="server">
+      <description>This event SHALL be generated whenever a Clean command is accepted.</description>
+      <mandatoryConform>
+        <feature name="ACTIVE_CLEAN"/>
+      </mandatoryConform>
+    </event>
+
+    <event code="0x0001" name="ActiveCleanEnded" priority="info" side="server">
+      <description>This event SHALL be generated whenever the cleanState transitions from Active to Inactive.</description>
+      <mandatoryConform>
+        <feature name="ACTIVE_CLEAN"/>
+      </mandatoryConform>
+    </event>
+
+    <event side="server" code="0x02" priority="info" name="NotifyError">
+      <description>This event SHALL be generated when one or more errors change state, and SHALL have these fields: </description>
+      <field id="0" name="Code" type="int16u" default="0"/>
+    </event>
+  </cluster>
+</configurator>

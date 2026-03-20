@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Fresh Refrigerator Controller</name>
+    <domain>FRESH</domain>
+    <description>Attributes for configuring the Fresh Refrigerator Controller.</description>
+    <code>0x15E7FC03</code>
+    <define>FRESH_REFRIGERATOR_CONTROLLER_CLUSTER</define>
+    <client tick="false" init="false">true</client>
+    <server tick="false" init="false">true</server>
+    <globalAttribute code="0xFFFD" side="either" value="1"/>
+    <attribute side="server" code="0x0000" name="FridgeTemperatureDefault" define="FRIDGE_TEMPERATURE_DEFAULT" type="temperature" default="500" min="200" max="800" writable="true">
+      <description>FridgeTemperatureDefault</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0001" name="FreezerTemperatureDefault" define="FREEZER_TEMPERATURE_DEFAULT" type="temperature" default="-1800" min="-2400" max="-1400" writable="true">
+      <description>FreezerTemperatureDefault</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0002" name="FridgePreviousTemperature" define="FRIDGE_PREVIOUS_TEMPERATURE" type="temperature" default="500" min="200" max="800">
+      <description>FridgePreviousTemperature</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0003" name="FreezerPreviousTemperature" define="FREEZER_PREVIOUS_TEMPERATURE" type="temperature" default="-1800" min="-2400" max="-1400">
+      <description>FreezerPreviousTemperature</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0004" name="SuperCoolTime" define="SUPER_COOL_TIME" type="int32u" default="21600" writable="true">
+      <description>SuperCoolTime</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0005" name="SuperFreezeTime" define="SUPER_FREEZE_TIME" type="int32u" default="93600" writable="true">
+      <description>SuperFreezeTime</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0006" name="AlarmTime" define="ALARM_TIME" type="int32u" default="60" writable="true">
+      <description>AlarmTime</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0007" name="ResetTimeout" define="RESET_TIMEOUT" type="int32u" default="10" writable="true">
+      <description>ResetTimeout</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0008" name="DisplayActiveTime" define="DISPLAY_ACTIVE_TIME" type="int32u" default="60" writable="true">
+      <description>DisplayActiveTime</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x0009" name="DisplayErrorTime" define="DISPLAY_ERROR_TIME" type="int32u" default="5" writable="true">
+      <description>DisplayErrorTime</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x000A" name="CompressorState" define="COMPRESSOR_STATE" type="boolean" default="0">
+      <description>CompressorState</description>
+      <optionalConform />
+    </attribute>
+    <attribute side="server" code="0x000B" name="DefrostState" define="DEFROST_STATE" type="boolean" default="0">
+      <description>DefrostState</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x000C" name="FridgeErrorMargin" define="FRIDGE_ERROR_MARGIN" type="temperature" default="1500" writable="true">
+      <description>FridgeErrorMargin</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x000D" name="FreezerErrorMargin" define="FREEZER_ERROR_MARGIN" type="temperature" default="1500" writable="true">
+      <description>FreezerErrorMargin</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x000E" name="TemperatureErrorTime" define="TEMPERATURE_ERROR_TIME" type="int32u" default="3600" writable="true">
+      <description>TemperatureErrorTime</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x000F" name="FridgeDoorState" define="FRIDGE_DOOR_STATE" type="boolean" default="0">
+      <description>FridgeDoorState</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x0010" name="FreezerDoorState" define="FREEZER_DOOR_STATE" type="boolean" default="0">
+      <description>FreezerDoorState</description>
+      <optionalConform />
+    </attribute>
+
+    <attribute side="server" code="0x0011" name="DefrostTemperature" define="DEFROST_TEMPERATURE" type="temperature" default="0" min="-5000" max="5000">
+      <description>DefrostTemperature</description>
+      <optionalConform />
+    </attribute>
+
+
+  </cluster>
+</configurator>

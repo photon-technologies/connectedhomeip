@@ -1028,7 +1028,6 @@ DataModel::ActionReturnStatus NetworkCommissioningCluster::ReadAttribute(const D
                                                                          AttributeValueEncoder & encoder)
 {
     using namespace NetworkCommissioning::Attributes;
-
     switch (request.path.mAttributeId)
     {
     case FeatureMap::Id:

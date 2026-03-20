@@ -11991,6 +11991,426 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRPhotonSmartClusterPhotonInsightsParamsStruct
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _coreDumpEnabled = @(0);
+
+        _minInterval = @(0);
+
+        _maxInterval = @(0);
+
+        _dropWifiLogs = @(0);
+
+        _reportMetrics = @(0);
+
+        _reportHeapMetrics = @(0);
+
+        _heapPollingInterval = @(0);
+
+        _heapPollingCount = @(0);
+
+        _reportWifiMetrics = @(0);
+
+        _wifiPollingInterval = @(0);
+
+        _wifiPollingCount = @(0);
+
+        _usePolling = @(0);
+
+        _reportVariables = @(0);
+
+        _reportNetworkVariables = @(0);
+
+        _reportMoreNetworkVariables = @(0);
+
+        _reportWatermarkPercent = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRPhotonSmartClusterPhotonInsightsParamsStruct alloc] init];
+
+    other.coreDumpEnabled = self.coreDumpEnabled;
+    other.minInterval = self.minInterval;
+    other.maxInterval = self.maxInterval;
+    other.dropWifiLogs = self.dropWifiLogs;
+    other.reportMetrics = self.reportMetrics;
+    other.reportHeapMetrics = self.reportHeapMetrics;
+    other.heapPollingInterval = self.heapPollingInterval;
+    other.heapPollingCount = self.heapPollingCount;
+    other.reportWifiMetrics = self.reportWifiMetrics;
+    other.wifiPollingInterval = self.wifiPollingInterval;
+    other.wifiPollingCount = self.wifiPollingCount;
+    other.usePolling = self.usePolling;
+    other.reportVariables = self.reportVariables;
+    other.reportNetworkVariables = self.reportNetworkVariables;
+    other.reportMoreNetworkVariables = self.reportMoreNetworkVariables;
+    other.reportWatermarkPercent = self.reportWatermarkPercent;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: coreDumpEnabled:%@; minInterval:%@; maxInterval:%@; dropWifiLogs:%@; reportMetrics:%@; reportHeapMetrics:%@; heapPollingInterval:%@; heapPollingCount:%@; reportWifiMetrics:%@; wifiPollingInterval:%@; wifiPollingCount:%@; usePolling:%@; reportVariables:%@; reportNetworkVariables:%@; reportMoreNetworkVariables:%@; reportWatermarkPercent:%@; >", NSStringFromClass([self class]), _coreDumpEnabled, _minInterval, _maxInterval, _dropWifiLogs, _reportMetrics, _reportHeapMetrics, _heapPollingInterval, _heapPollingCount, _reportWifiMetrics, _wifiPollingInterval, _wifiPollingCount, _usePolling, _reportVariables, _reportNetworkVariables, _reportMoreNetworkVariables, _reportWatermarkPercent];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRPhotonSmartClusterPhotonMQTTStruct
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _host = @"";
+
+        _port = @(0);
+
+        _transport = @(0);
+
+        _keepAlive = @(0);
+
+        _cleanSession = @(0);
+
+        _reconnectTimeoutMS = @(0);
+
+        _timeoutMS = @(0);
+
+        _refreshConnectionAfterMS = @(0);
+
+        _sessionExpiryIntervalS = @(0);
+
+        _maxPacketSize = @(0);
+
+        _maxReceivePacketCount = @(0);
+
+        _maxTopicAlias = @(0);
+
+        _requestRespInfo = @(0);
+
+        _requestProblemInfo = @(0);
+
+        _willDelayIntervalS = @(0);
+
+        _messageExpiryIntervalS = @(0);
+
+        _payloadFormatIndicator = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRPhotonSmartClusterPhotonMQTTStruct alloc] init];
+
+    other.host = self.host;
+    other.port = self.port;
+    other.transport = self.transport;
+    other.keepAlive = self.keepAlive;
+    other.cleanSession = self.cleanSession;
+    other.reconnectTimeoutMS = self.reconnectTimeoutMS;
+    other.timeoutMS = self.timeoutMS;
+    other.refreshConnectionAfterMS = self.refreshConnectionAfterMS;
+    other.sessionExpiryIntervalS = self.sessionExpiryIntervalS;
+    other.maxPacketSize = self.maxPacketSize;
+    other.maxReceivePacketCount = self.maxReceivePacketCount;
+    other.maxTopicAlias = self.maxTopicAlias;
+    other.requestRespInfo = self.requestRespInfo;
+    other.requestProblemInfo = self.requestProblemInfo;
+    other.willDelayIntervalS = self.willDelayIntervalS;
+    other.messageExpiryIntervalS = self.messageExpiryIntervalS;
+    other.payloadFormatIndicator = self.payloadFormatIndicator;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; sessionExpiryIntervalS:%@; maxPacketSize:%@; maxReceivePacketCount:%@; maxTopicAlias:%@; requestRespInfo:%@; requestProblemInfo:%@; willDelayIntervalS:%@; messageExpiryIntervalS:%@; payloadFormatIndicator:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _sessionExpiryIntervalS, _maxPacketSize, _maxReceivePacketCount, _maxTopicAlias, _requestRespInfo, _requestProblemInfo, _willDelayIntervalS, _messageExpiryIntervalS, _payloadFormatIndicator];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshMideaAirConditionerAlarmClusterNotifyEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _active = @(0);
+
+        _inactive = @(0);
+
+        _state = @(0);
+
+        _mask = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaAirConditionerAlarmClusterNotifyEvent alloc] init];
+
+    other.active = self.active;
+    other.inactive = self.inactive;
+    other.state = self.state;
+    other.mask = self.mask;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshRefrigeratorErrorsAlarmClusterNotifyEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _active = @(0);
+
+        _inactive = @(0);
+
+        _state = @(0);
+
+        _mask = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshRefrigeratorErrorsAlarmClusterNotifyEvent alloc] init];
+
+    other.active = self.active;
+    other.inactive = self.inactive;
+    other.state = self.state;
+    other.mask = self.mask;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshMideaControllerClusterActiveCleanStartedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaControllerClusterActiveCleanStartedEvent alloc] init];
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshMideaControllerClusterActiveCleanEndedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaControllerClusterActiveCleanEndedEvent alloc] init];
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshMideaControllerClusterNotifyErrorEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _code = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshMideaControllerClusterNotifyErrorEvent alloc] init];
+
+    other.code = self.code;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: code:%@; >", NSStringFromClass([self class]), _code];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _duration = @(0);
+
+        _oneShot = nil;
+
+        _emergencyBoost = nil;
+
+        _temporarySetpoint = nil;
+
+        _targetPercentage = nil;
+
+        _targetReheat = nil;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct alloc] init];
+
+    other.duration = self.duration;
+    other.oneShot = self.oneShot;
+    other.emergencyBoost = self.emergencyBoost;
+    other.temporarySetpoint = self.temporarySetpoint;
+    other.targetPercentage = self.targetPercentage;
+    other.targetReheat = self.targetReheat;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: duration:%@; oneShot:%@; emergencyBoost:%@; temporarySetpoint:%@; targetPercentage:%@; targetReheat:%@; >", NSStringFromClass([self class]), _duration, _oneShot, _emergencyBoost, _temporarySetpoint, _targetPercentage, _targetReheat];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent alloc] init];
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: >", NSStringFromClass([self class])];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _status = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent alloc] init];
+
+    other.status = self.status;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: status:%@; >", NSStringFromClass([self class]), _status];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _active = @(0);
+
+        _inactive = @(0);
+
+        _state = @(0);
+
+        _mask = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent alloc] init];
+
+    other.active = self.active;
+    other.inactive = self.inactive;
+    other.state = self.state;
+    other.mask = self.mask;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRUnitTestingClusterSimpleStruct
 - (instancetype)init
 {

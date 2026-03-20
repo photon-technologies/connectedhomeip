@@ -9614,6 +9614,424 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         }
         break;
     }
+    case app::Clusters::PhotonSmart::Id: {
+        using namespace app::Clusters::PhotonSmart;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::FreshMideaAirConditionerAlarm::Id: {
+        using namespace app::Clusters::FreshMideaAirConditionerAlarm;
+        switch (aPath.mEventId)
+        {
+        case Events::Notify::Id: {
+            Events::Notify::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_active;
+            std::string value_activeClassName     = "java/lang/Long";
+            std::string value_activeCtorSignature = "(J)V";
+            jlong jnivalue_active                 = static_cast<jlong>(cppValue.active.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_activeClassName.c_str(), value_activeCtorSignature.c_str(), jnivalue_active, value_active);
+
+            jobject value_inactive;
+            std::string value_inactiveClassName     = "java/lang/Long";
+            std::string value_inactiveCtorSignature = "(J)V";
+            jlong jnivalue_inactive                 = static_cast<jlong>(cppValue.inactive.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_inactiveClassName.c_str(), value_inactiveCtorSignature.c_str(), jnivalue_inactive, value_inactive);
+
+            jobject value_state;
+            std::string value_stateClassName     = "java/lang/Long";
+            std::string value_stateCtorSignature = "(J)V";
+            jlong jnivalue_state                 = static_cast<jlong>(cppValue.state.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_stateClassName.c_str(), value_stateCtorSignature.c_str(), jnivalue_state, value_state);
+
+            jobject value_mask;
+            std::string value_maskClassName     = "java/lang/Long";
+            std::string value_maskCtorSignature = "(J)V";
+            jlong jnivalue_mask                 = static_cast<jlong>(cppValue.mask.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_maskClassName.c_str(),
+                                                                        value_maskCtorSignature.c_str(), jnivalue_mask, value_mask);
+
+            jclass notifyStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshMideaAirConditionerAlarmClusterNotifyEvent", notifyStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshMideaAirConditionerAlarmClusterNotifyEvent");
+                return nullptr;
+            }
+
+            jmethodID notifyStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(
+                env, notifyStructClass, "<init>", "(Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;)V",
+                &notifyStructCtor);
+            if (err != CHIP_NO_ERROR || notifyStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshMideaAirConditionerAlarmClusterNotifyEvent constructor");
+                return nullptr;
+            }
+
+            jobject value =
+                env->NewObject(notifyStructClass, notifyStructCtor, value_active, value_inactive, value_state, value_mask);
+
+            return value;
+        }
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        using namespace app::Clusters::FreshRefrigeratorErrorsAlarm;
+        switch (aPath.mEventId)
+        {
+        case Events::Notify::Id: {
+            Events::Notify::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_active;
+            std::string value_activeClassName     = "java/lang/Long";
+            std::string value_activeCtorSignature = "(J)V";
+            jlong jnivalue_active                 = static_cast<jlong>(cppValue.active.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_activeClassName.c_str(), value_activeCtorSignature.c_str(), jnivalue_active, value_active);
+
+            jobject value_inactive;
+            std::string value_inactiveClassName     = "java/lang/Long";
+            std::string value_inactiveCtorSignature = "(J)V";
+            jlong jnivalue_inactive                 = static_cast<jlong>(cppValue.inactive.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_inactiveClassName.c_str(), value_inactiveCtorSignature.c_str(), jnivalue_inactive, value_inactive);
+
+            jobject value_state;
+            std::string value_stateClassName     = "java/lang/Long";
+            std::string value_stateCtorSignature = "(J)V";
+            jlong jnivalue_state                 = static_cast<jlong>(cppValue.state.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_stateClassName.c_str(), value_stateCtorSignature.c_str(), jnivalue_state, value_state);
+
+            jobject value_mask;
+            std::string value_maskClassName     = "java/lang/Long";
+            std::string value_maskCtorSignature = "(J)V";
+            jlong jnivalue_mask                 = static_cast<jlong>(cppValue.mask.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_maskClassName.c_str(),
+                                                                        value_maskCtorSignature.c_str(), jnivalue_mask, value_mask);
+
+            jclass notifyStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshRefrigeratorErrorsAlarmClusterNotifyEvent", notifyStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshRefrigeratorErrorsAlarmClusterNotifyEvent");
+                return nullptr;
+            }
+
+            jmethodID notifyStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(
+                env, notifyStructClass, "<init>", "(Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;)V",
+                &notifyStructCtor);
+            if (err != CHIP_NO_ERROR || notifyStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshRefrigeratorErrorsAlarmClusterNotifyEvent constructor");
+                return nullptr;
+            }
+
+            jobject value =
+                env->NewObject(notifyStructClass, notifyStructCtor, value_active, value_inactive, value_state, value_mask);
+
+            return value;
+        }
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::FreshRefrigeratorController::Id: {
+        using namespace app::Clusters::FreshRefrigeratorController;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::FreshMideaController::Id: {
+        using namespace app::Clusters::FreshMideaController;
+        switch (aPath.mEventId)
+        {
+        case Events::ActiveCleanStarted::Id: {
+            Events::ActiveCleanStarted::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jclass activeCleanStartedStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshMideaControllerClusterActiveCleanStartedEvent",
+                activeCleanStartedStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshMideaControllerClusterActiveCleanStartedEvent");
+                return nullptr;
+            }
+
+            jmethodID activeCleanStartedStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, activeCleanStartedStructClass, "<init>", "()V",
+                                                                &activeCleanStartedStructCtor);
+            if (err != CHIP_NO_ERROR || activeCleanStartedStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshMideaControllerClusterActiveCleanStartedEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(activeCleanStartedStructClass, activeCleanStartedStructCtor);
+
+            return value;
+        }
+        case Events::ActiveCleanEnded::Id: {
+            Events::ActiveCleanEnded::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jclass activeCleanEndedStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshMideaControllerClusterActiveCleanEndedEvent",
+                activeCleanEndedStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshMideaControllerClusterActiveCleanEndedEvent");
+                return nullptr;
+            }
+
+            jmethodID activeCleanEndedStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, activeCleanEndedStructClass, "<init>", "()V",
+                                                                &activeCleanEndedStructCtor);
+            if (err != CHIP_NO_ERROR || activeCleanEndedStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshMideaControllerClusterActiveCleanEndedEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(activeCleanEndedStructClass, activeCleanEndedStructCtor);
+
+            return value;
+        }
+        case Events::NotifyError::Id: {
+            Events::NotifyError::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_code;
+            std::string value_codeClassName     = "java/lang/Integer";
+            std::string value_codeCtorSignature = "(I)V";
+            jint jnivalue_code                  = static_cast<jint>(cppValue.code);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_codeClassName.c_str(), value_codeCtorSignature.c_str(),
+                                                                       jnivalue_code, value_code);
+
+            jclass notifyErrorStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshMideaControllerClusterNotifyErrorEvent", notifyErrorStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshMideaControllerClusterNotifyErrorEvent");
+                return nullptr;
+            }
+
+            jmethodID notifyErrorStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, notifyErrorStructClass, "<init>", "(Ljava/lang/Integer;)V",
+                                                                &notifyErrorStructCtor);
+            if (err != CHIP_NO_ERROR || notifyErrorStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshMideaControllerClusterNotifyErrorEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(notifyErrorStructClass, notifyErrorStructCtor, value_code);
+
+            return value;
+        }
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::FreshWaterHeaterController::Id: {
+        using namespace app::Clusters::FreshWaterHeaterController;
+        switch (aPath.mEventId)
+        {
+        case Events::AntiLegionellaCycleStarted::Id: {
+            Events::AntiLegionellaCycleStarted::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jclass antiLegionellaCycleStartedStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent",
+                antiLegionellaCycleStartedStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(
+                    Zcl, "Could not find class ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent");
+                return nullptr;
+            }
+
+            jmethodID antiLegionellaCycleStartedStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, antiLegionellaCycleStartedStructClass, "<init>", "()V",
+                                                                &antiLegionellaCycleStartedStructCtor);
+            if (err != CHIP_NO_ERROR || antiLegionellaCycleStartedStructCtor == nullptr)
+            {
+                ChipLogError(
+                    Zcl,
+                    "Could not find ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleStartedEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(antiLegionellaCycleStartedStructClass, antiLegionellaCycleStartedStructCtor);
+
+            return value;
+        }
+        case Events::AntiLegionellaCycleCompleted::Id: {
+            Events::AntiLegionellaCycleCompleted::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_status;
+            std::string value_statusClassName     = "java/lang/Boolean";
+            std::string value_statusCtorSignature = "(Z)V";
+            jboolean jnivalue_status              = static_cast<jboolean>(cppValue.status);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jboolean>(
+                value_statusClassName.c_str(), value_statusCtorSignature.c_str(), jnivalue_status, value_status);
+
+            jclass antiLegionellaCycleCompletedStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent",
+                antiLegionellaCycleCompletedStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(
+                    Zcl,
+                    "Could not find class ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent");
+                return nullptr;
+            }
+
+            jmethodID antiLegionellaCycleCompletedStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, antiLegionellaCycleCompletedStructClass, "<init>",
+                                                                "(Ljava/lang/Boolean;)V", &antiLegionellaCycleCompletedStructCtor);
+            if (err != CHIP_NO_ERROR || antiLegionellaCycleCompletedStructCtor == nullptr)
+            {
+                ChipLogError(Zcl,
+                             "Could not find ChipEventStructs$FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent "
+                             "constructor");
+                return nullptr;
+            }
+
+            jobject value =
+                env->NewObject(antiLegionellaCycleCompletedStructClass, antiLegionellaCycleCompletedStructCtor, value_status);
+
+            return value;
+        }
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::FreshWaterHeaterErrorsAlarm::Id: {
+        using namespace app::Clusters::FreshWaterHeaterErrorsAlarm;
+        switch (aPath.mEventId)
+        {
+        case Events::Notify::Id: {
+            Events::Notify::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_active;
+            std::string value_activeClassName     = "java/lang/Long";
+            std::string value_activeCtorSignature = "(J)V";
+            jlong jnivalue_active                 = static_cast<jlong>(cppValue.active.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_activeClassName.c_str(), value_activeCtorSignature.c_str(), jnivalue_active, value_active);
+
+            jobject value_inactive;
+            std::string value_inactiveClassName     = "java/lang/Long";
+            std::string value_inactiveCtorSignature = "(J)V";
+            jlong jnivalue_inactive                 = static_cast<jlong>(cppValue.inactive.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_inactiveClassName.c_str(), value_inactiveCtorSignature.c_str(), jnivalue_inactive, value_inactive);
+
+            jobject value_state;
+            std::string value_stateClassName     = "java/lang/Long";
+            std::string value_stateCtorSignature = "(J)V";
+            jlong jnivalue_state                 = static_cast<jlong>(cppValue.state.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                value_stateClassName.c_str(), value_stateCtorSignature.c_str(), jnivalue_state, value_state);
+
+            jobject value_mask;
+            std::string value_maskClassName     = "java/lang/Long";
+            std::string value_maskCtorSignature = "(J)V";
+            jlong jnivalue_mask                 = static_cast<jlong>(cppValue.mask.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_maskClassName.c_str(),
+                                                                        value_maskCtorSignature.c_str(), jnivalue_mask, value_mask);
+
+            jclass notifyStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshWaterHeaterErrorsAlarmClusterNotifyEvent", notifyStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshWaterHeaterErrorsAlarmClusterNotifyEvent");
+                return nullptr;
+            }
+
+            jmethodID notifyStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(
+                env, notifyStructClass, "<init>", "(Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;)V",
+                &notifyStructCtor);
+            if (err != CHIP_NO_ERROR || notifyStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshWaterHeaterErrorsAlarmClusterNotifyEvent constructor");
+                return nullptr;
+            }
+
+            jobject value =
+                env->NewObject(notifyStructClass, notifyStructCtor, value_active, value_inactive, value_state, value_mask);
+
+            return value;
+        }
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
     case app::Clusters::UnitTesting::Id: {
         using namespace app::Clusters::UnitTesting;
         switch (aPath.mEventId)

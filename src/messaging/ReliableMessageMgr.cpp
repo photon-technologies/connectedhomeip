@@ -188,7 +188,7 @@ void ReliableMessageMgr::ExecuteActions()
             // Make sure our exchange stays alive until we are done working with it.
             ExchangeHandle ec(entry->ec);
 
-            ChipLogError(ExchangeManager,
+            ChipLogProgress(ExchangeManager,
                          "<<%d [E:" ChipLogFormatExchange " S:%u M:" ChipLogFormatMessageCounter
                          "] (%s) Msg Retransmission to %u:" ChipLogFormatX64 " failure (max retries:%d)",
                          sendCount + 1, ChipLogValueExchange(&entry->ec.Get()), session->SessionIdForLogging(), messageCounter,

@@ -17,7 +17,7 @@ namespace app {
 namespace Clusters {
 namespace OperationalCredentials {
 
-inline constexpr uint32_t kRevision = 2;
+inline constexpr uint32_t kRevision = 1;
 
 namespace Attributes {
 

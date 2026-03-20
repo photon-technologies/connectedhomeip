@@ -227,6 +227,30 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Attributes.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Commands.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Events.ipp>
+#include <clusters/FreshMideaAirConditionerAlarm/Structs.ipp>
+#include <clusters/FreshMideaController/Attributes.ipp>
+#include <clusters/FreshMideaController/Commands.ipp>
+#include <clusters/FreshMideaController/Events.ipp>
+#include <clusters/FreshMideaController/Structs.ipp>
+#include <clusters/FreshRefrigeratorController/Attributes.ipp>
+#include <clusters/FreshRefrigeratorController/Commands.ipp>
+#include <clusters/FreshRefrigeratorController/Events.ipp>
+#include <clusters/FreshRefrigeratorController/Structs.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Attributes.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Commands.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Events.ipp>
+#include <clusters/FreshRefrigeratorErrorsAlarm/Structs.ipp>
+#include <clusters/FreshWaterHeaterController/Attributes.ipp>
+#include <clusters/FreshWaterHeaterController/Commands.ipp>
+#include <clusters/FreshWaterHeaterController/Events.ipp>
+#include <clusters/FreshWaterHeaterController/Structs.ipp>
+#include <clusters/FreshWaterHeaterErrorsAlarm/Attributes.ipp>
+#include <clusters/FreshWaterHeaterErrorsAlarm/Commands.ipp>
+#include <clusters/FreshWaterHeaterErrorsAlarm/Events.ipp>
+#include <clusters/FreshWaterHeaterErrorsAlarm/Structs.ipp>
 #include <clusters/GeneralCommissioning/Attributes.ipp>
 #include <clusters/GeneralCommissioning/Commands.ipp>
 #include <clusters/GeneralCommissioning/Events.ipp>
@@ -371,6 +395,10 @@
 #include <clusters/OzoneConcentrationMeasurement/Commands.ipp>
 #include <clusters/OzoneConcentrationMeasurement/Events.ipp>
 #include <clusters/OzoneConcentrationMeasurement/Structs.ipp>
+#include <clusters/PhotonSmart/Attributes.ipp>
+#include <clusters/PhotonSmart/Commands.ipp>
+#include <clusters/PhotonSmart/Events.ipp>
+#include <clusters/PhotonSmart/Structs.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Attributes.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Commands.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Events.ipp>
@@ -1473,6 +1501,48 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
             return true;
         case Clusters::TlsClientManagement::Commands::RemoveEndpoint::Id:
             return true;
+        default:
+            return false;
+        }
+    }
+    case Clusters::PhotonSmart::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::FreshMideaAirConditionerAlarm::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::FreshMideaController::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::FreshWaterHeaterController::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
+        switch (aCommand)
+        {
         default:
             return false;
         }

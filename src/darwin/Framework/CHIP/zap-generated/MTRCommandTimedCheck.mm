@@ -1352,6 +1352,69 @@ static BOOL CommandNeedsTimedInvokeInCommodityMeteringCluster(AttributeId aAttri
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInPhotonSmartCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::PhotonSmart;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshMideaAirConditionerAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorErrorsAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorController;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInFreshMideaControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshMideaController;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInFreshWaterHeaterControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshWaterHeaterController;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInFreshWaterHeaterErrorsAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshWaterHeaterErrorsAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInUnitTestingCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::UnitTesting;
@@ -1790,6 +1853,27 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::CommodityMetering::Id: {
         return CommandNeedsTimedInvokeInCommodityMeteringCluster(commandID);
+    }
+    case Clusters::PhotonSmart::Id: {
+        return CommandNeedsTimedInvokeInPhotonSmartCluster(commandID);
+    }
+    case Clusters::FreshMideaAirConditionerAlarm::Id: {
+        return CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(commandID);
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        return CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(commandID);
+    }
+    case Clusters::FreshRefrigeratorController::Id: {
+        return CommandNeedsTimedInvokeInFreshRefrigeratorControllerCluster(commandID);
+    }
+    case Clusters::FreshMideaController::Id: {
+        return CommandNeedsTimedInvokeInFreshMideaControllerCluster(commandID);
+    }
+    case Clusters::FreshWaterHeaterController::Id: {
+        return CommandNeedsTimedInvokeInFreshWaterHeaterControllerCluster(commandID);
+    }
+    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
+        return CommandNeedsTimedInvokeInFreshWaterHeaterErrorsAlarmCluster(commandID);
     }
     case Clusters::UnitTesting::Id: {
         return CommandNeedsTimedInvokeInUnitTestingCluster(commandID);

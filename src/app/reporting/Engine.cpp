@@ -36,6 +36,7 @@
 #include <lib/core/DataModelTypes.h>
 #include <lib/support/CodeUtils.h>
 #include <protocols/interaction_model/StatusCode.h>
+#include <app/reporting/PhotonReporting.h>
 
 #include <optional>
 
@@ -129,7 +130,7 @@ DataModel::ActionReturnStatus RetrieveClusterData(DataModel::Provider * dataMode
     }
     else
     {
-        ChipLogError(DataManagement, "Read request on unknown cluster - no data version available");
+        ChipLogProgress(DataManagement, "Read request on unknown cluster - no data version available");
     }
 
     TLV::TLVWriter checkpoint;
@@ -486,7 +487,7 @@ CHIP_ERROR Engine::BuildSingleReportDataAttributeReportIBs(ReportDataMessage::Bu
 
                     if (!status.IsOutOfSpaceEncodingResponse())
                     {
-                        ChipLogError(DataManagement,
+                        ChipLogProgress(DataManagement,
                                      "Fail to retrieve data, roll back and encode status on clusterId: " ChipLogFormatMEI
                                      ", attributeId: " ChipLogFormatMEI "err = %" CHIP_ERROR_FORMAT,
                                      ChipLogValueMEI(pathForRetrieval.mClusterId), ChipLogValueMEI(pathForRetrieval.mAttributeId),
@@ -755,6 +756,8 @@ CHIP_ERROR Engine::BuildAndSendSingleReportData(ReadHandler * apReadHandler)
     VerifyOrExit(apReadHandler->GetSession() != nullptr, err = CHIP_ERROR_INCORRECT_STATE);
 
     reportBufferMaxSize = apReadHandler->GetReportBufferMaxSize();
+
+    ChipLogDetail(DataManagement, "<RE> Buffer Max Size (%" PRIuPTR " bytes)...", reportBufferMaxSize);
 
     bufHandle = System::PacketBufferHandle::New(reportBufferMaxSize);
     VerifyOrExit(!bufHandle.IsNull(), err = CHIP_ERROR_NO_MEMORY);
@@ -1103,6 +1106,10 @@ CHIP_ERROR Engine::InsertPathIntoDirtySet(const AttributePathParams & aAttribute
 
 CHIP_ERROR Engine::SetDirty(const AttributePathParams & aAttributePath)
 {
+
+    //TODO: Add Custom Delegate Callback here
+    PhotonReportingAttributeChangeCallback(aAttributePath);
+
     BumpDirtySetGeneration();
 
     bool intersectsInterestPath     = false;

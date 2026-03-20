@@ -6678,6 +6678,439 @@ static BOOL AttributeIsSpecifiedInCommodityMeteringCluster(AttributeId aAttribut
     }
     }
 }
+static BOOL AttributeIsSpecifiedInPhotonSmartCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::PhotonSmart;
+    switch (aAttributeId) {
+    case Attributes::DeviceId::Id: {
+        return YES;
+    }
+    case Attributes::ShouldReboot::Id: {
+        return YES;
+    }
+    case Attributes::MqttConfig::Id: {
+        return YES;
+    }
+    case Attributes::MqttReportEnabled::Id: {
+        return YES;
+    }
+    case Attributes::InsightsEnabled::Id: {
+        return YES;
+    }
+    case Attributes::InsightsParams::Id: {
+        return YES;
+    }
+    case Attributes::PublicIpv4Address::Id: {
+        return YES;
+    }
+    case Attributes::PublicIpv4Enabled::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known PhotonSmart attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshMideaAirConditionerAlarm;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        return YES;
+    }
+    case Attributes::Latch::Id: {
+        return YES;
+    }
+    case Attributes::State::Id: {
+        return YES;
+    }
+    case Attributes::Supported::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshMideaAirConditionerAlarm attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorErrorsAlarm;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        return YES;
+    }
+    case Attributes::Latch::Id: {
+        return YES;
+    }
+    case Attributes::State::Id: {
+        return YES;
+    }
+    case Attributes::Supported::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshRefrigeratorErrorsAlarm attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshRefrigeratorController;
+    switch (aAttributeId) {
+    case Attributes::FridgeTemperatureDefault::Id: {
+        return YES;
+    }
+    case Attributes::FreezerTemperatureDefault::Id: {
+        return YES;
+    }
+    case Attributes::FridgePreviousTemperature::Id: {
+        return YES;
+    }
+    case Attributes::FreezerPreviousTemperature::Id: {
+        return YES;
+    }
+    case Attributes::SuperCoolTime::Id: {
+        return YES;
+    }
+    case Attributes::SuperFreezeTime::Id: {
+        return YES;
+    }
+    case Attributes::AlarmTime::Id: {
+        return YES;
+    }
+    case Attributes::ResetTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayActiveTime::Id: {
+        return YES;
+    }
+    case Attributes::DisplayErrorTime::Id: {
+        return YES;
+    }
+    case Attributes::CompressorState::Id: {
+        return YES;
+    }
+    case Attributes::DefrostState::Id: {
+        return YES;
+    }
+    case Attributes::FridgeErrorMargin::Id: {
+        return YES;
+    }
+    case Attributes::FreezerErrorMargin::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureErrorTime::Id: {
+        return YES;
+    }
+    case Attributes::FridgeDoorState::Id: {
+        return YES;
+    }
+    case Attributes::FreezerDoorState::Id: {
+        return YES;
+    }
+    case Attributes::DefrostTemperature::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshRefrigeratorController attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshMideaControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshMideaController;
+    switch (aAttributeId) {
+    case Attributes::Beep::Id: {
+        return YES;
+    }
+    case Attributes::Light::Id: {
+        return YES;
+    }
+    case Attributes::TurboMode::Id: {
+        return YES;
+    }
+    case Attributes::EcoMode::Id: {
+        return YES;
+    }
+    case Attributes::FrostProtectionMode::Id: {
+        return YES;
+    }
+    case Attributes::SleepMode::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureUnit::Id: {
+        return YES;
+    }
+    case Attributes::CleanState::Id: {
+        return YES;
+    }
+    case Attributes::OffTimer::Id: {
+        return YES;
+    }
+    case Attributes::OffTimerHours::Id: {
+        return YES;
+    }
+    case Attributes::OffTimerMinutes::Id: {
+        return YES;
+    }
+    case Attributes::OnTimer::Id: {
+        return YES;
+    }
+    case Attributes::OnTimerHours::Id: {
+        return YES;
+    }
+    case Attributes::OnTimerMinutes::Id: {
+        return YES;
+    }
+    case Attributes::PlasmaMode::Id: {
+        return YES;
+    }
+    case Attributes::BreezeAwayMode::Id: {
+        return YES;
+    }
+    case Attributes::ErrorCode::Id: {
+        return YES;
+    }
+    case Attributes::HorizontalLouverPosition::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshMideaController attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshWaterHeaterController;
+    switch (aAttributeId) {
+    case Attributes::ColdWaterTemperature::Id: {
+        return YES;
+    }
+    case Attributes::ShowerTemperature::Id: {
+        return YES;
+    }
+    case Attributes::ShowerHysteresis::Id: {
+        return YES;
+    }
+    case Attributes::ShowerState::Id: {
+        return YES;
+    }
+    case Attributes::DefaultShowerFlowLPM::Id: {
+        return YES;
+    }
+    case Attributes::StandardModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::EcoModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::DefaultBoostModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::DisplayTemperatureStep::Id: {
+        return YES;
+    }
+    case Attributes::ResetTimeout::Id: {
+        return YES;
+    }
+    case Attributes::CoolDownTimeout::Id: {
+        return YES;
+    }
+    case Attributes::ResetCounterTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayActiveTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayErrorTimeout::Id: {
+        return YES;
+    }
+    case Attributes::DisplayTargetTimeout::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureSensorMinValid::Id: {
+        return YES;
+    }
+    case Attributes::TemperatureSensorMaxValid::Id: {
+        return YES;
+    }
+    case Attributes::OverheatThresholdTemperature::Id: {
+        return YES;
+    }
+    case Attributes::RapidRiseDelta::Id: {
+        return YES;
+    }
+    case Attributes::RapidRiseWindow::Id: {
+        return YES;
+    }
+    case Attributes::PreviousTargetHeaterTemperature::Id: {
+        return YES;
+    }
+    case Attributes::HeaterMaximumPower::Id: {
+        return YES;
+    }
+    case Attributes::DiagnosticsConfirmTimeList::Id: {
+        return YES;
+    }
+    case Attributes::DiagnosticsRehabTimeList::Id: {
+        return YES;
+    }
+    case Attributes::RequiresAnodeChange::Id: {
+        return YES;
+    }
+    case Attributes::MaximumBoostTime::Id: {
+        return YES;
+    }
+    case Attributes::CurrentBoostModeSetpoint::Id: {
+        return YES;
+    }
+    case Attributes::ErrorCode::Id: {
+        return YES;
+    }
+    case Attributes::AntiLegionellaState::Id: {
+        return YES;
+    }
+    case Attributes::EnergyReportInterval::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshWaterHeaterController attribute.
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInFreshWaterHeaterErrorsAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::FreshWaterHeaterErrorsAlarm;
+    switch (aAttributeId) {
+    case Attributes::Mask::Id: {
+        return YES;
+    }
+    case Attributes::Latch::Id: {
+        return YES;
+    }
+    case Attributes::State::Id: {
+        return YES;
+    }
+    case Attributes::Supported::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known FreshWaterHeaterErrorsAlarm attribute.
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInUnitTestingCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::UnitTesting;
@@ -7412,6 +7845,27 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::CommodityMetering::Id: {
         return AttributeIsSpecifiedInCommodityMeteringCluster(aAttributeId);
+    }
+    case Clusters::PhotonSmart::Id: {
+        return AttributeIsSpecifiedInPhotonSmartCluster(aAttributeId);
+    }
+    case Clusters::FreshMideaAirConditionerAlarm::Id: {
+        return AttributeIsSpecifiedInFreshMideaAirConditionerAlarmCluster(aAttributeId);
+    }
+    case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
+        return AttributeIsSpecifiedInFreshRefrigeratorErrorsAlarmCluster(aAttributeId);
+    }
+    case Clusters::FreshRefrigeratorController::Id: {
+        return AttributeIsSpecifiedInFreshRefrigeratorControllerCluster(aAttributeId);
+    }
+    case Clusters::FreshMideaController::Id: {
+        return AttributeIsSpecifiedInFreshMideaControllerCluster(aAttributeId);
+    }
+    case Clusters::FreshWaterHeaterController::Id: {
+        return AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(aAttributeId);
+    }
+    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
+        return AttributeIsSpecifiedInFreshWaterHeaterErrorsAlarmCluster(aAttributeId);
     }
     case Clusters::UnitTesting::Id: {
         return AttributeIsSpecifiedInUnitTestingCluster(aAttributeId);

@@ -73,7 +73,7 @@ CHIP_ERROR Delegate::GenerateBoostEndedEvent()
 {
     Events::BoostEnded::Type event;
     EventNumber eventNumber;
-    ChipLogError(AppServer, "Delegate::GenerateBoostEndedEvent");
+    // ChipLogError(AppServer, "Delegate::GenerateBoostEndedEvent");
 
     CHIP_ERROR err = LogEvent(event, mEndpointId, eventNumber);
     if (CHIP_NO_ERROR != err)

@@ -219,6 +219,13 @@ typedef NS_ENUM(uint32_t, MTRClusterIDType) {
     MTRClusterIDTypeTLSClientManagementID MTR_PROVISIONALLY_AVAILABLE = 0x00000802,
     MTRClusterIDTypeMeterIdentificationID MTR_PROVISIONALLY_AVAILABLE = 0x00000B06,
     MTRClusterIDTypeCommodityMeteringID MTR_PROVISIONALLY_AVAILABLE = 0x00000B07,
+    MTRClusterIDTypePhotonSmartID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC00,
+    MTRClusterIDTypeFreshMideaAirConditionerAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC01,
+    MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC02,
+    MTRClusterIDTypeFreshRefrigeratorControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC03,
+    MTRClusterIDTypeFreshMideaControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC04,
+    MTRClusterIDTypeFreshWaterHeaterControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC05,
+    MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC06,
     MTRClusterIDTypeUnitTestingID MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4)) = 0xFFF1FC05,
     MTRClusterIDTypeSampleMEIID MTR_PROVISIONALLY_AVAILABLE = 0xFFF1FC20,
 
@@ -4945,6 +4952,141 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterCommodityMeteringAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
     MTRAttributeIDTypeClusterCommodityMeteringAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
 
+    // Cluster PhotonSmart attributes
+    MTRAttributeIDTypeClusterPhotonSmartAttributeDeviceIdID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeShouldRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeMqttConfigID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeMqttReportEnabledID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeInsightsEnabledID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeInsightsParamsID MTR_PROVISIONALLY_AVAILABLE = 0x00000005,
+    MTRAttributeIDTypeClusterPhotonSmartAttributePublicIpv4AddressID MTR_PROVISIONALLY_AVAILABLE = 0x00000006,
+    MTRAttributeIDTypeClusterPhotonSmartAttributePublicIpv4EnabledID MTR_PROVISIONALLY_AVAILABLE = 0x00000007,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterPhotonSmartAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
+    // Cluster FreshMideaAirConditionerAlarm attributes
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeSupportedID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
+    // Cluster FreshRefrigeratorErrorsAlarm attributes
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeSupportedID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
+    // Cluster FreshRefrigeratorController attributes
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeTemperatureDefaultID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerTemperatureDefaultID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgePreviousTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerPreviousTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperCoolTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeSuperFreezeTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000005,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAlarmTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000006,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeResetTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x00000007,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayActiveTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000008,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDisplayErrorTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000009,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeCompressorStateID MTR_PROVISIONALLY_AVAILABLE = 0x0000000A,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostStateID MTR_PROVISIONALLY_AVAILABLE = 0x0000000B,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeErrorMarginID MTR_PROVISIONALLY_AVAILABLE = 0x0000000C,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerErrorMarginID MTR_PROVISIONALLY_AVAILABLE = 0x0000000D,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeTemperatureErrorTimeID MTR_PROVISIONALLY_AVAILABLE = 0x0000000E,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeDoorStateID MTR_PROVISIONALLY_AVAILABLE = 0x0000000F,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerDoorStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000010,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000011,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
+    // Cluster FreshMideaController attributes
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeBeepID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeLightID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeTurboModeID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeEcoModeID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeFrostProtectionModeID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeSleepModeID MTR_PROVISIONALLY_AVAILABLE = 0x00000005,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeTemperatureUnitID MTR_PROVISIONALLY_AVAILABLE = 0x00000006,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeCleanStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000007,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOffTimerID MTR_PROVISIONALLY_AVAILABLE = 0x00000008,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOffTimerHoursID MTR_PROVISIONALLY_AVAILABLE = 0x00000009,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOffTimerMinutesID MTR_PROVISIONALLY_AVAILABLE = 0x0000000A,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerID MTR_PROVISIONALLY_AVAILABLE = 0x0000000B,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerHoursID MTR_PROVISIONALLY_AVAILABLE = 0x0000000C,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeOnTimerMinutesID MTR_PROVISIONALLY_AVAILABLE = 0x0000000D,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributePlasmaModeID MTR_PROVISIONALLY_AVAILABLE = 0x0000000E,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeBreezeAwayModeID MTR_PROVISIONALLY_AVAILABLE = 0x0000000F,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeErrorCodeID MTR_PROVISIONALLY_AVAILABLE = 0x00000010,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeHorizontalLouverPositionID MTR_PROVISIONALLY_AVAILABLE = 0x00000011,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshMideaControllerAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
+    // Cluster FreshWaterHeaterController attributes
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeColdWaterTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerHysteresisID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeShowerStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDefaultShowerFlowLPMID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeStandardModeSetpointID MTR_PROVISIONALLY_AVAILABLE = 0x00000005,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEcoModeSetpointID MTR_PROVISIONALLY_AVAILABLE = 0x00000006,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDefaultBoostModeSetpointID MTR_PROVISIONALLY_AVAILABLE = 0x00000007,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTemperatureStepID MTR_PROVISIONALLY_AVAILABLE = 0x00000008,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x00000009,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeCoolDownTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x0000000A,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeResetCounterTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x0000000B,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayActiveTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x0000000C,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayErrorTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x0000000D,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDisplayTargetTimeoutID MTR_PROVISIONALLY_AVAILABLE = 0x0000000E,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeTemperatureSensorMinValidID MTR_PROVISIONALLY_AVAILABLE = 0x0000000F,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeTemperatureSensorMaxValidID MTR_PROVISIONALLY_AVAILABLE = 0x00000010,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeOverheatThresholdTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000011,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRapidRiseDeltaID MTR_PROVISIONALLY_AVAILABLE = 0x00000012,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRapidRiseWindowID MTR_PROVISIONALLY_AVAILABLE = 0x00000013,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributePreviousTargetHeaterTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000014,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeHeaterMaximumPowerID MTR_PROVISIONALLY_AVAILABLE = 0x00000015,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDiagnosticsConfirmTimeListID MTR_PROVISIONALLY_AVAILABLE = 0x00000016,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeDiagnosticsRehabTimeListID MTR_PROVISIONALLY_AVAILABLE = 0x00000017,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeRequiresAnodeChangeID MTR_PROVISIONALLY_AVAILABLE = 0x00000018,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeMaximumBoostTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000019,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeCurrentBoostModeSetpointID MTR_PROVISIONALLY_AVAILABLE = 0x0000001A,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeErrorCodeID MTR_PROVISIONALLY_AVAILABLE = 0x0000001B,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAntiLegionellaStateID MTR_PROVISIONALLY_AVAILABLE = 0x0000001C,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeEnergyReportIntervalID MTR_PROVISIONALLY_AVAILABLE = 0x0000001D,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
+    // Cluster FreshWaterHeaterErrorsAlarm attributes
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeSupportedID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
     // Cluster TestCluster deprecated attribute names
     MTRClusterTestClusterAttributeBooleanID
         MTR_DEPRECATED("Please use MTRAttributeIDTypeClusterUnitTestingAttributeBooleanID", ios(16.1, 16.4), macos(13.0, 13.3), watchos(9.1, 9.4), tvos(16.1, 16.4))
@@ -7276,6 +7418,29 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     MTRCommandIDTypeClusterTLSClientManagementCommandFindEndpointResponseID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
     MTRCommandIDTypeClusterTLSClientManagementCommandRemoveEndpointID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
 
+    // Cluster PhotonSmart commands
+    MTRCommandIDTypeClusterPhotonSmartCommandRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRCommandIDTypeClusterPhotonSmartCommandFactoryResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+
+    // Cluster FreshMideaAirConditionerAlarm commands
+    MTRCommandIDTypeClusterFreshMideaAirConditionerAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
+    // Cluster FreshRefrigeratorErrorsAlarm commands
+    MTRCommandIDTypeClusterFreshRefrigeratorErrorsAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
+    // Cluster FreshMideaController commands
+    MTRCommandIDTypeClusterFreshMideaControllerCommandCleanID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRCommandIDTypeClusterFreshMideaControllerCommandCancelCleanID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRCommandIDTypeClusterFreshMideaControllerCommandSetTimerID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRCommandIDTypeClusterFreshMideaControllerCommandCancelTimerID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+
+    // Cluster FreshWaterHeaterController commands
+    MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeRequestID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeConfirmedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+
+    // Cluster FreshWaterHeaterErrorsAlarm commands
+    MTRCommandIDTypeClusterFreshWaterHeaterErrorsAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
     // Cluster TestCluster deprecated command id names
     MTRClusterTestClusterCommandTestID
         MTR_DEPRECATED("Please use MTRCommandIDTypeClusterUnitTestingCommandTestID", ios(16.1, 16.4), macos(13.0, 13.3), watchos(9.1, 9.4), tvos(16.1, 16.4))
@@ -7886,6 +8051,24 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
 
     // Cluster CommissionerControl events
     MTREventIDTypeClusterCommissionerControlEventCommissioningRequestResultID MTR_AVAILABLE(ios(18.4), macos(15.4), watchos(11.4), tvos(18.4)) = 0x00000000,
+
+    // Cluster FreshMideaAirConditionerAlarm events
+    MTREventIDTypeClusterFreshMideaAirConditionerAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
+    // Cluster FreshRefrigeratorErrorsAlarm events
+    MTREventIDTypeClusterFreshRefrigeratorErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
+    // Cluster FreshMideaController events
+    MTREventIDTypeClusterFreshMideaControllerEventActiveCleanStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTREventIDTypeClusterFreshMideaControllerEventActiveCleanEndedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTREventIDTypeClusterFreshMideaControllerEventNotifyErrorID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+
+    // Cluster FreshWaterHeaterController events
+    MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+    MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleCompletedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+
+    // Cluster FreshWaterHeaterErrorsAlarm events
+    MTREventIDTypeClusterFreshWaterHeaterErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
     // Cluster TestCluster deprecated event names
     MTRClusterTestClusterEventTestEventID

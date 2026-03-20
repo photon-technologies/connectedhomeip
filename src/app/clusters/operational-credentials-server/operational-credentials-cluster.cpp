@@ -989,6 +989,7 @@ HandleAttestationRequest(CommandHandler * commandObj, const ConcreteCommandPath 
 
     if (dacProvider == nullptr)
     {
+        ChipLogError(Zcl, "OpCreds: No DAC provider available");
         err = CHIP_ERROR_INTERNAL;
         VerifyOrExit(dacProvider != nullptr, errorStatus = Status::Failure);
     }
@@ -1043,7 +1044,7 @@ void OnPlatformEventHandler(const chip::DeviceLayer::ChipDeviceEvent * event, in
 {
     if (event->Type == DeviceLayer::DeviceEventType::kFailSafeTimerExpired)
     {
-        ChipLogError(Zcl, "OpCreds: Got FailSafeTimerExpired");
+        ChipLogProgress(Zcl, "OpCreds: Got FailSafeTimerExpired");
         OperationalCredentialsCluster::FailSafeCleanup(event, reinterpret_cast<OperationalCredentialsCluster *>(arg));
     }
 }
@@ -1053,7 +1054,7 @@ void OperationalCredentialsCluster::FailSafeCleanup(const DeviceLayer::ChipDevic
                                                     OperationalCredentialsCluster * cluster)
 {
     VerifyOrDie(cluster != nullptr);
-    ChipLogError(Zcl, "OpCreds: Proceeding to FailSafeCleanup on fail-safe expiry!");
+    ChipLogProgress(Zcl, "OpCreds: Proceeding to FailSafeCleanup on fail-safe expiry!");
 
     bool nocAddedDuringFailsafe          = event->FailSafeTimerExpired.addNocCommandHasBeenInvoked;
     bool nocUpdatedDuringFailsafe        = event->FailSafeTimerExpired.updateNocCommandHasBeenInvoked;

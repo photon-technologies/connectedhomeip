@@ -317,7 +317,7 @@
  * CHIP_DEVICE_CONFIG_MAX_CUMULATIVE_FAILSAFE_SEC
  *
  * The default conservative value in seconds denoting the maximum total duration for which a fail safe
- * timer can be re-armed.
+* timer can be re-armed.
  */
 #ifndef CHIP_DEVICE_CONFIG_MAX_CUMULATIVE_FAILSAFE_SEC
 #define CHIP_DEVICE_CONFIG_MAX_CUMULATIVE_FAILSAFE_SEC 900

@@ -44,6 +44,7 @@ IGNORE: Set[str] = {
     '/platform/Darwin/',
     '/platform/silabs/',
     '/platform/ESP32/',
+    # '/platform/Photon/',
     '/platform/fake/',
     '/platform/Linux/',
     '/platform/nxp/',

@@ -71,6 +71,12 @@
 #include <clusters/FixedLabel/ClusterId.h>
 #include <clusters/FlowMeasurement/ClusterId.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/ClusterId.h>
+#include <clusters/FreshMideaAirConditionerAlarm/ClusterId.h>
+#include <clusters/FreshMideaController/ClusterId.h>
+#include <clusters/FreshRefrigeratorController/ClusterId.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/ClusterId.h>
+#include <clusters/FreshWaterHeaterController/ClusterId.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/ClusterId.h>
 #include <clusters/GeneralCommissioning/ClusterId.h>
 #include <clusters/GeneralDiagnostics/ClusterId.h>
 #include <clusters/GroupKeyManagement/ClusterId.h>
@@ -107,6 +113,7 @@
 #include <clusters/OvenCavityOperationalState/ClusterId.h>
 #include <clusters/OvenMode/ClusterId.h>
 #include <clusters/OzoneConcentrationMeasurement/ClusterId.h>
+#include <clusters/PhotonSmart/ClusterId.h>
 #include <clusters/Pm10ConcentrationMeasurement/ClusterId.h>
 #include <clusters/Pm1ConcentrationMeasurement/ClusterId.h>
 #include <clusters/Pm25ConcentrationMeasurement/ClusterId.h>

@@ -687,7 +687,7 @@ deprecated cluster PulseWidthModulation = 28 {
 
 /** The Descriptor Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for describing a node, its endpoints and clusters. */
 cluster Descriptor = 29 {
-  revision 3;
+  revision 2;
 
   bitmap Feature : bitmap32 {
     kTagList = 0x1;
@@ -1048,7 +1048,7 @@ cluster Actions = 37 {
       Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
       which apply to the whole Node. Also allows setting user device information such as location. */
 cluster BasicInformation = 40 {
-  revision 5;
+  revision 4;
 
   enum ColorEnum : enum8 {
     kBlack = 0;
@@ -2777,7 +2777,7 @@ cluster AdministratorCommissioning = 60 {
 
 /** This cluster is used to add or remove Operational Credentials on a Commissionee or Node, as well as manage the associated Fabrics. */
 cluster OperationalCredentials = 62 {
-  revision 2;
+  revision 1;
 
   enum CertificateChainTypeEnum : enum8 {
     kDACCertificate = 1;
@@ -3466,7 +3466,7 @@ cluster LaundryWasherMode = 81 {
 
 /** Attributes and commands for selecting a mode from a list of supported options. */
 cluster RefrigeratorAndTemperatureControlledCabinetMode = 82 {
-  revision 2;
+  revision 3;
 
   enum ModeTag : enum16 {
     kAuto = 0;
@@ -11615,6 +11615,410 @@ cluster CommodityMetering = 2823 {
   readonly attribute attrib_id attributeList[] = 65531;
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
+}
+
+/** Attributes and commands for Photon Smart Products. */
+cluster PhotonSmart = 367524864 {
+  revision 1;
+
+  enum MqttTransport : enum8 {
+    kSSL = 0 [spec_name = "SSL"];
+    kWSS = 1 [spec_name = "WSS"];
+  }
+
+  struct PhotonInsightsParamsStruct {
+    boolean coreDumpEnabled = 0;
+    elapsed_s minInterval = 1;
+    elapsed_s maxInterval = 2;
+    boolean dropWifiLogs = 3;
+    boolean reportMetrics = 4;
+    boolean reportHeapMetrics = 5;
+    elapsed_s heapPollingInterval = 6;
+    int8u heapPollingCount = 7;
+    boolean reportWifiMetrics = 8;
+    elapsed_s wifiPollingInterval = 9;
+    int8u wifiPollingCount = 10;
+    boolean usePolling = 11;
+    boolean reportVariables = 12;
+    boolean reportNetworkVariables = 13;
+    boolean reportMoreNetworkVariables = 14;
+    percent reportWatermarkPercent = 15;
+  }
+
+  struct PhotonMQTTStruct {
+    char_string<254> host = 1;
+    int16u port = 2;
+    MqttTransport transport = 3;
+    int16u keepAlive = 4;
+    boolean cleanSession = 5;
+    int32u reconnectTimeoutMS = 6;
+    int32u timeoutMS = 7;
+    int32u refreshConnectionAfterMS = 8;
+    int32u sessionExpiryIntervalS = 9;
+    int32u maxPacketSize = 10;
+    int16u maxReceivePacketCount = 11;
+    int16u maxTopicAlias = 12;
+    boolean requestRespInfo = 13;
+    boolean requestProblemInfo = 14;
+    int32u willDelayIntervalS = 15;
+    int32u messageExpiryIntervalS = 16;
+    boolean payloadFormatIndicator = 17;
+  }
+
+  readonly attribute access(read: administer) char_string<36> deviceId = 0;
+  readonly attribute boolean shouldReboot = 1;
+  attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
+  attribute access(read: administer, write: administer) boolean mqttReportEnabled = 3;
+  attribute access(read: administer, write: administer) boolean insightsEnabled = 4;
+  attribute access(read: administer, write: administer) PhotonInsightsParamsStruct insightsParams = 5;
+  readonly attribute access(read: administer) int32u publicIpv4Address = 6;
+  attribute access(read: administer, write: administer) boolean publicIpv4Enabled = 7;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct RebootRequest {
+    int16u rebootAfter = 0;
+  }
+
+  request struct FactoryResetRequest {
+    int16u resetAfter = 0;
+  }
+
+  /** This command is used to reboot the device. */
+  command access(invoke: administer) Reboot(RebootRequest): DefaultSuccess = 0;
+  /** This command is used to initiate factory reset the device. */
+  command access(invoke: administer) FactoryReset(FactoryResetRequest): DefaultSuccess = 1;
+}
+
+/** Attributes and commands for configuring the Midea Air Conditioner alarm. */
+cluster FreshMideaAirConditionerAlarm = 367524865 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap64 {
+    kInteriorBoardCommunicationFailure = 0x1;
+    kIndoorMainControlBoardFailure = 0x2;
+    kIndoorOutdoorBoardCommunicationFailure = 0x4;
+    kZeroCrossingDetectionFailure = 0x8;
+    kIndoorBoardFanStallFailure = 0x10;
+    kOutdoorCondenserSensorFailure = 0x20;
+    kOutdoorAmbientTemperatureSensorFailure = 0x40;
+    kOutdoorCompressionEngineExhaustTemperatureSensorFailure = 0x80;
+    kOutdoorESideFailure = 0x100;
+    kIndoorTemperatureSensorFailure = 0x200;
+    kIndoorEvaporatorTemperatureSensorFailure = 0x400;
+    kOutdoorWindSpeedStallFailure = 0x800;
+    kIpmModuleProtection = 0x1000;
+    kVoltageProtection = 0x2000;
+    kOutdoorCompressorTopTemperatureProtection = 0x4000;
+    kOutdoorTemperatureLowProtection = 0x8000;
+    kCompressorPositionProtection = 0x10000;
+    kDisplayBoardESideFault = 0x20000;
+    kOuterPipeTemperatureProtection = 0x40000;
+    kExhaustHighTemperatureProtection = 0x80000;
+    kHeatingAndColdWindProtection = 0x100000;
+    kCurrentProtection = 0x200000;
+    kEvaporatorHighAndLowTemperatureProtection = 0x400000;
+    kCondenserHighAndLowTemperatureProtectionFrequencyLimit = 0x800000;
+    kExhaustHighAndLowTemperatureProtection = 0x1000000;
+    kIndoorOutdoorCommunicationMismatchProtocol = 0x2000000;
+    kRefrigerantLeakageProtection = 0x4000000;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
+}
+
+/** Attributes and commands for configuring the Fresh Refrigerator Errors alarm. */
+cluster FreshRefrigeratorErrorsAlarm = 367524866 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap32 {
+    kFridgeTemperatureSensorFailure = 0x1;
+    kFreezerTemperatureSensorFailure = 0x2;
+    kFanFailure = 0x4;
+    kDefrostTemperatureSensorFailure = 0x8;
+    kFridgeTemperatureOutRange = 0x10;
+    kFreezerTemperatureOutRange = 0x20;
+    kCommunicationFailure = 0x40;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
+}
+
+/** Attributes for configuring the Fresh Refrigerator Controller. */
+cluster FreshRefrigeratorController = 367524867 {
+  revision 1;
+
+  attribute optional temperature fridgeTemperatureDefault = 0;
+  attribute optional temperature freezerTemperatureDefault = 1;
+  readonly attribute optional temperature fridgePreviousTemperature = 2;
+  readonly attribute optional temperature freezerPreviousTemperature = 3;
+  attribute optional int32u superCoolTime = 4;
+  attribute optional int32u superFreezeTime = 5;
+  attribute optional int32u alarmTime = 6;
+  attribute optional int32u resetTimeout = 7;
+  attribute optional int32u displayActiveTime = 8;
+  attribute optional int32u displayErrorTime = 9;
+  readonly attribute optional boolean compressorState = 10;
+  readonly attribute optional boolean defrostState = 11;
+  attribute optional temperature fridgeErrorMargin = 12;
+  attribute optional temperature freezerErrorMargin = 13;
+  attribute optional int32u temperatureErrorTime = 14;
+  readonly attribute optional boolean fridgeDoorState = 15;
+  readonly attribute optional boolean freezerDoorState = 16;
+  readonly attribute optional temperature defrostTemperature = 17;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+}
+
+/** Attributes and commands for configuring the Fresh Midea AC Controller. */
+cluster FreshMideaController = 367524868 {
+  revision 1;
+
+  enum CleanStateEnum : enum8 {
+    kInactive = 0;
+    kActive = 1;
+  }
+
+  enum TemperatureUnitsEnum : enum8 {
+    kCelsius = 0;
+    kFahrenheit = 1;
+  }
+
+  bitmap Feature : bitmap32 {
+    kTurbo = 0x1;
+    kEco = 0x2;
+    kFrostProtection = 0x4;
+    kSleep = 0x8;
+    kTemperatureUnit = 0x10;
+    kActiveClean = 0x20;
+    kPlasma = 0x40;
+    kBreezeAway = 0x80;
+  }
+
+  info event ActiveCleanStarted = 0 {
+  }
+
+  info event ActiveCleanEnded = 1 {
+  }
+
+  info event NotifyError = 2 {
+    int16u code = 0;
+  }
+
+  attribute boolean beep = 0;
+  attribute boolean light = 1;
+  attribute optional boolean turboMode = 2;
+  attribute optional boolean ecoMode = 3;
+  attribute optional boolean frostProtectionMode = 4;
+  attribute optional boolean sleepMode = 5;
+  attribute optional TemperatureUnitsEnum temperatureUnit = 6;
+  readonly attribute optional CleanStateEnum cleanState = 7;
+  readonly attribute boolean offTimer = 8;
+  readonly attribute int8u offTimerHours = 9;
+  readonly attribute int8u offTimerMinutes = 10;
+  readonly attribute boolean onTimer = 11;
+  readonly attribute int8u onTimerHours = 12;
+  readonly attribute int8u onTimerMinutes = 13;
+  attribute optional boolean plasmaMode = 14;
+  attribute optional boolean breezeAwayMode = 15;
+  readonly attribute int16u errorCode = 16;
+  attribute int8u horizontalLouverPosition = 17;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct SetTimerRequest {
+    boolean mode = 0;
+    int16u minutes = 1;
+  }
+
+  request struct CancelTimerRequest {
+    boolean mode = 0;
+  }
+
+  /** This command starts the clean process. */
+  command Clean(): DefaultSuccess = 0;
+  /** This command cancel the clean process. */
+  command CancelClean(): DefaultSuccess = 1;
+  /** This command sets the on/off timer */
+  command SetTimer(SetTimerRequest): DefaultSuccess = 2;
+  /** This command cancels the on/off timer. */
+  command CancelTimer(CancelTimerRequest): DefaultSuccess = 3;
+}
+
+/** Attributes for configuring the Fresh Water Heater Controller. */
+cluster FreshWaterHeaterController = 367524869 {
+  revision 1;
+
+  enum AntiLegionellaStateEnum : enum8 {
+    kInactive = 0;
+    kActive = 1;
+  }
+
+  enum ShowerStateEnum : enum8 {
+    kInactive = 0;
+    kActive = 1;
+  }
+
+  struct WaterHeaterBoostInfoStruct {
+    elapsed_s duration = 0;
+    optional boolean oneShot = 1;
+    optional boolean emergencyBoost = 2;
+    optional temperature temporarySetpoint = 3;
+    optional percent targetPercentage = 4;
+    optional percent targetReheat = 5;
+  }
+
+  info event AntiLegionellaCycleStarted = 0 {
+  }
+
+  info event AntiLegionellaCycleCompleted = 1 {
+    boolean status = 0;
+  }
+
+  attribute temperature coldWaterTemperature = 0;
+  attribute temperature showerTemperature = 1;
+  attribute temperature showerHysteresis = 2;
+  readonly attribute ShowerStateEnum showerState = 3;
+  attribute int16u defaultShowerFlowLPM = 4;
+  attribute temperature standardModeSetpoint = 5;
+  attribute temperature ecoModeSetpoint = 6;
+  readonly attribute WaterHeaterBoostInfoStruct defaultBoostModeSetpoint = 7;
+  attribute temperature displayTemperatureStep = 8;
+  attribute elapsed_s resetTimeout = 9;
+  attribute elapsed_s coolDownTimeout = 10;
+  attribute elapsed_s resetCounterTimeout = 11;
+  attribute elapsed_s displayActiveTimeout = 12;
+  attribute elapsed_s displayErrorTimeout = 13;
+  attribute elapsed_s displayTargetTimeout = 14;
+  attribute temperature temperatureSensorMinValid = 15;
+  attribute temperature temperatureSensorMaxValid = 16;
+  attribute temperature overheatThresholdTemperature = 17;
+  attribute temperature rapidRiseDelta = 18;
+  attribute elapsed_s rapidRiseWindow = 19;
+  readonly attribute temperature previousTargetHeaterTemperature = 20;
+  attribute int16u heaterMaximumPower = 21;
+  attribute int32u diagnosticsConfirmTimeList[] = 22;
+  attribute int32u diagnosticsRehabTimeList[] = 23;
+  readonly attribute boolean requiresAnodeChange = 24;
+  attribute int32u maximumBoostTime = 25;
+  readonly attribute nullable WaterHeaterBoostInfoStruct currentBoostModeSetpoint = 26;
+  readonly attribute int8u errorCode = 27;
+  readonly attribute AntiLegionellaStateEnum antiLegionellaState = 28;
+  attribute elapsed_s energyReportInterval = 29;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  /** Allows a client to request that the water heater is put into an Anode Change Mode. */
+  command access(invoke: administer) AnodeChangeRequest(): DefaultSuccess = 0;
+  /** Allows a Admin to respond to an Anode Change Request. */
+  command access(invoke: administer) AnodeChangeConfirmed(): DefaultSuccess = 1;
+}
+
+/** Attributes and commands for configuring the Fresh Water Heater Errors alarm. */
+cluster FreshWaterHeaterErrorsAlarm = 367524870 {
+  revision 1;
+
+  bitmap AlarmBitmap : bitmap32 {
+    kSensorUnderRange = 0x1;
+    kSensorOverRange = 0x2;
+    kHeaterOverTemp = 0x4;
+    kNoHeatingElement = 0x8;
+    kFastTempRise = 0x10;
+    kHeatingLatchedOn = 0x20;
+    kAnodeChangeRequest = 0x40;
+  }
+
+  bitmap Feature : bitmap32 {
+    kReset = 0x1;
+  }
+
+  info event Notify = 0 {
+    AlarmBitmap active = 0;
+    AlarmBitmap inactive = 1;
+    AlarmBitmap state = 2;
+    AlarmBitmap mask = 3;
+  }
+
+  readonly attribute AlarmBitmap mask = 0;
+  readonly attribute optional AlarmBitmap latch = 1;
+  readonly attribute AlarmBitmap state = 2;
+  readonly attribute AlarmBitmap supported = 3;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+
+  request struct ResetRequest {
+    AlarmBitmap alarms = 0;
+  }
+
+  /** This command resets active and latched alarms (if possible). */
+  command Reset(ResetRequest): DefaultSuccess = 0;
 }
 
 /** The Test Cluster is meant to validate the generated code */

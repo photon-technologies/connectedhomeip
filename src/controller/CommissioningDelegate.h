@@ -52,7 +52,7 @@ enum CommissioningStage : uint8_t
     kSendPAICertificateRequest,  ///< Send PAI CertificateChainRequest (0x3E:2) command to the device
     kSendDACCertificateRequest,  ///< Send DAC CertificateChainRequest (0x3E:2) command to the device
     kSendAttestationRequest,     ///< Send AttestationRequest (0x3E:0) command to the device
-    kAttestationVerification,    ///< Verify AttestationResponse (0x3E:1) validity
+kAttestationVerification,    ///< Verify AttestationResponse (0x3E:1) validity
     kAttestationRevocationCheck, ///< Verify Revocation Status of device's DAC chain
     kJCMTrustVerification,       ///< Perform JCM trust verification steps
     kSendOpCertSigningRequest,   ///< Send CSRRequest (0x3E:4) command to the device

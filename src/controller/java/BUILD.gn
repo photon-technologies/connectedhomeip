@@ -63,6 +63,9 @@ source_set("android_chip_im_jni") {
     "CHIPICDClient-JNI.cpp",
     "CHIPInteractionClient-JNI.cpp",
     "CHIPInteractionClient-JNI.h",
+    "ReadTlv-JNI.cpp",
+    "ReadTlv.cpp",
+    "ReadTlv.h",
   ]
 
   if (matter_enable_tlv_decoder_api) {
@@ -577,6 +580,7 @@ android_library("android_chip_im") {
     "src/chip/devicecontroller/model/NoInvokeResponseData.java",
     "src/chip/devicecontroller/model/NodeState.java",
     "src/chip/devicecontroller/model/Status.java",
+    "src/chip/devicecontroller/ReadTlvJni.java",
   ]
 
   if (matter_enable_tlv_decoder_api) {

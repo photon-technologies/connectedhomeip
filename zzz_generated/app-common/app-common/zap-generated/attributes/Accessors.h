@@ -5698,6 +5698,648 @@ Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, Mar
 } // namespace Attributes
 } // namespace CommodityMetering
 
+namespace PhotonSmart {
+namespace Attributes {
+
+namespace ShouldReboot {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace ShouldReboot
+
+namespace PublicIpv4Address {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace PublicIpv4Address
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace PhotonSmart
+
+namespace FreshMideaAirConditionerAlarm {
+namespace Attributes {
+
+namespace Mask {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Mask
+
+namespace Latch {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Latch
+
+namespace State {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace State
+
+namespace Supported {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Supported
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace FreshMideaAirConditionerAlarm
+
+namespace FreshRefrigeratorErrorsAlarm {
+namespace Attributes {
+
+namespace Mask {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Mask
+
+namespace Latch {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Latch
+
+namespace State {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace State
+
+namespace Supported {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshRefrigeratorErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Supported
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace FreshRefrigeratorErrorsAlarm
+
+namespace FreshRefrigeratorController {
+namespace Attributes {
+
+namespace FridgeTemperatureDefault {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace FridgeTemperatureDefault
+
+namespace FreezerTemperatureDefault {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace FreezerTemperatureDefault
+
+namespace FridgePreviousTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace FridgePreviousTemperature
+
+namespace FreezerPreviousTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace FreezerPreviousTemperature
+
+namespace SuperCoolTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace SuperCoolTime
+
+namespace SuperFreezeTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace SuperFreezeTime
+
+namespace AlarmTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace AlarmTime
+
+namespace ResetTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace ResetTimeout
+
+namespace DisplayActiveTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace DisplayActiveTime
+
+namespace DisplayErrorTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace DisplayErrorTime
+
+namespace CompressorState {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace CompressorState
+
+namespace DefrostState {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace DefrostState
+
+namespace FridgeErrorMargin {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace FridgeErrorMargin
+
+namespace FreezerErrorMargin {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace FreezerErrorMargin
+
+namespace TemperatureErrorTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace TemperatureErrorTime
+
+namespace FridgeDoorState {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace FridgeDoorState
+
+namespace FreezerDoorState {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace FreezerDoorState
+
+namespace DefrostTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace DefrostTemperature
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace FreshRefrigeratorController
+
+namespace FreshMideaController {
+namespace Attributes {
+
+namespace Beep {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace Beep
+
+namespace Light {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace Light
+
+namespace TurboMode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace TurboMode
+
+namespace EcoMode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace EcoMode
+
+namespace FrostProtectionMode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace FrostProtectionMode
+
+namespace SleepMode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace SleepMode
+
+namespace TemperatureUnit {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::app::Clusters::FreshMideaController::TemperatureUnitsEnum * value); // TemperatureUnitsEnum
+Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::app::Clusters::FreshMideaController::TemperatureUnitsEnum value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::app::Clusters::FreshMideaController::TemperatureUnitsEnum value,
+                                        MarkAttributeDirty markDirty);
+} // namespace TemperatureUnit
+
+namespace CleanState {
+Protocols::InteractionModel::Status Get(EndpointId endpoint,
+                                        chip::app::Clusters::FreshMideaController::CleanStateEnum * value); // CleanStateEnum
+Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::app::Clusters::FreshMideaController::CleanStateEnum value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::app::Clusters::FreshMideaController::CleanStateEnum value,
+                                        MarkAttributeDirty markDirty);
+} // namespace CleanState
+
+namespace OffTimer {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace OffTimer
+
+namespace OffTimerHours {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint8_t * value); // int8u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value, MarkAttributeDirty markDirty);
+} // namespace OffTimerHours
+
+namespace OffTimerMinutes {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint8_t * value); // int8u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value, MarkAttributeDirty markDirty);
+} // namespace OffTimerMinutes
+
+namespace OnTimer {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace OnTimer
+
+namespace OnTimerHours {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint8_t * value); // int8u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value, MarkAttributeDirty markDirty);
+} // namespace OnTimerHours
+
+namespace OnTimerMinutes {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint8_t * value); // int8u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value, MarkAttributeDirty markDirty);
+} // namespace OnTimerMinutes
+
+namespace PlasmaMode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace PlasmaMode
+
+namespace BreezeAwayMode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace BreezeAwayMode
+
+namespace ErrorCode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ErrorCode
+
+namespace HorizontalLouverPosition {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint8_t * value); // int8u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value, MarkAttributeDirty markDirty);
+} // namespace HorizontalLouverPosition
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace FreshMideaController
+
+namespace FreshWaterHeaterController {
+namespace Attributes {
+
+namespace ColdWaterTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace ColdWaterTemperature
+
+namespace ShowerTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace ShowerTemperature
+
+namespace ShowerHysteresis {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace ShowerHysteresis
+
+namespace ShowerState {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum * value); // ShowerStateEnum
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, chip::app::Clusters::FreshWaterHeaterController::ShowerStateEnum value,
+                                        MarkAttributeDirty markDirty);
+} // namespace ShowerState
+
+namespace DefaultShowerFlowLPM {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace DefaultShowerFlowLPM
+
+namespace StandardModeSetpoint {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace StandardModeSetpoint
+
+namespace EcoModeSetpoint {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace EcoModeSetpoint
+
+namespace DisplayTemperatureStep {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace DisplayTemperatureStep
+
+namespace ResetTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace ResetTimeout
+
+namespace CoolDownTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace CoolDownTimeout
+
+namespace ResetCounterTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace ResetCounterTimeout
+
+namespace DisplayActiveTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace DisplayActiveTimeout
+
+namespace DisplayErrorTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace DisplayErrorTimeout
+
+namespace DisplayTargetTimeout {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace DisplayTargetTimeout
+
+namespace TemperatureSensorMinValid {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace TemperatureSensorMinValid
+
+namespace TemperatureSensorMaxValid {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace TemperatureSensorMaxValid
+
+namespace OverheatThresholdTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace OverheatThresholdTemperature
+
+namespace RapidRiseDelta {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace RapidRiseDelta
+
+namespace RapidRiseWindow {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace RapidRiseWindow
+
+namespace PreviousTargetHeaterTemperature {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, int16_t * value); // temperature
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, int16_t value, MarkAttributeDirty markDirty);
+} // namespace PreviousTargetHeaterTemperature
+
+namespace HeaterMaximumPower {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace HeaterMaximumPower
+
+namespace RequiresAnodeChange {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, bool * value); // boolean
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, bool value, MarkAttributeDirty markDirty);
+} // namespace RequiresAnodeChange
+
+namespace MaximumBoostTime {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // int32u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace MaximumBoostTime
+
+namespace ErrorCode {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint8_t * value); // int8u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint8_t value, MarkAttributeDirty markDirty);
+} // namespace ErrorCode
+
+namespace AntiLegionellaState {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint,
+    chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum * value); // AntiLegionellaStateEnum
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::app::Clusters::FreshWaterHeaterController::AntiLegionellaStateEnum value,
+                                        MarkAttributeDirty markDirty);
+} // namespace AntiLegionellaState
+
+namespace EnergyReportInterval {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // elapsed_s
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace EnergyReportInterval
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace FreshWaterHeaterController
+
+namespace FreshWaterHeaterErrorsAlarm {
+namespace Attributes {
+
+namespace Mask {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Mask
+
+namespace Latch {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Latch
+
+namespace State {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace State
+
+namespace Supported {
+Protocols::InteractionModel::Status
+Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> * value); // AlarmBitmap
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint,
+                                        chip::BitMask<chip::app::Clusters::FreshWaterHeaterErrorsAlarm::AlarmBitmap> value,
+                                        MarkAttributeDirty markDirty);
+} // namespace Supported
+
+namespace FeatureMap {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
+Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace FreshWaterHeaterErrorsAlarm
+
 namespace UnitTesting {
 namespace Attributes {
 

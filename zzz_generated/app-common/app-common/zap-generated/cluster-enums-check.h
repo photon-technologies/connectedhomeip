@@ -73,6 +73,12 @@
 #include <clusters/FixedLabel/EnumsCheck.h>
 #include <clusters/FlowMeasurement/EnumsCheck.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/EnumsCheck.h>
+#include <clusters/FreshMideaAirConditionerAlarm/EnumsCheck.h>
+#include <clusters/FreshMideaController/EnumsCheck.h>
+#include <clusters/FreshRefrigeratorController/EnumsCheck.h>
+#include <clusters/FreshRefrigeratorErrorsAlarm/EnumsCheck.h>
+#include <clusters/FreshWaterHeaterController/EnumsCheck.h>
+#include <clusters/FreshWaterHeaterErrorsAlarm/EnumsCheck.h>
 #include <clusters/GeneralCommissioning/EnumsCheck.h>
 #include <clusters/GeneralDiagnostics/EnumsCheck.h>
 #include <clusters/GroupKeyManagement/EnumsCheck.h>
@@ -109,6 +115,7 @@
 #include <clusters/OvenCavityOperationalState/EnumsCheck.h>
 #include <clusters/OvenMode/EnumsCheck.h>
 #include <clusters/OzoneConcentrationMeasurement/EnumsCheck.h>
+#include <clusters/PhotonSmart/EnumsCheck.h>
 #include <clusters/Pm10ConcentrationMeasurement/EnumsCheck.h>
 #include <clusters/Pm1ConcentrationMeasurement/EnumsCheck.h>
 #include <clusters/Pm25ConcentrationMeasurement/EnumsCheck.h>

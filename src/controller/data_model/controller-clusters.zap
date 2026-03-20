@@ -3317,6 +3317,72 @@
           "apiMaturity": "provisional"
         },
         {
+          "name": "Photon Smart",
+          "code": 367524864,
+          "mfgCode": null,
+          "define": "PHOTON_SMART_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Fresh Midea Air Conditioner Alarm",
+          "code": 367524865,
+          "mfgCode": null,
+          "define": "FRESH_MIDEA_AC_ALARM_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Fresh Refrigerator Errors Alarm",
+          "code": 367524866,
+          "mfgCode": null,
+          "define": "FRESH_REFRIGERATOR_ERRORS_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Fresh Refrigerator Controller",
+          "code": 367524867,
+          "mfgCode": null,
+          "define": "FRESH_REFRIGERATOR_CONTROLLER_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Fresh Midea Controller",
+          "code": 367524868,
+          "mfgCode": null,
+          "define": "FRESH_MIDEA_CONTROLLER_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
+          "name": "Fresh Water Heater Controller",
+          "code": 367524869,
+          "mfgCode": null,
+          "define": "FRESH_WATER_HEATER_CONTROLLER_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "commands": [
+            {
+              "name": "AnodeChangeRequest",
+              "code": 0,
+              "mfgCode": null,
+              "source": "client",
+              "isIncoming": 0,
+              "isEnabled": 1
+            }
+          ]
+        },
+        {
+          "name": "Fresh Water Heater Errors Alarm",
+          "code": 367524870,
+          "mfgCode": null,
+          "define": "FRESH_WATER_HEATER_ERRORS_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
           "name": "Unit Testing",
           "code": 4294048773,
           "mfgCode": null,

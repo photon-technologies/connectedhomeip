@@ -36,7 +36,7 @@ public final class ClusterState {
   private Map<Long, ArrayList<Status>> eventStatuses;
   private Optional<Long> dataVersion;
 
-  protected ClusterState(
+  public ClusterState(
       Map<Long, AttributeState> attributes,
       Map<Long, ArrayList<EventState>> events,
       Map<Long, Status> attributeStatuses,

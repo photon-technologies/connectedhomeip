@@ -175,6 +175,8 @@ inline System::Clock::Timeout ConnectivityManagerImpl::_GetWiFiStationReconnectI
     return mWiFiStationReconnectInterval;
 }
 
+
+
 #endif // CHIP_DEVICE_CONFIG_ENABLE_WIFI
 
 /**

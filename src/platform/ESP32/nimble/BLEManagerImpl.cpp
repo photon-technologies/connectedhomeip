@@ -615,11 +615,7 @@ CHIP_ERROR BLEManagerImpl::SendIndication(BLE_CONNECTION_OBJECT conId, const Chi
         ExitNow();
     }
 
-#if ESP_IDF_VERSION <= ESP_IDF_VERSION_VAL(5, 0, 0)
-    err = MapBLEError(ble_gattc_indicate_custom(conId, mTXCharCCCDAttrHandle, om));
-#else
     err = MapBLEError(ble_gatts_indicate_custom(conId, mTXCharCCCDAttrHandle, om));
-#endif
     if (err != CHIP_NO_ERROR)
     {
         ChipLogError(DeviceLayer, "ble gatt indicate custom failed: %" CHIP_ERROR_FORMAT, err.Format());

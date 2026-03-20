@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<configurator>
+    <domain name="CHIP"/>
+    <enum name="ShowerStateEnum" type="enum8">
+        <cluster code="0x15E7FC05"/>
+        <item name="Inactive" value="0x00"/>
+        <item name="Active" value="0x01"/>
+    </enum>
+    <enum name="AntiLegionellaStateEnum" type="enum8">
+        <cluster code="0x15E7FC05"/>
+        <item name="Inactive" value="0x00"/>
+        <item name="Active" value="0x01"/>
+    </enum>
+    <struct name="WaterHeaterBoostInfoStruct">
+        <cluster code="0x15E7FC05"/>
+        <item fieldId="0" name="Duration" type="elapsed_s" min="1"/>
+        <item fieldId="1" name="OneShot" type="boolean" optional="true" default="0"/>
+        <item fieldId="2" name="EmergencyBoost" type="boolean" optional="true" default="0"/>
+        <item fieldId="3" name="TemporarySetpoint" type="temperature" optional="true"/>
+        <item fieldId="4" name="TargetPercentage" type="percent" optional="true"/>
+        <item fieldId="5" name="TargetReheat" type="percent" optional="true"/>
+    </struct>
+    <cluster>
+        <name>Fresh Water Heater Controller</name>
+        <domain>FRESH</domain>
+        <description>Attributes for configuring the Fresh Water Heater Controller.</description>
+        <code>0x15E7FC05</code>
+        <define>FRESH_WATER_HEATER_CONTROLLER_CLUSTER</define>
+        <client tick="false" init="false">true</client>
+        <server tick="false" init="false">true</server>
+        <globalAttribute code="0xFFFD" side="either" value="1"/>
+        <attribute side="server" code="0x0000" name="ColdWaterTemperature" define="COLD_WATER_TEMPERATURE" type="temperature" default="2000" writable="true">
+            <description>ColdWaterTemperature</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0001" name="ShowerTemperature" define="SHOWER_TEMPERATURE" type="temperature" default="7600" writable="true">
+            <description>Shower Temperature</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0002" name="ShowerHysteresis" define="SHOWER_HYSTERESIS" type="temperature" default="200" writable="true">
+            <description>Shower Hysteresis</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0003" name="ShowerState" define="SHOWER_STATE" type="ShowerStateEnum" default="0">
+            <description>Shower State</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0004" name="DefaultShowerFlowLPM" define="DEFAULT_SHOWER_FLOW_LPM" type="int16u" default="8" writable="true">
+            <description>DefaultShowerFlowLPM </description>
+            <mandatoryConform />
+        </attribute>
+        <!--        Defaults           -->
+        <attribute side="server" code="0x0005" name="StandardModeSetpoint" define="STANDARD_MODE_SETPOINT" type="temperature" default="6000" writable="true">
+            <description>Display Standard Mode setpoint</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0006" name="EcoModeSetpoint" define="ECO_MODE_SETPOINT" type="temperature" default="4500" writable="true">
+            <description>Display Eco Mode setpoint</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0007" name="DefaultBoostModeSetpoint" define="DEFAULT_BOOST_MODE_SETPOINT" type="WaterHeaterBoostInfoStruct">
+            <description>Default Display Boost Mode setpoint</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0008" name="DisplayTemperatureStep" define="DISPLAY_TEMPERATURE_STEP" type="temperature" default="100" writable="true">
+            <description>Display Temperature Step</description>
+            <mandatoryConform />
+        </attribute>
+        <!--        timers           -->
+        <attribute side="server" code="0x0009" name="ResetTimeout" define="RESET_TIMEOUT" type="elapsed_s" default="7" min="1" writable="true">
+            <description>Reset Timeout</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x000A" name="CoolDownTimeout" define="COOL_DOWN_TIMEOUT" type="elapsed_s" default="5" min="1" writable="true">
+            <description>Cool Down Timeout</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x000B" name="ResetCounterTimeout" define="RESET_COUNTER_TIMEOUT" type="elapsed_s" default="1" writable="true">
+            <description>Reset Counter Timeout</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x000C" name="DisplayActiveTimeout" define="DISPLAY_ACTIVE_TIMEOUT" type="elapsed_s" default="30" min="1" writable="true">
+            <description>Display Active Timeout</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x000D" name="DisplayErrorTimeout" define="DISPLAY_ERROR_TIMEOUT" type="elapsed_s" default="5" min="1" writable="true">
+            <description>Display Error Timeout</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x000E" name="DisplayTargetTimeout" define="DISPLAY_TARGET_TIMEOUT" type="elapsed_s" default="10" min="1" writable="true">
+            <description>Display Target Timeout</description>
+            <mandatoryConform />
+        </attribute>
+        <!--        Failure parameters        -->
+        <attribute side="server" code="0x00F" name="TemperatureSensorMinValid" define="TEMPERATURE_SENSOR_MIN_VALID" type="temperature" default="0" writable="true">
+            <description>Temperature Sensor Min Valid</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0010" name="TemperatureSensorMaxValid" define="TEMPERATURE_SENSOR_MAX_VALID" type="temperature" default="10000" writable="true">
+            <description>Temperature Sensor Max Valid</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0011" name="OverheatThresholdTemperature" define="OVERHEAT_THRESHOLD_TEMPERATURE" type="temperature" default="9000" writable="true">
+            <description>Overheat Threshold Temperature</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0012" name="RapidRiseDelta" define="RAPID_RISE_DELTA" type="temperature" default="500" writable="true">
+            <description>Rapid Rise Delta</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0013" name="RapidRiseWindow" define="RAPID_RISE_WINDOW" type="elapsed_s" default="20" writable="true">
+            <description>Rapid Rise Window</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0014" name="PreviousTargetHeaterTemperature" define="PREVIOUS_TARGET_HEATER_TEMPERATURE" type="temperature" default="4500">
+            <description>Previous TargetHeater Temperature</description>
+            <mandatoryConform />
+        </attribute>
+
+        <attribute side="server" code="0x0015" name="HeaterMaximumPower" define="HEATER_MAXIMUM_POWER" type="int16u" default="1500" writable="true">
+            <description>Heater Maximum Power</description>
+            <mandatoryConform />
+        </attribute>
+        <attribute side="server" code="0x0016" name="DiagnosticsConfirmTimeList" define="DIAGNOSTICS_CONFIRM_TIME_LIST" type="array" entryType="int32u" length="7" writable="true">
+            <description>Diagnostics Confirm Time List</description>
+            <mandatoryConform/>
+        </attribute>
+        <attribute side="server" code="0x0017" name="DiagnosticsRehabTimeList" define="DIAGNOSTICS_Rehab_TIME_LIST" type="array" entryType="int32u" length="7" writable="true">
+            <description>Diagnostics Rehab Time List</description>
+            <mandatoryConform/>
+        </attribute>
+        <attribute side="server" code="0x0018" name="RequiresAnodeChange" define="REQUIRES_ANODE_CHANGE" type="boolean" default="0">
+            <description>Requires Anode Change</description>
+            <mandatoryConform/>
+        </attribute>
+        <attribute side="server" code="0x0019" name="MaximumBoostTime" define="MAXIMUM_BOOST_TIME" type="int32u" default="7200" writable="true">
+            <description>Maximum Boost Time</description>
+            <mandatoryConform/>
+        </attribute>
+        <attribute side="server" code="0x001A" name="CurrentBoostModeSetpoint" define="CURRENT_BOOST_MODE_SETPOINT" type="WaterHeaterBoostInfoStruct" isNullable="true">
+            <description>Current Active Boost Mode setpoint</description>
+            <mandatoryConform />
+        </attribute>
+
+        <attribute side="server" code="0x001B" name="ErrorCode" define="ERROR_CODE" type="int8u" default="0">
+            <description>Error Code</description>
+            <mandatoryConform />
+        </attribute>
+
+        <attribute side="server" code="0x001C" name="AntiLegionellaState" define="ANTI_LEGIONELLA_STATE" type="AntiLegionellaStateEnum" default="0">
+            <description>Anti Legionella State</description>
+            <mandatoryConform />
+        </attribute>
+
+        <attribute side="server" code="0x001D" name="EnergyReportInterval" define="ENERGY_REPORT_INTERVAL" type="elapsed_s" default="3600" writable="true">
+            <description>Energy Report Interval</description>
+            <mandatoryConform />
+        </attribute>
+
+        <command code="0x00" source="client" name="AnodeChangeRequest" optional="false">
+            <description>Allows a client to request that the water heater is put into an Anode Change Mode.</description>
+            <access op="invoke" privilege="administer"/>
+            <mandatoryConform/>
+        </command>
+
+        <command code="0x01" source="client" name="AnodeChangeConfirmed" optional="false">
+            <description>Allows a Admin to respond to an Anode Change Request.</description>
+            <access op="invoke" privilege="administer"/>
+            <mandatoryConform/>
+        </command>
+
+        <event code="0x0000" name="AntiLegionellaCycleStarted" priority="info" side="server">
+            <description>This event SHALL be generated whenever an Anti-Legionella cycle starts.</description>
+        </event>
+
+        <event code="0x0001" name="AntiLegionellaCycleCompleted" priority="info" side="server">
+            <description>This event SHALL be generated whenever an Anti-Legionella cycle is completed.</description>
+            <field id="0" name="Status" type="boolean"/>
+        </event>
+    </cluster>
+</configurator>

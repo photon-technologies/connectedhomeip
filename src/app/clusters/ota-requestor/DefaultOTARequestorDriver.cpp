@@ -485,7 +485,7 @@ bool DefaultOTARequestorDriver::GetNextProviderLocation(ProviderLocationType & p
         return true;
     }
 
-    ChipLogError(SoftwareUpdate, "No suitable OTA Provider candidate found");
+    ChipLogProgress(SoftwareUpdate, "No suitable OTA Provider candidate found");
     return false;
 }
 

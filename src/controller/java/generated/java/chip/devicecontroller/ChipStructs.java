@@ -20197,6 +20197,684 @@ public static class CommodityMeteringClusterMeteredQuantityStruct {
     return output.toString();
   }
 }
+public static class PhotonSmartClusterPhotonInsightsParamsStruct {
+  public Boolean coreDumpEnabled;
+  public Long minInterval;
+  public Long maxInterval;
+  public Boolean dropWifiLogs;
+  public Boolean reportMetrics;
+  public Boolean reportHeapMetrics;
+  public Long heapPollingInterval;
+  public Integer heapPollingCount;
+  public Boolean reportWifiMetrics;
+  public Long wifiPollingInterval;
+  public Integer wifiPollingCount;
+  public Boolean usePolling;
+  public Boolean reportVariables;
+  public Boolean reportNetworkVariables;
+  public Boolean reportMoreNetworkVariables;
+  public Integer reportWatermarkPercent;
+  private static final long CORE_DUMP_ENABLED_ID = 0L;
+  private static final long MIN_INTERVAL_ID = 1L;
+  private static final long MAX_INTERVAL_ID = 2L;
+  private static final long DROP_WIFI_LOGS_ID = 3L;
+  private static final long REPORT_METRICS_ID = 4L;
+  private static final long REPORT_HEAP_METRICS_ID = 5L;
+  private static final long HEAP_POLLING_INTERVAL_ID = 6L;
+  private static final long HEAP_POLLING_COUNT_ID = 7L;
+  private static final long REPORT_WIFI_METRICS_ID = 8L;
+  private static final long WIFI_POLLING_INTERVAL_ID = 9L;
+  private static final long WIFI_POLLING_COUNT_ID = 10L;
+  private static final long USE_POLLING_ID = 11L;
+  private static final long REPORT_VARIABLES_ID = 12L;
+  private static final long REPORT_NETWORK_VARIABLES_ID = 13L;
+  private static final long REPORT_MORE_NETWORK_VARIABLES_ID = 14L;
+  private static final long REPORT_WATERMARK_PERCENT_ID = 15L;
+
+  public PhotonSmartClusterPhotonInsightsParamsStruct(
+    Boolean coreDumpEnabled,
+    Long minInterval,
+    Long maxInterval,
+    Boolean dropWifiLogs,
+    Boolean reportMetrics,
+    Boolean reportHeapMetrics,
+    Long heapPollingInterval,
+    Integer heapPollingCount,
+    Boolean reportWifiMetrics,
+    Long wifiPollingInterval,
+    Integer wifiPollingCount,
+    Boolean usePolling,
+    Boolean reportVariables,
+    Boolean reportNetworkVariables,
+    Boolean reportMoreNetworkVariables,
+    Integer reportWatermarkPercent
+  ) {
+    this.coreDumpEnabled = coreDumpEnabled;
+    this.minInterval = minInterval;
+    this.maxInterval = maxInterval;
+    this.dropWifiLogs = dropWifiLogs;
+    this.reportMetrics = reportMetrics;
+    this.reportHeapMetrics = reportHeapMetrics;
+    this.heapPollingInterval = heapPollingInterval;
+    this.heapPollingCount = heapPollingCount;
+    this.reportWifiMetrics = reportWifiMetrics;
+    this.wifiPollingInterval = wifiPollingInterval;
+    this.wifiPollingCount = wifiPollingCount;
+    this.usePolling = usePolling;
+    this.reportVariables = reportVariables;
+    this.reportNetworkVariables = reportNetworkVariables;
+    this.reportMoreNetworkVariables = reportMoreNetworkVariables;
+    this.reportWatermarkPercent = reportWatermarkPercent;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(CORE_DUMP_ENABLED_ID, new BooleanType(coreDumpEnabled)));
+    values.add(new StructElement(MIN_INTERVAL_ID, new UIntType(minInterval)));
+    values.add(new StructElement(MAX_INTERVAL_ID, new UIntType(maxInterval)));
+    values.add(new StructElement(DROP_WIFI_LOGS_ID, new BooleanType(dropWifiLogs)));
+    values.add(new StructElement(REPORT_METRICS_ID, new BooleanType(reportMetrics)));
+    values.add(new StructElement(REPORT_HEAP_METRICS_ID, new BooleanType(reportHeapMetrics)));
+    values.add(new StructElement(HEAP_POLLING_INTERVAL_ID, new UIntType(heapPollingInterval)));
+    values.add(new StructElement(HEAP_POLLING_COUNT_ID, new UIntType(heapPollingCount)));
+    values.add(new StructElement(REPORT_WIFI_METRICS_ID, new BooleanType(reportWifiMetrics)));
+    values.add(new StructElement(WIFI_POLLING_INTERVAL_ID, new UIntType(wifiPollingInterval)));
+    values.add(new StructElement(WIFI_POLLING_COUNT_ID, new UIntType(wifiPollingCount)));
+    values.add(new StructElement(USE_POLLING_ID, new BooleanType(usePolling)));
+    values.add(new StructElement(REPORT_VARIABLES_ID, new BooleanType(reportVariables)));
+    values.add(new StructElement(REPORT_NETWORK_VARIABLES_ID, new BooleanType(reportNetworkVariables)));
+    values.add(new StructElement(REPORT_MORE_NETWORK_VARIABLES_ID, new BooleanType(reportMoreNetworkVariables)));
+    values.add(new StructElement(REPORT_WATERMARK_PERCENT_ID, new UIntType(reportWatermarkPercent)));
+
+    return new StructType(values);
+  }
+
+  public static PhotonSmartClusterPhotonInsightsParamsStruct decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Boolean coreDumpEnabled = null;
+    Long minInterval = null;
+    Long maxInterval = null;
+    Boolean dropWifiLogs = null;
+    Boolean reportMetrics = null;
+    Boolean reportHeapMetrics = null;
+    Long heapPollingInterval = null;
+    Integer heapPollingCount = null;
+    Boolean reportWifiMetrics = null;
+    Long wifiPollingInterval = null;
+    Integer wifiPollingCount = null;
+    Boolean usePolling = null;
+    Boolean reportVariables = null;
+    Boolean reportNetworkVariables = null;
+    Boolean reportMoreNetworkVariables = null;
+    Integer reportWatermarkPercent = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == CORE_DUMP_ENABLED_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          coreDumpEnabled = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == MIN_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          minInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MAX_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == DROP_WIFI_LOGS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          dropWifiLogs = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_METRICS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportMetrics = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_HEAP_METRICS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportHeapMetrics = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == HEAP_POLLING_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          heapPollingInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == HEAP_POLLING_COUNT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          heapPollingCount = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == REPORT_WIFI_METRICS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportWifiMetrics = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == WIFI_POLLING_INTERVAL_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          wifiPollingInterval = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == WIFI_POLLING_COUNT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          wifiPollingCount = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == USE_POLLING_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          usePolling = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_VARIABLES_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportVariables = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_NETWORK_VARIABLES_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportNetworkVariables = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_MORE_NETWORK_VARIABLES_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          reportMoreNetworkVariables = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REPORT_WATERMARK_PERCENT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          reportWatermarkPercent = castingValue.value(Integer.class);
+        }
+      }
+    }
+    return new PhotonSmartClusterPhotonInsightsParamsStruct(
+      coreDumpEnabled,
+      minInterval,
+      maxInterval,
+      dropWifiLogs,
+      reportMetrics,
+      reportHeapMetrics,
+      heapPollingInterval,
+      heapPollingCount,
+      reportWifiMetrics,
+      wifiPollingInterval,
+      wifiPollingCount,
+      usePolling,
+      reportVariables,
+      reportNetworkVariables,
+      reportMoreNetworkVariables,
+      reportWatermarkPercent
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("PhotonSmartClusterPhotonInsightsParamsStruct {\n");
+    output.append("\tcoreDumpEnabled: ");
+    output.append(coreDumpEnabled);
+    output.append("\n");
+    output.append("\tminInterval: ");
+    output.append(minInterval);
+    output.append("\n");
+    output.append("\tmaxInterval: ");
+    output.append(maxInterval);
+    output.append("\n");
+    output.append("\tdropWifiLogs: ");
+    output.append(dropWifiLogs);
+    output.append("\n");
+    output.append("\treportMetrics: ");
+    output.append(reportMetrics);
+    output.append("\n");
+    output.append("\treportHeapMetrics: ");
+    output.append(reportHeapMetrics);
+    output.append("\n");
+    output.append("\theapPollingInterval: ");
+    output.append(heapPollingInterval);
+    output.append("\n");
+    output.append("\theapPollingCount: ");
+    output.append(heapPollingCount);
+    output.append("\n");
+    output.append("\treportWifiMetrics: ");
+    output.append(reportWifiMetrics);
+    output.append("\n");
+    output.append("\twifiPollingInterval: ");
+    output.append(wifiPollingInterval);
+    output.append("\n");
+    output.append("\twifiPollingCount: ");
+    output.append(wifiPollingCount);
+    output.append("\n");
+    output.append("\tusePolling: ");
+    output.append(usePolling);
+    output.append("\n");
+    output.append("\treportVariables: ");
+    output.append(reportVariables);
+    output.append("\n");
+    output.append("\treportNetworkVariables: ");
+    output.append(reportNetworkVariables);
+    output.append("\n");
+    output.append("\treportMoreNetworkVariables: ");
+    output.append(reportMoreNetworkVariables);
+    output.append("\n");
+    output.append("\treportWatermarkPercent: ");
+    output.append(reportWatermarkPercent);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
+public static class PhotonSmartClusterPhotonMQTTStruct {
+  public String host;
+  public Integer port;
+  public Integer transport;
+  public Integer keepAlive;
+  public Boolean cleanSession;
+  public Long reconnectTimeoutMS;
+  public Long timeoutMS;
+  public Long refreshConnectionAfterMS;
+  public Long sessionExpiryIntervalS;
+  public Long maxPacketSize;
+  public Integer maxReceivePacketCount;
+  public Integer maxTopicAlias;
+  public Boolean requestRespInfo;
+  public Boolean requestProblemInfo;
+  public Long willDelayIntervalS;
+  public Long messageExpiryIntervalS;
+  public Boolean payloadFormatIndicator;
+  private static final long HOST_ID = 1L;
+  private static final long PORT_ID = 2L;
+  private static final long TRANSPORT_ID = 3L;
+  private static final long KEEP_ALIVE_ID = 4L;
+  private static final long CLEAN_SESSION_ID = 5L;
+  private static final long RECONNECT_TIMEOUT_MS_ID = 6L;
+  private static final long TIMEOUT_MS_ID = 7L;
+  private static final long REFRESH_CONNECTION_AFTER_MS_ID = 8L;
+  private static final long SESSION_EXPIRY_INTERVAL_S_ID = 9L;
+  private static final long MAX_PACKET_SIZE_ID = 10L;
+  private static final long MAX_RECEIVE_PACKET_COUNT_ID = 11L;
+  private static final long MAX_TOPIC_ALIAS_ID = 12L;
+  private static final long REQUEST_RESP_INFO_ID = 13L;
+  private static final long REQUEST_PROBLEM_INFO_ID = 14L;
+  private static final long WILL_DELAY_INTERVAL_S_ID = 15L;
+  private static final long MESSAGE_EXPIRY_INTERVAL_S_ID = 16L;
+  private static final long PAYLOAD_FORMAT_INDICATOR_ID = 17L;
+
+  public PhotonSmartClusterPhotonMQTTStruct(
+    String host,
+    Integer port,
+    Integer transport,
+    Integer keepAlive,
+    Boolean cleanSession,
+    Long reconnectTimeoutMS,
+    Long timeoutMS,
+    Long refreshConnectionAfterMS,
+    Long sessionExpiryIntervalS,
+    Long maxPacketSize,
+    Integer maxReceivePacketCount,
+    Integer maxTopicAlias,
+    Boolean requestRespInfo,
+    Boolean requestProblemInfo,
+    Long willDelayIntervalS,
+    Long messageExpiryIntervalS,
+    Boolean payloadFormatIndicator
+  ) {
+    this.host = host;
+    this.port = port;
+    this.transport = transport;
+    this.keepAlive = keepAlive;
+    this.cleanSession = cleanSession;
+    this.reconnectTimeoutMS = reconnectTimeoutMS;
+    this.timeoutMS = timeoutMS;
+    this.refreshConnectionAfterMS = refreshConnectionAfterMS;
+    this.sessionExpiryIntervalS = sessionExpiryIntervalS;
+    this.maxPacketSize = maxPacketSize;
+    this.maxReceivePacketCount = maxReceivePacketCount;
+    this.maxTopicAlias = maxTopicAlias;
+    this.requestRespInfo = requestRespInfo;
+    this.requestProblemInfo = requestProblemInfo;
+    this.willDelayIntervalS = willDelayIntervalS;
+    this.messageExpiryIntervalS = messageExpiryIntervalS;
+    this.payloadFormatIndicator = payloadFormatIndicator;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(HOST_ID, new StringType(host)));
+    values.add(new StructElement(PORT_ID, new UIntType(port)));
+    values.add(new StructElement(TRANSPORT_ID, new UIntType(transport)));
+    values.add(new StructElement(KEEP_ALIVE_ID, new UIntType(keepAlive)));
+    values.add(new StructElement(CLEAN_SESSION_ID, new BooleanType(cleanSession)));
+    values.add(new StructElement(RECONNECT_TIMEOUT_MS_ID, new UIntType(reconnectTimeoutMS)));
+    values.add(new StructElement(TIMEOUT_MS_ID, new UIntType(timeoutMS)));
+    values.add(new StructElement(REFRESH_CONNECTION_AFTER_MS_ID, new UIntType(refreshConnectionAfterMS)));
+    values.add(new StructElement(SESSION_EXPIRY_INTERVAL_S_ID, new UIntType(sessionExpiryIntervalS)));
+    values.add(new StructElement(MAX_PACKET_SIZE_ID, new UIntType(maxPacketSize)));
+    values.add(new StructElement(MAX_RECEIVE_PACKET_COUNT_ID, new UIntType(maxReceivePacketCount)));
+    values.add(new StructElement(MAX_TOPIC_ALIAS_ID, new UIntType(maxTopicAlias)));
+    values.add(new StructElement(REQUEST_RESP_INFO_ID, new BooleanType(requestRespInfo)));
+    values.add(new StructElement(REQUEST_PROBLEM_INFO_ID, new BooleanType(requestProblemInfo)));
+    values.add(new StructElement(WILL_DELAY_INTERVAL_S_ID, new UIntType(willDelayIntervalS)));
+    values.add(new StructElement(MESSAGE_EXPIRY_INTERVAL_S_ID, new UIntType(messageExpiryIntervalS)));
+    values.add(new StructElement(PAYLOAD_FORMAT_INDICATOR_ID, new BooleanType(payloadFormatIndicator)));
+
+    return new StructType(values);
+  }
+
+  public static PhotonSmartClusterPhotonMQTTStruct decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    String host = null;
+    Integer port = null;
+    Integer transport = null;
+    Integer keepAlive = null;
+    Boolean cleanSession = null;
+    Long reconnectTimeoutMS = null;
+    Long timeoutMS = null;
+    Long refreshConnectionAfterMS = null;
+    Long sessionExpiryIntervalS = null;
+    Long maxPacketSize = null;
+    Integer maxReceivePacketCount = null;
+    Integer maxTopicAlias = null;
+    Boolean requestRespInfo = null;
+    Boolean requestProblemInfo = null;
+    Long willDelayIntervalS = null;
+    Long messageExpiryIntervalS = null;
+    Boolean payloadFormatIndicator = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == HOST_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.String) {
+          StringType castingValue = element.value(StringType.class);
+          host = castingValue.value(String.class);
+        }
+      } else if (element.contextTagNum() == PORT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          port = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == TRANSPORT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          transport = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == KEEP_ALIVE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          keepAlive = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == CLEAN_SESSION_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          cleanSession = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == RECONNECT_TIMEOUT_MS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          reconnectTimeoutMS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == TIMEOUT_MS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          timeoutMS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == REFRESH_CONNECTION_AFTER_MS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          refreshConnectionAfterMS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == SESSION_EXPIRY_INTERVAL_S_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          sessionExpiryIntervalS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MAX_PACKET_SIZE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxPacketSize = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MAX_RECEIVE_PACKET_COUNT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxReceivePacketCount = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == MAX_TOPIC_ALIAS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          maxTopicAlias = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == REQUEST_RESP_INFO_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          requestRespInfo = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == REQUEST_PROBLEM_INFO_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          requestProblemInfo = castingValue.value(Boolean.class);
+        }
+      } else if (element.contextTagNum() == WILL_DELAY_INTERVAL_S_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          willDelayIntervalS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == MESSAGE_EXPIRY_INTERVAL_S_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          messageExpiryIntervalS = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == PAYLOAD_FORMAT_INDICATOR_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          payloadFormatIndicator = castingValue.value(Boolean.class);
+        }
+      }
+    }
+    return new PhotonSmartClusterPhotonMQTTStruct(
+      host,
+      port,
+      transport,
+      keepAlive,
+      cleanSession,
+      reconnectTimeoutMS,
+      timeoutMS,
+      refreshConnectionAfterMS,
+      sessionExpiryIntervalS,
+      maxPacketSize,
+      maxReceivePacketCount,
+      maxTopicAlias,
+      requestRespInfo,
+      requestProblemInfo,
+      willDelayIntervalS,
+      messageExpiryIntervalS,
+      payloadFormatIndicator
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("PhotonSmartClusterPhotonMQTTStruct {\n");
+    output.append("\thost: ");
+    output.append(host);
+    output.append("\n");
+    output.append("\tport: ");
+    output.append(port);
+    output.append("\n");
+    output.append("\ttransport: ");
+    output.append(transport);
+    output.append("\n");
+    output.append("\tkeepAlive: ");
+    output.append(keepAlive);
+    output.append("\n");
+    output.append("\tcleanSession: ");
+    output.append(cleanSession);
+    output.append("\n");
+    output.append("\treconnectTimeoutMS: ");
+    output.append(reconnectTimeoutMS);
+    output.append("\n");
+    output.append("\ttimeoutMS: ");
+    output.append(timeoutMS);
+    output.append("\n");
+    output.append("\trefreshConnectionAfterMS: ");
+    output.append(refreshConnectionAfterMS);
+    output.append("\n");
+    output.append("\tsessionExpiryIntervalS: ");
+    output.append(sessionExpiryIntervalS);
+    output.append("\n");
+    output.append("\tmaxPacketSize: ");
+    output.append(maxPacketSize);
+    output.append("\n");
+    output.append("\tmaxReceivePacketCount: ");
+    output.append(maxReceivePacketCount);
+    output.append("\n");
+    output.append("\tmaxTopicAlias: ");
+    output.append(maxTopicAlias);
+    output.append("\n");
+    output.append("\trequestRespInfo: ");
+    output.append(requestRespInfo);
+    output.append("\n");
+    output.append("\trequestProblemInfo: ");
+    output.append(requestProblemInfo);
+    output.append("\n");
+    output.append("\twillDelayIntervalS: ");
+    output.append(willDelayIntervalS);
+    output.append("\n");
+    output.append("\tmessageExpiryIntervalS: ");
+    output.append(messageExpiryIntervalS);
+    output.append("\n");
+    output.append("\tpayloadFormatIndicator: ");
+    output.append(payloadFormatIndicator);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
+public static class FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct {
+  public Long duration;
+  public Optional<Boolean> oneShot;
+  public Optional<Boolean> emergencyBoost;
+  public Optional<Integer> temporarySetpoint;
+  public Optional<Integer> targetPercentage;
+  public Optional<Integer> targetReheat;
+  private static final long DURATION_ID = 0L;
+  private static final long ONE_SHOT_ID = 1L;
+  private static final long EMERGENCY_BOOST_ID = 2L;
+  private static final long TEMPORARY_SETPOINT_ID = 3L;
+  private static final long TARGET_PERCENTAGE_ID = 4L;
+  private static final long TARGET_REHEAT_ID = 5L;
+
+  public FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct(
+    Long duration,
+    Optional<Boolean> oneShot,
+    Optional<Boolean> emergencyBoost,
+    Optional<Integer> temporarySetpoint,
+    Optional<Integer> targetPercentage,
+    Optional<Integer> targetReheat
+  ) {
+    this.duration = duration;
+    this.oneShot = oneShot;
+    this.emergencyBoost = emergencyBoost;
+    this.temporarySetpoint = temporarySetpoint;
+    this.targetPercentage = targetPercentage;
+    this.targetReheat = targetReheat;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(DURATION_ID, new UIntType(duration)));
+    values.add(new StructElement(ONE_SHOT_ID, oneShot.<BaseTLVType>map((nonOptionaloneShot) -> new BooleanType(nonOptionaloneShot)).orElse(new EmptyType())));
+    values.add(new StructElement(EMERGENCY_BOOST_ID, emergencyBoost.<BaseTLVType>map((nonOptionalemergencyBoost) -> new BooleanType(nonOptionalemergencyBoost)).orElse(new EmptyType())));
+    values.add(new StructElement(TEMPORARY_SETPOINT_ID, temporarySetpoint.<BaseTLVType>map((nonOptionaltemporarySetpoint) -> new IntType(nonOptionaltemporarySetpoint)).orElse(new EmptyType())));
+    values.add(new StructElement(TARGET_PERCENTAGE_ID, targetPercentage.<BaseTLVType>map((nonOptionaltargetPercentage) -> new UIntType(nonOptionaltargetPercentage)).orElse(new EmptyType())));
+    values.add(new StructElement(TARGET_REHEAT_ID, targetReheat.<BaseTLVType>map((nonOptionaltargetReheat) -> new UIntType(nonOptionaltargetReheat)).orElse(new EmptyType())));
+
+    return new StructType(values);
+  }
+
+  public static FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Long duration = null;
+    Optional<Boolean> oneShot = Optional.empty();
+    Optional<Boolean> emergencyBoost = Optional.empty();
+    Optional<Integer> temporarySetpoint = Optional.empty();
+    Optional<Integer> targetPercentage = Optional.empty();
+    Optional<Integer> targetReheat = Optional.empty();
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == DURATION_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          duration = castingValue.value(Long.class);
+        }
+      } else if (element.contextTagNum() == ONE_SHOT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          oneShot = Optional.of(castingValue.value(Boolean.class));
+        }
+      } else if (element.contextTagNum() == EMERGENCY_BOOST_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Boolean) {
+          BooleanType castingValue = element.value(BooleanType.class);
+          emergencyBoost = Optional.of(castingValue.value(Boolean.class));
+        }
+      } else if (element.contextTagNum() == TEMPORARY_SETPOINT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.Int) {
+          IntType castingValue = element.value(IntType.class);
+          temporarySetpoint = Optional.of(castingValue.value(Integer.class));
+        }
+      } else if (element.contextTagNum() == TARGET_PERCENTAGE_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          targetPercentage = Optional.of(castingValue.value(Integer.class));
+        }
+      } else if (element.contextTagNum() == TARGET_REHEAT_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          targetReheat = Optional.of(castingValue.value(Integer.class));
+        }
+      }
+    }
+    return new FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct(
+      duration,
+      oneShot,
+      emergencyBoost,
+      temporarySetpoint,
+      targetPercentage,
+      targetReheat
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("FreshWaterHeaterControllerClusterWaterHeaterBoostInfoStruct {\n");
+    output.append("\tduration: ");
+    output.append(duration);
+    output.append("\n");
+    output.append("\toneShot: ");
+    output.append(oneShot);
+    output.append("\n");
+    output.append("\temergencyBoost: ");
+    output.append(emergencyBoost);
+    output.append("\n");
+    output.append("\ttemporarySetpoint: ");
+    output.append(temporarySetpoint);
+    output.append("\n");
+    output.append("\ttargetPercentage: ");
+    output.append(targetPercentage);
+    output.append("\n");
+    output.append("\ttargetReheat: ");
+    output.append(targetReheat);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
 public static class UnitTestingClusterSimpleStruct {
   public Integer a;
   public Boolean b;

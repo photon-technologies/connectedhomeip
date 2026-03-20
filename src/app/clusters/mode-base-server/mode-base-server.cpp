@@ -27,6 +27,7 @@
 #include <app/util/attribute-storage.h>
 #include <platform/DiagnosticDataProvider.h>
 #include <tracing/macros.h>
+#include "app/persistence/AttributePersistenceProviderInstance.h"
 
 using namespace chip;
 using namespace chip::app;
@@ -175,7 +176,8 @@ Status Instance::UpdateCurrentMode(uint8_t aNewMode)
     {
         // Write new value to persistent storage.
         ConcreteAttributePath path = ConcreteAttributePath(mEndpointId, mClusterId, Attributes::CurrentMode::Id);
-        GetSafeAttributePersistenceProvider()->WriteScalarValue(path, mCurrentMode);
+        ByteSpan CurrentModeSpan(static_cast<const uint8_t*>(&mCurrentMode),sizeof(mCurrentMode));
+        GetAttributePersistenceProvider()->WriteValue(path, CurrentModeSpan);
         MatterReportingAttributeChangeCallback(path);
     }
     return Protocols::InteractionModel::Status::Success;
@@ -425,8 +427,9 @@ void Instance::LoadPersistentAttributes()
 {
     // Load Current Mode
     uint8_t tempCurrentMode;
-    CHIP_ERROR err = GetSafeAttributePersistenceProvider()->ReadScalarValue(
-        ConcreteAttributePath(mEndpointId, mClusterId, Attributes::CurrentMode::Id), tempCurrentMode);
+    MutableByteSpan tempCurrentModeSpan(&tempCurrentMode, sizeof(tempCurrentMode));
+    CHIP_ERROR err = GetAttributePersistenceProvider()->ReadValue(
+        ConcreteAttributePath(mEndpointId, mClusterId, Attributes::CurrentMode::Id), tempCurrentModeSpan);
     if (err == CHIP_NO_ERROR)
     {
         Status status = UpdateCurrentMode(tempCurrentMode);
