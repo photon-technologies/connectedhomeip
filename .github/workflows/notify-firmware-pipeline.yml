@@ -1,0 +1,121 @@
+name: Notify firmware pipeline
+
+# On every push to a `fresh-v<X.Y.Z>` working branch (canonical Matter
+# base), cut the next immutable `<branch>-photon.<N+1>` tag from HEAD and
+# dispatch `matter-pipeline-update` to
+# photon-technologies/esp_build_test_workflow, where matter-bump.yml
+# opens a PR bumping MATTER_REF in versions.lock.
+#
+# Product-variant branches (fresh-v*_photon_smart, fresh-v*_refrigertor_server)
+# are skipped — only canonical fresh-v<MAJOR>.<MINOR>.<PATCH> branches feed
+# the firmware-runner image.
+#
+# Auth: photon-smart-ci GitHub App (org var PHOTON_CI_APP_ID, org secret
+# PHOTON_CI_APP_PRIVATE_KEY). App must be installed with `Contents: Write`
+# on this repo (for tag creation) and on esp_build_test_workflow (for
+# repository_dispatch).
+
+on:
+  push:
+    branches:
+      - 'fresh-v*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notify-firmware-pipeline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Filter branch — only canonical Matter base, not product variants
+        id: filter
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if ! echo "$BRANCH" | grep -Eq '^fresh-v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Branch '$BRANCH' is not a canonical Matter base (must match fresh-vX.Y.Z); skipping notify."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Mint Photon-CI App token
+        if: steps.filter.outputs.skip == 'false'
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.PHOTON_CI_APP_ID }}
+          private-key: ${{ secrets.PHOTON_CI_APP_PRIVATE_KEY }}
+          owner: photon-technologies
+          repositories: connectedhomeip,esp_build_test_workflow
+
+      - name: Compute next photon.<N+1> tag
+        if: steps.filter.outputs.skip == 'false'
+        id: tag
+        env:
+          BRANCH: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          # List all tags matching <branch>-photon.<digits> and pick max(N)+1
+          NEXT_N=$(gh api -X GET "repos/${REPO}/tags" --paginate \
+            --jq "[.[] | .name | select(test(\"^${BRANCH}-photon\\\\.[0-9]+$\"))] \
+                  | map(split(\"-photon.\")[1] | tonumber) \
+                  | (max // 0) + 1")
+          NEW_TAG="${BRANCH}-photon.${NEXT_N}"
+          echo "Next tag: $NEW_TAG"
+          {
+            echo "tag=$NEW_TAG"
+            echo "n=$NEXT_N"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Cut immutable tag at HEAD
+        if: steps.filter.outputs.skip == 'false'
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+          SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          gh api -X POST "repos/${REPO}/git/refs" \
+            -f ref="refs/tags/${TAG}" \
+            -f sha="${SHA}" \
+            --jq '{ref, sha: .object.sha}'
+
+      - name: Dispatch matter-pipeline-update to esp_build_test_workflow
+        if: steps.filter.outputs.skip == 'false'
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+          SHA: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          gh api -X POST repos/photon-technologies/esp_build_test_workflow/dispatches \
+            -f event_type=matter-pipeline-update \
+            -F "client_payload[tag]=${TAG}" \
+            -F "client_payload[branch]=${BRANCH}" \
+            -F "client_payload[head_sha]=${SHA}"
+
+      - name: Job summary
+        if: steps.filter.outputs.skip == 'false'
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+          SHA: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          {
+            echo "## Notified firmware pipeline"
+            echo ""
+            echo "- Branch pushed: \`$BRANCH\` @ \`$SHA\`"
+            echo "- Immutable tag cut: \`$TAG\` → \`$SHA\`"
+            echo "- Dispatch sent to: \`photon-technologies/esp_build_test_workflow\` (event \`matter-pipeline-update\`)"
+            echo "- Expected: a chore(matter): bump PR appears in esp_build_test_workflow within ~30s"
+          } >> "$GITHUB_STEP_SUMMARY"
