@@ -205,7 +205,7 @@ bool Instance::GetFridgeDoorState() const
 
 bool Instance::GetFreezerDoorState() const
 {
-    return mFridgeDoorState;
+    return mFreezerDoorState;
 }
 
 // Setters
