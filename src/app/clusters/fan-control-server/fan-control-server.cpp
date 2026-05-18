@@ -342,21 +342,21 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
         {
             status = PercentSetting::Set(attributePath.mEndpointId, 0);
             VerifyOrReturn(Status::Success == status,
-                           ChipLogError(Zcl, "Failed to write PercentSetting with error: 0x%02x", to_underlying(status)));
+                           ChipLogProgress(Zcl, "Failed to write PercentSetting with error: 0x%02x", to_underlying(status)));
 
             status = PercentCurrent::Set(attributePath.mEndpointId, 0);
             VerifyOrReturn(Status::Success == status,
-                           ChipLogError(Zcl, "Failed to write PercentCurrent with error: 0x%02x", to_underlying(status)));
+                           ChipLogProgress(Zcl, "Failed to write PercentCurrent with error: 0x%02x", to_underlying(status)));
 
             if (SupportsMultiSpeed(attributePath.mEndpointId))
             {
                 status = SpeedSetting::Set(attributePath.mEndpointId, 0);
                 VerifyOrReturn(Status::Success == status,
-                               ChipLogError(Zcl, "Failed to write SpeedSetting with error: 0x%02x", to_underlying(status)));
+                               ChipLogProgress(Zcl, "Failed to write SpeedSetting with error: 0x%02x", to_underlying(status)));
 
                 status = SpeedCurrent::Set(attributePath.mEndpointId, 0);
                 VerifyOrReturn(Status::Success == status,
-                               ChipLogError(Zcl, "Failed to write SpeedCurrent with error: 0x%02x", to_underlying(status)));
+                               ChipLogProgress(Zcl, "Failed to write SpeedCurrent with error: 0x%02x", to_underlying(status)));
             }
         }
 
@@ -367,14 +367,14 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
             gWriteFromClusterLogic = true;
             status                 = PercentSetting::SetNull(attributePath.mEndpointId);
             VerifyOrReturn(Status::Success == status,
-                           ChipLogError(Zcl, "Failed to write PercentSetting with error: 0x%02x", to_underlying(status)));
+                           ChipLogProgress(Zcl, "Failed to write PercentSetting with error: 0x%02x", to_underlying(status)));
 
             if (SupportsMultiSpeed(attributePath.mEndpointId))
             {
                 gWriteFromClusterLogic = true;
                 status                 = SpeedSetting::SetNull(attributePath.mEndpointId);
                 VerifyOrReturn(Status::Success == status,
-                               ChipLogError(Zcl, "Failed to write SpeedSetting with error: 0x%02x", to_underlying(status)));
+                               ChipLogProgress(Zcl, "Failed to write SpeedSetting with error: 0x%02x", to_underlying(status)));
             }
         }
         break;
@@ -386,7 +386,7 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
         uint8_t speedMax;
         status = SpeedMax::Get(attributePath.mEndpointId, &speedMax);
         VerifyOrReturn(Status::Success == status,
-                       ChipLogError(Zcl, "Failed to get SpeedMax with error: 0x%02x", to_underlying(status)));
+                       ChipLogProgress(Zcl, "Failed to get SpeedMax with error: 0x%02x", to_underlying(status)));
 
         // Avoid circular callback calls
         ScopedChange PercentWriteInProgress(gPercentWriteInProgress, true);
@@ -395,7 +395,7 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
         {
             status = SetFanModeToOff(attributePath.mEndpointId);
             VerifyOrReturn(status == Status::Success,
-                           ChipLogError(Zcl, "Failed to set FanMode to off with error: 0x%02x", to_underlying(status)));
+                           ChipLogProgress(Zcl, "Failed to set FanMode to off with error: 0x%02x", to_underlying(status)));
         }
 
         if (SupportsMultiSpeed(attributePath.mEndpointId))
@@ -408,7 +408,7 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
 
             status = SpeedSetting::Set(attributePath.mEndpointId, speedSetting);
             VerifyOrDo(Status::Success == status,
-                       ChipLogError(Zcl, "Failed to set SpeedSetting with error: 0x%02x", to_underlying(status)));
+                       ChipLogProgress(Zcl, "Failed to set SpeedSetting with error: 0x%02x", to_underlying(status)));
         }
         break;
     }
@@ -421,7 +421,7 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
             uint8_t speedMax;
             status = SpeedMax::Get(attributePath.mEndpointId, &speedMax);
             VerifyOrReturn(Status::Success == status,
-                           ChipLogError(Zcl, "Failed to get SpeedMax with error: 0x%02x", to_underlying(status)));
+                           ChipLogProgress(Zcl, "Failed to get SpeedMax with error: 0x%02x", to_underlying(status)));
 
             // Avoid circular callback calls
             ScopedChange SpeedWriteInProgress(gSpeedWriteInProgress, true);
@@ -430,7 +430,7 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
             {
                 status = SetFanModeToOff(attributePath.mEndpointId);
                 VerifyOrReturn(Status::Success == status,
-                               ChipLogError(Zcl, "Failed to set FanMode to off with error: 0x%02x", to_underlying(status)));
+                               ChipLogProgress(Zcl, "Failed to set FanMode to off with error: 0x%02x", to_underlying(status)));
             }
 
             // Adjust PercentSetting from a speed value change for SpeedSetting
@@ -440,7 +440,7 @@ void MatterFanControlClusterServerAttributeChangedCallback(const app::ConcreteAt
 
             status = PercentSetting::Set(attributePath.mEndpointId, percentSetting);
             VerifyOrDo(Status::Success == status,
-                       ChipLogError(Zcl, "Failed to set PercentSetting with error: 0x%02x", to_underlying(status)));
+                       ChipLogProgress(Zcl, "Failed to set PercentSetting with error: 0x%02x", to_underlying(status)));
         }
         break;
     }

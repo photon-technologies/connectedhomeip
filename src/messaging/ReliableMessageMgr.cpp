@@ -525,7 +525,7 @@ CHIP_ERROR ReliableMessageMgr::MapSendError(CHIP_ERROR error, uint16_t exchangeI
         //
         // Similarly, on LwIP an ERR_MEM on send indicates a likely
         // temporary lack of TX buffers.
-        ChipLogError(ExchangeManager, "Ignoring transient send error: %" CHIP_ERROR_FORMAT " on exchange " ChipLogFormatExchangeId,
+        ChipLogProgress(ExchangeManager, "Ignoring transient send error: %" CHIP_ERROR_FORMAT " on exchange " ChipLogFormatExchangeId,
                      error.Format(), ChipLogValueExchangeId(exchangeId, isInitiator));
         error = CHIP_NO_ERROR;
     }

@@ -839,7 +839,7 @@ void SessionManager::UnauthenticatedMessageDispatch(const PacketHeader & partial
         {
             if (sessionConn != ctxt->conn)
             {
-                ChipLogError(Inet, "Data received over wrong connection %p. Dropping it!", ctxt->conn);
+                ChipLogProgress(Inet, "Data received over wrong connection %p. Dropping it!", ctxt->conn);
                 return;
             }
         }
@@ -901,7 +901,7 @@ void SessionManager::SecureUnicastMessageDispatch(const PacketHeader & partialPa
     Optional<SessionHandle> session = mSecureSessions.FindSecureSessionByLocalKey(partialPacketHeader.GetSessionId());
     if (!session.HasValue())
     {
-        ChipLogError(Inet, "Data received on an unknown session (LSID=%d). Dropping it!", partialPacketHeader.GetSessionId());
+        ChipLogProgress(Inet, "Data received on an unknown session (LSID=%d). Dropping it!", partialPacketHeader.GetSessionId());
         return;
     }
 
@@ -926,7 +926,7 @@ void SessionManager::SecureUnicastMessageDispatch(const PacketHeader & partialPa
         {
             if (sessionConn != ctxt->conn)
             {
-                ChipLogError(Inet, "Data received over wrong connection %p. Dropping it!", ctxt->conn);
+                ChipLogProgress(Inet, "Data received over wrong connection %p. Dropping it!", ctxt->conn);
                 return;
             }
         }
