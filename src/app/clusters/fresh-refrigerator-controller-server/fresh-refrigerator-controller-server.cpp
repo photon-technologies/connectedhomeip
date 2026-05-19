@@ -549,8 +549,11 @@ CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValu
     case Attributes::FreezerDoorState::Id:
         ReturnErrorOnFailure(aEncoder.Encode(mFreezerDoorState));
         break;
-    default:
+    case Attributes::DefrostTemperature::Id:
+        ReturnErrorOnFailure(aEncoder.Encode(mDefrostTemperature));
         break;
+    default:
+        return CHIP_IM_GLOBAL_STATUS(UnsupportedAttribute);
     }
     return CHIP_NO_ERROR;
 }
