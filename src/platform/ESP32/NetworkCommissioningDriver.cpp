@@ -465,7 +465,9 @@ void ESPWiFiDriver::OnNetworkStatusChange()
     CHIP_ERROR err = GetConfiguredNetwork(configuredNetwork);
     if (err != CHIP_NO_ERROR)
     {
-        ChipLogError(DeviceLayer, "Failed to get configured network when updating network status: %s", err.AsString());
+        // Photon: routine network loss, already recorded by the MQTT last-will and the
+        // device presence events.
+        ChipLogProgress(DeviceLayer, "Failed to get configured network when updating network status: %s", err.AsString());
         return;
     }
     VerifyOrReturn(ESP32Utils::IsStationConnected(staConnected) == CHIP_NO_ERROR);

@@ -186,7 +186,8 @@ CHIP_ERROR ReliableMessageContext::SendStandaloneAckMessage()
                                                        BitFlags<SendMessageFlags>{ SendMessageFlags::kNoAutoRequestAck });
     if (IsSendErrorNonCritical(err))
     {
-        ChipLogError(ExchangeManager,
+        // Photon: already self-described as non-critical in the message text below.
+        ChipLogProgress(ExchangeManager,
                      "Non-crit err %" CHIP_ERROR_FORMAT " sending solitary ack for MessageCounter:" ChipLogFormatMessageCounter
                      " on exchange " ChipLogFormatExchange,
                      err.Format(), mPendingPeerAckMessageCounter, ChipLogValueExchange(GetExchangeContext()));

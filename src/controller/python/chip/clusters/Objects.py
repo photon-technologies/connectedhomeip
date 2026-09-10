@@ -55477,6 +55477,25 @@ class FreshWaterHeaterController(Cluster):
 
             status: bool = False
 
+        @dataclass
+        class NotifyError(ClusterEvent):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC05
+
+            @ChipUtility.classproperty
+            def event_id(cls) -> int:
+                return 0x00000002
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="code", Tag=0, Type=uint),
+                    ])
+
+            code: uint = 0
+
 
 @dataclass
 class FreshWaterHeaterErrorsAlarm(Cluster):

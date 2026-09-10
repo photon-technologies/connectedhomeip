@@ -178,5 +178,9 @@
             <description>This event SHALL be generated whenever an Anti-Legionella cycle is completed.</description>
             <field id="0" name="Status" type="boolean"/>
         </event>
+        <event side="server" code="0x02" priority="info" name="NotifyError">
+      <description>This event SHALL be generated when one or more errors change state, and SHALL have these fields: </description>
+      <field id="0" name="Code" type="int8u" default="0"/>
+    </event>
     </cluster>
 </configurator>

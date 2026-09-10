@@ -496,7 +496,17 @@ CHIP_ERROR SessionManager::SendPreparedMessage(const SessionHandle & sessionHand
         {
             char addressStr[Transport::PeerAddress::kMaxToStringSize] = { 0 };
             destination->ToString(addressStr);
-            ChipLogError(Inet, "SendMessage() to %s failed: %" CHIP_ERROR_FORMAT, addressStr, err.Format());
+            // Photon: ERR_MEM here is transient Wi-Fi TX-buffer exhaustion, which MRP
+            // retransmits around -- upstream already treats it as transient on the
+            // ReliableMessageMgr path. Other send failures remain real errors.
+            if (err == CHIP_ERROR_NO_MEMORY)
+            {
+                ChipLogProgress(Inet, "SendMessage() to %s failed: %" CHIP_ERROR_FORMAT, addressStr, err.Format());
+            }
+            else
+            {
+                ChipLogError(Inet, "SendMessage() to %s failed: %" CHIP_ERROR_FORMAT, addressStr, err.Format());
+            }
         }
 #endif // CHIP_ERROR_LOGGING
         return err;

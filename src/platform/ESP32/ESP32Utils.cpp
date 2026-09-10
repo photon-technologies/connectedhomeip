@@ -94,7 +94,9 @@ CHIP_ERROR ESP32Utils::StartWiFiLayer(void)
         err = esp_wifi_start();
         if (err != ESP_OK)
         {
-            ChipLogError(DeviceLayer, "esp_wifi_start() failed: %s", esp_err_to_name(err));
+            // Photon: the Wi-Fi bring-up retry loop; only ever observed within the first
+            // second of boot, until the interface associates.
+            ChipLogProgress(DeviceLayer, "esp_wifi_start() failed: %s", esp_err_to_name(err));
             return ESP32Utils::MapError(err);
         }
     }
@@ -248,9 +250,20 @@ CHIP_ERROR ESP32Utils::ClearWiFiStationProvision(void)
 {
     wifi_config_t stationConfig;
 
+    esp_err_t err = esp_wifi_disconnect();
+    if (err != ESP_OK)
+    {
+        ChipLogProgress(DeviceLayer, "esp_wifi_disconnect() failed: %s", esp_err_to_name(err));
+        // Does not return error here as we just call esp_wifi_disconnect() to ensure that the Wi-Fi is not connecting.
+    }
     // Clear the ESP WiFi station configuration.
     memset(&stationConfig, 0, sizeof(stationConfig));
-    esp_wifi_set_config(WIFI_IF_STA, &stationConfig);
+    err = esp_wifi_set_config(WIFI_IF_STA, &stationConfig);
+    if (err != ESP_OK)
+    {
+        ChipLogError(DeviceLayer, "esp_wifi_set_config() failed: %s", esp_err_to_name(err));
+        return MapError(err);
+    }
 
     return CHIP_NO_ERROR;
 }
@@ -275,11 +288,15 @@ CHIP_ERROR ESP32Utils::InitWiFiStack(void)
     }
 
     // Initialize the ESP WiFi layer.
-    cfg = WIFI_INIT_CONFIG_DEFAULT();
-    err = esp_wifi_init(&cfg);
-    if (err != ESP_OK)
+    wifi_mode_t mode = WIFI_MODE_NULL;
+    if (esp_wifi_get_mode(&mode) == ESP_ERR_WIFI_NOT_INIT)
     {
-        return ESP32Utils::MapError(err);
+        cfg = WIFI_INIT_CONFIG_DEFAULT();
+        err = esp_wifi_init(&cfg);
+        if (err != ESP_OK)
+        {
+            return ESP32Utils::MapError(err);
+        }
     }
 
     err = esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, PlatformManagerImpl::HandleESPSystemEvent, NULL);

@@ -207,7 +207,18 @@ void CASEServer::PrepareForSessionEstablishment(const ScopedNodeId & previouslyE
 void CASEServer::OnSessionEstablishmentError(CHIP_ERROR err)
 {
     MATTER_TRACE_SCOPE("OnSessionEstablishmentError", "CASEServer");
-    ChipLogError(Inet, "CASE Session establishment failed: %" CHIP_ERROR_FORMAT, err.Format());
+    // Photon: a timeout here is the same event as the CASESession response timeout --
+    // the controller vanished mid-handshake -- and is not a device fault. Every other
+    // error at this site (KEY_NOT_FOUND, INVALID_CASE_PARAMETER, ...) is a real failure
+    // and must stay at Error.
+    if (err == CHIP_ERROR_TIMEOUT)
+    {
+        ChipLogProgress(Inet, "CASE Session establishment failed: %" CHIP_ERROR_FORMAT, err.Format());
+    }
+    else
+    {
+        ChipLogError(Inet, "CASE Session establishment failed: %" CHIP_ERROR_FORMAT, err.Format());
+    }
 
     MATTER_TRACE_SCOPE("CASEFail", "CASESession");
     PrepareForSessionEstablishment();

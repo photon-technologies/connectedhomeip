@@ -31,47 +31,42 @@ namespace Clusters {
 namespace FreshWaterHeaterController {
 namespace Events {
 namespace AntiLegionellaCycleStarted {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const{
     TLV::TLVType outer;
     ReturnErrorOnFailure(aWriter.StartContainer(aTag, TLV::kTLVType_Structure, outer));
     return aWriter.EndContainer(outer);
 }
 
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader &reader) {
     detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
+    while (true) {
+        uint8_t __context_tag  = 0;
+        CHIP_ERROR err = __iterator.Next(__context_tag);
         VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
         ReturnErrorOnFailure(err);
+
 
         ReturnErrorOnFailure(err);
     }
 }
 } // namespace AntiLegionellaCycleStarted.
 namespace AntiLegionellaCycleCompleted {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const{
     TLV::TLVType outer;
     ReturnErrorOnFailure(aWriter.StartContainer(aTag, TLV::kTLVType_Structure, outer));
     ReturnErrorOnFailure(DataModel::Encode(aWriter, TLV::ContextTag(Fields::kStatus), status));
     return aWriter.EndContainer(outer);
 }
 
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader &reader) {
     detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
+    while (true) {
+        uint8_t __context_tag  = 0;
+        CHIP_ERROR err = __iterator.Next(__context_tag);
         VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
         ReturnErrorOnFailure(err);
 
-        if (__context_tag == to_underlying(Fields::kStatus))
+if (__context_tag == to_underlying(Fields::kStatus))
         {
             err = DataModel::Decode(reader, status);
         }
@@ -83,6 +78,34 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
     }
 }
 } // namespace AntiLegionellaCycleCompleted.
+namespace NotifyError {
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const{
+    TLV::TLVType outer;
+    ReturnErrorOnFailure(aWriter.StartContainer(aTag, TLV::kTLVType_Structure, outer));
+    ReturnErrorOnFailure(DataModel::Encode(aWriter, TLV::ContextTag(Fields::kCode), code));
+    return aWriter.EndContainer(outer);
+}
+
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader &reader) {
+    detail::StructDecodeIterator __iterator(reader);
+    while (true) {
+        uint8_t __context_tag  = 0;
+        CHIP_ERROR err = __iterator.Next(__context_tag);
+        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
+        ReturnErrorOnFailure(err);
+
+if (__context_tag == to_underlying(Fields::kCode))
+        {
+            err = DataModel::Decode(reader, code);
+        }
+        else
+        {
+        }
+
+        ReturnErrorOnFailure(err);
+    }
+}
+} // namespace NotifyError.
 } // namespace Events
 } // namespace FreshWaterHeaterController
 } // namespace Clusters
