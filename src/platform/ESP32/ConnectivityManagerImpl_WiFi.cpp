@@ -555,7 +555,17 @@ void ConnectivityManagerImpl::DriveStationState()
                 esp_err_t err = esp_wifi_connect();
                 if (err != ESP_OK)
                 {
-                    ChipLogError(DeviceLayer, "esp_wifi_connect() failed: %s", esp_err_to_name(err));
+                    // Photon: ESP_ERR_WIFI_CONN only means a connect is already in flight (the
+                    // driver logs "sta is connecting, return error"); the reconnect-interval retry
+                    // above picks it up on the next pass. Any other failure is real.
+                    if (err == ESP_ERR_WIFI_CONN)
+                    {
+                        ChipLogProgress(DeviceLayer, "esp_wifi_connect() failed: %s", esp_err_to_name(err));
+                    }
+                    else
+                    {
+                        ChipLogError(DeviceLayer, "esp_wifi_connect() failed: %s", esp_err_to_name(err));
+                    }
                     return;
                 }
 
