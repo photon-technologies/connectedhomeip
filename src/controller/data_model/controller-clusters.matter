@@ -11626,6 +11626,10 @@ cluster FreshWaterHeaterController = 367524869 {
     boolean status = 0;
   }
 
+  info event NotifyError = 2 {
+    int8u code = 0;
+  }
+
   attribute temperature coldWaterTemperature = 0;
   attribute temperature showerTemperature = 1;
   attribute temperature showerHysteresis = 2;

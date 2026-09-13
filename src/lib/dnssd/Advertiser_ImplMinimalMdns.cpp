@@ -355,7 +355,10 @@ void AdvertiserMinMdns::OnQuery(const QueryData & data)
     CHIP_ERROR err = mResponseSender.Respond(mMessageId, data, mCurrentSource, defaultResponseConfiguration);
     if (err != CHIP_NO_ERROR)
     {
-        ChipLogError(Discovery, "Failed to reply to query: %" CHIP_ERROR_FORMAT, err.Format());
+        // Photon: mDNS is best-effort and has no MRP equivalent, so a dropped reply is a
+        // tolerated outcome. The cause is Wi-Fi TX-buffer exhaustion when a multi-fabric
+        // device answers one query with several back-to-back multicast sends.
+        ChipLogProgress(Discovery, "Failed to reply to query: %" CHIP_ERROR_FORMAT, err.Format());
     }
 }
 

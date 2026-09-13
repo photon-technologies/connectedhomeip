@@ -53,7 +53,9 @@ namespace Messaging {
 static void DefaultOnMessageReceived(ExchangeContext * ec, Protocols::Id protocolId, uint8_t msgType, uint32_t messageCounter,
                                      PacketBufferHandle && payload)
 {
-    ChipLogError(ExchangeManager,
+    // Photon: a StatusResponse arriving on an exchange that has already gone away;
+    // the downstream consequence of a peer losing session state.
+    ChipLogProgress(ExchangeManager,
                  "Dropping unexpected message of type " ChipLogFormatMessageType " with protocolId " ChipLogFormatProtocolId
                  " and MessageCounter:" ChipLogFormatMessageCounter " on exchange " ChipLogFormatExchange,
                  msgType, ChipLogValueProtocolId(protocolId), messageCounter, ChipLogValueExchange(ec));

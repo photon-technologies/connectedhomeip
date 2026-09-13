@@ -19,8 +19,12 @@ namespace AntiLegionellaCycleCompleted {
 inline constexpr EventId Id = 0x00000001;
 } // namespace AntiLegionellaCycleCompleted
 
+namespace NotifyError {
+inline constexpr EventId Id = 0x00000002;
+} // namespace NotifyError
+
 } // namespace Events
 } // namespace FreshWaterHeaterController
-} // namespace Clusters
 } // namespace app
+} // namespace Clusters
 } // namespace chip

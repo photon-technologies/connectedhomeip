@@ -20,10 +20,10 @@
 
 #pragma once
 
-#include <app/EventLoggingTypes.h>
 #include <app/data-model/DecodableList.h>
 #include <app/data-model/List.h>
 #include <app/data-model/Nullable.h>
+#include <app/EventLoggingTypes.h>
 #include <lib/core/DataModelTypes.h>
 #include <lib/core/TLV.h>
 #include <lib/support/BitMask.h>
@@ -32,8 +32,8 @@
 #include <clusters/shared/Structs.h>
 
 #include <clusters/FreshWaterHeaterController/ClusterId.h>
-#include <clusters/FreshWaterHeaterController/Enums.h>
 #include <clusters/FreshWaterHeaterController/EventIds.h>
+#include <clusters/FreshWaterHeaterController/Enums.h>
 #include <clusters/FreshWaterHeaterController/Structs.h>
 
 #include <cstdint>
@@ -46,8 +46,7 @@ namespace Events {
 namespace AntiLegionellaCycleStarted {
 static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
 
-enum class Fields : uint8_t
-{
+enum class Fields : uint8_t {
 };
 
 struct Type
@@ -58,24 +57,25 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
     static constexpr bool kIsFabricScoped = false;
 
+
+
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
 
-struct DecodableType
-{
+struct DecodableType {
 public:
     static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
     static constexpr EventId GetEventId() { return Events::AntiLegionellaCycleStarted::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
 
-    CHIP_ERROR Decode(TLV::TLVReader & reader);
+
+    CHIP_ERROR Decode(TLV::TLVReader &reader);
 };
 } // namespace AntiLegionellaCycleStarted
 namespace AntiLegionellaCycleCompleted {
 static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
 
-enum class Fields : uint8_t
-{
+enum class Fields : uint8_t {
     kStatus = 0,
 };
 
@@ -87,23 +87,55 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
     static constexpr bool kIsFabricScoped = false;
 
-    bool status = static_cast<bool>(0);
+    bool status     = static_cast<bool>(0);
+
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
 
-struct DecodableType
-{
+struct DecodableType {
 public:
     static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
     static constexpr EventId GetEventId() { return Events::AntiLegionellaCycleCompleted::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
 
-    bool status = static_cast<bool>(0);
+    bool status     = static_cast<bool>(0);
 
-    CHIP_ERROR Decode(TLV::TLVReader & reader);
+    CHIP_ERROR Decode(TLV::TLVReader &reader);
 };
 } // namespace AntiLegionellaCycleCompleted
+namespace NotifyError {
+static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
+
+enum class Fields : uint8_t {
+    kCode = 0,
+};
+
+struct Type
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::NotifyError::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    uint8_t code     = static_cast<uint8_t>(0);
+
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+};
+
+struct DecodableType {
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::NotifyError::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshWaterHeaterController::Id; }
+
+    uint8_t code     = static_cast<uint8_t>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader &reader);
+};
+} // namespace NotifyError
 } // namespace Events
 } // namespace FreshWaterHeaterController
 } // namespace Clusters

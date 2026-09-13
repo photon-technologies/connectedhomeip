@@ -584,7 +584,9 @@ void CASESession::OnResponseTimeout(ExchangeContext * ec)
     VerifyOrReturn(ec != nullptr, ChipLogError(SecureChannel, "CASESession::OnResponseTimeout was called by null exchange"));
     VerifyOrReturn(mExchangeCtxt.HasValue() && (&mExchangeCtxt.Value().Get() == ec),
                    ChipLogError(SecureChannel, "CASESession::OnResponseTimeout exchange doesn't match"));
-    ChipLogError(SecureChannel,
+    // Photon: a controller vanishing mid-handshake is normal for phone-based
+    // controllers (force-quit, jetsam/OOM, Android Doze) and is not a device fault.
+    ChipLogProgress(SecureChannel,
                  "CASESession timed out while waiting for a response from peer " ChipLogFormatScopedNodeId ". Current state was %u",
                  ChipLogValueScopedNodeId(GetPeer()), to_underlying(mState));
     MATTER_TRACE_COUNTER("CASETimeout");

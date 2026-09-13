@@ -575,7 +575,16 @@ CHIP_ERROR BLEManagerImpl::CloseConnection(BLE_CONNECTION_OBJECT conId)
     err = MapBLEError(ble_gap_terminate(conId, BLE_ERR_REM_USER_CONN_TERM));
     if (err != CHIP_NO_ERROR)
     {
-        ChipLogError(DeviceLayer, "ble_gap_terminate() failed: %" CHIP_ERROR_FORMAT, err.Format());
+        // Photon: NOT_CONNECTED means the peer already dropped the link (NimBLE logs
+        // "GAP terminate: connection not found"), which is routine during teardown.
+        if (err == CHIP_ERROR_NOT_CONNECTED)
+        {
+            ChipLogProgress(DeviceLayer, "ble_gap_terminate() failed: %" CHIP_ERROR_FORMAT, err.Format());
+        }
+        else
+        {
+            ChipLogError(DeviceLayer, "ble_gap_terminate() failed: %" CHIP_ERROR_FORMAT, err.Format());
+        }
     }
 
 #ifndef CONFIG_ENABLE_ESP32_BLE_CONTROLLER

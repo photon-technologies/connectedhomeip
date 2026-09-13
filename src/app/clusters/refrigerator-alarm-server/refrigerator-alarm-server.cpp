@@ -133,6 +133,12 @@ Status RefrigeratorAlarmServer::SetStateValue(EndpointId endpoint, BitMask<Alarm
 
     ChipLogProgress(Zcl, "Refrigerator Alarm: State ep%d value: %" PRIx32 "", endpoint, newState.Raw());
 
+    // check if the state has changed, if not no need to send notify event
+    if (currentState == newState)
+    {
+        return status;
+    }
+
     // Generate Notify event.
     BitMask<AlarmMap> becameActive;
     becameActive.Set(newState).Clear(currentState);
