@@ -1596,6 +1596,25 @@ public class ChipDeviceController {
     shutdownCommissioning(deviceControllerPtr);
   }
 
+  /**
+   * Deletes ALL fabrics from the controller's shared fabric table (in-memory + persistent storage),
+   * including fabrics persisted by prior sessions that no live controller references. Intended for
+   * logout / full reset.
+   */
+  public void deleteAllFabricsFromTable() {
+    deleteAllFabricsFromTable(deviceControllerPtr);
+  }
+
+  /**
+   * Deletes the fabric whose Matter Fabric-ID matches {@code fabricId} from the controller's shared
+   * fabric table (in-memory + persistent storage), regardless of which controller is active. Use
+   * this to remove a specific home's fabric — including a home that is not the currently active one.
+   * No-op if no fabric matches. The AndroidKeyStore alias is removed separately.
+   */
+  public void deleteFabricByFabricId(long fabricId) {
+    deleteFabricByFabricId(deviceControllerPtr, fabricId);
+  }
+
   public static native byte[] validateAndExtractCSR(byte[] csrElements, byte[] csrNonce);
 
   private native PaseVerifierParams computePaseVerifier(
@@ -1764,6 +1783,10 @@ public class ChipDeviceController {
   private native int getFabricIndex(long deviceControllerPtr);
 
   private native void shutdownCommissioning(long deviceControllerPtr);
+
+  private native void deleteAllFabricsFromTable(long deviceControllerPtr);
+
+  private native void deleteFabricByFabricId(long deviceControllerPtr, long fabricId);
 
   private native void startDnssd(long deviceControllerPtr);
 

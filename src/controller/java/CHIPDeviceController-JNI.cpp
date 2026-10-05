@@ -40,10 +40,13 @@
 #include <atomic>
 #include <ble/Ble.h>
 #include <controller/CHIPDeviceController.h>
+#include <controller/CHIPDeviceControllerFactory.h>
 #include <controller/CommissioningWindowOpener.h>
 #include <controller/java/GroupDeviceProxy.h>
 #include <credentials/CHIPCert.h>
+#include <credentials/FabricTable.h>
 #include <jni.h>
+#include <transport/SessionManager.h>
 #include <lib/core/ErrorStr.h>
 #include <lib/support/CHIPMem.h>
 #include <lib/support/CodeUtils.h>
@@ -2097,6 +2100,69 @@ JNI_METHOD(void, shutdownCommissioning)
 
     AndroidDeviceControllerWrapper * wrapper = AndroidDeviceControllerWrapper::FromJNIHandle(handle);
     wrapper->Shutdown();
+}
+
+JNI_METHOD(void, deleteAllFabricsFromTable)(JNIEnv * env, jobject self, jlong handle)
+{
+    chip::DeviceLayer::StackLock lock;
+
+    // Logout: clears EVERY fabric (incl. prior-session ones with no live
+    // controller) from the shared FabricTable in one shot. Leaves the in-memory
+    // table empty (count 0, indices reusable) -- next login starts clean with no
+    // factory teardown or process restart.
+    const DeviceControllerSystemState * systemState = DeviceControllerFactory::GetInstance().GetSystemState();
+    VerifyOrReturn(systemState != nullptr && !systemState->IsShutDown() && systemState->Fabrics() != nullptr,
+                   ChipLogError(Controller, "deleteAllFabricsFromTable(): no live system state"));
+
+    if (systemState->SessionMgr() != nullptr)
+    {
+        for (const auto & fabric : *systemState->Fabrics())
+        {
+            systemState->SessionMgr()->ExpireAllSessionsForFabric(fabric.GetFabricIndex());
+        }
+    }
+
+    systemState->Fabrics()->DeleteAllFabrics();
+    ChipLogProgress(Controller, "deleteAllFabricsFromTable: removed all fabrics");
+}
+
+JNI_METHOD(void, deleteFabricByFabricId)(JNIEnv * env, jobject self, jlong handle, jlong fabricIdJ)
+{
+    chip::DeviceLayer::StackLock lock;
+    const FabricId fabricId = static_cast<FabricId>(fabricIdJ);
+
+    // Delete the fabric whose Matter Fabric-ID matches, regardless of which
+    // controller is active. Lets a home be deleted from "Manage Homes" (a
+    // NON-active home) without disturbing the active home's fabric. The app's
+    // model is one unique fabric-id per home, so the match is unambiguous.
+    const DeviceControllerSystemState * systemState = DeviceControllerFactory::GetInstance().GetSystemState();
+    VerifyOrReturn(systemState != nullptr && !systemState->IsShutDown() && systemState->Fabrics() != nullptr,
+                   ChipLogError(Controller, "deleteFabricByFabricId(): no live system state"));
+
+    FabricTable * fabricTable = systemState->Fabrics();
+    FabricIndex targetIndex   = kUndefinedFabricIndex;
+    for (const auto & fabricInfo : *fabricTable)
+    {
+        if (fabricInfo.GetFabricId() == fabricId)
+        {
+            targetIndex = fabricInfo.GetFabricIndex();
+            break;
+        }
+    }
+    VerifyOrReturn(targetIndex != kUndefinedFabricIndex,
+                   ChipLogProgress(Controller, "deleteFabricByFabricId(0x%llx): no matching fabric (already removed?)",
+                                   static_cast<unsigned long long>(fabricId)));
+
+    if (systemState->SessionMgr() != nullptr)
+    {
+        systemState->SessionMgr()->ExpireAllSessionsForFabric(targetIndex);
+    }
+    CHIP_ERROR err = fabricTable->Delete(targetIndex);
+    VerifyOrReturn(err == CHIP_NO_ERROR,
+                   ChipLogError(Controller, "deleteFabricByFabricId: Delete(0x%x) failed: %" CHIP_ERROR_FORMAT,
+                                static_cast<unsigned>(targetIndex), err.Format()));
+    ChipLogProgress(Controller, "deleteFabricByFabricId: removed fabric id 0x%llx (index 0x%x)",
+                    static_cast<unsigned long long>(fabricId), static_cast<unsigned>(targetIndex));
 }
 
 JNI_METHOD(jbyteArray, getAttestationChallenge)
