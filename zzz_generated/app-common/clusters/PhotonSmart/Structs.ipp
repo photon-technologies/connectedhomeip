@@ -142,9 +142,8 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kTransport), transport);
     encoder.Encode(to_underlying(Fields::kKeepAlive), keepAlive);
     encoder.Encode(to_underlying(Fields::kCleanSession), cleanSession);
-    encoder.Encode(to_underlying(Fields::kReconnectTimeoutMS), reconnectTimeoutMS);
+    encoder.Encode(to_underlying(Fields::kReconnectBackoffBaseMS), reconnectBackoffBaseMS);
     encoder.Encode(to_underlying(Fields::kTimeoutMS), timeoutMS);
-    encoder.Encode(to_underlying(Fields::kRefreshConnectionAfterMS), refreshConnectionAfterMS);
     encoder.Encode(to_underlying(Fields::kSessionExpiryIntervalS), sessionExpiryIntervalS);
     encoder.Encode(to_underlying(Fields::kMaxPacketSize), maxPacketSize);
     encoder.Encode(to_underlying(Fields::kMaxReceivePacketCount), maxReceivePacketCount);
@@ -154,6 +153,8 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kWillDelayIntervalS), willDelayIntervalS);
     encoder.Encode(to_underlying(Fields::kMessageExpiryIntervalS), messageExpiryIntervalS);
     encoder.Encode(to_underlying(Fields::kPayloadFormatIndicator), payloadFormatIndicator);
+    encoder.Encode(to_underlying(Fields::kReconnectBackoffMaxMS), reconnectBackoffMaxMS);
+    encoder.Encode(to_underlying(Fields::kBootJitterMaxMS), bootJitterMaxMS);
     return encoder.Finalize();
 }
 
@@ -187,17 +188,13 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         {
             err = DataModel::Decode(reader, cleanSession);
         }
-        else if (__context_tag == to_underlying(Fields::kReconnectTimeoutMS))
+        else if (__context_tag == to_underlying(Fields::kReconnectBackoffBaseMS))
         {
-            err = DataModel::Decode(reader, reconnectTimeoutMS);
+            err = DataModel::Decode(reader, reconnectBackoffBaseMS);
         }
         else if (__context_tag == to_underlying(Fields::kTimeoutMS))
         {
             err = DataModel::Decode(reader, timeoutMS);
-        }
-        else if (__context_tag == to_underlying(Fields::kRefreshConnectionAfterMS))
-        {
-            err = DataModel::Decode(reader, refreshConnectionAfterMS);
         }
         else if (__context_tag == to_underlying(Fields::kSessionExpiryIntervalS))
         {
@@ -234,6 +231,14 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         else if (__context_tag == to_underlying(Fields::kPayloadFormatIndicator))
         {
             err = DataModel::Decode(reader, payloadFormatIndicator);
+        }
+        else if (__context_tag == to_underlying(Fields::kReconnectBackoffMaxMS))
+        {
+            err = DataModel::Decode(reader, reconnectBackoffMaxMS);
+        }
+        else if (__context_tag == to_underlying(Fields::kBootJitterMaxMS))
+        {
+            err = DataModel::Decode(reader, bootJitterMaxMS);
         }
 
         ReturnErrorOnFailure(err);

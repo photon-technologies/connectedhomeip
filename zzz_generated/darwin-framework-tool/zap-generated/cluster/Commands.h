@@ -175603,9 +175603,8 @@ public:
         value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(mValue.transport)];
         value.keepAlive = [NSNumber numberWithUnsignedShort:mValue.keepAlive];
         value.cleanSession = [NSNumber numberWithBool:mValue.cleanSession];
-        value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:mValue.reconnectTimeoutMS];
+        value.reconnectBackoffBaseMS = [NSNumber numberWithUnsignedInt:mValue.reconnectBackoffBaseMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:mValue.timeoutMS];
-        value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:mValue.refreshConnectionAfterMS];
         value.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:mValue.sessionExpiryIntervalS];
         value.maxPacketSize = [NSNumber numberWithUnsignedInt:mValue.maxPacketSize];
         value.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:mValue.maxReceivePacketCount];
@@ -175614,6 +175613,8 @@ public:
         value.requestProblemInfo = [NSNumber numberWithBool:mValue.requestProblemInfo];
         value.willDelayIntervalS = [NSNumber numberWithUnsignedInt:mValue.willDelayIntervalS];
         value.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:mValue.messageExpiryIntervalS];
+        value.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:mValue.reconnectBackoffMaxMS];
+        value.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:mValue.bootJitterMaxMS];
         value.payloadFormatIndicator = [NSNumber numberWithBool:mValue.payloadFormatIndicator];
 
         [cluster writeAttributeMqttConfigWithValue:value params:params completion:^(NSError * _Nullable error) {

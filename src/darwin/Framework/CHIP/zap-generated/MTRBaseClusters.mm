@@ -108764,9 +108764,8 @@ public:
      cppValue.transport = static_cast<std::remove_reference_t<decltype(cppValue.transport)>>(value.transport.unsignedCharValue);
      cppValue.keepAlive = value.keepAlive.unsignedShortValue;
      cppValue.cleanSession = value.cleanSession.boolValue;
-     cppValue.reconnectTimeoutMS = value.reconnectTimeoutMS.unsignedIntValue;
+     cppValue.reconnectBackoffBaseMS = value.reconnectBackoffBaseMS.unsignedIntValue;
      cppValue.timeoutMS = value.timeoutMS.unsignedIntValue;
-     cppValue.refreshConnectionAfterMS = value.refreshConnectionAfterMS.unsignedIntValue;
      cppValue.sessionExpiryIntervalS = value.sessionExpiryIntervalS.unsignedIntValue;
      cppValue.maxPacketSize = value.maxPacketSize.unsignedIntValue;
      cppValue.maxReceivePacketCount = value.maxReceivePacketCount.unsignedShortValue;
@@ -108776,6 +108775,8 @@ public:
      cppValue.willDelayIntervalS = value.willDelayIntervalS.unsignedIntValue;
      cppValue.messageExpiryIntervalS = value.messageExpiryIntervalS.unsignedIntValue;
      cppValue.payloadFormatIndicator = value.payloadFormatIndicator.boolValue;
+     cppValue.reconnectBackoffMaxMS = value.reconnectBackoffMaxMS.unsignedIntValue;
+     cppValue.bootJitterMaxMS = value.bootJitterMaxMS.unsignedIntValue;
 
         chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
         return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });

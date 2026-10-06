@@ -52977,9 +52977,8 @@ class PhotonSmart(Cluster):
                         ClusterObjectFieldDescriptor(Label="transport", Tag=3, Type=PhotonSmart.Enums.MqttTransport),
                         ClusterObjectFieldDescriptor(Label="keepAlive", Tag=4, Type=uint),
                         ClusterObjectFieldDescriptor(Label="cleanSession", Tag=5, Type=bool),
-                        ClusterObjectFieldDescriptor(Label="reconnectTimeoutMS", Tag=6, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="reconnectBackoffBaseMS", Tag=6, Type=uint),
                         ClusterObjectFieldDescriptor(Label="timeoutMS", Tag=7, Type=uint),
-                        ClusterObjectFieldDescriptor(Label="refreshConnectionAfterMS", Tag=8, Type=uint),
                         ClusterObjectFieldDescriptor(Label="sessionExpiryIntervalS", Tag=9, Type=uint),
                         ClusterObjectFieldDescriptor(Label="maxPacketSize", Tag=10, Type=uint),
                         ClusterObjectFieldDescriptor(Label="maxReceivePacketCount", Tag=11, Type=uint),
@@ -52988,6 +52987,8 @@ class PhotonSmart(Cluster):
                         ClusterObjectFieldDescriptor(Label="requestProblemInfo", Tag=14, Type=bool),
                         ClusterObjectFieldDescriptor(Label="willDelayIntervalS", Tag=15, Type=uint),
                         ClusterObjectFieldDescriptor(Label="messageExpiryIntervalS", Tag=16, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="reconnectBackoffMaxMS", Tag=18, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="bootJitterMaxMS", Tag=19, Type=uint),
                         ClusterObjectFieldDescriptor(Label="payloadFormatIndicator", Tag=17, Type=bool),
                     ])
 
@@ -52996,9 +52997,8 @@ class PhotonSmart(Cluster):
             transport: 'PhotonSmart.Enums.MqttTransport' = 0
             keepAlive: 'uint' = 0
             cleanSession: 'bool' = False
-            reconnectTimeoutMS: 'uint' = 0
+            reconnectBackoffBaseMS: 'uint' = 0
             timeoutMS: 'uint' = 0
-            refreshConnectionAfterMS: 'uint' = 0
             sessionExpiryIntervalS: 'uint' = 0
             maxPacketSize: 'uint' = 0
             maxReceivePacketCount: 'uint' = 0
@@ -53007,6 +53007,8 @@ class PhotonSmart(Cluster):
             requestProblemInfo: 'bool' = False
             willDelayIntervalS: 'uint' = 0
             messageExpiryIntervalS: 'uint' = 0
+            reconnectBackoffMaxMS: 'uint' = 0
+            bootJitterMaxMS: 'uint' = 0
             payloadFormatIndicator: 'bool' = False
 
     class Commands:

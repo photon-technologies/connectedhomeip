@@ -20931,9 +20931,8 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue.transport)];
         value.keepAlive = [NSNumber numberWithUnsignedShort:cppValue.keepAlive];
         value.cleanSession = [NSNumber numberWithBool:cppValue.cleanSession];
-        value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
+        value.reconnectBackoffBaseMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectBackoffBaseMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
-        value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:cppValue.refreshConnectionAfterMS];
         value.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:cppValue.sessionExpiryIntervalS];
         value.maxPacketSize = [NSNumber numberWithUnsignedInt:cppValue.maxPacketSize];
         value.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:cppValue.maxReceivePacketCount];
@@ -20943,6 +20942,8 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.willDelayIntervalS = [NSNumber numberWithUnsignedInt:cppValue.willDelayIntervalS];
         value.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:cppValue.messageExpiryIntervalS];
         value.payloadFormatIndicator = [NSNumber numberWithBool:cppValue.payloadFormatIndicator];
+        value.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectBackoffMaxMS];
+        value.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:cppValue.bootJitterMaxMS];
         return value;
     }
     case Attributes::MqttReportEnabled::Id: {

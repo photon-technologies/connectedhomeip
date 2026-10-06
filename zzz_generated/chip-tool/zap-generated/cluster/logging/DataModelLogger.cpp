@@ -8049,10 +8049,10 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         }
     }
     {
-        CHIP_ERROR err = LogValue("ReconnectTimeoutMS", indent + 1, value.reconnectTimeoutMS);
+        CHIP_ERROR err = LogValue("ReconnectBackoffBaseMS", indent + 1, value.reconnectBackoffBaseMS);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReconnectTimeoutMS'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReconnectBackoffBaseMS'");
             return err;
         }
     }
@@ -8061,14 +8061,6 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'TimeoutMS'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("RefreshConnectionAfterMS", indent + 1, value.refreshConnectionAfterMS);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'RefreshConnectionAfterMS'");
             return err;
         }
     }
@@ -8141,6 +8133,22 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'PayloadFormatIndicator'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReconnectBackoffMaxMS", indent + 1, value.reconnectBackoffMaxMS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReconnectBackoffMaxMS'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("BootJitterMaxMS", indent + 1, value.bootJitterMaxMS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'BootJitterMaxMS'");
             return err;
         }
     }

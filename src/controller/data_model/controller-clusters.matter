@@ -11341,9 +11341,8 @@ cluster PhotonSmart = 367524864 {
     MqttTransport transport = 3;
     int16u keepAlive = 4;
     boolean cleanSession = 5;
-    int32u reconnectTimeoutMS = 6;
+    int32u reconnectBackoffBaseMS = 6;
     int32u timeoutMS = 7;
-    int32u refreshConnectionAfterMS = 8;
     int32u sessionExpiryIntervalS = 9;
     int32u maxPacketSize = 10;
     int16u maxReceivePacketCount = 11;
@@ -11353,6 +11352,8 @@ cluster PhotonSmart = 367524864 {
     int32u willDelayIntervalS = 15;
     int32u messageExpiryIntervalS = 16;
     boolean payloadFormatIndicator = 17;
+    int32u reconnectBackoffMaxMS = 18;
+    int32u bootJitterMaxMS = 19;
   }
 
   readonly attribute access(read: administer) char_string<36> deviceId = 0;
