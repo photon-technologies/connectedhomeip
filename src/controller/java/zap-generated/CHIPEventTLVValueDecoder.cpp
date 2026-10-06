@@ -9024,75 +9024,6 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         }
         break;
     }
-    case app::Clusters::FreshMideaAirConditionerAlarm::Id: {
-        using namespace app::Clusters::FreshMideaAirConditionerAlarm;
-        switch (aPath.mEventId)
-        {
-        case Events::Notify::Id: {
-            Events::Notify::DecodableType cppValue;
-            *aError = app::DataModel::Decode(aReader, cppValue);
-            if (*aError != CHIP_NO_ERROR)
-            {
-                return nullptr;
-            }
-            jobject value_active;
-            std::string value_activeClassName     = "java/lang/Long";
-            std::string value_activeCtorSignature = "(J)V";
-            jlong jnivalue_active                 = static_cast<jlong>(cppValue.active.Raw());
-            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
-                value_activeClassName.c_str(), value_activeCtorSignature.c_str(), jnivalue_active, value_active);
-
-            jobject value_inactive;
-            std::string value_inactiveClassName     = "java/lang/Long";
-            std::string value_inactiveCtorSignature = "(J)V";
-            jlong jnivalue_inactive                 = static_cast<jlong>(cppValue.inactive.Raw());
-            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
-                value_inactiveClassName.c_str(), value_inactiveCtorSignature.c_str(), jnivalue_inactive, value_inactive);
-
-            jobject value_state;
-            std::string value_stateClassName     = "java/lang/Long";
-            std::string value_stateCtorSignature = "(J)V";
-            jlong jnivalue_state                 = static_cast<jlong>(cppValue.state.Raw());
-            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
-                value_stateClassName.c_str(), value_stateCtorSignature.c_str(), jnivalue_state, value_state);
-
-            jobject value_mask;
-            std::string value_maskClassName     = "java/lang/Long";
-            std::string value_maskCtorSignature = "(J)V";
-            jlong jnivalue_mask                 = static_cast<jlong>(cppValue.mask.Raw());
-            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_maskClassName.c_str(),
-                                                                        value_maskCtorSignature.c_str(), jnivalue_mask, value_mask);
-
-            jclass notifyStructClass;
-            err = chip::JniReferences::GetInstance().GetLocalClassRef(
-                env, "chip/devicecontroller/ChipEventStructs$FreshMideaAirConditionerAlarmClusterNotifyEvent", notifyStructClass);
-            if (err != CHIP_NO_ERROR)
-            {
-                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshMideaAirConditionerAlarmClusterNotifyEvent");
-                return nullptr;
-            }
-
-            jmethodID notifyStructCtor;
-            err = chip::JniReferences::GetInstance().FindMethod(
-                env, notifyStructClass, "<init>", "(Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;)V",
-                &notifyStructCtor);
-            if (err != CHIP_NO_ERROR || notifyStructCtor == nullptr)
-            {
-                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshMideaAirConditionerAlarmClusterNotifyEvent constructor");
-                return nullptr;
-            }
-
-            jobject value =
-                env->NewObject(notifyStructClass, notifyStructCtor, value_active, value_inactive, value_state, value_mask);
-
-            return value;
-        }
-        default:
-            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
-            break;
-        }
-        break;
-    }
     case app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         using namespace app::Clusters::FreshRefrigeratorErrorsAlarm;
         switch (aPath.mEventId)
@@ -9354,6 +9285,43 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
 
             jobject value =
                 env->NewObject(antiLegionellaCycleCompletedStructClass, antiLegionellaCycleCompletedStructCtor, value_status);
+
+            return value;
+        }
+        case Events::NotifyError::Id: {
+            Events::NotifyError::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_code;
+            std::string value_codeClassName     = "java/lang/Integer";
+            std::string value_codeCtorSignature = "(I)V";
+            jint jnivalue_code                  = static_cast<jint>(cppValue.code);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(value_codeClassName.c_str(), value_codeCtorSignature.c_str(),
+                                                                       jnivalue_code, value_code);
+
+            jclass notifyErrorStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshWaterHeaterControllerClusterNotifyErrorEvent",
+                notifyErrorStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshWaterHeaterControllerClusterNotifyErrorEvent");
+                return nullptr;
+            }
+
+            jmethodID notifyErrorStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, notifyErrorStructClass, "<init>", "(Ljava/lang/Integer;)V",
+                                                                &notifyErrorStructCtor);
+            if (err != CHIP_NO_ERROR || notifyErrorStructCtor == nullptr)
+            {
+                ChipLogError(Zcl, "Could not find ChipEventStructs$FreshWaterHeaterControllerClusterNotifyErrorEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(notifyErrorStructClass, notifyErrorStructCtor, value_code);
 
             return value;
         }

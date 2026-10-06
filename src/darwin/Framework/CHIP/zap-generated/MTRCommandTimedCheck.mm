@@ -1319,15 +1319,6 @@ static BOOL CommandNeedsTimedInvokeInPhotonSmartCluster(AttributeId aAttributeId
     }
     }
 }
-static BOOL CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
-{
-    using namespace Clusters::FreshMideaAirConditionerAlarm;
-    switch (aAttributeId) {
-    default: {
-        return NO;
-    }
-    }
-}
 static BOOL CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::FreshRefrigeratorErrorsAlarm;
@@ -1808,9 +1799,6 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::PhotonSmart::Id: {
         return CommandNeedsTimedInvokeInPhotonSmartCluster(commandID);
-    }
-    case Clusters::FreshMideaAirConditionerAlarm::Id: {
-        return CommandNeedsTimedInvokeInFreshMideaAirConditionerAlarmCluster(commandID);
     }
     case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         return CommandNeedsTimedInvokeInFreshRefrigeratorErrorsAlarmCluster(commandID);

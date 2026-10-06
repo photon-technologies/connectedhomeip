@@ -915,8 +915,6 @@ static CHIP_ERROR
 LogValue(const char * label, size_t indent,
          const chip::app::Clusters::CommissionerControl::Events::CommissioningRequestResult::DecodableType & value);
 static CHIP_ERROR LogValue(const char * label, size_t indent,
-                           const chip::app::Clusters::FreshMideaAirConditionerAlarm::Events::Notify::DecodableType & value);
-static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Events::Notify::DecodableType & value);
 static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::FreshMideaController::Events::ActiveCleanStarted::DecodableType & value);
@@ -930,6 +928,8 @@ LogValue(const char * label, size_t indent,
 static CHIP_ERROR
 LogValue(const char * label, size_t indent,
          const chip::app::Clusters::FreshWaterHeaterController::Events::AntiLegionellaCycleCompleted::DecodableType & value);
+static CHIP_ERROR LogValue(const char * label, size_t indent,
+                           const chip::app::Clusters::FreshWaterHeaterController::Events::NotifyError::DecodableType & value);
 static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::FreshWaterHeaterErrorsAlarm::Events::Notify::DecodableType & value);
 static CHIP_ERROR LogValue(const char * label, size_t indent,

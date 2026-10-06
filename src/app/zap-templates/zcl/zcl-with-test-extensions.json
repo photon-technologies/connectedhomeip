@@ -147,7 +147,6 @@
         "matter-devices.xml",
         "sample-mei-cluster.xml",
         "zone-management-cluster.xml",
-        "fresh-ac-error-cluster.xml",
         "fresh-refrigerator-controller.xml",
         "fresh-refrigerator-errors.xml",
         "fresh-midea-controller-cluster.xml",

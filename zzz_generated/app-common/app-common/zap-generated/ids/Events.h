@@ -71,7 +71,6 @@
 #include <clusters/FixedLabel/EventIds.h>
 #include <clusters/FlowMeasurement/EventIds.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/EventIds.h>
-#include <clusters/FreshMideaAirConditionerAlarm/EventIds.h>
 #include <clusters/FreshMideaController/EventIds.h>
 #include <clusters/FreshRefrigeratorController/EventIds.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/EventIds.h>

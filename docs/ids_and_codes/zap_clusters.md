@@ -150,7 +150,6 @@ Generally regenerate using one of:
 |       2822 |      0xB06 | MeterIdentification                                     |
 |       2823 |      0xB07 | CommodityMetering                                       |
 |  367524864 | 0x15E7FC00 | PhotonSmart                                             |
-|  367524865 | 0x15E7FC01 | FreshMideaAirConditionerAlarm                           |
 |  367524866 | 0x15E7FC02 | FreshRefrigeratorErrorsAlarm                            |
 |  367524867 | 0x15E7FC03 | FreshRefrigeratorController                             |
 |  367524868 | 0x15E7FC04 | FreshMideaController                                    |

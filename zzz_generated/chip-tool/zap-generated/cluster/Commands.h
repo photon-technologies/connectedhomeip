@@ -173,7 +173,6 @@
 | MeterIdentification                                                 | 0x0B06 |
 | CommodityMetering                                                   | 0x0B07 |
 | PhotonSmart                                                         | 0x15E7FC00|
-| FreshMideaAirConditionerAlarm                                       | 0x15E7FC01|
 | FreshRefrigeratorErrorsAlarm                                        | 0x15E7FC02|
 | FreshRefrigeratorController                                         | 0x15E7FC03|
 | FreshMideaController                                                | 0x15E7FC04|
@@ -17529,64 +17528,6 @@ private:
 };
 
 /*----------------------------------------------------------------------------*\
-| Cluster FreshMideaAirConditionerAlarm                               | 0x15E7FC01 |
-|------------------------------------------------------------------------------|
-| Commands:                                                           |        |
-| * Reset                                                             |   0x00 |
-|------------------------------------------------------------------------------|
-| Attributes:                                                         |        |
-| * Mask                                                              | 0x0000 |
-| * Latch                                                             | 0x0001 |
-| * State                                                             | 0x0002 |
-| * Supported                                                         | 0x0003 |
-| * GeneratedCommandList                                              | 0xFFF8 |
-| * AcceptedCommandList                                               | 0xFFF9 |
-| * AttributeList                                                     | 0xFFFB |
-| * FeatureMap                                                        | 0xFFFC |
-| * ClusterRevision                                                   | 0xFFFD |
-|------------------------------------------------------------------------------|
-| Events:                                                             |        |
-| * Notify                                                            | 0x0000 |
-\*----------------------------------------------------------------------------*/
-
-/*
- * Command Reset
- */
-class FreshMideaAirConditionerAlarmReset : public ClusterCommand
-{
-public:
-    FreshMideaAirConditionerAlarmReset(CredentialIssuerCommands * credsIssuerConfig) : ClusterCommand("reset", credsIssuerConfig)
-    {
-        AddArgument("Alarms", 0, UINT32_MAX, &mRequest.alarms);
-        ClusterCommand::AddArguments();
-    }
-
-    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaAirConditionerAlarm::Id;
-        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
-                        commandId, endpointIds.at(0));
-        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
-    }
-
-    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshMideaAirConditionerAlarm::Id;
-        constexpr chip::CommandId commandId = chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
-                        groupId);
-
-        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
-    }
-
-private:
-    chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::Type mRequest;
-};
-
-/*----------------------------------------------------------------------------*\
 | Cluster FreshRefrigeratorErrorsAlarm                                | 0x15E7FC02 |
 |------------------------------------------------------------------------------|
 | Commands:                                                           |        |
@@ -17913,6 +17854,7 @@ private:
 | Events:                                                             |        |
 | * AntiLegionellaCycleStarted                                        | 0x0000 |
 | * AntiLegionellaCycleCompleted                                      | 0x0001 |
+| * NotifyError                                                       | 0x0002 |
 \*----------------------------------------------------------------------------*/
 
 /*
@@ -31801,72 +31743,6 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
 
     commands.RegisterCluster(clusterName, clusterCommands);
 }
-void registerClusterFreshMideaAirConditionerAlarm(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
-{
-    using namespace chip::app::Clusters::FreshMideaAirConditionerAlarm;
-
-    const char * clusterName = "FreshMideaAirConditionerAlarm";
-
-    commands_list clusterCommands = {
-        //
-        // Commands
-        //
-        make_unique<ClusterCommand>(Id, credsIssuerConfig),                 //
-        make_unique<FreshMideaAirConditionerAlarmReset>(credsIssuerConfig), //
-        //
-        // Attributes
-        //
-        make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                 //
-        make_unique<ReadAttribute>(Id, "mask", Attributes::Mask::Id, credsIssuerConfig),                                   //
-        make_unique<ReadAttribute>(Id, "latch", Attributes::Latch::Id, credsIssuerConfig),                                 //
-        make_unique<ReadAttribute>(Id, "state", Attributes::State::Id, credsIssuerConfig),                                 //
-        make_unique<ReadAttribute>(Id, "supported", Attributes::Supported::Id, credsIssuerConfig),                         //
-        make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
-        make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
-        make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
-        make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
-        make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
-        make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
-        make_unique<WriteAttribute<chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap>>>(
-            Id, "mask", 0, UINT32_MAX, Attributes::Mask::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap>>>(
-            Id, "latch", 0, UINT32_MAX, Attributes::Latch::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap>>>(
-            Id, "state", 0, UINT32_MAX, Attributes::State::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap>>>(
-            Id, "supported", 0, UINT32_MAX, Attributes::Supported::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
-            Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
-            credsIssuerConfig), //
-        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
-            Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::AttributeId>>>(
-            Id, "attribute-list", Attributes::AttributeList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
-        make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
-                                              WriteCommandType::kForceWrite, credsIssuerConfig),                                //
-        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                                 //
-        make_unique<SubscribeAttribute>(Id, "mask", Attributes::Mask::Id, credsIssuerConfig),                                   //
-        make_unique<SubscribeAttribute>(Id, "latch", Attributes::Latch::Id, credsIssuerConfig),                                 //
-        make_unique<SubscribeAttribute>(Id, "state", Attributes::State::Id, credsIssuerConfig),                                 //
-        make_unique<SubscribeAttribute>(Id, "supported", Attributes::Supported::Id, credsIssuerConfig),                         //
-        make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
-        make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
-        make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
-        make_unique<SubscribeAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
-        make_unique<SubscribeAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
-        //
-        // Events
-        //
-        make_unique<ReadEvent>(Id, credsIssuerConfig),                                    //
-        make_unique<ReadEvent>(Id, "notify", Events::Notify::Id, credsIssuerConfig),      //
-        make_unique<SubscribeEvent>(Id, credsIssuerConfig),                               //
-        make_unique<SubscribeEvent>(Id, "notify", Events::Notify::Id, credsIssuerConfig), //
-    };
-
-    commands.RegisterCluster(clusterName, clusterCommands);
-}
 void registerClusterFreshRefrigeratorErrorsAlarm(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
 {
     using namespace chip::app::Clusters::FreshRefrigeratorErrorsAlarm;
@@ -32389,12 +32265,14 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
         make_unique<ReadEvent>(Id, credsIssuerConfig),                                                                          //
         make_unique<ReadEvent>(Id, "anti-legionella-cycle-started", Events::AntiLegionellaCycleStarted::Id, credsIssuerConfig), //
         make_unique<ReadEvent>(Id, "anti-legionella-cycle-completed", Events::AntiLegionellaCycleCompleted::Id,
-                               credsIssuerConfig),          //
-        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+                               credsIssuerConfig),                                              //
+        make_unique<ReadEvent>(Id, "notify-error", Events::NotifyError::Id, credsIssuerConfig), //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig),                                     //
         make_unique<SubscribeEvent>(Id, "anti-legionella-cycle-started", Events::AntiLegionellaCycleStarted::Id,
                                     credsIssuerConfig), //
         make_unique<SubscribeEvent>(Id, "anti-legionella-cycle-completed", Events::AntiLegionellaCycleCompleted::Id,
-                                    credsIssuerConfig), //
+                                    credsIssuerConfig),                                              //
+        make_unique<SubscribeEvent>(Id, "notify-error", Events::NotifyError::Id, credsIssuerConfig), //
     };
 
     commands.RegisterCluster(clusterName, clusterCommands);
@@ -33213,7 +33091,6 @@ void registerClusters(Commands & commands, CredentialIssuerCommands * credsIssue
     registerClusterMeterIdentification(commands, credsIssuerConfig);
     registerClusterCommodityMetering(commands, credsIssuerConfig);
     registerClusterPhotonSmart(commands, credsIssuerConfig);
-    registerClusterFreshMideaAirConditionerAlarm(commands, credsIssuerConfig);
     registerClusterFreshRefrigeratorErrorsAlarm(commands, credsIssuerConfig);
     registerClusterFreshRefrigeratorController(commands, credsIssuerConfig);
     registerClusterFreshMideaController(commands, credsIssuerConfig);

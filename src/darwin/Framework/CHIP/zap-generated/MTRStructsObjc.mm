@@ -11764,6 +11764,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRFreshWaterHeaterControllerClusterNotifyErrorEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _code = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterNotifyErrorEvent alloc] init];
+
+    other.code = self.code;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: code:%@; >", NSStringFromClass([self class]), _code];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRFreshWaterHeaterErrorsAlarmClusterNotifyEvent
 - (instancetype)init
 {

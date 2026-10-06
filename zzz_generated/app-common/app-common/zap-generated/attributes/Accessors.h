@@ -5993,64 +5993,6 @@ Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, Mar
 } // namespace Attributes
 } // namespace PhotonSmart
 
-namespace FreshMideaAirConditionerAlarm {
-namespace Attributes {
-
-namespace Mask {
-Protocols::InteractionModel::Status
-Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
-                                        MarkAttributeDirty markDirty);
-} // namespace Mask
-
-namespace Latch {
-Protocols::InteractionModel::Status
-Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
-                                        MarkAttributeDirty markDirty);
-} // namespace Latch
-
-namespace State {
-Protocols::InteractionModel::Status
-Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
-                                        MarkAttributeDirty markDirty);
-} // namespace State
-
-namespace Supported {
-Protocols::InteractionModel::Status
-Get(EndpointId endpoint, chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> * value); // AlarmBitmap
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint,
-                                        chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value,
-                                        MarkAttributeDirty markDirty);
-} // namespace Supported
-
-namespace FeatureMap {
-Protocols::InteractionModel::Status Get(EndpointId endpoint, uint32_t * value); // bitmap32
-Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint, uint32_t value, MarkAttributeDirty markDirty);
-} // namespace FeatureMap
-
-namespace ClusterRevision {
-Protocols::InteractionModel::Status Get(EndpointId endpoint, uint16_t * value); // int16u
-Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value);
-Protocols::InteractionModel::Status Set(EndpointId endpoint, uint16_t value, MarkAttributeDirty markDirty);
-} // namespace ClusterRevision
-
-} // namespace Attributes
-} // namespace FreshMideaAirConditionerAlarm
-
 namespace FreshRefrigeratorErrorsAlarm {
 namespace Attributes {
 

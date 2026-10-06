@@ -73,7 +73,6 @@
 #include <clusters/FixedLabel/EnumsCheck.h>
 #include <clusters/FlowMeasurement/EnumsCheck.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/EnumsCheck.h>
-#include <clusters/FreshMideaAirConditionerAlarm/EnumsCheck.h>
 #include <clusters/FreshMideaController/EnumsCheck.h>
 #include <clusters/FreshRefrigeratorController/EnumsCheck.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/EnumsCheck.h>

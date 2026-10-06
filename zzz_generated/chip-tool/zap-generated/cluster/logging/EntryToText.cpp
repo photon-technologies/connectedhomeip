@@ -301,8 +301,6 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "CommodityMetering";
     case chip::app::Clusters::PhotonSmart::Id:
         return "PhotonSmart";
-    case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id:
-        return "FreshMideaAirConditionerAlarm";
     case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id:
         return "FreshRefrigeratorErrorsAlarm";
     case chip::app::Clusters::FreshRefrigeratorController::Id:
@@ -4828,31 +4826,6 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
-    case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id: {
-        switch (id)
-        {
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::Mask::Id:
-            return "Mask";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::Latch::Id:
-            return "Latch";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::State::Id:
-            return "State";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::Supported::Id:
-            return "Supported";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::GeneratedCommandList::Id:
-            return "GeneratedCommandList";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::AcceptedCommandList::Id:
-            return "AcceptedCommandList";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::AttributeList::Id:
-            return "AttributeList";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::FeatureMap::Id:
-            return "FeatureMap";
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Attributes::ClusterRevision::Id:
-            return "ClusterRevision";
-        default:
-            return "Unknown";
-        }
-    }
     case chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         switch (id)
         {
@@ -6642,15 +6615,6 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Reboot";
         case chip::app::Clusters::PhotonSmart::Commands::FactoryReset::Id:
             return "FactoryReset";
-        default:
-            return "Unknown";
-        }
-    }
-    case chip::app::Clusters::FreshMideaAirConditionerAlarm::Id: {
-        switch (id)
-        {
-        case chip::app::Clusters::FreshMideaAirConditionerAlarm::Commands::Reset::Id:
-            return "Reset";
         default:
             return "Unknown";
         }

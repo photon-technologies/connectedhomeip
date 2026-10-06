@@ -5159,51 +5159,6 @@ static id _Nullable DecodeEventPayloadForPhotonSmartCluster(EventId aEventId, TL
     *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
     return nil;
 }
-static id _Nullable DecodeEventPayloadForFreshMideaAirConditionerAlarmCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
-{
-    using namespace Clusters::FreshMideaAirConditionerAlarm;
-    switch (aEventId) {
-    case Events::Notify::Id: {
-        Events::Notify::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-
-        __auto_type * value = [MTRFreshMideaAirConditionerAlarmClusterNotifyEvent new];
-
-        do {
-            NSNumber * _Nonnull memberValue;
-            memberValue = [NSNumber numberWithUnsignedInt:cppValue.active.Raw()];
-            value.active = memberValue;
-        } while (0);
-        do {
-            NSNumber * _Nonnull memberValue;
-            memberValue = [NSNumber numberWithUnsignedInt:cppValue.inactive.Raw()];
-            value.inactive = memberValue;
-        } while (0);
-        do {
-            NSNumber * _Nonnull memberValue;
-            memberValue = [NSNumber numberWithUnsignedInt:cppValue.state.Raw()];
-            value.state = memberValue;
-        } while (0);
-        do {
-            NSNumber * _Nonnull memberValue;
-            memberValue = [NSNumber numberWithUnsignedInt:cppValue.mask.Raw()];
-            value.mask = memberValue;
-        } while (0);
-
-        return value;
-    }
-    default: {
-        // Not a known FreshMideaAirConditionerAlarm event.
-        break;
-    }
-    }
-
-    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
-    return nil;
-}
 static id _Nullable DecodeEventPayloadForFreshRefrigeratorErrorsAlarmCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::FreshRefrigeratorErrorsAlarm;
@@ -5342,6 +5297,23 @@ static id _Nullable DecodeEventPayloadForFreshWaterHeaterControllerCluster(Event
             NSNumber * _Nonnull memberValue;
             memberValue = [NSNumber numberWithBool:cppValue.status];
             value.status = memberValue;
+        } while (0);
+
+        return value;
+    }
+    case Events::NotifyError::Id: {
+        Events::NotifyError::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+
+        __auto_type * value = [MTRFreshWaterHeaterControllerClusterNotifyErrorEvent new];
+
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedChar:cppValue.code];
+            value.code = memberValue;
         } while (0);
 
         return value;
@@ -5998,9 +5970,6 @@ id _Nullable MTRDecodeEventPayload(const ConcreteEventPath & aPath, TLV::TLVRead
     }
     case Clusters::PhotonSmart::Id: {
         return DecodeEventPayloadForPhotonSmartCluster(aPath.mEventId, aReader, aError);
-    }
-    case Clusters::FreshMideaAirConditionerAlarm::Id: {
-        return DecodeEventPayloadForFreshMideaAirConditionerAlarmCluster(aPath.mEventId, aReader, aError);
     }
     case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         return DecodeEventPayloadForFreshRefrigeratorErrorsAlarmCluster(aPath.mEventId, aReader, aError);

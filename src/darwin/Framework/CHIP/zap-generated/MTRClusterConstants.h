@@ -218,7 +218,6 @@ typedef NS_ENUM(uint32_t, MTRClusterIDType) {
     MTRClusterIDTypeMeterIdentificationID MTR_PROVISIONALLY_AVAILABLE = 0x00000B06,
     MTRClusterIDTypeCommodityMeteringID MTR_PROVISIONALLY_AVAILABLE = 0x00000B07,
     MTRClusterIDTypePhotonSmartID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC00,
-    MTRClusterIDTypeFreshMideaAirConditionerAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC01,
     MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC02,
     MTRClusterIDTypeFreshRefrigeratorControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC03,
     MTRClusterIDTypeFreshMideaControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC04,
@@ -4935,17 +4934,6 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterPhotonSmartAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
     MTRAttributeIDTypeClusterPhotonSmartAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
 
-    // Cluster FreshMideaAirConditionerAlarm attributes
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeSupportedID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
-    MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
-
     // Cluster FreshRefrigeratorErrorsAlarm attributes
     MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeMaskID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRAttributeIDTypeClusterFreshRefrigeratorErrorsAlarmAttributeLatchID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
@@ -7372,9 +7360,6 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     MTRCommandIDTypeClusterPhotonSmartCommandRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRCommandIDTypeClusterPhotonSmartCommandFactoryResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
 
-    // Cluster FreshMideaAirConditionerAlarm commands
-    MTRCommandIDTypeClusterFreshMideaAirConditionerAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
-
     // Cluster FreshRefrigeratorErrorsAlarm commands
     MTRCommandIDTypeClusterFreshRefrigeratorErrorsAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
@@ -7988,9 +7973,6 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
     // Cluster CommissionerControl events
     MTREventIDTypeClusterCommissionerControlEventCommissioningRequestResultID MTR_AVAILABLE(ios(18.4), macos(15.4), watchos(11.4), tvos(18.4)) = 0x00000000,
 
-    // Cluster FreshMideaAirConditionerAlarm events
-    MTREventIDTypeClusterFreshMideaAirConditionerAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
-
     // Cluster FreshRefrigeratorErrorsAlarm events
     MTREventIDTypeClusterFreshRefrigeratorErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
@@ -8002,6 +7984,7 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
     // Cluster FreshWaterHeaterController events
     MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleCompletedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTREventIDTypeClusterFreshWaterHeaterControllerEventNotifyErrorID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
 
     // Cluster FreshWaterHeaterErrorsAlarm events
     MTREventIDTypeClusterFreshWaterHeaterErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,

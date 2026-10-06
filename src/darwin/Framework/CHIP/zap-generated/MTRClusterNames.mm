@@ -432,9 +432,6 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypePhotonSmartID:
         result = @"PhotonSmart";
         break;
-    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
-        result = @"FreshMideaAirConditionerAlarm";
-        break;
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
         result = @"FreshRefrigeratorErrorsAlarm";
         break;
@@ -9101,54 +9098,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
-    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
-
-        switch (attributeID) {
-
-            // Cluster FreshMideaAirConditionerAlarm attributes
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeMaskID:
-            result = @"Mask";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeLatchID:
-            result = @"Latch";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeStateID:
-            result = @"State";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeSupportedID:
-            result = @"Supported";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeGeneratedCommandListID:
-            result = @"GeneratedCommandList";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAcceptedCommandListID:
-            result = @"AcceptedCommandList";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeAttributeListID:
-            result = @"AttributeList";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeFeatureMapID:
-            result = @"FeatureMap";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshMideaAirConditionerAlarmAttributeClusterRevisionID:
-            result = @"ClusterRevision";
-            break;
-
-        default:
-            // Not a known FreshMideaAirConditionerAlarm attribute.
-            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
-            break;
-        }
-        break;
-
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (attributeID) {
@@ -12799,20 +12748,6 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
-    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
-
-        switch (commandID) {
-
-        case MTRCommandIDTypeClusterFreshMideaAirConditionerAlarmCommandResetID:
-            result = @"Reset";
-            break;
-
-        default:
-            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
-            break;
-        }
-        break;
-
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (commandID) {
@@ -14778,16 +14713,6 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         break;
 
     case MTRClusterIDTypePhotonSmartID:
-
-        switch (commandID) {
-
-        default:
-            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
-            break;
-        }
-        break;
-
-    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
 
         switch (commandID) {
 
@@ -16829,21 +16754,6 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         }
         break;
 
-    case MTRClusterIDTypeFreshMideaAirConditionerAlarmID:
-
-        switch (eventID) {
-
-            // Cluster FreshMideaAirConditionerAlarm events
-        case MTREventIDTypeClusterFreshMideaAirConditionerAlarmEventNotifyID:
-            result = @"Notify";
-            break;
-
-        default:
-            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
-            break;
-        }
-        break;
-
     case MTRClusterIDTypeFreshRefrigeratorErrorsAlarmID:
 
         switch (eventID) {
@@ -16903,6 +16813,10 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
 
         case MTREventIDTypeClusterFreshWaterHeaterControllerEventAntiLegionellaCycleCompletedID:
             result = @"AntiLegionellaCycleCompleted";
+            break;
+
+        case MTREventIDTypeClusterFreshWaterHeaterControllerEventNotifyErrorID:
+            result = @"NotifyError";
             break;
 
         default:

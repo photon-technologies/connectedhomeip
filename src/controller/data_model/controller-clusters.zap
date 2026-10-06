@@ -3324,14 +3324,6 @@
           "enabled": 1
         },
         {
-          "name": "Fresh Midea Air Conditioner Alarm",
-          "code": 367524865,
-          "mfgCode": null,
-          "define": "FRESH_MIDEA_AC_ALARM_CLUSTER",
-          "side": "client",
-          "enabled": 1
-        },
-        {
           "name": "Fresh Refrigerator Errors Alarm",
           "code": 367524866,
           "mfgCode": null,
