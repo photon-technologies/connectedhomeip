@@ -227,10 +227,6 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.ipp>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.ipp>
-#include <clusters/FreshMideaAirConditionerAlarm/Attributes.ipp>
-#include <clusters/FreshMideaAirConditionerAlarm/Commands.ipp>
-#include <clusters/FreshMideaAirConditionerAlarm/Events.ipp>
-#include <clusters/FreshMideaAirConditionerAlarm/Structs.ipp>
 #include <clusters/FreshMideaController/Attributes.ipp>
 #include <clusters/FreshMideaController/Commands.ipp>
 #include <clusters/FreshMideaController/Events.ipp>
@@ -1440,13 +1436,6 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
         }
     }
     case Clusters::PhotonSmart::Id: {
-        switch (aCommand)
-        {
-        default:
-            return false;
-        }
-    }
-    case Clusters::FreshMideaAirConditionerAlarm::Id: {
         switch (aCommand)
         {
         default:

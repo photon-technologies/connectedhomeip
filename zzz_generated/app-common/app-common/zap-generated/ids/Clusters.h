@@ -71,7 +71,6 @@
 #include <clusters/FixedLabel/ClusterId.h>
 #include <clusters/FlowMeasurement/ClusterId.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/ClusterId.h>
-#include <clusters/FreshMideaAirConditionerAlarm/ClusterId.h>
 #include <clusters/FreshMideaController/ClusterId.h>
 #include <clusters/FreshRefrigeratorController/ClusterId.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/ClusterId.h>

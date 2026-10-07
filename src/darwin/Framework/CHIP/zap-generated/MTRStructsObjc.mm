@@ -11500,11 +11500,9 @@ NS_ASSUME_NONNULL_BEGIN
 
         _cleanSession = @(0);
 
-        _reconnectTimeoutMS = @(0);
+        _reconnectBackoffBaseMS = @(0);
 
         _timeoutMS = @(0);
-
-        _refreshConnectionAfterMS = @(0);
 
         _sessionExpiryIntervalS = @(0);
 
@@ -11523,6 +11521,10 @@ NS_ASSUME_NONNULL_BEGIN
         _messageExpiryIntervalS = @(0);
 
         _payloadFormatIndicator = @(0);
+
+        _reconnectBackoffMaxMS = @(0);
+
+        _bootJitterMaxMS = @(0);
     }
     return self;
 }
@@ -11536,9 +11538,8 @@ NS_ASSUME_NONNULL_BEGIN
     other.transport = self.transport;
     other.keepAlive = self.keepAlive;
     other.cleanSession = self.cleanSession;
-    other.reconnectTimeoutMS = self.reconnectTimeoutMS;
+    other.reconnectBackoffBaseMS = self.reconnectBackoffBaseMS;
     other.timeoutMS = self.timeoutMS;
-    other.refreshConnectionAfterMS = self.refreshConnectionAfterMS;
     other.sessionExpiryIntervalS = self.sessionExpiryIntervalS;
     other.maxPacketSize = self.maxPacketSize;
     other.maxReceivePacketCount = self.maxReceivePacketCount;
@@ -11548,49 +11549,15 @@ NS_ASSUME_NONNULL_BEGIN
     other.willDelayIntervalS = self.willDelayIntervalS;
     other.messageExpiryIntervalS = self.messageExpiryIntervalS;
     other.payloadFormatIndicator = self.payloadFormatIndicator;
+    other.reconnectBackoffMaxMS = self.reconnectBackoffMaxMS;
+    other.bootJitterMaxMS = self.bootJitterMaxMS;
 
     return other;
 }
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectTimeoutMS:%@; timeoutMS:%@; refreshConnectionAfterMS:%@; sessionExpiryIntervalS:%@; maxPacketSize:%@; maxReceivePacketCount:%@; maxTopicAlias:%@; requestRespInfo:%@; requestProblemInfo:%@; willDelayIntervalS:%@; messageExpiryIntervalS:%@; payloadFormatIndicator:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectTimeoutMS, _timeoutMS, _refreshConnectionAfterMS, _sessionExpiryIntervalS, _maxPacketSize, _maxReceivePacketCount, _maxTopicAlias, _requestRespInfo, _requestProblemInfo, _willDelayIntervalS, _messageExpiryIntervalS, _payloadFormatIndicator];
-    return descriptionString;
-}
-
-@end
-
-@implementation MTRFreshMideaAirConditionerAlarmClusterNotifyEvent
-- (instancetype)init
-{
-    if (self = [super init]) {
-
-        _active = @(0);
-
-        _inactive = @(0);
-
-        _state = @(0);
-
-        _mask = @(0);
-    }
-    return self;
-}
-
-- (id)copyWithZone:(NSZone * _Nullable)zone
-{
-    auto other = [[MTRFreshMideaAirConditionerAlarmClusterNotifyEvent alloc] init];
-
-    other.active = self.active;
-    other.inactive = self.inactive;
-    other.state = self.state;
-    other.mask = self.mask;
-
-    return other;
-}
-
-- (NSString *)description
-{
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: active:%@; inactive:%@; state:%@; mask:%@; >", NSStringFromClass([self class]), _active, _inactive, _state, _mask];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectBackoffBaseMS:%@; timeoutMS:%@; sessionExpiryIntervalS:%@; maxPacketSize:%@; maxReceivePacketCount:%@; maxTopicAlias:%@; requestRespInfo:%@; requestProblemInfo:%@; willDelayIntervalS:%@; messageExpiryIntervalS:%@; payloadFormatIndicator:%@; reconnectBackoffMaxMS:%@; bootJitterMaxMS:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectBackoffBaseMS, _timeoutMS, _sessionExpiryIntervalS, _maxPacketSize, _maxReceivePacketCount, _maxTopicAlias, _requestRespInfo, _requestProblemInfo, _willDelayIntervalS, _messageExpiryIntervalS, _payloadFormatIndicator, _reconnectBackoffMaxMS, _bootJitterMaxMS];
     return descriptionString;
 }
 
@@ -11792,6 +11759,33 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)description
 {
     NSString * descriptionString = [NSString stringWithFormat:@"<%@: status:%@; >", NSStringFromClass([self class]), _status];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRFreshWaterHeaterControllerClusterNotifyErrorEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _code = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshWaterHeaterControllerClusterNotifyErrorEvent alloc] init];
+
+    other.code = self.code;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: code:%@; >", NSStringFromClass([self class]), _code];
     return descriptionString;
 }
 

@@ -8049,10 +8049,10 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         }
     }
     {
-        CHIP_ERROR err = LogValue("ReconnectTimeoutMS", indent + 1, value.reconnectTimeoutMS);
+        CHIP_ERROR err = LogValue("ReconnectBackoffBaseMS", indent + 1, value.reconnectBackoffBaseMS);
         if (err != CHIP_NO_ERROR)
         {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReconnectTimeoutMS'");
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReconnectBackoffBaseMS'");
             return err;
         }
     }
@@ -8061,14 +8061,6 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'TimeoutMS'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = LogValue("RefreshConnectionAfterMS", indent + 1, value.refreshConnectionAfterMS);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'RefreshConnectionAfterMS'");
             return err;
         }
     }
@@ -8141,6 +8133,22 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'PayloadFormatIndicator'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("ReconnectBackoffMaxMS", indent + 1, value.reconnectBackoffMaxMS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'ReconnectBackoffMaxMS'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = LogValue("BootJitterMaxMS", indent + 1, value.bootJitterMaxMS);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Struct truncated due to invalid value for 'BootJitterMaxMS'");
             return err;
         }
     }
@@ -11151,46 +11159,6 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
     return CHIP_NO_ERROR;
 }
 CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
-                                     const FreshMideaAirConditionerAlarm::Events::Notify::DecodableType & value)
-{
-    DataModelLogger::LogString(label, indent, "{");
-    {
-        CHIP_ERROR err = DataModelLogger::LogValue("Active", indent + 1, value.active);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Active'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = DataModelLogger::LogValue("Inactive", indent + 1, value.inactive);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Inactive'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = DataModelLogger::LogValue("State", indent + 1, value.state);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'State'");
-            return err;
-        }
-    }
-    {
-        CHIP_ERROR err = DataModelLogger::LogValue("Mask", indent + 1, value.mask);
-        if (err != CHIP_NO_ERROR)
-        {
-            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Mask'");
-            return err;
-        }
-    }
-    DataModelLogger::LogString(indent, "}");
-
-    return CHIP_NO_ERROR;
-}
-CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
                                      const FreshRefrigeratorErrorsAlarm::Events::Notify::DecodableType & value)
 {
     DataModelLogger::LogString(label, indent, "{");
@@ -11279,6 +11247,22 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
         if (err != CHIP_NO_ERROR)
         {
             DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Status'");
+            return err;
+        }
+    }
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
+                                     const FreshWaterHeaterController::Events::NotifyError::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("Code", indent + 1, value.code);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Code'");
             return err;
         }
     }
@@ -22373,57 +22357,6 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
         }
         break;
     }
-    case FreshMideaAirConditionerAlarm::Id: {
-        switch (path.mAttributeId)
-        {
-        case FreshMideaAirConditionerAlarm::Attributes::Mask::Id: {
-            chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("Mask", 1, value);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::Latch::Id: {
-            chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("Latch", 1, value);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::State::Id: {
-            chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("State", 1, value);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::Supported::Id: {
-            chip::BitMask<chip::app::Clusters::FreshMideaAirConditionerAlarm::AlarmBitmap> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("Supported", 1, value);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::GeneratedCommandList::Id: {
-            chip::app::DataModel::DecodableList<chip::CommandId> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, FreshMideaAirConditionerAlarm::Id);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::AcceptedCommandList::Id: {
-            chip::app::DataModel::DecodableList<chip::CommandId> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, FreshMideaAirConditionerAlarm::Id);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::AttributeList::Id: {
-            chip::app::DataModel::DecodableList<chip::AttributeId> value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogAttributeId("AttributeList", 1, value, FreshMideaAirConditionerAlarm::Id);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::FeatureMap::Id: {
-            uint32_t value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("FeatureMap", 1, value);
-        }
-        case FreshMideaAirConditionerAlarm::Attributes::ClusterRevision::Id: {
-            uint16_t value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("ClusterRevision", 1, value);
-        }
-        }
-        break;
-    }
     case FreshRefrigeratorErrorsAlarm::Id: {
         switch (path.mAttributeId)
         {
@@ -25278,17 +25211,6 @@ CHIP_ERROR DataModelLogger::LogEvent(const chip::app::EventHeader & header, chip
         }
         break;
     }
-    case FreshMideaAirConditionerAlarm::Id: {
-        switch (header.mPath.mEventId)
-        {
-        case FreshMideaAirConditionerAlarm::Events::Notify::Id: {
-            chip::app::Clusters::FreshMideaAirConditionerAlarm::Events::Notify::DecodableType value;
-            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
-            return DataModelLogger::LogValue("Notify", 1, value);
-        }
-        }
-        break;
-    }
     case FreshRefrigeratorErrorsAlarm::Id: {
         switch (header.mPath.mEventId)
         {
@@ -25333,6 +25255,11 @@ CHIP_ERROR DataModelLogger::LogEvent(const chip::app::EventHeader & header, chip
             chip::app::Clusters::FreshWaterHeaterController::Events::AntiLegionellaCycleCompleted::DecodableType value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("AntiLegionellaCycleCompleted", 1, value);
+        }
+        case FreshWaterHeaterController::Events::NotifyError::Id: {
+            chip::app::Clusters::FreshWaterHeaterController::Events::NotifyError::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("NotifyError", 1, value);
         }
         }
         break;

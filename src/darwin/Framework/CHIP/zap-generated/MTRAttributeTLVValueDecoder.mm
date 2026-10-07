@@ -20931,9 +20931,8 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue.transport)];
         value.keepAlive = [NSNumber numberWithUnsignedShort:cppValue.keepAlive];
         value.cleanSession = [NSNumber numberWithBool:cppValue.cleanSession];
-        value.reconnectTimeoutMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectTimeoutMS];
+        value.reconnectBackoffBaseMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectBackoffBaseMS];
         value.timeoutMS = [NSNumber numberWithUnsignedInt:cppValue.timeoutMS];
-        value.refreshConnectionAfterMS = [NSNumber numberWithUnsignedInt:cppValue.refreshConnectionAfterMS];
         value.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:cppValue.sessionExpiryIntervalS];
         value.maxPacketSize = [NSNumber numberWithUnsignedInt:cppValue.maxPacketSize];
         value.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:cppValue.maxReceivePacketCount];
@@ -20943,6 +20942,8 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.willDelayIntervalS = [NSNumber numberWithUnsignedInt:cppValue.willDelayIntervalS];
         value.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:cppValue.messageExpiryIntervalS];
         value.payloadFormatIndicator = [NSNumber numberWithBool:cppValue.payloadFormatIndicator];
+        value.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectBackoffMaxMS];
+        value.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:cppValue.bootJitterMaxMS];
         return value;
     }
     case Attributes::MqttReportEnabled::Id: {
@@ -21018,63 +21019,6 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
     }
     default: {
         // Not a known PhotonSmart attribute.
-        break;
-    }
-    }
-
-    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
-    return nil;
-}
-static id _Nullable DecodeAttributeValueForFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
-{
-    using namespace Clusters::FreshMideaAirConditionerAlarm;
-    switch (aAttributeId) {
-    case Attributes::Mask::Id: {
-        using TypeInfo = Attributes::Mask::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    case Attributes::Latch::Id: {
-        using TypeInfo = Attributes::Latch::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    case Attributes::State::Id: {
-        using TypeInfo = Attributes::State::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    case Attributes::Supported::Id: {
-        using TypeInfo = Attributes::Supported::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    default: {
-        // Not a known FreshMideaAirConditionerAlarm attribute.
         break;
     }
     }
@@ -24050,9 +23994,6 @@ id _Nullable MTRDecodeAttributeValue(const ConcreteAttributePath & aPath, TLV::T
     }
     case Clusters::PhotonSmart::Id: {
         return DecodeAttributeValueForPhotonSmartCluster(aPath.mAttributeId, aReader, aError);
-    }
-    case Clusters::FreshMideaAirConditionerAlarm::Id: {
-        return DecodeAttributeValueForFreshMideaAirConditionerAlarmCluster(aPath.mAttributeId, aReader, aError);
     }
     case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         return DecodeAttributeValueForFreshRefrigeratorErrorsAlarmCluster(aPath.mAttributeId, aReader, aError);

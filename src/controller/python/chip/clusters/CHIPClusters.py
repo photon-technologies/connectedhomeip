@@ -14692,75 +14692,6 @@ class ChipClusters:
             },
         },
     }
-    _FRESH_MIDEA_AIR_CONDITIONER_ALARM_CLUSTER_INFO = {
-        "clusterName": "FreshMideaAirConditionerAlarm",
-        "clusterId": 0x15E7FC01,
-        "commands": {
-            0x00000000: {
-                "commandId": 0x00000000,
-                "commandName": "Reset",
-                "args": {
-                    "alarms": "int",
-                },
-            },
-        },
-        "attributes": {
-            0x00000000: {
-                "attributeName": "Mask",
-                "attributeId": 0x00000000,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000001: {
-                "attributeName": "Latch",
-                "attributeId": 0x00000001,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000002: {
-                "attributeName": "State",
-                "attributeId": 0x00000002,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000003: {
-                "attributeName": "Supported",
-                "attributeId": 0x00000003,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFF8: {
-                "attributeName": "GeneratedCommandList",
-                "attributeId": 0x0000FFF8,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFF9: {
-                "attributeName": "AcceptedCommandList",
-                "attributeId": 0x0000FFF9,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFFB: {
-                "attributeName": "AttributeList",
-                "attributeId": 0x0000FFFB,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFFC: {
-                "attributeName": "FeatureMap",
-                "attributeId": 0x0000FFFC,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFFD: {
-                "attributeName": "ClusterRevision",
-                "attributeId": 0x0000FFFD,
-                "type": "int",
-                "reportable": True,
-            },
-        },
-    }
     _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO = {
         "clusterName": "FreshRefrigeratorErrorsAlarm",
         "clusterId": 0x15E7FC02,
@@ -16625,7 +16556,6 @@ class ChipClusters:
         0x00000B06: _METER_IDENTIFICATION_CLUSTER_INFO,
         0x00000B07: _COMMODITY_METERING_CLUSTER_INFO,
         0x15E7FC00: _PHOTON_SMART_CLUSTER_INFO,
-        0x15E7FC01: _FRESH_MIDEA_AIR_CONDITIONER_ALARM_CLUSTER_INFO,
         0x15E7FC02: _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO,
         0x15E7FC03: _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
         0x15E7FC04: _FRESH_MIDEA_CONTROLLER_CLUSTER_INFO,
@@ -16775,7 +16705,6 @@ class ChipClusters:
         "MeterIdentification": _METER_IDENTIFICATION_CLUSTER_INFO,
         "CommodityMetering": _COMMODITY_METERING_CLUSTER_INFO,
         "PhotonSmart": _PHOTON_SMART_CLUSTER_INFO,
-        "FreshMideaAirConditionerAlarm": _FRESH_MIDEA_AIR_CONDITIONER_ALARM_CLUSTER_INFO,
         "FreshRefrigeratorErrorsAlarm": _FRESH_REFRIGERATOR_ERRORS_ALARM_CLUSTER_INFO,
         "FreshRefrigeratorController": _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
         "FreshMideaController": _FRESH_MIDEA_CONTROLLER_CLUSTER_INFO,

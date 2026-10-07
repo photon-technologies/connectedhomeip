@@ -12,12 +12,12 @@
     <item fieldId="1" name="Host" type="char_string" length="254"/>
     <item fieldId="2" name="Port" type="int16u"/>
     <item fieldId="3" name="Transport" type="MqttTransport" default="0"/>
-    <item fieldId="4" name="KeepAlive" type="int16u"/>
+    <item fieldId="4" name="KeepAlive" type="int16u" default="120"/>
     <item fieldId="5" name="CleanSession" type="boolean" default="1"/>
-    <item fieldId="6" name="ReconnectTimeoutMS" type="int32u" default="10000"/>
+    <item fieldId="6" name="ReconnectBackoffBaseMS" type="int32u" default="30000"/>
     <item fieldId="7" name="TimeoutMS" type="int32u" default="10000"/>
-    <item fieldId="8" name="RefreshConnectionAfterMS" type="int32u" default="0"/>
-    <item fieldId="9" name="SessionExpiryIntervalS" type="int32u" default="3600"/>
+    <!-- fieldId 8 (RefreshConnectionAfterMS) was removed: reserved, never reuse it. -->
+    <item fieldId="9" name="SessionExpiryIntervalS" type="int32u" default="0"/>
     <item fieldId="10" name="MaxPacketSize" type="int32u" default="0"/>
     <item fieldId="11" name="MaxReceivePacketCount" type="int16u" default="0"/>
     <item fieldId="12" name="MaxTopicAlias" type="int16u" default="0"/>
@@ -26,6 +26,8 @@
     <item fieldId="15" name="WillDelayIntervalS" type="int32u" default="30"/>
     <item fieldId="16" name="MessageExpiryIntervalS" type="int32u" default="0"/>
     <item fieldId="17" name="PayloadFormatIndicator" type="boolean" default="0"/>
+    <item fieldId="18" name="ReconnectBackoffMaxMS" type="int32u" default="120000"/>
+    <item fieldId="19" name="BootJitterMaxMS" type="int32u" default="5000"/>
   </struct>
   <struct name="PhotonInsightsParamsStruct">
   <cluster code="0x15E7FC00"/>

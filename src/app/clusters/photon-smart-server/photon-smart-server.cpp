@@ -169,15 +169,11 @@ bool Instance::mqttConfigHasChanged(const Structs::PhotonMQTTStruct::Type & aNew
     {
         dataHasChanged = true;
     }
-    if (aNewMqttConfig.reconnectTimeoutMS != reconnectTimeoutMS)
+    if (aNewMqttConfig.reconnectBackoffBaseMS != reconnectTimeoutMS)
     {
         dataHasChanged = true;
     }
     if (aNewMqttConfig.timeoutMS != timeoutMS)
-    {
-        dataHasChanged = true;
-    }
-    if (aNewMqttConfig.refreshConnectionAfterMS != refreshConnectionAfterMS)
     {
         dataHasChanged = true;
     }
@@ -289,12 +285,10 @@ CHIP_ERROR Instance::UpdateMqttConfig(Structs::PhotonMQTTStruct::Type aNewMqttCo
     storageDelegate.Put(0x02 /* Type u16 */, MQTT_KEEP_ALIVE_NVS_KEY, &keepAlive, sizeof(keepAlive));
     cleanSession = aNewMqttConfig.cleanSession;
     storageDelegate.Put(0x01 /* Type u8 */, MQTT_CLEAN_SESSION_NVS_KEY, &cleanSession, sizeof(cleanSession));
-    reconnectTimeoutMS = aNewMqttConfig.reconnectTimeoutMS;
+    reconnectTimeoutMS = aNewMqttConfig.reconnectBackoffBaseMS;
     storageDelegate.Put(0x04 /* Type u32 */, MQTT_RECONNECT_TIMEOUT_NVS_KEY, &reconnectTimeoutMS, sizeof(reconnectTimeoutMS));
     timeoutMS = aNewMqttConfig.timeoutMS;
     storageDelegate.Put(0x04 /* Type u32 */, MQTT_NETWORK_TIMEOUT_NVS_KEY, &timeoutMS, sizeof(timeoutMS));
-    refreshConnectionAfterMS = aNewMqttConfig.refreshConnectionAfterMS;
-    storageDelegate.Put(0x04 /* Type u32 */, MQTT_REFRESH_CONNECTION_AFTER_NVS_KEY, &refreshConnectionAfterMS, sizeof(refreshConnectionAfterMS));
     photon_mqtt5_conn_config_t newMqtt5ConnConfig = {
         .session_expiry_interval = aNewMqttConfig.sessionExpiryIntervalS,
         .maximum_packet_size = aNewMqttConfig.maxPacketSize,
@@ -331,9 +325,12 @@ Structs::PhotonMQTTStruct::Type Instance::GetMqttConfig()
     }
     mMqttConfig.keepAlive = keepAlive;
     mMqttConfig.cleanSession             = cleanSession;
-    mMqttConfig.reconnectTimeoutMS       = reconnectTimeoutMS;
+    mMqttConfig.reconnectBackoffBaseMS   = reconnectTimeoutMS;
     mMqttConfig.timeoutMS                = timeoutMS;
-    mMqttConfig.refreshConnectionAfterMS = refreshConnectionAfterMS;
+    /* Superseded by photon_matter's own copy of this server, which reads the agent's
+     * config; this copy only has to compile. Report the cluster defaults. */
+    mMqttConfig.reconnectBackoffMaxMS    = 120000;
+    mMqttConfig.bootJitterMaxMS          = 5000;
 
     mMqttConfig.sessionExpiryIntervalS   = mqtt5ConnConfig.session_expiry_interval;
     mMqttConfig.maxPacketSize            = mqtt5ConnConfig.maximum_packet_size;

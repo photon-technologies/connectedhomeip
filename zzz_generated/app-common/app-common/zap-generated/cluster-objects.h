@@ -227,10 +227,6 @@
 #include <clusters/FormaldehydeConcentrationMeasurement/Commands.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Events.h>
 #include <clusters/FormaldehydeConcentrationMeasurement/Structs.h>
-#include <clusters/FreshMideaAirConditionerAlarm/Attributes.h>
-#include <clusters/FreshMideaAirConditionerAlarm/Commands.h>
-#include <clusters/FreshMideaAirConditionerAlarm/Events.h>
-#include <clusters/FreshMideaAirConditionerAlarm/Structs.h>
 #include <clusters/FreshMideaController/Attributes.h>
 #include <clusters/FreshMideaController/Commands.h>
 #include <clusters/FreshMideaController/Events.h>

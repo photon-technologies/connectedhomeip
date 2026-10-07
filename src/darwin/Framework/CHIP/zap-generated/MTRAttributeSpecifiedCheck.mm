@@ -6629,43 +6629,6 @@ static BOOL AttributeIsSpecifiedInPhotonSmartCluster(AttributeId aAttributeId)
     }
     }
 }
-static BOOL AttributeIsSpecifiedInFreshMideaAirConditionerAlarmCluster(AttributeId aAttributeId)
-{
-    using namespace Clusters::FreshMideaAirConditionerAlarm;
-    switch (aAttributeId) {
-    case Attributes::Mask::Id: {
-        return YES;
-    }
-    case Attributes::Latch::Id: {
-        return YES;
-    }
-    case Attributes::State::Id: {
-        return YES;
-    }
-    case Attributes::Supported::Id: {
-        return YES;
-    }
-    case Attributes::GeneratedCommandList::Id: {
-        return YES;
-    }
-    case Attributes::AcceptedCommandList::Id: {
-        return YES;
-    }
-    case Attributes::AttributeList::Id: {
-        return YES;
-    }
-    case Attributes::FeatureMap::Id: {
-        return YES;
-    }
-    case Attributes::ClusterRevision::Id: {
-        return YES;
-    }
-    default: {
-        // Not a known FreshMideaAirConditionerAlarm attribute.
-        return NO;
-    }
-    }
-}
 static BOOL AttributeIsSpecifiedInFreshRefrigeratorErrorsAlarmCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::FreshRefrigeratorErrorsAlarm;
@@ -7741,9 +7704,6 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::PhotonSmart::Id: {
         return AttributeIsSpecifiedInPhotonSmartCluster(aAttributeId);
-    }
-    case Clusters::FreshMideaAirConditionerAlarm::Id: {
-        return AttributeIsSpecifiedInFreshMideaAirConditionerAlarmCluster(aAttributeId);
     }
     case Clusters::FreshRefrigeratorErrorsAlarm::Id: {
         return AttributeIsSpecifiedInFreshRefrigeratorErrorsAlarmCluster(aAttributeId);

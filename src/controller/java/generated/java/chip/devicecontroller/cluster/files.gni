@@ -269,7 +269,6 @@ eventstructs_sources = [
   "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/EnergyEvseClusterEVNotDetectedEvent.kt",
   "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/EnergyEvseClusterFaultEvent.kt",
   "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/EnergyEvseClusterRFIDEvent.kt",
-  "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/FreshMideaAirConditionerAlarmClusterNotifyEvent.kt",
   "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/FreshMideaControllerClusterNotifyErrorEvent.kt",
   "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/FreshRefrigeratorErrorsAlarmClusterNotifyEvent.kt",
   "${chip_root}/src/controller/java/generated/java/chip/devicecontroller/cluster/eventstructs/FreshWaterHeaterControllerClusterAntiLegionellaCycleCompletedEvent.kt",

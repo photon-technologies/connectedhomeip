@@ -9018,12 +9018,10 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.keepAlive", "keepAlive", value.isMember("keepAlive")));
     ReturnErrorOnFailure(
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.cleanSession", "cleanSession", value.isMember("cleanSession")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.reconnectTimeoutMS", "reconnectTimeoutMS",
-                                                                  value.isMember("reconnectTimeoutMS")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
+        "PhotonMQTTStruct.reconnectBackoffBaseMS", "reconnectBackoffBaseMS", value.isMember("reconnectBackoffBaseMS")));
     ReturnErrorOnFailure(
         ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.timeoutMS", "timeoutMS", value.isMember("timeoutMS")));
-    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
-        "PhotonMQTTStruct.refreshConnectionAfterMS", "refreshConnectionAfterMS", value.isMember("refreshConnectionAfterMS")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
         "PhotonMQTTStruct.sessionExpiryIntervalS", "sessionExpiryIntervalS", value.isMember("sessionExpiryIntervalS")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.maxPacketSize", "maxPacketSize",
@@ -9042,6 +9040,10 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         "PhotonMQTTStruct.messageExpiryIntervalS", "messageExpiryIntervalS", value.isMember("messageExpiryIntervalS")));
     ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist(
         "PhotonMQTTStruct.payloadFormatIndicator", "payloadFormatIndicator", value.isMember("payloadFormatIndicator")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.reconnectBackoffMaxMS", "reconnectBackoffMaxMS",
+                                                                  value.isMember("reconnectBackoffMaxMS")));
+    ReturnErrorOnFailure(ComplexArgumentParser::EnsureMemberExist("PhotonMQTTStruct.bootJitterMaxMS", "bootJitterMaxMS",
+                                                                  value.isMember("bootJitterMaxMS")));
 
     char labelWithMember[kMaxLabelLength];
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "host");
@@ -9064,18 +9066,14 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.cleanSession, value["cleanSession"]));
     valueCopy.removeMember("cleanSession");
 
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reconnectTimeoutMS");
-    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.reconnectTimeoutMS, value["reconnectTimeoutMS"]));
-    valueCopy.removeMember("reconnectTimeoutMS");
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reconnectBackoffBaseMS");
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::Setup(labelWithMember, request.reconnectBackoffBaseMS, value["reconnectBackoffBaseMS"]));
+    valueCopy.removeMember("reconnectBackoffBaseMS");
 
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "timeoutMS");
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.timeoutMS, value["timeoutMS"]));
     valueCopy.removeMember("timeoutMS");
-
-    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "refreshConnectionAfterMS");
-    ReturnErrorOnFailure(
-        ComplexArgumentParser::Setup(labelWithMember, request.refreshConnectionAfterMS, value["refreshConnectionAfterMS"]));
-    valueCopy.removeMember("refreshConnectionAfterMS");
 
     snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "sessionExpiryIntervalS");
     ReturnErrorOnFailure(
@@ -9117,6 +9115,15 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
         ComplexArgumentParser::Setup(labelWithMember, request.payloadFormatIndicator, value["payloadFormatIndicator"]));
     valueCopy.removeMember("payloadFormatIndicator");
 
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "reconnectBackoffMaxMS");
+    ReturnErrorOnFailure(
+        ComplexArgumentParser::Setup(labelWithMember, request.reconnectBackoffMaxMS, value["reconnectBackoffMaxMS"]));
+    valueCopy.removeMember("reconnectBackoffMaxMS");
+
+    snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "bootJitterMaxMS");
+    ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.bootJitterMaxMS, value["bootJitterMaxMS"]));
+    valueCopy.removeMember("bootJitterMaxMS");
+
     return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
 }
 
@@ -9127,9 +9134,8 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::
     ComplexArgumentParser::Finalize(request.transport);
     ComplexArgumentParser::Finalize(request.keepAlive);
     ComplexArgumentParser::Finalize(request.cleanSession);
-    ComplexArgumentParser::Finalize(request.reconnectTimeoutMS);
+    ComplexArgumentParser::Finalize(request.reconnectBackoffBaseMS);
     ComplexArgumentParser::Finalize(request.timeoutMS);
-    ComplexArgumentParser::Finalize(request.refreshConnectionAfterMS);
     ComplexArgumentParser::Finalize(request.sessionExpiryIntervalS);
     ComplexArgumentParser::Finalize(request.maxPacketSize);
     ComplexArgumentParser::Finalize(request.maxReceivePacketCount);
@@ -9139,6 +9145,8 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::
     ComplexArgumentParser::Finalize(request.willDelayIntervalS);
     ComplexArgumentParser::Finalize(request.messageExpiryIntervalS);
     ComplexArgumentParser::Finalize(request.payloadFormatIndicator);
+    ComplexArgumentParser::Finalize(request.reconnectBackoffMaxMS);
+    ComplexArgumentParser::Finalize(request.bootJitterMaxMS);
 }
 
 CHIP_ERROR

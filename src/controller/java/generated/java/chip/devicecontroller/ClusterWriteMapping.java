@@ -3690,8 +3690,6 @@ public class ClusterWriteMapping {
     );
     writePhotonSmartInteractionInfo.put("writePublicIpv4EnabledAttribute", writePhotonSmartPublicIpv4EnabledAttributeInteractionInfo);
     writeAttributeMap.put("photonSmart", writePhotonSmartInteractionInfo);
-    Map<String, InteractionInfo> writeFreshMideaAirConditionerAlarmInteractionInfo = new LinkedHashMap<>();
-    writeAttributeMap.put("freshMideaAirConditionerAlarm", writeFreshMideaAirConditionerAlarmInteractionInfo);
     Map<String, InteractionInfo> writeFreshRefrigeratorErrorsAlarmInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("freshRefrigeratorErrorsAlarm", writeFreshRefrigeratorErrorsAlarmInteractionInfo);
     Map<String, InteractionInfo> writeFreshRefrigeratorControllerInteractionInfo = new LinkedHashMap<>();
