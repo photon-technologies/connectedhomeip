@@ -51333,6 +51333,22 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
             chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_bootJitterMaxMSClassName.c_str(),
                                                                         value_bootJitterMaxMSCtorSignature.c_str(),
                                                                         jnivalue_bootJitterMaxMS, value_bootJitterMaxMS);
+            jobject value_publishQos;
+            if (!cppValue.publishQos.HasValue())
+            {
+                chip::JniReferences::GetInstance().CreateOptional(nullptr, value_publishQos);
+            }
+            else
+            {
+                jobject value_publishQosInsideOptional;
+                std::string value_publishQosInsideOptionalClassName     = "java/lang/Long";
+                std::string value_publishQosInsideOptionalCtorSignature = "(J)V";
+                jlong jnivalue_publishQosInsideOptional                 = static_cast<jlong>(cppValue.publishQos.Value().Raw());
+                chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(
+                    value_publishQosInsideOptionalClassName.c_str(), value_publishQosInsideOptionalCtorSignature.c_str(),
+                    jnivalue_publishQosInsideOptional, value_publishQosInsideOptional);
+                chip::JniReferences::GetInstance().CreateOptional(value_publishQosInsideOptional, value_publishQos);
+            }
 
             {
                 jclass photonMQTTStructStructClass_0;
@@ -51350,7 +51366,7 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                     "(Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/"
                     "Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/"
                     "Boolean;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/"
-                    "Long;)V",
+                    "Long;Ljava/util/Optional;)V",
                     &photonMQTTStructStructCtor_0);
                 if (err != CHIP_NO_ERROR || photonMQTTStructStructCtor_0 == nullptr)
                 {
@@ -51358,12 +51374,12 @@ jobject DecodeAttributeValue(const app::ConcreteAttributePath & aPath, TLV::TLVR
                     return nullptr;
                 }
 
-                value = env->NewObject(photonMQTTStructStructClass_0, photonMQTTStructStructCtor_0, value_host, value_port,
-                                       value_transport, value_keepAlive, value_cleanSession, value_reconnectBackoffBaseMS,
-                                       value_timeoutMS, value_sessionExpiryIntervalS, value_maxPacketSize,
-                                       value_maxReceivePacketCount, value_maxTopicAlias, value_requestRespInfo,
-                                       value_requestProblemInfo, value_willDelayIntervalS, value_messageExpiryIntervalS,
-                                       value_payloadFormatIndicator, value_reconnectBackoffMaxMS, value_bootJitterMaxMS);
+                value = env->NewObject(
+                    photonMQTTStructStructClass_0, photonMQTTStructStructCtor_0, value_host, value_port, value_transport,
+                    value_keepAlive, value_cleanSession, value_reconnectBackoffBaseMS, value_timeoutMS,
+                    value_sessionExpiryIntervalS, value_maxPacketSize, value_maxReceivePacketCount, value_maxTopicAlias,
+                    value_requestRespInfo, value_requestProblemInfo, value_willDelayIntervalS, value_messageExpiryIntervalS,
+                    value_payloadFormatIndicator, value_reconnectBackoffMaxMS, value_bootJitterMaxMS, value_publishQos);
             }
             return value;
         }

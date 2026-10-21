@@ -108777,6 +108777,10 @@ public:
      cppValue.payloadFormatIndicator = value.payloadFormatIndicator.boolValue;
      cppValue.reconnectBackoffMaxMS = value.reconnectBackoffMaxMS.unsignedIntValue;
      cppValue.bootJitterMaxMS = value.bootJitterMaxMS.unsignedIntValue;
+     if (value.publishQos != nil) {
+       auto & definedValue_1 = cppValue.publishQos.Emplace();
+         definedValue_1 = static_cast<std::remove_reference_t<decltype(definedValue_1)>>(value.publishQos.unsignedIntValue);
+  }
 
         chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
         return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });

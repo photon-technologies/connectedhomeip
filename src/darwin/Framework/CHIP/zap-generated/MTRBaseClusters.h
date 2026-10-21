@@ -23017,6 +23017,29 @@ typedef NS_ENUM(uint8_t, MTRPhotonSmartMqttTransport) {
     MTRPhotonSmartMqttTransportWSS MTR_PROVISIONALLY_AVAILABLE = 0x01,
 } MTR_PROVISIONALLY_AVAILABLE;
 
+typedef NS_OPTIONS(uint32_t, MTRPhotonSmartPublishQosBitmap) {
+    MTRPhotonSmartPublishQosBitmapFullReport MTR_PROVISIONALLY_AVAILABLE = 0x1,
+    MTRPhotonSmartPublishQosBitmapAttributeReport MTR_PROVISIONALLY_AVAILABLE = 0x2,
+    MTRPhotonSmartPublishQosBitmapEventReport MTR_PROVISIONALLY_AVAILABLE = 0x4,
+    MTRPhotonSmartPublishQosBitmapTelemetryBlob MTR_PROVISIONALLY_AVAILABLE = 0x8,
+    MTRPhotonSmartPublishQosBitmapReadResponse MTR_PROVISIONALLY_AVAILABLE = 0x10,
+    MTRPhotonSmartPublishQosBitmapWriteResponse MTR_PROVISIONALLY_AVAILABLE = 0x20,
+    MTRPhotonSmartPublishQosBitmapCommandResponse MTR_PROVISIONALLY_AVAILABLE = 0x40,
+    MTRPhotonSmartPublishQosBitmapAutomationResponse MTR_PROVISIONALLY_AVAILABLE = 0x80,
+    MTRPhotonSmartPublishQosBitmapTelemetryReadResponse MTR_PROVISIONALLY_AVAILABLE = 0x100,
+    MTRPhotonSmartPublishQosBitmapTelemetryWriteResponse MTR_PROVISIONALLY_AVAILABLE = 0x200,
+    MTRPhotonSmartPublishQosBitmapTimeReadResponse MTR_PROVISIONALLY_AVAILABLE = 0x400,
+    MTRPhotonSmartPublishQosBitmapTimeWriteResponse MTR_PROVISIONALLY_AVAILABLE = 0x800,
+    MTRPhotonSmartPublishQosBitmapErrorReply MTR_PROVISIONALLY_AVAILABLE = 0x1000,
+    MTRPhotonSmartPublishQosBitmapPresence MTR_PROVISIONALLY_AVAILABLE = 0x2000,
+    MTRPhotonSmartPublishQosBitmapLastWill MTR_PROVISIONALLY_AVAILABLE = 0x4000,
+    MTRPhotonSmartPublishQosBitmapInsightsBoot MTR_PROVISIONALLY_AVAILABLE = 0x8000,
+    MTRPhotonSmartPublishQosBitmapInsightsReport MTR_PROVISIONALLY_AVAILABLE = 0x10000,
+    MTRPhotonSmartPublishQosBitmapOtaFetch MTR_PROVISIONALLY_AVAILABLE = 0x20000,
+    MTRPhotonSmartPublishQosBitmapOtaStatus MTR_PROVISIONALLY_AVAILABLE = 0x40000,
+    MTRPhotonSmartPublishQosBitmapOtaProgress MTR_PROVISIONALLY_AVAILABLE = 0x80000,
+} MTR_PROVISIONALLY_AVAILABLE;
+
 typedef NS_OPTIONS(uint32_t, MTRFreshRefrigeratorErrorsAlarmAlarmBitmap) {
     MTRFreshRefrigeratorErrorsAlarmAlarmBitmapFridgeTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x1,
     MTRFreshRefrigeratorErrorsAlarmAlarmBitmapFreezerTemperatureSensorFailure MTR_PROVISIONALLY_AVAILABLE = 0x2,

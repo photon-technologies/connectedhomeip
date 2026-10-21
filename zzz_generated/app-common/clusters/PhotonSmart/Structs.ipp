@@ -155,6 +155,7 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kPayloadFormatIndicator), payloadFormatIndicator);
     encoder.Encode(to_underlying(Fields::kReconnectBackoffMaxMS), reconnectBackoffMaxMS);
     encoder.Encode(to_underlying(Fields::kBootJitterMaxMS), bootJitterMaxMS);
+    encoder.Encode(to_underlying(Fields::kPublishQos), publishQos);
     return encoder.Finalize();
 }
 
@@ -239,6 +240,10 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         else if (__context_tag == to_underlying(Fields::kBootJitterMaxMS))
         {
             err = DataModel::Decode(reader, bootJitterMaxMS);
+        }
+        else if (__context_tag == to_underlying(Fields::kPublishQos))
+        {
+            err = DataModel::Decode(reader, publishQos);
         }
 
         ReturnErrorOnFailure(err);

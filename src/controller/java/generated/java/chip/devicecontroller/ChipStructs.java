@@ -19759,6 +19759,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   public Boolean payloadFormatIndicator;
   public Long reconnectBackoffMaxMS;
   public Long bootJitterMaxMS;
+  public Optional<Long> publishQos;
   private static final long HOST_ID = 1L;
   private static final long PORT_ID = 2L;
   private static final long TRANSPORT_ID = 3L;
@@ -19777,6 +19778,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
   private static final long PAYLOAD_FORMAT_INDICATOR_ID = 17L;
   private static final long RECONNECT_BACKOFF_MAX_MS_ID = 18L;
   private static final long BOOT_JITTER_MAX_MS_ID = 19L;
+  private static final long PUBLISH_QOS_ID = 20L;
 
   public PhotonSmartClusterPhotonMQTTStruct(
     String host,
@@ -19796,7 +19798,8 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Long messageExpiryIntervalS,
     Boolean payloadFormatIndicator,
     Long reconnectBackoffMaxMS,
-    Long bootJitterMaxMS
+    Long bootJitterMaxMS,
+    Optional<Long> publishQos
   ) {
     this.host = host;
     this.port = port;
@@ -19816,6 +19819,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     this.payloadFormatIndicator = payloadFormatIndicator;
     this.reconnectBackoffMaxMS = reconnectBackoffMaxMS;
     this.bootJitterMaxMS = bootJitterMaxMS;
+    this.publishQos = publishQos;
   }
 
   public StructType encodeTlv() {
@@ -19838,6 +19842,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     values.add(new StructElement(PAYLOAD_FORMAT_INDICATOR_ID, new BooleanType(payloadFormatIndicator)));
     values.add(new StructElement(RECONNECT_BACKOFF_MAX_MS_ID, new UIntType(reconnectBackoffMaxMS)));
     values.add(new StructElement(BOOT_JITTER_MAX_MS_ID, new UIntType(bootJitterMaxMS)));
+    values.add(new StructElement(PUBLISH_QOS_ID, publishQos.<BaseTLVType>map((nonOptionalpublishQos) -> new UIntType(nonOptionalpublishQos)).orElse(new EmptyType())));
 
     return new StructType(values);
   }
@@ -19864,6 +19869,7 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     Boolean payloadFormatIndicator = null;
     Long reconnectBackoffMaxMS = null;
     Long bootJitterMaxMS = null;
+    Optional<Long> publishQos = Optional.empty();
     for (StructElement element: ((StructType)tlvValue).value()) {
       if (element.contextTagNum() == HOST_ID) {
         if (element.value(BaseTLVType.class).type() == TLVType.String) {
@@ -19955,6 +19961,11 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
           UIntType castingValue = element.value(UIntType.class);
           bootJitterMaxMS = castingValue.value(Long.class);
         }
+      } else if (element.contextTagNum() == PUBLISH_QOS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          publishQos = Optional.of(castingValue.value(Long.class));
+        }
       }
     }
     return new PhotonSmartClusterPhotonMQTTStruct(
@@ -19975,7 +19986,8 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
       messageExpiryIntervalS,
       payloadFormatIndicator,
       reconnectBackoffMaxMS,
-      bootJitterMaxMS
+      bootJitterMaxMS,
+      publishQos
     );
   }
 
@@ -20036,6 +20048,9 @@ public static class PhotonSmartClusterPhotonMQTTStruct {
     output.append("\n");
     output.append("\tbootJitterMaxMS: ");
     output.append(bootJitterMaxMS);
+    output.append("\n");
+    output.append("\tpublishQos: ");
+    output.append(publishQos);
     output.append("\n");
     output.append("}\n");
     return output.toString();
