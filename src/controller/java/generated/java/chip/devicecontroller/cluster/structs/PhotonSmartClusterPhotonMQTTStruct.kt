@@ -17,6 +17,7 @@
 package chip.devicecontroller.cluster.structs
 
 import chip.devicecontroller.cluster.*
+import java.util.Optional
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
@@ -41,6 +42,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
   val payloadFormatIndicator: Boolean,
   val reconnectBackoffMaxMS: ULong,
   val bootJitterMaxMS: ULong,
+  val publishQos: Optional<ULong>,
 ) {
   override fun toString(): String = buildString {
     append("PhotonSmartClusterPhotonMQTTStruct {\n")
@@ -62,6 +64,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
     append("\tpayloadFormatIndicator : $payloadFormatIndicator\n")
     append("\treconnectBackoffMaxMS : $reconnectBackoffMaxMS\n")
     append("\tbootJitterMaxMS : $bootJitterMaxMS\n")
+    append("\tpublishQos : $publishQos\n")
     append("}\n")
   }
 
@@ -86,6 +89,10 @@ class PhotonSmartClusterPhotonMQTTStruct(
       put(ContextSpecificTag(TAG_PAYLOAD_FORMAT_INDICATOR), payloadFormatIndicator)
       put(ContextSpecificTag(TAG_RECONNECT_BACKOFF_MAX_MS), reconnectBackoffMaxMS)
       put(ContextSpecificTag(TAG_BOOT_JITTER_MAX_MS), bootJitterMaxMS)
+      if (publishQos.isPresent) {
+        val optpublishQos = publishQos.get()
+        put(ContextSpecificTag(TAG_PUBLISH_QOS), optpublishQos)
+      }
       endStructure()
     }
   }
@@ -109,6 +116,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
     private const val TAG_PAYLOAD_FORMAT_INDICATOR = 17
     private const val TAG_RECONNECT_BACKOFF_MAX_MS = 18
     private const val TAG_BOOT_JITTER_MAX_MS = 19
+    private const val TAG_PUBLISH_QOS = 20
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): PhotonSmartClusterPhotonMQTTStruct {
       tlvReader.enterStructure(tlvTag)
@@ -136,6 +144,12 @@ class PhotonSmartClusterPhotonMQTTStruct(
       val reconnectBackoffMaxMS =
         tlvReader.getULong(ContextSpecificTag(TAG_RECONNECT_BACKOFF_MAX_MS))
       val bootJitterMaxMS = tlvReader.getULong(ContextSpecificTag(TAG_BOOT_JITTER_MAX_MS))
+      val publishQos =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_PUBLISH_QOS))) {
+          Optional.of(tlvReader.getULong(ContextSpecificTag(TAG_PUBLISH_QOS)))
+        } else {
+          Optional.empty()
+        }
 
       tlvReader.exitContainer()
 
@@ -158,6 +172,7 @@ class PhotonSmartClusterPhotonMQTTStruct(
         payloadFormatIndicator,
         reconnectBackoffMaxMS,
         bootJitterMaxMS,
+        publishQos,
       )
     }
   }

@@ -109,6 +109,7 @@ enum class Fields : uint8_t
     kPayloadFormatIndicator = 17,
     kReconnectBackoffMaxMS  = 18,
     kBootJitterMaxMS        = 19,
+    kPublishQos             = 20,
 };
 
 struct Type
@@ -132,6 +133,7 @@ public:
     bool payloadFormatIndicator     = static_cast<bool>(0);
     uint32_t reconnectBackoffMaxMS  = static_cast<uint32_t>(0);
     uint32_t bootJitterMaxMS        = static_cast<uint32_t>(0);
+    Optional<chip::BitMask<PublishQosBitmap>> publishQos;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 

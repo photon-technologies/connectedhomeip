@@ -11525,6 +11525,8 @@ NS_ASSUME_NONNULL_BEGIN
         _reconnectBackoffMaxMS = @(0);
 
         _bootJitterMaxMS = @(0);
+
+        _publishQos = nil;
     }
     return self;
 }
@@ -11551,13 +11553,14 @@ NS_ASSUME_NONNULL_BEGIN
     other.payloadFormatIndicator = self.payloadFormatIndicator;
     other.reconnectBackoffMaxMS = self.reconnectBackoffMaxMS;
     other.bootJitterMaxMS = self.bootJitterMaxMS;
+    other.publishQos = self.publishQos;
 
     return other;
 }
 
 - (NSString *)description
 {
-    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectBackoffBaseMS:%@; timeoutMS:%@; sessionExpiryIntervalS:%@; maxPacketSize:%@; maxReceivePacketCount:%@; maxTopicAlias:%@; requestRespInfo:%@; requestProblemInfo:%@; willDelayIntervalS:%@; messageExpiryIntervalS:%@; payloadFormatIndicator:%@; reconnectBackoffMaxMS:%@; bootJitterMaxMS:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectBackoffBaseMS, _timeoutMS, _sessionExpiryIntervalS, _maxPacketSize, _maxReceivePacketCount, _maxTopicAlias, _requestRespInfo, _requestProblemInfo, _willDelayIntervalS, _messageExpiryIntervalS, _payloadFormatIndicator, _reconnectBackoffMaxMS, _bootJitterMaxMS];
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: host:%@; port:%@; transport:%@; keepAlive:%@; cleanSession:%@; reconnectBackoffBaseMS:%@; timeoutMS:%@; sessionExpiryIntervalS:%@; maxPacketSize:%@; maxReceivePacketCount:%@; maxTopicAlias:%@; requestRespInfo:%@; requestProblemInfo:%@; willDelayIntervalS:%@; messageExpiryIntervalS:%@; payloadFormatIndicator:%@; reconnectBackoffMaxMS:%@; bootJitterMaxMS:%@; publishQos:%@; >", NSStringFromClass([self class]), _host, _port, _transport, _keepAlive, _cleanSession, _reconnectBackoffBaseMS, _timeoutMS, _sessionExpiryIntervalS, _maxPacketSize, _maxReceivePacketCount, _maxTopicAlias, _requestRespInfo, _requestProblemInfo, _willDelayIntervalS, _messageExpiryIntervalS, _payloadFormatIndicator, _reconnectBackoffMaxMS, _bootJitterMaxMS, _publishQos];
     return descriptionString;
 }
 

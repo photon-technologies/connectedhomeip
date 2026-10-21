@@ -9124,6 +9124,13 @@ CHIP_ERROR ComplexArgumentParser::Setup(const char * label,
     ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.bootJitterMaxMS, value["bootJitterMaxMS"]));
     valueCopy.removeMember("bootJitterMaxMS");
 
+    if (value.isMember("publishQos"))
+    {
+        snprintf(labelWithMember, sizeof(labelWithMember), "%s.%s", label, "publishQos");
+        ReturnErrorOnFailure(ComplexArgumentParser::Setup(labelWithMember, request.publishQos, value["publishQos"]));
+    }
+    valueCopy.removeMember("publishQos");
+
     return ComplexArgumentParser::EnsureNoMembersRemaining(label, valueCopy);
 }
 
@@ -9147,6 +9154,7 @@ void ComplexArgumentParser::Finalize(chip::app::Clusters::PhotonSmart::Structs::
     ComplexArgumentParser::Finalize(request.payloadFormatIndicator);
     ComplexArgumentParser::Finalize(request.reconnectBackoffMaxMS);
     ComplexArgumentParser::Finalize(request.bootJitterMaxMS);
+    ComplexArgumentParser::Finalize(request.publishQos);
 }
 
 CHIP_ERROR

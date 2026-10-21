@@ -52923,6 +52923,29 @@ class PhotonSmart(Cluster):
             # enum value. This specific value should never be transmitted.
             kUnknownEnumValue = 2
 
+    class Bitmaps:
+        class PublishQosBitmap(IntFlag):
+            kFullReport = 0x1
+            kAttributeReport = 0x2
+            kEventReport = 0x4
+            kTelemetryBlob = 0x8
+            kReadResponse = 0x10
+            kWriteResponse = 0x20
+            kCommandResponse = 0x40
+            kAutomationResponse = 0x80
+            kTelemetryReadResponse = 0x100
+            kTelemetryWriteResponse = 0x200
+            kTimeReadResponse = 0x400
+            kTimeWriteResponse = 0x800
+            kErrorReply = 0x1000
+            kPresence = 0x2000
+            kLastWill = 0x4000
+            kInsightsBoot = 0x8000
+            kInsightsReport = 0x10000
+            kOtaFetch = 0x20000
+            kOtaStatus = 0x40000
+            kOtaProgress = 0x80000
+
     class Structs:
         @dataclass
         class PhotonInsightsParamsStruct(ClusterObject):
@@ -52989,6 +53012,7 @@ class PhotonSmart(Cluster):
                         ClusterObjectFieldDescriptor(Label="payloadFormatIndicator", Tag=17, Type=bool),
                         ClusterObjectFieldDescriptor(Label="reconnectBackoffMaxMS", Tag=18, Type=uint),
                         ClusterObjectFieldDescriptor(Label="bootJitterMaxMS", Tag=19, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="publishQos", Tag=20, Type=typing.Optional[uint]),
                     ])
 
             host: 'str' = ""
@@ -53009,6 +53033,7 @@ class PhotonSmart(Cluster):
             payloadFormatIndicator: 'bool' = False
             reconnectBackoffMaxMS: 'uint' = 0
             bootJitterMaxMS: 'uint' = 0
+            publishQos: 'typing.Optional[uint]' = None
 
     class Commands:
         @dataclass

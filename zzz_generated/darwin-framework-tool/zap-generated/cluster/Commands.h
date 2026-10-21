@@ -175615,6 +175615,11 @@ public:
         value.payloadFormatIndicator = [NSNumber numberWithBool:mValue.payloadFormatIndicator];
         value.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:mValue.reconnectBackoffMaxMS];
         value.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:mValue.bootJitterMaxMS];
+        if (mValue.publishQos.HasValue()) {
+            value.publishQos = [NSNumber numberWithUnsignedInt:mValue.publishQos.Value().Raw()];
+        } else {
+            value.publishQos = nil;
+        }
 
         [cluster writeAttributeMqttConfigWithValue:value params:params completion:^(NSError * _Nullable error) {
             if (error != nil) {

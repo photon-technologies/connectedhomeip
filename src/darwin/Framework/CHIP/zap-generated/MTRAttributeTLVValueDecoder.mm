@@ -20944,6 +20944,11 @@ static id _Nullable DecodeAttributeValueForPhotonSmartCluster(AttributeId aAttri
         value.payloadFormatIndicator = [NSNumber numberWithBool:cppValue.payloadFormatIndicator];
         value.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:cppValue.reconnectBackoffMaxMS];
         value.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:cppValue.bootJitterMaxMS];
+        if (cppValue.publishQos.HasValue()) {
+            value.publishQos = [NSNumber numberWithUnsignedInt:cppValue.publishQos.Value().Raw()];
+        } else {
+            value.publishQos = nil;
+        }
         return value;
     }
     case Attributes::MqttReportEnabled::Id: {
