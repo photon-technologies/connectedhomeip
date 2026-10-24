@@ -6,17 +6,20 @@ rebase/sync onto a newer upstream can be reproduced precisely.
 - **Fork base:** branch `fresh-v1.4.0` (upstream CHIP **1.4.0**). Categories A and B were
   committed on top of `fresh-v1.4.0-photon.6` (`8392e7fec3`); before that they existed only as
   uncommitted edits in one local checkout, so the app's CHIP libs could not be rebuilt from any
-  fork commit.
+  fork commit. A3 (`shutdownFabricSessions`) was added on top of `fresh-v1.4.0-photon.10`.
 - **Consumed by:** the Android app `fresh-android-app`, which vendors the built
-  `libCHIPController.so` (×4 ABIs) + `CHIPController.jar` + `libc++_shared.so` (×4) under
-  `app/thirdparty/connectedhomeip/libs/`.
-- Last updated: 2026-10-05.
+  `libCHIPController.so` + `libc++_shared.so` (×4 ABIs) and eight jars (`CHIPController`,
+  `CHIPClusterID`, `CHIPClusters`, `CHIPInteractionModel`, `OnboardingPayload`, `libMatterTlv`,
+  `libMatterJson`, `AndroidPlatform`) under `app/thirdparty/connectedhomeip/libs/`, plus the
+  cluster XMLs it uses under `app/matter-spec/`, all pinned to one `fresh-v1.4.0-photon.N` tag in
+  `app/matter-fork.lock`.
+- Last updated: 2026-10-24.
 
 ---
 
 ## TL;DR rebase checklist
 
-1. **Re-apply Category A verbatim** — the fabric-GC JNI/Java. These are Photon-only; upstream
+1. **Re-apply Category A verbatim** — the fabric-GC and session-shutdown JNI/Java. These are Photon-only; upstream
    will never have them. They are the only *functional* product change.
 2. **Category B — check upstream first.** These are upstream's own Android NDK-r28 / SDK-34 /
    JDK-17 toolchain modernization, backported onto our older 1.4.0 tree. If the rebase target
@@ -35,6 +38,10 @@ Implements **Matter fabric-table garbage collection**: removing a home or loggin
 freed the home's fabric from CHIP's `FabricTable`, so fabrics accumulated to
 `CHIP_CONFIG_MAX_FABRICS` (16) and bricked all further commissioning. These JNI methods let the
 app delete fabrics (by fabric-id, or all) from the process-wide shared `FabricTable`.
+
+A3 adds one more controller method, `shutdownFabricSessions()`, so the app can close its fabric's
+subscriptions and sessions itself when it goes to the background or loses its network, instead of
+leaving CHIP to retry.
 
 Two files. Both are pure additions (no upstream lines modified), so they re-apply cleanly.
 
@@ -155,6 +162,84 @@ JNI_METHOD(void, deleteFabricByFabricId)(JNIEnv * env, jobject self, jlong handl
   private native void deleteFabricByFabricId(long deviceControllerPtr, long fabricId);
 ```
 
+### A3 — `shutdownFabricSessions()` (both files)
+
+Closes the controller's fabric the way `DeviceController::Shutdown()` does, minus tearing the
+controller down. The order matters: expiring sessions while subscriptions are still open makes
+each subscription resubscribe, which means more retrying, not less.
+
+1. `InteractionModelEngine::ShutdownSubscriptions(fabricIndex)` closes each subscription with
+   `CHIP_NO_ERROR`. Java gets `onDone`, with no error and no resubscribe.
+2. `CASESessionManager::ReleaseSessionsForFabric(fabricIndex)` cancels in-flight CASE
+   establishment and CHIP's automatic CASE retries. `~OperationalSessionSetup` fails each pending
+   `getConnectedDevicePointer` callback with `CHIP_ERROR_CANCELLED`, so none is left hanging.
+3. `SessionManager::ExpireAllSessionsForFabric(fabricIndex)` drops the secure sessions, so the
+   next interaction does a fresh CASE.
+
+The fabric index is the controller's own (`wrapper->Controller()->GetFabricIndex()`), so Java
+cannot reach another home's fabric.
+
+**JNI** — insert after `deleteFabricByFabricId` in `CHIPDeviceController-JNI.cpp`:
+
+```cpp
+JNI_METHOD(void, shutdownFabricSessions)(JNIEnv * env, jobject self, jlong handle)
+{
+    chip::DeviceLayer::StackLock lock;
+
+    // App backgrounded or offline: the app owns the teardown instead of leaving CHIP to retry.
+    // These are the session steps of DeviceController::Shutdown(), but the controller and its
+    // fabric stay up, so the next interaction with a device starts a fresh CASE session.
+    AndroidDeviceControllerWrapper * wrapper = AndroidDeviceControllerWrapper::FromJNIHandle(handle);
+    VerifyOrReturn(wrapper != nullptr && wrapper->Controller() != nullptr,
+                   ChipLogError(Controller, "shutdownFabricSessions(): no controller"));
+    const FabricIndex fabricIndex = wrapper->Controller()->GetFabricIndex();
+    VerifyOrReturn(fabricIndex != kUndefinedFabricIndex, ChipLogError(Controller, "shutdownFabricSessions(): no fabric"));
+
+    const DeviceControllerSystemState * systemState = DeviceControllerFactory::GetInstance().GetSystemState();
+    VerifyOrReturn(systemState != nullptr && !systemState->IsShutDown(),
+                   ChipLogError(Controller, "shutdownFabricSessions(): no live system state"));
+
+    // 1. Close subscriptions with CHIP_NO_ERROR, which ends their auto-resubscribe. Expiring the
+    //    sessions first would make every subscription resubscribe instead.
+    app::InteractionModelEngine::GetInstance()->ShutdownSubscriptions(fabricIndex);
+
+    // 2. Cancel in-flight CASE establishment and its automatic retries. Pending
+    //    getConnectedDevicePointer callbacks fail with CHIP_ERROR_CANCELLED.
+    if (systemState->CASESessionMgr() != nullptr)
+    {
+        systemState->CASESessionMgr()->ReleaseSessionsForFabric(fabricIndex);
+    }
+
+    // 3. Expire the secure sessions, so nothing reuses one the device may no longer have.
+    if (systemState->SessionMgr() != nullptr)
+    {
+        systemState->SessionMgr()->ExpireAllSessionsForFabric(fabricIndex);
+    }
+    ChipLogProgress(Controller, "shutdownFabricSessions: closed subscriptions and sessions for fabric index 0x%x",
+                    static_cast<unsigned>(fabricIndex));
+}
+```
+
+**Java** — public method after `deleteFabricByFabricId(long)`, native declaration after its
+native declaration, in `ChipDeviceController.java`:
+
+```java
+  /**
+   * Closes every subscription, in-flight CASE session setup and secure session on this
+   * controller's fabric, without shutting the controller down or touching the fabric table. Call it
+   * when the app goes to the background or loses its network, so CHIP stops retrying on its own.
+   * The next interaction with a device on the fabric starts a fresh CASE session.
+   *
+   * <p>Closed subscriptions end through {@code onDone}, without an error and without
+   * resubscribing. Pending {@link #getConnectedDevicePointer} calls fail with CHIP_ERROR_CANCELLED.
+   */
+  public void shutdownFabricSessions() {
+    shutdownFabricSessions(deviceControllerPtr);
+  }
+
+  private native void shutdownFabricSessions(long deviceControllerPtr);
+```
+
 ---
 
 ## Category B — Upstream toolchain backports (DROP IF TARGET UPSTREAM ALREADY HAS THEM)
@@ -257,7 +342,12 @@ targets compile against `platforms/android-30/android.jar`). macOS host: NDK pre
 ./scripts/checkout_submodules.py --platform android --shallow
 source scripts/bootstrap.sh                   # creates .environment + build_overrides/pigweed_environment.gni
 third_party/java_deps/set_up_java_deps.sh     # jsr305, gson, kotlin-stdlib, … into third_party/java_deps/artifacts
+python3 third_party/android_deps/set_up_android_deps.py   # androidx annotation-1.1.0.jar, needed by AndroidPlatform.jar
 ```
+`set_up_android_deps.py` runs a Gradle task and re-formats `third_party/android_deps/BUILD.gn`.
+Its only artifact is `third_party/android_deps/artifacts/annotation-1.1.0.jar`, so downloading
+`androidx/annotation/annotation/1.1.0/annotation-1.1.0.jar` from Google's Maven repository into
+that directory is equivalent and leaves tracked files untouched.
 
 **Per-ABI `args.gn`** (in each `out/android-<cpu>-chip-tool/`; NOT committed — `out/` is build
 output). `<cpu>` ∈ {`arm64`,`arm`,`x64`,`x86`}:
@@ -285,25 +375,32 @@ export ANDROID_HOME=<sdk>; export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/28.2.136763
 export JAVA_HOME=<jdk17>; export PATH="$JAVA_HOME/bin:$PATH"
 source scripts/activate.sh
 gn gen out/android-<cpu>-chip-tool          # only needed when args.gn / BUILD.gn changed
-ninja -C out/android-<cpu>-chip-tool src/controller/java:jni src/controller/java:java
+ninja -C out/android-<cpu>-chip-tool \
+  src/controller/java:jni src/controller/java:java src/controller/java:chipclusterID \
+  src/controller/java:chipcluster src/controller/java:android_chip_im \
+  src/controller/java:onboarding_payload src/controller/java:tlv src/controller/java:jsontlv \
+  src/platform/android:java
 # capture RC=$? immediately after ninja (a ninja wrapper can mask its exit code)
 ```
-- `:jni`  → `out/android-<cpu>-chip-tool/lib/jni/<abi>/libCHIPController.so` (+ `libc++_shared.so`)
-- `:java` → `.../lib/src/controller/java/CHIPController.jar`
+- `:jni` → `out/android-<cpu>-chip-tool/lib/jni/<abi>/libCHIPController.so` (+ `libc++_shared.so`)
+- the jars → `.../lib/src/controller/java/{CHIPController,CHIPClusterID,CHIPClusters,CHIPInteractionModel,OnboardingPayload,libMatterTlv,libMatterJson}.jar`
+  and `.../lib/src/platform/android/AndroidPlatform.jar`. They are ABI-independent; the app takes
+  them from the arm64 build.
 
-**Verify the rebuilt `.so`** carries the new symbols:
+**Verify the rebuilt `.so`** carries the Photon symbols:
 ```bash
 $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm -D <libCHIPController.so> \
-  | grep -E "deleteFabricFromTable|deleteAllFabricsFromTable|deleteFabricByFabricId"
+  | grep -E "deleteAllFabricsFromTable|deleteFabricByFabricId|shutdownFabricSessions"
 ```
 …and that 64-bit libs are 16 KB-aligned (`llvm-readelf -l … | grep LOAD` → `0x4000`; 32-bit stays `0x1000`, which is correct).
 
-**Re-vendor into the app** (`fresh-android-app`):
-- `libCHIPController.so` (×4) → `app/thirdparty/connectedhomeip/libs/jniLibs/<abi>/`
-  (abi map: arm64→arm64-v8a, arm→armeabi-v7a, x64→x86_64, x86→x86)
-- `libc++_shared.so` (×4) → same dirs
-- `CHIPController.jar` → `app/thirdparty/connectedhomeip/libs/`
+**Re-vendor into the app** (`fresh-android-app`): run
+`tools/matter-fork/sync.sh <this-checkout> <fresh-v1.4.0-photon.N>` there. It requires this
+checkout to be exactly at the tag with clean tracked files and all four `out/` dirs up to date,
+then copies the libs (abi map: arm64→arm64-v8a, arm→armeabi-v7a, x64→x86_64, x86→x86) and the
+cluster XMLs the app already vendors, and rewrites `app/matter-fork.lock`, which the app's build
+checks.
 
-The app calls these via `ChipClient` → `FabricGarbageCollector` (delete-home / logout). After
-re-vendoring, run the app's `./gradlew testDebugUnitTest lint assembleDebug` and the on-device
-fabric-GC checks.
+The app calls the fabric-GC methods via `ChipClient` → `FabricGarbageCollector` (delete-home /
+logout). After re-vendoring, run the app's `./gradlew testDebugUnitTest lint assembleDebug` and
+the on-device fabric-GC checks.
