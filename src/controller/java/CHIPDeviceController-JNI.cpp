@@ -2165,6 +2165,43 @@ JNI_METHOD(void, deleteFabricByFabricId)(JNIEnv * env, jobject self, jlong handl
                     static_cast<unsigned long long>(fabricId), static_cast<unsigned>(targetIndex));
 }
 
+JNI_METHOD(void, shutdownFabricSessions)(JNIEnv * env, jobject self, jlong handle)
+{
+    chip::DeviceLayer::StackLock lock;
+
+    // App backgrounded or offline: the app owns the teardown instead of leaving CHIP to retry.
+    // These are the session steps of DeviceController::Shutdown(), but the controller and its
+    // fabric stay up, so the next interaction with a device starts a fresh CASE session.
+    AndroidDeviceControllerWrapper * wrapper = AndroidDeviceControllerWrapper::FromJNIHandle(handle);
+    VerifyOrReturn(wrapper != nullptr && wrapper->Controller() != nullptr,
+                   ChipLogError(Controller, "shutdownFabricSessions(): no controller"));
+    const FabricIndex fabricIndex = wrapper->Controller()->GetFabricIndex();
+    VerifyOrReturn(fabricIndex != kUndefinedFabricIndex, ChipLogError(Controller, "shutdownFabricSessions(): no fabric"));
+
+    const DeviceControllerSystemState * systemState = DeviceControllerFactory::GetInstance().GetSystemState();
+    VerifyOrReturn(systemState != nullptr && !systemState->IsShutDown(),
+                   ChipLogError(Controller, "shutdownFabricSessions(): no live system state"));
+
+    // 1. Close subscriptions with CHIP_NO_ERROR, which ends their auto-resubscribe. Expiring the
+    //    sessions first would make every subscription resubscribe instead.
+    app::InteractionModelEngine::GetInstance()->ShutdownSubscriptions(fabricIndex);
+
+    // 2. Cancel in-flight CASE establishment and its automatic retries. Pending
+    //    getConnectedDevicePointer callbacks fail with CHIP_ERROR_CANCELLED.
+    if (systemState->CASESessionMgr() != nullptr)
+    {
+        systemState->CASESessionMgr()->ReleaseSessionsForFabric(fabricIndex);
+    }
+
+    // 3. Expire the secure sessions, so nothing reuses one the device may no longer have.
+    if (systemState->SessionMgr() != nullptr)
+    {
+        systemState->SessionMgr()->ExpireAllSessionsForFabric(fabricIndex);
+    }
+    ChipLogProgress(Controller, "shutdownFabricSessions: closed subscriptions and sessions for fabric index 0x%x",
+                    static_cast<unsigned>(fabricIndex));
+}
+
 JNI_METHOD(jbyteArray, getAttestationChallenge)
 (JNIEnv * env, jobject self, jlong handle, jlong devicePtr)
 {

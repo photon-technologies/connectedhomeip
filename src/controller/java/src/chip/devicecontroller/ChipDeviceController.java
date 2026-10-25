@@ -1615,6 +1615,19 @@ public class ChipDeviceController {
     deleteFabricByFabricId(deviceControllerPtr, fabricId);
   }
 
+  /**
+   * Closes every subscription, in-flight CASE session setup and secure session on this
+   * controller's fabric, without shutting the controller down or touching the fabric table. Call it
+   * when the app goes to the background or loses its network, so CHIP stops retrying on its own.
+   * The next interaction with a device on the fabric starts a fresh CASE session.
+   *
+   * <p>Closed subscriptions end through {@code onDone}, without an error and without
+   * resubscribing. Pending {@link #getConnectedDevicePointer} calls fail with CHIP_ERROR_CANCELLED.
+   */
+  public void shutdownFabricSessions() {
+    shutdownFabricSessions(deviceControllerPtr);
+  }
+
   public static native byte[] validateAndExtractCSR(byte[] csrElements, byte[] csrNonce);
 
   private native PaseVerifierParams computePaseVerifier(
@@ -1787,6 +1800,8 @@ public class ChipDeviceController {
   private native void deleteAllFabricsFromTable(long deviceControllerPtr);
 
   private native void deleteFabricByFabricId(long deviceControllerPtr, long fabricId);
+
+  private native void shutdownFabricSessions(long deviceControllerPtr);
 
   private native void startDnssd(long deviceControllerPtr);
 
