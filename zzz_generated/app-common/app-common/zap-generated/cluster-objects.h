@@ -243,10 +243,6 @@
 #include <clusters/FreshWaterHeaterController/Commands.h>
 #include <clusters/FreshWaterHeaterController/Events.h>
 #include <clusters/FreshWaterHeaterController/Structs.h>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Attributes.h>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Commands.h>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Events.h>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Structs.h>
 #include <clusters/GeneralCommissioning/Attributes.h>
 #include <clusters/GeneralCommissioning/Commands.h>
 #include <clusters/GeneralCommissioning/Events.h>

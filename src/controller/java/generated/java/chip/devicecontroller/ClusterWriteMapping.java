@@ -4622,8 +4622,6 @@ public class ClusterWriteMapping {
     );
     writeFreshWaterHeaterControllerInteractionInfo.put("writeEnergyReportIntervalAttribute", writeFreshWaterHeaterControllerEnergyReportIntervalAttributeInteractionInfo);
     writeAttributeMap.put("freshWaterHeaterController", writeFreshWaterHeaterControllerInteractionInfo);
-    Map<String, InteractionInfo> writeFreshWaterHeaterErrorsAlarmInteractionInfo = new LinkedHashMap<>();
-    writeAttributeMap.put("freshWaterHeaterErrorsAlarm", writeFreshWaterHeaterErrorsAlarmInteractionInfo);
     Map<String, InteractionInfo> writeUnitTestingInteractionInfo = new LinkedHashMap<>();
     Map<String, CommandParameterInfo> writeUnitTestingBooleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
     CommandParameterInfo unitTestingbooleanCommandParameterInfo =

@@ -6939,43 +6939,6 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     }
     }
 }
-static BOOL AttributeIsSpecifiedInFreshWaterHeaterErrorsAlarmCluster(AttributeId aAttributeId)
-{
-    using namespace Clusters::FreshWaterHeaterErrorsAlarm;
-    switch (aAttributeId) {
-    case Attributes::Mask::Id: {
-        return YES;
-    }
-    case Attributes::Latch::Id: {
-        return YES;
-    }
-    case Attributes::State::Id: {
-        return YES;
-    }
-    case Attributes::Supported::Id: {
-        return YES;
-    }
-    case Attributes::GeneratedCommandList::Id: {
-        return YES;
-    }
-    case Attributes::AcceptedCommandList::Id: {
-        return YES;
-    }
-    case Attributes::AttributeList::Id: {
-        return YES;
-    }
-    case Attributes::FeatureMap::Id: {
-        return YES;
-    }
-    case Attributes::ClusterRevision::Id: {
-        return YES;
-    }
-    default: {
-        // Not a known FreshWaterHeaterErrorsAlarm attribute.
-        return NO;
-    }
-    }
-}
 static BOOL AttributeIsSpecifiedInUnitTestingCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::UnitTesting;
@@ -7716,9 +7679,6 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::FreshWaterHeaterController::Id: {
         return AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(aAttributeId);
-    }
-    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
-        return AttributeIsSpecifiedInFreshWaterHeaterErrorsAlarmCluster(aAttributeId);
     }
     case Clusters::UnitTesting::Id: {
         return AttributeIsSpecifiedInUnitTestingCluster(aAttributeId);

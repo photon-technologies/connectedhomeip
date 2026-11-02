@@ -3366,14 +3366,6 @@
           ]
         },
         {
-          "name": "Fresh Water Heater Errors Alarm",
-          "code": 367524870,
-          "mfgCode": null,
-          "define": "FRESH_WATER_HEATER_ERRORS_CLUSTER",
-          "side": "client",
-          "enabled": 1
-        },
-        {
           "name": "Unit Testing",
           "code": 4294048773,
           "mfgCode": null,

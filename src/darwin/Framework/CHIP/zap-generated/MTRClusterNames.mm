@@ -444,9 +444,6 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeFreshWaterHeaterControllerID:
         result = @"FreshWaterHeaterController";
         break;
-    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
-        result = @"FreshWaterHeaterErrorsAlarm";
-        break;
     case MTRClusterIDTypeUnitTestingID:
         result = @"UnitTesting";
         break;
@@ -9506,54 +9503,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
-    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
-
-        switch (attributeID) {
-
-            // Cluster FreshWaterHeaterErrorsAlarm attributes
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeMaskID:
-            result = @"Mask";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeLatchID:
-            result = @"Latch";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeStateID:
-            result = @"State";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeSupportedID:
-            result = @"Supported";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeGeneratedCommandListID:
-            result = @"GeneratedCommandList";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAcceptedCommandListID:
-            result = @"AcceptedCommandList";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeAttributeListID:
-            result = @"AttributeList";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeFeatureMapID:
-            result = @"FeatureMap";
-            break;
-
-        case MTRAttributeIDTypeClusterFreshWaterHeaterErrorsAlarmAttributeClusterRevisionID:
-            result = @"ClusterRevision";
-            break;
-
-        default:
-            // Not a known FreshWaterHeaterErrorsAlarm attribute.
-            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
-            break;
-        }
-        break;
-
     case MTRClusterIDTypeUnitTestingID:
 
         switch (attributeID) {
@@ -12816,20 +12765,6 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
-    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
-
-        switch (commandID) {
-
-        case MTRCommandIDTypeClusterFreshWaterHeaterErrorsAlarmCommandResetID:
-            result = @"Reset";
-            break;
-
-        default:
-            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
-            break;
-        }
-        break;
-
     case MTRClusterIDTypeUnitTestingID:
 
         switch (commandID) {
@@ -14753,16 +14688,6 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         break;
 
     case MTRClusterIDTypeFreshWaterHeaterControllerID:
-
-        switch (commandID) {
-
-        default:
-            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
-            break;
-        }
-        break;
-
-    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
 
         switch (commandID) {
 
@@ -16817,21 +16742,6 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
 
         case MTREventIDTypeClusterFreshWaterHeaterControllerEventNotifyErrorID:
             result = @"NotifyError";
-            break;
-
-        default:
-            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
-            break;
-        }
-        break;
-
-    case MTRClusterIDTypeFreshWaterHeaterErrorsAlarmID:
-
-        switch (eventID) {
-
-            // Cluster FreshWaterHeaterErrorsAlarm events
-        case MTREventIDTypeClusterFreshWaterHeaterErrorsAlarmEventNotifyID:
-            result = @"Notify";
             break;
 
         default:

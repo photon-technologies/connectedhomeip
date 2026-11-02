@@ -243,10 +243,6 @@
 #include <clusters/FreshWaterHeaterController/Commands.ipp>
 #include <clusters/FreshWaterHeaterController/Events.ipp>
 #include <clusters/FreshWaterHeaterController/Structs.ipp>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Attributes.ipp>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Commands.ipp>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Events.ipp>
-#include <clusters/FreshWaterHeaterErrorsAlarm/Structs.ipp>
 #include <clusters/GeneralCommissioning/Attributes.ipp>
 #include <clusters/GeneralCommissioning/Commands.ipp>
 #include <clusters/GeneralCommissioning/Events.ipp>
@@ -1457,13 +1453,6 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
         }
     }
     case Clusters::FreshWaterHeaterController::Id: {
-        switch (aCommand)
-        {
-        default:
-            return false;
-        }
-    }
-    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
         switch (aCommand)
         {
         default:

@@ -150,8 +150,7 @@
         "fresh-refrigerator-controller.xml",
         "fresh-refrigerator-errors.xml",
         "photon-smart-cluster.xml",
-        "fresh-water-heater-controller-cluster.xml",
-        "fresh-water-heater-errors.xml"
+        "fresh-water-heater-controller-cluster.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {

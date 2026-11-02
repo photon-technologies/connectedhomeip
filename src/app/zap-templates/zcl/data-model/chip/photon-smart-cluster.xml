@@ -13,25 +13,25 @@
          reserved, and a new kind takes the next free bit.
        - ReadResponse (bit 4) and ErrorReply (bit 12) can never be QoS 1. The device rejects a
          write that sets either.
-       - Bits 20-31 are reserved and must be 0. The device rejects a write that sets one.
+       - Bits 21-31 are reserved and must be 0. The device rejects a write that sets one.
        - LastWill (bit 14) takes effect at the next connect; every other bit applies from the
          next message of its kind.
-       - Default 0x0007E00F: FullReport, AttributeReport, EventReport, TelemetryBlob, Presence,
-         LastWill, InsightsBoot, InsightsReport, OtaFetch and OtaStatus at QoS 1. -->
+       - Default 0x0017E00F: FullReport, AttributeReport, EventReport, ProductReport, Presence,
+         LastWill, InsightsBoot, InsightsReport, OtaFetch, OtaStatus and AgentReport at QoS 1. -->
   <bitmap name="PublishQosBitmap" type="bitmap32">
     <cluster code="0x15E7FC00"/>
     <field name="FullReport"             mask="0x00000001"/> <!-- bit  0: state/report -->
     <field name="AttributeReport"        mask="0x00000002"/> <!-- bit  1: state/report -->
     <field name="EventReport"            mask="0x00000004"/> <!-- bit  2: state/report -->
-    <field name="TelemetryBlob"          mask="0x00000008"/> <!-- bit  3: state/report photon/telemetry1.0 -->
+    <field name="ProductReport"          mask="0x00000008"/> <!-- bit  3: state/report photon/product1.0 -->
     <field name="ReadResponse"           mask="0x00000010"/> <!-- bit  4: res/read -->
     <field name="WriteResponse"          mask="0x00000020"/> <!-- bit  5: res/write -->
     <field name="CommandResponse"        mask="0x00000040"/> <!-- bit  6: res/cmd -->
     <field name="AutomationResponse"     mask="0x00000080"/> <!-- bit  7: res/automation -->
-    <field name="TelemetryReadResponse"  mask="0x00000100"/> <!-- bit  8: res/read photon/telemetry1.0 -->
-    <field name="TelemetryWriteResponse" mask="0x00000200"/> <!-- bit  9: res/write photon/telemetry1.0 -->
-    <field name="TimeReadResponse"       mask="0x00000400"/> <!-- bit 10: res/read photon/time1.0 -->
-    <field name="TimeWriteResponse"      mask="0x00000800"/> <!-- bit 11: res/write photon/time1.0 -->
+    <field name="ProductReadResponse"    mask="0x00000100"/> <!-- bit  8: res/read photon/product1.0 -->
+    <field name="ProductWriteResponse"   mask="0x00000200"/> <!-- bit  9: res/write photon/product1.0 -->
+    <field name="AgentReadResponse"      mask="0x00000400"/> <!-- bit 10: res/read photon/agent1.0 -->
+    <field name="AgentWriteResponse"     mask="0x00000800"/> <!-- bit 11: res/write photon/agent1.0 -->
     <field name="ErrorReply"             mask="0x00001000"/> <!-- bit 12: any res/*, from mqtt_task -->
     <field name="Presence"               mask="0x00002000"/> <!-- bit 13: presence -->
     <field name="LastWill"               mask="0x00004000"/> <!-- bit 14: presence, sent by the broker -->
@@ -40,6 +40,7 @@
     <field name="OtaFetch"               mask="0x00020000"/> <!-- bit 17: ota/fetch -->
     <field name="OtaStatus"              mask="0x00040000"/> <!-- bit 18: ota/status -->
     <field name="OtaProgress"            mask="0x00080000"/> <!-- bit 19: ota/progress -->
+    <field name="AgentReport"            mask="0x00100000"/> <!-- bit 20: state/report photon/agent1.0 -->
   </bitmap>
   <struct name="PhotonMQTTStruct">
     <cluster code="0x15E7FC00"/>
@@ -64,7 +65,7 @@
     <item fieldId="19" name="BootJitterMaxMS" type="int32u" default="45000"/>
     <!-- Optional, unlike fields 1-19: 0 is a valid PublishQos (everything at QoS 0), so an
          absent field must mean "keep the current value", not 0. -->
-    <item fieldId="20" name="PublishQos" type="PublishQosBitmap" default="0x0007E00F" optional="true"/>
+    <item fieldId="20" name="PublishQos" type="PublishQosBitmap" default="0x0017E00F" optional="true"/>
   </struct>
   <struct name="PhotonInsightsParamsStruct">
   <cluster code="0x15E7FC00"/>

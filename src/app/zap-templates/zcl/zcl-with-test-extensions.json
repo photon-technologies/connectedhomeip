@@ -151,8 +151,7 @@
         "fresh-refrigerator-errors.xml",
         "fresh-midea-controller-cluster.xml",
         "photon-smart-cluster.xml",
-        "fresh-water-heater-controller-cluster.xml",
-        "fresh-water-heater-errors.xml"
+        "fresh-water-heater-controller-cluster.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
     "options": {
