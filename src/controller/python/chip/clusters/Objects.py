@@ -52927,15 +52927,15 @@ class PhotonSmart(Cluster):
             kFullReport = 0x1
             kAttributeReport = 0x2
             kEventReport = 0x4
-            kTelemetryBlob = 0x8
+            kProductReport = 0x8
             kReadResponse = 0x10
             kWriteResponse = 0x20
             kCommandResponse = 0x40
             kAutomationResponse = 0x80
-            kTelemetryReadResponse = 0x100
-            kTelemetryWriteResponse = 0x200
-            kTimeReadResponse = 0x400
-            kTimeWriteResponse = 0x800
+            kProductReadResponse = 0x100
+            kProductWriteResponse = 0x200
+            kAgentReadResponse = 0x400
+            kAgentWriteResponse = 0x800
             kErrorReply = 0x1000
             kPresence = 0x2000
             kLastWill = 0x4000
@@ -52944,6 +52944,7 @@ class PhotonSmart(Cluster):
             kOtaFetch = 0x20000
             kOtaStatus = 0x40000
             kOtaProgress = 0x80000
+            kAgentReport = 0x100000
 
     class Structs:
         @dataclass
