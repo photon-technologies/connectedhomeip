@@ -21939,63 +21939,6 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
     *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
     return nil;
 }
-static id _Nullable DecodeAttributeValueForFreshWaterHeaterErrorsAlarmCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
-{
-    using namespace Clusters::FreshWaterHeaterErrorsAlarm;
-    switch (aAttributeId) {
-    case Attributes::Mask::Id: {
-        using TypeInfo = Attributes::Mask::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    case Attributes::Latch::Id: {
-        using TypeInfo = Attributes::Latch::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    case Attributes::State::Id: {
-        using TypeInfo = Attributes::State::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    case Attributes::Supported::Id: {
-        using TypeInfo = Attributes::Supported::TypeInfo;
-        TypeInfo::DecodableType cppValue;
-        *aError = DataModel::Decode(aReader, cppValue);
-        if (*aError != CHIP_NO_ERROR) {
-            return nil;
-        }
-        NSNumber * _Nonnull value;
-        value = [NSNumber numberWithUnsignedInt:cppValue.Raw()];
-        return value;
-    }
-    default: {
-        // Not a known FreshWaterHeaterErrorsAlarm attribute.
-        break;
-    }
-    }
-
-    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
-    return nil;
-}
 static id _Nullable DecodeAttributeValueForUnitTestingCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::UnitTesting;
@@ -24011,9 +23954,6 @@ id _Nullable MTRDecodeAttributeValue(const ConcreteAttributePath & aPath, TLV::T
     }
     case Clusters::FreshWaterHeaterController::Id: {
         return DecodeAttributeValueForFreshWaterHeaterControllerCluster(aPath.mAttributeId, aReader, aError);
-    }
-    case Clusters::FreshWaterHeaterErrorsAlarm::Id: {
-        return DecodeAttributeValueForFreshWaterHeaterErrorsAlarmCluster(aPath.mAttributeId, aReader, aError);
     }
     case Clusters::UnitTesting::Id: {
         return DecodeAttributeValueForUnitTestingCluster(aPath.mAttributeId, aReader, aError);

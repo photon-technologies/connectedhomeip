@@ -15354,75 +15354,6 @@ class ChipClusters:
             },
         },
     }
-    _FRESH_WATER_HEATER_ERRORS_ALARM_CLUSTER_INFO = {
-        "clusterName": "FreshWaterHeaterErrorsAlarm",
-        "clusterId": 0x15E7FC06,
-        "commands": {
-            0x00000000: {
-                "commandId": 0x00000000,
-                "commandName": "Reset",
-                "args": {
-                    "alarms": "int",
-                },
-            },
-        },
-        "attributes": {
-            0x00000000: {
-                "attributeName": "Mask",
-                "attributeId": 0x00000000,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000001: {
-                "attributeName": "Latch",
-                "attributeId": 0x00000001,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000002: {
-                "attributeName": "State",
-                "attributeId": 0x00000002,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000003: {
-                "attributeName": "Supported",
-                "attributeId": 0x00000003,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFF8: {
-                "attributeName": "GeneratedCommandList",
-                "attributeId": 0x0000FFF8,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFF9: {
-                "attributeName": "AcceptedCommandList",
-                "attributeId": 0x0000FFF9,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFFB: {
-                "attributeName": "AttributeList",
-                "attributeId": 0x0000FFFB,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFFC: {
-                "attributeName": "FeatureMap",
-                "attributeId": 0x0000FFFC,
-                "type": "int",
-                "reportable": True,
-            },
-            0x0000FFFD: {
-                "attributeName": "ClusterRevision",
-                "attributeId": 0x0000FFFD,
-                "type": "int",
-                "reportable": True,
-            },
-        },
-    }
     _UNIT_TESTING_CLUSTER_INFO = {
         "clusterName": "UnitTesting",
         "clusterId": 0xFFF1FC05,
@@ -16560,7 +16491,6 @@ class ChipClusters:
         0x15E7FC03: _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
         0x15E7FC04: _FRESH_MIDEA_CONTROLLER_CLUSTER_INFO,
         0x15E7FC05: _FRESH_WATER_HEATER_CONTROLLER_CLUSTER_INFO,
-        0x15E7FC06: _FRESH_WATER_HEATER_ERRORS_ALARM_CLUSTER_INFO,
         0xFFF1FC05: _UNIT_TESTING_CLUSTER_INFO,
         0xFFF1FC06: _FAULT_INJECTION_CLUSTER_INFO,
         0xFFF1FC20: _SAMPLE_MEI_CLUSTER_INFO,
@@ -16709,7 +16639,6 @@ class ChipClusters:
         "FreshRefrigeratorController": _FRESH_REFRIGERATOR_CONTROLLER_CLUSTER_INFO,
         "FreshMideaController": _FRESH_MIDEA_CONTROLLER_CLUSTER_INFO,
         "FreshWaterHeaterController": _FRESH_WATER_HEATER_CONTROLLER_CLUSTER_INFO,
-        "FreshWaterHeaterErrorsAlarm": _FRESH_WATER_HEATER_ERRORS_ALARM_CLUSTER_INFO,
         "UnitTesting": _UNIT_TESTING_CLUSTER_INFO,
         "FaultInjection": _FAULT_INJECTION_CLUSTER_INFO,
         "SampleMei": _SAMPLE_MEI_CLUSTER_INFO,

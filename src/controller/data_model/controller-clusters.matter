@@ -11634,49 +11634,6 @@ cluster FreshWaterHeaterController = 367524869 {
   command access(invoke: administer) AnodeChangeConfirmed(): DefaultSuccess = 1;
 }
 
-/** Attributes and commands for configuring the Fresh Water Heater Errors alarm. */
-cluster FreshWaterHeaterErrorsAlarm = 367524870 {
-  revision 1;
-
-  bitmap AlarmBitmap : bitmap32 {
-    kSensorUnderRange = 0x1;
-    kSensorOverRange = 0x2;
-    kHeaterOverTemp = 0x4;
-    kNoHeatingElement = 0x8;
-    kFastTempRise = 0x10;
-    kHeatingLatchedOn = 0x20;
-    kAnodeChangeRequest = 0x40;
-  }
-
-  bitmap Feature : bitmap32 {
-    kReset = 0x1;
-  }
-
-  info event Notify = 0 {
-    AlarmBitmap active = 0;
-    AlarmBitmap inactive = 1;
-    AlarmBitmap state = 2;
-    AlarmBitmap mask = 3;
-  }
-
-  readonly attribute AlarmBitmap mask = 0;
-  readonly attribute optional AlarmBitmap latch = 1;
-  readonly attribute AlarmBitmap state = 2;
-  readonly attribute AlarmBitmap supported = 3;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-
-  request struct ResetRequest {
-    AlarmBitmap alarms = 0;
-  }
-
-  /** This command resets active and latched alarms (if possible). */
-  command Reset(ResetRequest): DefaultSuccess = 0;
-}
-
 /** The Test Cluster is meant to validate the generated code */
 internal cluster UnitTesting = 4294048773 {
   revision 1; // NOTE: Default/not specifically set

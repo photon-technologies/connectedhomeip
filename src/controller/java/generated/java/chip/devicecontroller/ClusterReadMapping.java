@@ -20415,109 +20415,6 @@ public class ClusterReadMapping {
      
        return result;
     }
-    private static Map<String, InteractionInfo> readFreshWaterHeaterErrorsAlarmInteractionInfo() {
-       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmMaskCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmMaskAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readMaskAttribute(
-              (ChipClusters.LongAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmMaskCommandParams
-        );
-        result.put("readMaskAttribute", readFreshWaterHeaterErrorsAlarmMaskAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmLatchCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmLatchAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readLatchAttribute(
-              (ChipClusters.LongAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmLatchCommandParams
-        );
-        result.put("readLatchAttribute", readFreshWaterHeaterErrorsAlarmLatchAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmStateCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmStateAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readStateAttribute(
-              (ChipClusters.LongAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmStateCommandParams
-        );
-        result.put("readStateAttribute", readFreshWaterHeaterErrorsAlarmStateAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmSupportedCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmSupportedAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readSupportedAttribute(
-              (ChipClusters.LongAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmSupportedCommandParams
-        );
-        result.put("readSupportedAttribute", readFreshWaterHeaterErrorsAlarmSupportedAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readGeneratedCommandListAttribute(
-              (ChipClusters.FreshWaterHeaterErrorsAlarmCluster.GeneratedCommandListAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedFreshWaterHeaterErrorsAlarmClusterGeneratedCommandListAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmGeneratedCommandListCommandParams
-        );
-        result.put("readGeneratedCommandListAttribute", readFreshWaterHeaterErrorsAlarmGeneratedCommandListAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmAcceptedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmAcceptedCommandListAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readAcceptedCommandListAttribute(
-              (ChipClusters.FreshWaterHeaterErrorsAlarmCluster.AcceptedCommandListAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedFreshWaterHeaterErrorsAlarmClusterAcceptedCommandListAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmAcceptedCommandListCommandParams
-        );
-        result.put("readAcceptedCommandListAttribute", readFreshWaterHeaterErrorsAlarmAcceptedCommandListAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmAttributeListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmAttributeListAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readAttributeListAttribute(
-              (ChipClusters.FreshWaterHeaterErrorsAlarmCluster.AttributeListAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedFreshWaterHeaterErrorsAlarmClusterAttributeListAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmAttributeListCommandParams
-        );
-        result.put("readAttributeListAttribute", readFreshWaterHeaterErrorsAlarmAttributeListAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmFeatureMapCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmFeatureMapAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readFeatureMapAttribute(
-              (ChipClusters.LongAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmFeatureMapCommandParams
-        );
-        result.put("readFeatureMapAttribute", readFreshWaterHeaterErrorsAlarmFeatureMapAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readFreshWaterHeaterErrorsAlarmClusterRevisionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readFreshWaterHeaterErrorsAlarmClusterRevisionAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.FreshWaterHeaterErrorsAlarmCluster) cluster).readClusterRevisionAttribute(
-              (ChipClusters.IntegerAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
-          readFreshWaterHeaterErrorsAlarmClusterRevisionCommandParams
-        );
-        result.put("readClusterRevisionAttribute", readFreshWaterHeaterErrorsAlarmClusterRevisionAttributeInteractionInfo);
-     
-       return result;
-    }
     private static Map<String, InteractionInfo> readUnitTestingInteractionInfo() {
        Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readUnitTestingBooleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readUnitTestingBooleanAttributeInteractionInfo = new InteractionInfo(
@@ -21787,7 +21684,6 @@ public class ClusterReadMapping {
             put("freshRefrigeratorController", readFreshRefrigeratorControllerInteractionInfo());
             put("freshMideaController", readFreshMideaControllerInteractionInfo());
             put("freshWaterHeaterController", readFreshWaterHeaterControllerInteractionInfo());
-            put("freshWaterHeaterErrorsAlarm", readFreshWaterHeaterErrorsAlarmInteractionInfo());
             put("unitTesting", readUnitTestingInteractionInfo());
             put("faultInjection", readFaultInjectionInteractionInfo());
             put("sampleMei", readSampleMeiInteractionInfo());}};

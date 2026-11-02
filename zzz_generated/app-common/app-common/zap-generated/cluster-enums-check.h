@@ -77,7 +77,6 @@
 #include <clusters/FreshRefrigeratorController/EnumsCheck.h>
 #include <clusters/FreshRefrigeratorErrorsAlarm/EnumsCheck.h>
 #include <clusters/FreshWaterHeaterController/EnumsCheck.h>
-#include <clusters/FreshWaterHeaterErrorsAlarm/EnumsCheck.h>
 #include <clusters/GeneralCommissioning/EnumsCheck.h>
 #include <clusters/GeneralDiagnostics/EnumsCheck.h>
 #include <clusters/GroupKeyManagement/EnumsCheck.h>
