@@ -11,8 +11,8 @@
        Bit n = 1: kind n is published at QoS 1; 0: QoS 0. This is a contract with the server:
        - A bit's position is permanent. Never reorder or reuse one; a removed kind's bit stays
          reserved, and a new kind takes the next free bit.
-       - ReadResponse (bit 4) and ErrorReply (bit 12) can never be QoS 1. The device rejects a
-         write that sets either.
+       - ErrorReply (bit 12) can never be QoS 1: it is sent from the MQTT session task, which
+         cannot wait for a QoS 1 slot. The device rejects a write that sets it.
        - Bits 21-31 are reserved and must be 0. The device rejects a write that sets one.
        - LastWill (bit 14) takes effect at the next connect; every other bit applies from the
          next message of its kind.
