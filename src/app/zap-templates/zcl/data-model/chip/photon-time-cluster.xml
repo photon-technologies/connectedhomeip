@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+  Photon Time (0x15E7FC06), endpoint 0
+
+  SOURCE OF TRUTH for the time zone cluster the Photon agent serves on every product.
+
+  Not listed in zcl.json or zcl-with-test-extensions.json, so ZAP does not load it and
+  nothing is generated from it: the cluster is in no product's Matter data model. The agent
+  serves it over MQTT as photon/agent1.0, the agent's documents, addressed by the same
+  (endpoint, cluster, attribute) and (endpoint, cluster, command) as Matter.
+
+  The rule and the zone name are one value, as the name and offset are in the Time
+  Synchronization cluster's TimeZoneStruct: every attribute is read only, and SetTimeZone
+  sets both together. The device answers SetTimeZone with a status only; the change
+  arrives in the cluster's report.
+
+  Ids mirror esp-photon-agent's photon_time_report_encode.h (attributes) and
+  photon_agent_data.cpp (command).
+-->
+<configurator>
+  <domain name="CHIP"/>
+
+  <enum name="RuleSourceEnum" type="enum8">
+    <cluster code="0x15E7FC06"/>
+    <item name="None" value="0x00"/>
+    <item name="BuildDefault" value="0x01"/>
+    <item name="Factory" value="0x02"/>
+    <item name="Set" value="0x03"/>
+  </enum>
+
+  <cluster>
+    <name>Photon Time</name>
+    <domain>PHOTON</domain>
+    <description>The time zone in effect on the device, and the command that sets it. Served over MQTT as photon/agent1.0, outside the Matter data model.</description>
+    <code>0x15E7FC06</code>
+    <define>PHOTON_TIME_CLUSTER</define>
+    <client tick="false" init="false">true</client>
+    <server tick="false" init="false">true</server>
+    <globalAttribute code="0xFFFD" side="either" value="1"/>
+
+    <!-- The POSIX TZ rule in effect, as the device's C library applies it. Empty when RuleSource is None; never null. -->
+    <attribute side="server" code="0x0001" name="PosixRule" define="POSIX_RULE" type="char_string" length="63">
+      <mandatoryConform/>
+    </attribute>
+
+    <!-- Where the rule in effect came from: set by the cloud, else the factory partition, else the firmware's build default. -->
+    <attribute side="server" code="0x0002" name="RuleSource" define="RULE_SOURCE" type="RuleSourceEnum">
+      <mandatoryConform/>
+    </attribute>
+
+    <!-- Seconds east of UTC now, DST included. Derived from the rule. -->
+    <attribute side="server" code="0x0003" name="UTCOffset" define="UTC_OFFSET" type="int32s">
+      <mandatoryConform/>
+    </attribute>
+
+    <!-- Whether DST is in effect now. Derived from the rule. -->
+    <attribute side="server" code="0x0004" name="DSTActive" define="DST_ACTIVE" type="boolean">
+      <mandatoryConform/>
+    </attribute>
+
+    <!-- The IANA zone name set with the rule in effect, a label the device never computes with. Null when unknown. -->
+    <attribute side="server" code="0x0005" name="ZoneName" define="ZONE_NAME" type="char_string" length="64" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+
+    <command source="client" code="0x00" name="SetTimeZone" optional="false">
+      <description>Sets the rule and its zone name together, or neither. A rule without a name, or with a null name, clears the stored name. Answered with a status only.</description>
+      <arg id="0" name="PosixRule" type="char_string" length="63"/>
+      <arg id="1" name="ZoneName" type="char_string" length="64" isNullable="true" optional="true"/>
+      <access op="invoke" privilege="manage"/>
+      <mandatoryConform/>
+    </command>
+  </cluster>
+</configurator>

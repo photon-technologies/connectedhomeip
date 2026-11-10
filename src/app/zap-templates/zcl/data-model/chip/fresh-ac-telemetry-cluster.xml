@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<!--
+  Fresh AC Telemetry (0x15E7FC07)
+
+  SOURCE OF TRUTH for the manufacturer telemetry channel.
+
+  IMPORTANT: this cluster is NOT instantiated on the certified endpoint. It is not
+  listed in zcl.json or zcl-with-test-extensions.json, so ZAP does not load it and a
+  regeneration cannot pull it into the build. The AC's Matter data model is frozen
+  post-certification; this telemetry was discovered
+  afterwards and is delivered out-of-band over MQTT (content-type
+  photon/product1.0, the product's documents) instead of over Matter. The cluster exists so that the
+  device and the server share ONE addressing vocabulary - (endpoint, cluster,
+  attribute) - rather than a bespoke per-model contract.
+
+  TO ADOPT IT INTO THE MATTER MODEL LATER (a deliberate decision, not a tidy-up):
+  add it to zcl.json and zcl-with-test-extensions.json, then reference the cluster
+  from fresh_ac_esp's data_model/ac-app.zap. Until both happen it is documentation
+  and a codegen source of truth only - nothing builds from it.
+
+  Values that are genuinely unmeasurable right now are reported as NULL (e.g.
+  condenser temperature while the compressor is stopped), which is why every
+  measurement attribute here is nullable. An attribute the model can NEVER
+  produce - a non-inverter has no data path to its outdoor unit at all - is
+  omitted from the stream entirely and never advertised.
+
+  Attribute ids mirror fresh_ac_esp/main/hardware/telemetry_ids.h. Power, voltage,
+  current and energy are deliberately NOT redefined here: they are reported
+  against the official ElectricalPowerMeasurement (0x0090) and
+  ElectricalEnergyMeasurement (0x0091) clusters, unchanged.
+-->
+<configurator>
+  <domain name="CHIP"/>
+
+  <enum name="DefrostStateEnum" type="enum8">
+    <cluster code="0x15E7FC07"/>
+    <item name="Inactive" value="0x00"/>
+    <item name="Active" value="0x01"/>
+  </enum>
+
+  <!--
+    Reporting policy for ONE attribute. Flat, with the subject at fieldId 0 and
+    its properties as siblings, matching Matter's own idiom
+    (MeasurementRangeStruct, HarmonicMeasurementStruct).
+
+    The properties are optional: one left out takes its build default, because a
+    write of 0x00F0 replaces the whole policy (see TelemetryConfig). Deadband is
+    expressed in the
+    TARGET ATTRIBUTE'S OWN UNIT (mW for ActivePower, 0.01C for a temperature,
+    rpm for a fan) and means: report when the value differs from the LAST
+    REPORTED one by more than this. Comparing against the last reported value -
+    not the last sampled one - is what lets slow drift accumulate and eventually
+    report, instead of a gradually failing unit going silent.
+
+    Deadband 0 means report every change. Attributes with no meaningful deadband
+    (energy, which is a completed-window accumulation) simply omit it.
+  -->
+  <struct name="TelemetryAttributeConfigStruct">
+    <cluster code="0x15E7FC07"/>
+    <item fieldId="0" name="AttributeID" type="attrib_id"/>
+    <item fieldId="1" name="Enabled" type="boolean" optional="true" default="1"/>
+    <!-- At most 2147483647: the device stores it signed. -->
+    <item fieldId="2" name="Deadband" type="int32u" optional="true" max="2147483647"/>
+    <!--
+      Proportional band, in percent of the last reported value. Independent of
+      Deadband and OR-ed with it: a path reports when EITHER threshold is
+      crossed, so one absolute floor can guard a quantity whose useful
+      resolution changes with magnitude (a 5% swing means something very
+      different at 100 W and at 3 kW). 0 disables the proportional test.
+    -->
+    <item fieldId="3" name="DeadbandPercent" type="percent" optional="true" default="0" max="100"/>
+  </struct>
+
+  <!--
+    Reporting policy for one (endpoint, cluster). Path-compressed exactly like the
+    reported data, so a consumer walks config and readings with the same code.
+    Cluster may be an OFFICIAL Matter cluster (0x0090 / 0x0091): this references
+    those attributes, it does not extend them.
+  -->
+  <struct name="TelemetryClusterConfigStruct">
+    <cluster code="0x15E7FC07"/>
+    <item fieldId="0" name="Endpoint" type="endpoint_no"/>
+    <item fieldId="1" name="Cluster" type="cluster_id"/>
+    <item fieldId="2" name="Attributes" array="true" type="TelemetryAttributeConfigStruct"/>
+  </struct>
+
+  <cluster>
+    <name>Fresh AC Telemetry</name>
+    <domain>FRESH</domain>
+    <description>Manufacturer diagnostic telemetry for the Fresh Midea AC controller, reported out-of-band over MQTT. Read-only measurements plus the runtime reporting policy that governs them.</description>
+    <code>0x15E7FC07</code>
+    <define>FRESH_AC_TELEMETRY_CLUSTER</define>
+    <client tick="false" init="false">true</client>
+    <server tick="false" init="false">true</server>
+    <globalAttribute code="0xFFFD" side="either" value="1"/>
+    <!--
+      0xFFFB AttributeList and 0xFFFC FeatureMap are Matter globals, present on
+      every cluster. They are called out here because this cluster is delivered
+      over MQTT rather than through a Matter endpoint, so a consumer cannot get
+      them from the Descriptor cluster the way it normally would. Both are carried
+      in the boot report and readable through the ordinary read path.
+
+      AttributeList is feature-filtered: it lists what THIS unit has, so a
+      relay-driven model's list simply omits the INVERTER attributes. It replaces
+      the retired identity document's path list, which was built from live
+      validity and therefore changed shape depending on whether the compressor
+      happened to be running.
+    -->
+
+    <features>
+      <feature bit="0" code="INVERTER" name="Inverter" summary="Unit has a data path to the outdoor unit. A relay-driven (non-inverter) compressor has none, so the outdoor and diagnostics groups are never produced.">
+        <optionalConform/>
+      </feature>
+      <feature bit="1" code="POWERMETER" name="PowerMeter" summary="Unit reports real-time power, enabling the ElectricalPowerMeasurement and ElectricalEnergyMeasurement paths. NOTE: equal to INVERTER on every shipping model - no unit does one without the other. They remain separate bits because they are separate claims that a future model could split; do NOT infer that they vary independently today.">
+        <optionalConform/>
+      </feature>
+      <feature bit="2" code="HUMIDITY" name="Humidity" summary="Unit has an indoor humidity sensor. Previously this was an optionalConform with no feature, so a consumer holding the feature map could not predict whether IndoorHumidity existed.">
+        <optionalConform/>
+      </feature>
+    </features>
+
+    <!-- ===== compressor / refrigerant circuit (0x0000-0x000F) ===== -->
+    <!-- Actual compressor frequency in Hz. 0 is a real reading and marks the end of a run, so it is always reported. -->
+    <attribute side="server" code="0x0000" name="CompressorFrequencyActual" define="COMPRESSOR_FREQUENCY_ACTUAL" type="int16u" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Commanded compressor frequency in Hz. Compared against the actual to judge control-loop health. -->
+    <attribute side="server" code="0x0001" name="CompressorFrequencyTarget" define="COMPRESSOR_FREQUENCY_TARGET" type="int16u" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Target frequency as reported by the outdoor unit, in Hz. -->
+    <attribute side="server" code="0x0002" name="OutdoorTargetFrequency" define="OUTDOOR_TARGET_FREQUENCY" type="int16u" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- T1 return-air (room) temperature - the sensor in the indoor unit's air intake, NOT the coil; T2 is the coil. This is why it reads whenever the unit is powered, compressor running or not. -->
+    <attribute side="server" code="0x0003" name="T1ReturnAirTemperature" define="T1_RETURN_AIR_TEMPERATURE" type="temperature" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- T2 evaporator temperature. Drives superheat and freeze detection. -->
+    <attribute side="server" code="0x0004" name="T2EvaporatorTemperature" define="T2_EVAPORATOR_TEMPERATURE" type="temperature" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- T3 condenser temperature. NULL while the compressor is stopped: the sensor reports a resting value that is not a condenser measurement. -->
+    <attribute side="server" code="0x0005" name="T3CondenserTemperature" define="T3_CONDENSER_TEMPERATURE" type="temperature" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- T4 outdoor ambient temperature. Valid whenever the outdoor unit is powered - it does NOT require the compressor to be running. -->
+    <attribute side="server" code="0x0006" name="T4OutdoorTemperature" define="T4_OUTDOOR_TEMPERATURE" type="temperature" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Compressor discharge line temperature. NULL while stopped. Primary signal for overheat protection. -->
+    <attribute side="server" code="0x0007" name="DischargeTemperature" define="DISCHARGE_TEMPERATURE" type="temperature" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Electronic expansion valve position in steps. -->
+    <attribute side="server" code="0x0008" name="EevPosition" define="EEV_POSITION" type="int16u" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Inverter DC bus voltage. Scale is not yet independently confirmed against a meter. -->
+    <attribute side="server" code="0x0009" name="DcBusVoltage" define="DC_BUS_VOLTAGE" type="voltage_mv" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Raw IPM (power module) reading. Scale UNCONFIRMED: observed constant across idle and full load, so it may not be a temperature at all. -->
+    <attribute side="server" code="0x000A" name="IpmTemperatureRaw" define="IPM_TEMPERATURE_RAW" type="int16u" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+
+    <!-- ===== fans (0x0010-0x001F) ===== -->
+    <!-- Indoor blower actual speed in rpm. -->
+    <attribute side="server" code="0x0010" name="IndoorFanActual" define="INDOOR_FAN_ACTUAL" type="int16u" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Indoor blower commanded speed in rpm. -->
+    <attribute side="server" code="0x0011" name="IndoorFanTarget" define="INDOOR_FAN_TARGET" type="int16u" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Outdoor fan speed in rpm. -->
+    <attribute side="server" code="0x0012" name="OutdoorFanSpeed" define="OUTDOOR_FAN_SPEED" type="int16u" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+
+    <!-- ===== runtime (0x0020-0x002F) ===== -->
+    <!-- Length of the current compressor run in RAW TICKS of 64 SECONDS each - NOT minutes. Multiply by 64 to get seconds; measured on hardware and corroborated by the blaueis-libmidea glossary. The source is a single byte, so it saturates at 255 ticks (4h32m); the device reports the saturation once, and values at the ceiling mean 'at least that long', not exactly that long. Reset to 0 when the compressor stops, which is the transition the device reports on. -->
+    <attribute side="server" code="0x0020" name="CurrentRunTicks" define="CURRENT_RUN_TICKS" type="int16u" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Lifetime runtime odometer in hours. Differencing this across a period gives exact total runtime without depending on catching every individual run. -->
+    <attribute side="server" code="0x0021" name="CompressorCumulativeHours" define="COMPRESSOR_CUMULATIVE_HOURS" type="int16u" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Defrost cycle state. -->
+    <attribute side="server" code="0x0022" name="DefrostState" define="DEFROST_STATE" type="DefrostStateEnum" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Setpoint after the unit's internal compensation. NULL on models that do not report one. -->
+    <attribute side="server" code="0x0023" name="CompensatedSetpoint" define="COMPENSATED_SETPOINT" type="temperature" isNullable="true">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Indoor relative humidity. Present only when the capability handshake reports a humidity sensor. -->
+    <attribute side="server" code="0x0024" name="IndoorHumidity" define="INDOOR_HUMIDITY" type="percent" isNullable="true">
+      <optionalConform>
+        <feature name="HUMIDITY"/>
+      </optionalConform>
+    </attribute>
+
+    <!-- ===== diagnostics (0x0030-0x003F) ===== -->
+    <!--
+      INVERTER, corrected 2026-08-18. This was mandatoryConform, but it is read
+      from group 0x46, the diagnostics group, which the INVERTER summary above
+      says a relay-driven unit never produces. A "mandatory" attribute that is
+      structurally unavailable on half the fleet, with no feature bit to explain
+      it, is a contract bug: a consumer would read the absence as a fault.
+    -->
+    <!-- Cumulative fault count. Every change is reported. -->
+    <attribute side="server" code="0x0030" name="TotalErrorCount" define="TOTAL_ERROR_COUNT" type="int16u" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Highest current ever observed. NVM-backed, so it changes rarely. -->
+    <attribute side="server" code="0x0031" name="LifetimeMaxCurrent" define="LIFETIME_MAX_CURRENT" type="amperage_ma" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Highest outdoor ambient ever observed. NVM-backed. -->
+    <attribute side="server" code="0x0032" name="LifetimeMaxOutdoorTemperature" define="LIFETIME_MAX_OUTDOOR_TEMPERATURE" type="temperature" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Lowest outdoor ambient ever observed. NVM-backed. -->
+    <attribute side="server" code="0x0033" name="LifetimeMinOutdoorTemperature" define="LIFETIME_MIN_OUTDOOR_TEMPERATURE" type="temperature" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Field-oriented-control d-axis current. SIGNED: it goes negative under field weakening (observed 0 stopped, -1 running). Decoding it unsigned publishes 255. -->
+    <attribute side="server" code="0x0034" name="FocDAxisCurrent" define="FOC_D_AXIS_CURRENT" type="int8s" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+    <!-- Field-oriented-control q-axis (torque) current. Signed; tracks load. -->
+    <attribute side="server" code="0x0035" name="FocQAxisCurrent" define="FOC_Q_AXIS_CURRENT" type="int8s" isNullable="true">
+      <optionalConform>
+        <feature name="INVERTER"/>
+      </optionalConform>
+    </attribute>
+
+    <!-- ===== device identity (0x00E0-0x00EF), read-only ===== -->
+    <!--
+      What this unit IS. These were the payload of the retired `identity`
+      telemetry document (kind 1), which is gone: it answered a structural
+      question with an instantaneous gate, and it removed runtime-disabled paths
+      from its own capability list, so "silenced" and "absent" were
+      indistinguishable. They are attributes now, so they ride the boot report
+      and are readable through the ordinary read path like everything else.
+
+      Matter's BasicInformation carries VendorID/ProductID/Hardware/Software
+      versions; it has no room for the Midea model code or the AC protocol
+      version, which is why these live here.
+    -->
+    <!--
+      ONE attribute here, not three.
+
+      The retired identity document also carried a model code and a protocol
+      version, but the call site passed both as hardcoded literals (0 and 3): the
+      AC exposes neither in any frame we decode, and the capability handshake has
+      no such field. They are DROPPED, not reserved. Publishing an invented
+      constant as a device fact is worse than not offering the attribute, and an
+      id held open for a field that does not exist only invites someone to fill it
+      with a constant again. If a real source ever appears, it gets a new id and a
+      real description.
+    -->
+    <!-- Appliance class from the electronic ID (0xAC for an air conditioner). The only device-identity byte the AC actually reports. -->
+    <attribute side="server" code="0x00E1" name="ApplianceType" define="APPLIANCE_TYPE" type="enum8">
+      <mandatoryConform/>
+    </attribute>
+
+    <!-- ===== reporting policy (0x00F0-0x00FF), writable at runtime ===== -->
+    <!--
+      Policy lives HERE rather than on the measured clusters, deliberately. Matter
+      keeps reporting policy out of clusters too: subscription min/max intervals
+      belong to the subscription, not to ElectricalPowerMeasurement. A deadband is
+      policy ABOUT a path, not a property OF the measured quantity - ActivePower
+      is 936 mW regardless of how often we choose to report it.
+
+      Written as Matter writes an attribute. A write of TelemetryConfig replaces the
+      whole policy: the list sent becomes the policy, and a path or field it leaves
+      out takes its build default. It is all or none: an entry out of range, a path
+      this unit does not have, or one path named twice refuses the whole value with
+      ConstraintError and nothing changes; a value of the wrong shape is
+      InvalidAction. Which paths a unit has comes from its AttributeList and
+      FeatureMap, not from this file: a read of TelemetryConfig lists only those,
+      so what a read returns can always be written back. Each of 0x00F0-0x00F3 is
+      answered on its own; one out of range is refused, never clamped.
+
+      These attributes must remain writable even when reporting is otherwise
+      disabled, or a bad config could not be undone without an OTA - which is the
+      situation this exists to prevent. A change to any of them is reported as a
+      snapshot of all four, disabled or not.
+    -->
+    <!-- Per-path reporting policy: which attributes are reported and with what deadband. Covers the official 0x0090 / 0x0091 paths as well as this cluster's. -->
+    <attribute side="server" code="0x00F0" name="TelemetryConfig" define="TELEMETRY_CONFIG" type="array" entryType="TelemetryClusterConfigStruct" writable="true" length="512">
+      <mandatoryConform/>
+    </attribute>
+    <!-- How long buffered samples are held before publishing. A full buffer publishes early, so this is an upper bound rather than a fixed period. -->
+    <attribute side="server" code="0x00F1" name="ReportingWindowSeconds" define="REPORTING_WINDOW_SECONDS" type="elapsed_s" writable="true" default="3600" min="60" max="86400">
+      <mandatoryConform/>
+    </attribute>
+    <!-- Accumulation period for PeriodicEnergyImported. Energy is emitted only on a COMPLETED period, independent of sample flushes, so that the reported period always means what it says. Independent of ReportingWindowSeconds: a message carries every energy event completed in it, so a shorter period gives several per message and a longer one gives one or none. -->
+    <attribute side="server" code="0x00F2" name="EnergyWindowSeconds" define="ENERGY_WINDOW_SECONDS" type="elapsed_s" writable="true" default="3600" min="60" max="86400">
+      <mandatoryConform/>
+    </attribute>
+    <!--
+      Device-level kill switch. Distinct from the per-attribute Enabled inside
+      TelemetryConfig: this stops the channel entirely, where the per-path flag
+      only silences one reading. It is its own attribute rather than a field of
+      TelemetryConfig so that turning telemetry off does not require sending, and
+      therefore does not risk rewriting, the whole per-path policy.
+    -->
+    <!-- Whether this device publishes telemetry at all. Must stay writable even when reporting is disabled, or the channel could not be switched back on without an OTA. -->
+    <attribute side="server" code="0x00F3" name="TelemetryEnabled" define="TELEMETRY_ENABLED" type="boolean" writable="true" default="1">
+      <mandatoryConform/>
+    </attribute>
+  </cluster>
+</configurator>
