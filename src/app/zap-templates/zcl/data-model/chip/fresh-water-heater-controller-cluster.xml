@@ -30,15 +30,15 @@
         <client tick="false" init="false">true</client>
         <server tick="false" init="false">true</server>
         <globalAttribute code="0xFFFD" side="either" value="1"/>
-        <attribute side="server" code="0x0000" name="ColdWaterTemperature" define="COLD_WATER_TEMPERATURE" type="temperature" default="2000" writable="true">
+        <attribute side="server" code="0x0000" name="ColdWaterTemperature" define="COLD_WATER_TEMPERATURE" type="temperature" default="2000" min="0" max="3500" writable="true">
             <description>ColdWaterTemperature</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0001" name="ShowerTemperature" define="SHOWER_TEMPERATURE" type="temperature" default="7600" writable="true">
+        <attribute side="server" code="0x0001" name="ShowerTemperature" define="SHOWER_TEMPERATURE" type="temperature" default="7600" min="4000" max="8000" writable="true">
             <description>Shower Temperature</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0002" name="ShowerHysteresis" define="SHOWER_HYSTERESIS" type="temperature" default="200" writable="true">
+        <attribute side="server" code="0x0002" name="ShowerHysteresis" define="SHOWER_HYSTERESIS" type="temperature" default="200" min="100" max="1000" writable="true">
             <description>Shower Hysteresis</description>
             <mandatoryConform />
         </attribute>
@@ -51,11 +51,11 @@
             <mandatoryConform />
         </attribute>
         <!--        Defaults           -->
-        <attribute side="server" code="0x0005" name="StandardModeSetpoint" define="STANDARD_MODE_SETPOINT" type="temperature" default="6000" writable="true">
+        <attribute side="server" code="0x0005" name="StandardModeSetpoint" define="STANDARD_MODE_SETPOINT" type="temperature" default="6000" min="4000" max="8000" writable="true">
             <description>Display Standard Mode setpoint</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0006" name="EcoModeSetpoint" define="ECO_MODE_SETPOINT" type="temperature" default="4500" writable="true">
+        <attribute side="server" code="0x0006" name="EcoModeSetpoint" define="ECO_MODE_SETPOINT" type="temperature" default="4500" min="4000" max="8000" writable="true">
             <description>Display Eco Mode setpoint</description>
             <mandatoryConform />
         </attribute>
@@ -63,53 +63,53 @@
             <description>Default Display Boost Mode setpoint</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0008" name="DisplayTemperatureStep" define="DISPLAY_TEMPERATURE_STEP" type="temperature" default="100" writable="true">
+        <attribute side="server" code="0x0008" name="DisplayTemperatureStep" define="DISPLAY_TEMPERATURE_STEP" type="temperature" default="100" min="50" max="500" writable="true">
             <description>Display Temperature Step</description>
             <mandatoryConform />
         </attribute>
         <!--        timers           -->
-        <attribute side="server" code="0x0009" name="ResetTimeout" define="RESET_TIMEOUT" type="elapsed_s" default="7" min="1" writable="true">
+        <attribute side="server" code="0x0009" name="ResetTimeout" define="RESET_TIMEOUT" type="elapsed_s" default="7" min="1" max="300" writable="true">
             <description>Reset Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000A" name="CoolDownTimeout" define="COOL_DOWN_TIMEOUT" type="elapsed_s" default="5" min="1" writable="true">
+        <attribute side="server" code="0x000A" name="CoolDownTimeout" define="COOL_DOWN_TIMEOUT" type="elapsed_s" default="5" min="1" max="60" writable="true">
             <description>Cool Down Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000B" name="ResetCounterTimeout" define="RESET_COUNTER_TIMEOUT" type="elapsed_s" default="1" writable="true">
+        <attribute side="server" code="0x000B" name="ResetCounterTimeout" define="RESET_COUNTER_TIMEOUT" type="elapsed_s" default="1" min="1" max="60" writable="true">
             <description>Reset Counter Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000C" name="DisplayActiveTimeout" define="DISPLAY_ACTIVE_TIMEOUT" type="elapsed_s" default="30" min="1" writable="true">
+        <attribute side="server" code="0x000C" name="DisplayActiveTimeout" define="DISPLAY_ACTIVE_TIMEOUT" type="elapsed_s" default="30" min="1" max="600" writable="true">
             <description>Display Active Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000D" name="DisplayErrorTimeout" define="DISPLAY_ERROR_TIMEOUT" type="elapsed_s" default="5" min="1" writable="true">
+        <attribute side="server" code="0x000D" name="DisplayErrorTimeout" define="DISPLAY_ERROR_TIMEOUT" type="elapsed_s" default="5" min="1" max="600" writable="true">
             <description>Display Error Timeout</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x000E" name="DisplayTargetTimeout" define="DISPLAY_TARGET_TIMEOUT" type="elapsed_s" default="10" min="1" writable="true">
+        <attribute side="server" code="0x000E" name="DisplayTargetTimeout" define="DISPLAY_TARGET_TIMEOUT" type="elapsed_s" default="10" min="1" max="600" writable="true">
             <description>Display Target Timeout</description>
             <mandatoryConform />
         </attribute>
         <!--        Failure parameters        -->
-        <attribute side="server" code="0x00F" name="TemperatureSensorMinValid" define="TEMPERATURE_SENSOR_MIN_VALID" type="temperature" default="0" writable="true">
+        <attribute side="server" code="0x00F" name="TemperatureSensorMinValid" define="TEMPERATURE_SENSOR_MIN_VALID" type="temperature" default="0" min="-2000" max="1000" writable="true">
             <description>Temperature Sensor Min Valid</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0010" name="TemperatureSensorMaxValid" define="TEMPERATURE_SENSOR_MAX_VALID" type="temperature" default="10000" writable="true">
+        <attribute side="server" code="0x0010" name="TemperatureSensorMaxValid" define="TEMPERATURE_SENSOR_MAX_VALID" type="temperature" default="10000" min="9000" max="12500" writable="true">
             <description>Temperature Sensor Max Valid</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0011" name="OverheatThresholdTemperature" define="OVERHEAT_THRESHOLD_TEMPERATURE" type="temperature" default="9000" writable="true">
+        <attribute side="server" code="0x0011" name="OverheatThresholdTemperature" define="OVERHEAT_THRESHOLD_TEMPERATURE" type="temperature" default="9000" min="8100" max="9900" writable="true">
             <description>Overheat Threshold Temperature</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0012" name="RapidRiseDelta" define="RAPID_RISE_DELTA" type="temperature" default="500" writable="true">
+        <attribute side="server" code="0x0012" name="RapidRiseDelta" define="RAPID_RISE_DELTA" type="temperature" default="500" min="100" max="2000" writable="true">
             <description>Rapid Rise Delta</description>
             <mandatoryConform />
         </attribute>
-        <attribute side="server" code="0x0013" name="RapidRiseWindow" define="RAPID_RISE_WINDOW" type="elapsed_s" default="20" writable="true">
+        <attribute side="server" code="0x0013" name="RapidRiseWindow" define="RAPID_RISE_WINDOW" type="elapsed_s" default="20" min="5" max="300" writable="true">
             <description>Rapid Rise Window</description>
             <mandatoryConform />
         </attribute>
@@ -118,7 +118,7 @@
             <mandatoryConform />
         </attribute>
 
-        <attribute side="server" code="0x0015" name="HeaterMaximumPower" define="HEATER_MAXIMUM_POWER" type="int16u" default="1500" writable="true">
+        <attribute side="server" code="0x0015" name="HeaterMaximumPower" define="HEATER_MAXIMUM_POWER" type="int16u" default="1500" min="1000" max="3500" writable="true">
             <description>Heater Maximum Power</description>
             <mandatoryConform />
         </attribute>
@@ -134,7 +134,7 @@
             <description>Requires Anode Change</description>
             <mandatoryConform/>
         </attribute>
-        <attribute side="server" code="0x0019" name="MaximumBoostTime" define="MAXIMUM_BOOST_TIME" type="int32u" default="7200" writable="true">
+        <attribute side="server" code="0x0019" name="MaximumBoostTime" define="MAXIMUM_BOOST_TIME" type="int32u" default="7200" min="600" max="21600" writable="true">
             <description>Maximum Boost Time</description>
             <mandatoryConform/>
         </attribute>
@@ -153,7 +153,7 @@
             <mandatoryConform />
         </attribute>
 
-        <attribute side="server" code="0x001D" name="EnergyReportInterval" define="ENERGY_REPORT_INTERVAL" type="elapsed_s" default="3600" writable="true">
+        <attribute side="server" code="0x001D" name="EnergyReportInterval" define="ENERGY_REPORT_INTERVAL" type="elapsed_s" default="3600" min="60" max="86400" writable="true">
             <description>Energy Report Interval</description>
             <mandatoryConform />
         </attribute>
