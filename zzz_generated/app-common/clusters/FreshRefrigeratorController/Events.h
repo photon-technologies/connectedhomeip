@@ -42,7 +42,44 @@ namespace chip {
 namespace app {
 namespace Clusters {
 namespace FreshRefrigeratorController {
-namespace Events {} // namespace Events
+namespace Events {
+namespace DoorLeftOpen {
+static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Critical;
+
+enum class Fields : uint8_t
+{
+    kDoors        = 0,
+    kOpenDuration = 1,
+};
+
+struct Type
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::DoorLeftOpen::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    chip::BitMask<DoorBitmap> doors = static_cast<chip::BitMask<DoorBitmap>>(0);
+    uint32_t openDuration           = static_cast<uint32_t>(0);
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+};
+
+struct DecodableType
+{
+public:
+    static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
+    static constexpr EventId GetEventId() { return Events::DoorLeftOpen::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::FreshRefrigeratorController::Id; }
+
+    chip::BitMask<DoorBitmap> doors = static_cast<chip::BitMask<DoorBitmap>>(0);
+    uint32_t openDuration           = static_cast<uint32_t>(0);
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+} // namespace DoorLeftOpen
+} // namespace Events
 } // namespace FreshRefrigeratorController
 } // namespace Clusters
 } // namespace app

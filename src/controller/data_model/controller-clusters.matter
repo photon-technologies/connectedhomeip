@@ -11456,6 +11456,16 @@ cluster FreshRefrigeratorErrorsAlarm = 367524866 {
 cluster FreshRefrigeratorController = 367524867 {
   revision 1;
 
+  bitmap DoorBitmap : bitmap8 {
+    kFridgeDoor = 0x1;
+    kFreezerDoor = 0x2;
+  }
+
+  critical event DoorLeftOpen = 0 {
+    DoorBitmap doors = 0;
+    elapsed_s openDuration = 1;
+  }
+
   attribute optional temperature fridgeTemperatureDefault = 0;
   attribute optional temperature freezerTemperatureDefault = 1;
   readonly attribute optional temperature fridgePreviousTemperature = 2;
@@ -11474,6 +11484,7 @@ cluster FreshRefrigeratorController = 367524867 {
   readonly attribute optional boolean fridgeDoorState = 15;
   readonly attribute optional boolean freezerDoorState = 16;
   readonly attribute optional temperature defrostTemperature = 17;
+  attribute optional elapsed_s doorLeftOpenTime = 18;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;

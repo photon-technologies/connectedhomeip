@@ -84,6 +84,10 @@ namespace DefrostTemperature {
 inline constexpr AttributeId Id = 0x00000011;
 } // namespace DefrostTemperature
 
+namespace DoorLeftOpenTime {
+inline constexpr AttributeId Id = 0x00000012;
+} // namespace DoorLeftOpenTime
+
 namespace GeneratedCommandList {
 inline constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
 } // namespace GeneratedCommandList

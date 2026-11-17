@@ -53535,6 +53535,7 @@ class FreshRefrigeratorController(Cluster):
                 ClusterObjectFieldDescriptor(Label="fridgeDoorState", Tag=0x0000000F, Type=typing.Optional[bool]),
                 ClusterObjectFieldDescriptor(Label="freezerDoorState", Tag=0x00000010, Type=typing.Optional[bool]),
                 ClusterObjectFieldDescriptor(Label="defrostTemperature", Tag=0x00000011, Type=typing.Optional[int]),
+                ClusterObjectFieldDescriptor(Label="doorLeftOpenTime", Tag=0x00000012, Type=typing.Optional[uint]),
                 ClusterObjectFieldDescriptor(Label="generatedCommandList", Tag=0x0000FFF8, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="acceptedCommandList", Tag=0x0000FFF9, Type=typing.List[uint]),
                 ClusterObjectFieldDescriptor(Label="attributeList", Tag=0x0000FFFB, Type=typing.List[uint]),
@@ -53560,11 +53561,17 @@ class FreshRefrigeratorController(Cluster):
     fridgeDoorState: typing.Optional[bool] = None
     freezerDoorState: typing.Optional[bool] = None
     defrostTemperature: typing.Optional[int] = None
+    doorLeftOpenTime: typing.Optional[uint] = None
     generatedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     acceptedCommandList: typing.List[uint] = field(default_factory=lambda: [])
     attributeList: typing.List[uint] = field(default_factory=lambda: [])
     featureMap: uint = 0
     clusterRevision: uint = 0
+
+    class Bitmaps:
+        class DoorBitmap(IntFlag):
+            kFridgeDoor = 0x1
+            kFreezerDoor = 0x2
 
     class Attributes:
         @dataclass
@@ -53856,6 +53863,22 @@ class FreshRefrigeratorController(Cluster):
             value: typing.Optional[int] = None
 
         @dataclass
+        class DoorLeftOpenTime(ClusterAttributeDescriptor):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC03
+
+            @ChipUtility.classproperty
+            def attribute_id(cls) -> int:
+                return 0x00000012
+
+            @ChipUtility.classproperty
+            def attribute_type(cls) -> ClusterObjectFieldDescriptor:
+                return ClusterObjectFieldDescriptor(Type=typing.Optional[uint])
+
+            value: typing.Optional[uint] = None
+
+        @dataclass
         class GeneratedCommandList(ClusterAttributeDescriptor):
             @ChipUtility.classproperty
             def cluster_id(cls) -> int:
@@ -53934,6 +53957,28 @@ class FreshRefrigeratorController(Cluster):
                 return ClusterObjectFieldDescriptor(Type=uint)
 
             value: uint = 0
+
+    class Events:
+        @dataclass
+        class DoorLeftOpen(ClusterEvent):
+            @ChipUtility.classproperty
+            def cluster_id(cls) -> int:
+                return 0x15E7FC03
+
+            @ChipUtility.classproperty
+            def event_id(cls) -> int:
+                return 0x00000000
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="doors", Tag=0, Type=uint),
+                        ClusterObjectFieldDescriptor(Label="openDuration", Tag=1, Type=uint),
+                    ])
+
+            doors: uint = 0
+            openDuration: uint = 0
 
 
 @dataclass

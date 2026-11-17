@@ -20703,6 +20703,7 @@ public class ClusterIDMapping {
             FridgeDoorState(15L),
             FreezerDoorState(16L),
             DefrostTemperature(17L),
+            DoorLeftOpenTime(18L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             AttributeList(65531L),
@@ -20727,7 +20728,8 @@ public class ClusterIDMapping {
             }
         }
 
-        public enum Event {;
+        public enum Event {
+            DoorLeftOpen(0L),;
             private final long id;
             Event(long id) {
                 this.id = id;

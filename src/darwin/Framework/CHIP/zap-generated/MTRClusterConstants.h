@@ -4963,6 +4963,7 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFridgeDoorStateID MTR_PROVISIONALLY_AVAILABLE = 0x0000000F,
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeFreezerDoorStateID MTR_PROVISIONALLY_AVAILABLE = 0x00000010,
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDefrostTemperatureID MTR_PROVISIONALLY_AVAILABLE = 0x00000011,
+    MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDoorLeftOpenTimeID MTR_PROVISIONALLY_AVAILABLE = 0x00000012,
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
     MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
@@ -7960,6 +7961,9 @@ typedef NS_ENUM(uint32_t, MTREventIDType) {
 
     // Cluster FreshRefrigeratorErrorsAlarm events
     MTREventIDTypeClusterFreshRefrigeratorErrorsAlarmEventNotifyID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
+
+    // Cluster FreshRefrigeratorController events
+    MTREventIDTypeClusterFreshRefrigeratorControllerEventDoorLeftOpenID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
     // Cluster FreshMideaController events
     MTREventIDTypeClusterFreshMideaControllerEventActiveCleanStartedID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,

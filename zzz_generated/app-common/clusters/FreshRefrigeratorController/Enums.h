@@ -26,7 +26,15 @@
 namespace chip {
 namespace app {
 namespace Clusters {
-namespace FreshRefrigeratorController {} // namespace FreshRefrigeratorController
+namespace FreshRefrigeratorController {
+
+// Bitmap for DoorBitmap
+enum class DoorBitmap : uint8_t
+{
+    kFridgeDoor  = 0x1,
+    kFreezerDoor = 0x2,
+};
+} // namespace FreshRefrigeratorController
 } // namespace Clusters
 } // namespace app
 } // namespace chip

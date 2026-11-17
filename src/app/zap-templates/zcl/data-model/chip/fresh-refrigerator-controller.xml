@@ -2,6 +2,11 @@
 
 <configurator>
   <domain name="CHIP"/>
+  <bitmap name="DoorBitmap" type="bitmap8">
+    <cluster code="0x15E7FC03" />
+    <field name="FridgeDoor" mask="0x01"/>
+    <field name="FreezerDoor" mask="0x02"/>
+  </bitmap>
   <cluster>
     <name>Fresh Refrigerator Controller</name>
     <domain>FRESH</domain>
@@ -89,6 +94,17 @@
       <description>DefrostTemperature</description>
       <optionalConform />
     </attribute>
+
+    <attribute side="server" code="0x0012" name="DoorLeftOpenTime" define="DOOR_LEFT_OPEN_TIME" type="elapsed_s" default="900" min="300" max="21600" writable="true">
+      <description>DoorLeftOpenTime</description>
+      <optionalConform />
+    </attribute>
+
+    <event side="server" code="0x00" priority="critical" name="DoorLeftOpen" optional="true">
+      <description>A door has been open for DoorLeftOpenTime: the fridge needs attention.</description>
+      <field id="0" name="Doors" type="DoorBitmap"/>
+      <field id="1" name="OpenDuration" type="elapsed_s"/>
+    </event>
 
 
   </cluster>

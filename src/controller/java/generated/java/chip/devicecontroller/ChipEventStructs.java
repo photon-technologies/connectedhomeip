@@ -6735,6 +6735,67 @@ public static class FreshRefrigeratorErrorsAlarmClusterNotifyEvent {
     return output.toString();
   }
 }
+public static class FreshRefrigeratorControllerClusterDoorLeftOpenEvent {
+  public Integer doors;
+  public Long openDuration;
+  private static final long DOORS_ID = 0L;
+  private static final long OPEN_DURATION_ID = 1L;
+
+  public FreshRefrigeratorControllerClusterDoorLeftOpenEvent(
+    Integer doors,
+    Long openDuration
+  ) {
+    this.doors = doors;
+    this.openDuration = openDuration;
+  }
+
+  public StructType encodeTlv() {
+    ArrayList<StructElement> values = new ArrayList<>();
+    values.add(new StructElement(DOORS_ID, new UIntType(doors)));
+    values.add(new StructElement(OPEN_DURATION_ID, new UIntType(openDuration)));
+
+    return new StructType(values);
+  }
+
+  public static FreshRefrigeratorControllerClusterDoorLeftOpenEvent decodeTlv(BaseTLVType tlvValue) {
+    if (tlvValue == null || tlvValue.type() != TLVType.Struct) {
+      return null;
+    }
+    Integer doors = null;
+    Long openDuration = null;
+    for (StructElement element: ((StructType)tlvValue).value()) {
+      if (element.contextTagNum() == DOORS_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          doors = castingValue.value(Integer.class);
+        }
+      } else if (element.contextTagNum() == OPEN_DURATION_ID) {
+        if (element.value(BaseTLVType.class).type() == TLVType.UInt) {
+          UIntType castingValue = element.value(UIntType.class);
+          openDuration = castingValue.value(Long.class);
+        }
+      }
+    }
+    return new FreshRefrigeratorControllerClusterDoorLeftOpenEvent(
+      doors,
+      openDuration
+    );
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    output.append("FreshRefrigeratorControllerClusterDoorLeftOpenEvent {\n");
+    output.append("\tdoors: ");
+    output.append(doors);
+    output.append("\n");
+    output.append("\topenDuration: ");
+    output.append(openDuration);
+    output.append("\n");
+    output.append("}\n");
+    return output.toString();
+  }
+}
 public static class FreshMideaControllerClusterActiveCleanStartedEvent {
 
   public FreshMideaControllerClusterActiveCleanStartedEvent(

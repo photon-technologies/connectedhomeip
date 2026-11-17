@@ -10,7 +10,12 @@ namespace chip {
 namespace app {
 namespace Clusters {
 namespace FreshRefrigeratorController {
-namespace Events {} // namespace Events
+namespace Events {
+namespace DoorLeftOpen {
+inline constexpr EventId Id = 0x00000000;
+} // namespace DoorLeftOpen
+
+} // namespace Events
 } // namespace FreshRefrigeratorController
 } // namespace Clusters
 } // namespace app

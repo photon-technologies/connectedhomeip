@@ -9220,6 +9220,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"DefrostTemperature";
             break;
 
+        case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeDoorLeftOpenTimeID:
+            result = @"DoorLeftOpenTime";
+            break;
+
         case MTRAttributeIDTypeClusterFreshRefrigeratorControllerAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;
@@ -16697,6 +16701,11 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
     case MTRClusterIDTypeFreshRefrigeratorControllerID:
 
         switch (eventID) {
+
+            // Cluster FreshRefrigeratorController events
+        case MTREventIDTypeClusterFreshRefrigeratorControllerEventDoorLeftOpenID:
+            result = @"DoorLeftOpen";
+            break;
 
         default:
             result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];

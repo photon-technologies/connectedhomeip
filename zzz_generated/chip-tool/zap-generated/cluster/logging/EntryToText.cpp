@@ -4888,6 +4888,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "FreezerDoorState";
         case chip::app::Clusters::FreshRefrigeratorController::Attributes::DefrostTemperature::Id:
             return "DefrostTemperature";
+        case chip::app::Clusters::FreshRefrigeratorController::Attributes::DoorLeftOpenTime::Id:
+            return "DoorLeftOpenTime";
         case chip::app::Clusters::FreshRefrigeratorController::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::FreshRefrigeratorController::Attributes::AcceptedCommandList::Id:

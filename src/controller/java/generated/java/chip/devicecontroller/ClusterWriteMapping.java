@@ -3935,6 +3935,28 @@ public class ClusterWriteMapping {
       writeFreshRefrigeratorControllerTemperatureErrorTimeCommandParams
     );
     writeFreshRefrigeratorControllerInteractionInfo.put("writeTemperatureErrorTimeAttribute", writeFreshRefrigeratorControllerTemperatureErrorTimeAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeFreshRefrigeratorControllerDoorLeftOpenTimeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo freshRefrigeratorControllerdoorLeftOpenTimeCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Long.class, 
+            Long.class 
+        );
+    writeFreshRefrigeratorControllerDoorLeftOpenTimeCommandParams.put(
+        "value",
+        freshRefrigeratorControllerdoorLeftOpenTimeCommandParameterInfo
+    );
+    InteractionInfo writeFreshRefrigeratorControllerDoorLeftOpenTimeAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.FreshRefrigeratorControllerCluster) cluster).writeDoorLeftOpenTimeAttribute(
+          (DefaultClusterCallback) callback,
+          (Long) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeFreshRefrigeratorControllerDoorLeftOpenTimeCommandParams
+    );
+    writeFreshRefrigeratorControllerInteractionInfo.put("writeDoorLeftOpenTimeAttribute", writeFreshRefrigeratorControllerDoorLeftOpenTimeAttributeInteractionInfo);
     writeAttributeMap.put("freshRefrigeratorController", writeFreshRefrigeratorControllerInteractionInfo);
     Map<String, InteractionInfo> writeFreshMideaControllerInteractionInfo = new LinkedHashMap<>();
     Map<String, CommandParameterInfo> writeFreshMideaControllerBeepCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
