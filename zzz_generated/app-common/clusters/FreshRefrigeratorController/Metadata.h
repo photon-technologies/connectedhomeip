@@ -95,6 +95,10 @@ namespace DefrostTemperature {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(DefrostTemperature::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace DefrostTemperature
+namespace DoorLeftOpenTime {
+inline constexpr DataModel::AttributeEntry kMetadataEntry(DoorLeftOpenTime::Id, BitFlags<DataModel::AttributeQualityFlags>(),
+                                                          Access::Privilege::kView, Access::Privilege::kOperate);
+} // namespace DoorLeftOpenTime
 
 } // namespace Attributes
 

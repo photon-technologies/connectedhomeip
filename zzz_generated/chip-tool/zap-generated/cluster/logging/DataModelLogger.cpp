@@ -11207,6 +11207,30 @@ CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
     return CHIP_NO_ERROR;
 }
 CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
+                                     const FreshRefrigeratorController::Events::DoorLeftOpen::DecodableType & value)
+{
+    DataModelLogger::LogString(label, indent, "{");
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("Doors", indent + 1, value.doors);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'Doors'");
+            return err;
+        }
+    }
+    {
+        CHIP_ERROR err = DataModelLogger::LogValue("OpenDuration", indent + 1, value.openDuration);
+        if (err != CHIP_NO_ERROR)
+        {
+            DataModelLogger::LogString(indent + 1, "Event truncated due to invalid value for 'OpenDuration'");
+            return err;
+        }
+    }
+    DataModelLogger::LogString(indent, "}");
+
+    return CHIP_NO_ERROR;
+}
+CHIP_ERROR DataModelLogger::LogValue(const char * label, size_t indent,
                                      const FreshMideaController::Events::ActiveCleanStarted::DecodableType & value)
 {
     DataModelLogger::LogString(label, indent, "{");
@@ -22469,6 +22493,11 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("DefrostTemperature", 1, value);
         }
+        case FreshRefrigeratorController::Attributes::DoorLeftOpenTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DoorLeftOpenTime", 1, value);
+        }
         case FreshRefrigeratorController::Attributes::GeneratedCommandList::Id: {
             chip::app::DataModel::DecodableList<chip::CommandId> value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
@@ -25135,6 +25164,17 @@ CHIP_ERROR DataModelLogger::LogEvent(const chip::app::EventHeader & header, chip
             chip::app::Clusters::FreshRefrigeratorErrorsAlarm::Events::Notify::DecodableType value;
             ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
             return DataModelLogger::LogValue("Notify", 1, value);
+        }
+        }
+        break;
+    }
+    case FreshRefrigeratorController::Id: {
+        switch (header.mPath.mEventId)
+        {
+        case FreshRefrigeratorController::Events::DoorLeftOpen::Id: {
+            chip::app::Clusters::FreshRefrigeratorController::Events::DoorLeftOpen::DecodableType value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("DoorLeftOpen", 1, value);
         }
         }
         break;

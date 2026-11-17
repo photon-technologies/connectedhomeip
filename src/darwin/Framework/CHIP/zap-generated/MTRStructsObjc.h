@@ -2755,6 +2755,12 @@ MTR_PROVISIONALLY_AVAILABLE
 @end
 
 MTR_PROVISIONALLY_AVAILABLE
+@interface MTRFreshRefrigeratorControllerClusterDoorLeftOpenEvent : NSObject <NSCopying>
+@property (nonatomic, copy) NSNumber * _Nonnull doors MTR_PROVISIONALLY_AVAILABLE;
+@property (nonatomic, copy) NSNumber * _Nonnull openDuration MTR_PROVISIONALLY_AVAILABLE;
+@end
+
+MTR_PROVISIONALLY_AVAILABLE
 @interface MTRFreshMideaControllerClusterActiveCleanStartedEvent : NSObject <NSCopying>
 @end
 

@@ -19733,6 +19733,17 @@ public class ClusterReadMapping {
           readFreshRefrigeratorControllerDefrostTemperatureCommandParams
         );
         result.put("readDefrostTemperatureAttribute", readFreshRefrigeratorControllerDefrostTemperatureAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readFreshRefrigeratorControllerDoorLeftOpenTimeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readFreshRefrigeratorControllerDoorLeftOpenTimeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.FreshRefrigeratorControllerCluster) cluster).readDoorLeftOpenTimeAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readFreshRefrigeratorControllerDoorLeftOpenTimeCommandParams
+        );
+        result.put("readDoorLeftOpenTimeAttribute", readFreshRefrigeratorControllerDoorLeftOpenTimeAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readFreshRefrigeratorControllerGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readFreshRefrigeratorControllerGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

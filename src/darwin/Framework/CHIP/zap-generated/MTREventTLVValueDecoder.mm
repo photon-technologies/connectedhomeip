@@ -5208,6 +5208,28 @@ static id _Nullable DecodeEventPayloadForFreshRefrigeratorControllerCluster(Even
 {
     using namespace Clusters::FreshRefrigeratorController;
     switch (aEventId) {
+    case Events::DoorLeftOpen::Id: {
+        Events::DoorLeftOpen::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+
+        __auto_type * value = [MTRFreshRefrigeratorControllerClusterDoorLeftOpenEvent new];
+
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedChar:cppValue.doors.Raw()];
+            value.doors = memberValue;
+        } while (0);
+        do {
+            NSNumber * _Nonnull memberValue;
+            memberValue = [NSNumber numberWithUnsignedInt:cppValue.openDuration];
+            value.openDuration = memberValue;
+        } while (0);
+
+        return value;
+    }
     default: {
         // Not a known FreshRefrigeratorController event.
         break;

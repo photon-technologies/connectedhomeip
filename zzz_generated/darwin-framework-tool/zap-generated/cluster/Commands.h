@@ -177582,6 +177582,7 @@ public:
 | * FridgeDoorState                                                   | 0x000F |
 | * FreezerDoorState                                                  | 0x0010 |
 | * DefrostTemperature                                                | 0x0011 |
+| * DoorLeftOpenTime                                                  | 0x0012 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -177589,6 +177590,7 @@ public:
 | * ClusterRevision                                                   | 0xFFFD |
 |------------------------------------------------------------------------------|
 | Events:                                                             |        |
+| * DoorLeftOpen                                                      | 0x0000 |
 \*----------------------------------------------------------------------------*/
 
 #if MTR_ENABLE_PROVISIONAL
@@ -179559,6 +179561,132 @@ public:
             subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
             reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
                 NSLog(@"FreshRefrigeratorController.DefrostTemperature response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute DoorLeftOpenTime
+ */
+class ReadFreshRefrigeratorControllerDoorLeftOpenTime : public ReadAttribute {
+public:
+    ReadFreshRefrigeratorControllerDoorLeftOpenTime()
+        : ReadAttribute("door-left-open-time")
+    {
+    }
+
+    ~ReadFreshRefrigeratorControllerDoorLeftOpenTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::DoorLeftOpenTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeDoorLeftOpenTimeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"FreshRefrigeratorController.DoorLeftOpenTime response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("FreshRefrigeratorController DoorLeftOpenTime read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class WriteFreshRefrigeratorControllerDoorLeftOpenTime : public WriteAttribute {
+public:
+    WriteFreshRefrigeratorControllerDoorLeftOpenTime()
+        : WriteAttribute("door-left-open-time")
+    {
+        AddArgument("attr-name", "door-left-open-time");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteFreshRefrigeratorControllerDoorLeftOpenTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::DoorLeftOpenTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeDoorLeftOpenTimeWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("FreshRefrigeratorController DoorLeftOpenTime write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
+class SubscribeAttributeFreshRefrigeratorControllerDoorLeftOpenTime : public SubscribeAttribute {
+public:
+    SubscribeAttributeFreshRefrigeratorControllerDoorLeftOpenTime()
+        : SubscribeAttribute("door-left-open-time")
+    {
+    }
+
+    ~SubscribeAttributeFreshRefrigeratorControllerDoorLeftOpenTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::FreshRefrigeratorController::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::FreshRefrigeratorController::Attributes::DoorLeftOpenTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterFreshRefrigeratorController alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeDoorLeftOpenTimeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"FreshRefrigeratorController.DoorLeftOpenTime response %@", [value description]);
                 if (error == nil) {
                     RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
                 } else {
@@ -208619,6 +208747,11 @@ void registerClusterFreshRefrigeratorController(Commands & commands)
         make_unique<SubscribeAttributeFreshRefrigeratorControllerDefrostTemperature>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadFreshRefrigeratorControllerDoorLeftOpenTime>(), //
+        make_unique<WriteFreshRefrigeratorControllerDoorLeftOpenTime>(), //
+        make_unique<SubscribeAttributeFreshRefrigeratorControllerDoorLeftOpenTime>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
         make_unique<ReadFreshRefrigeratorControllerGeneratedCommandList>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerGeneratedCommandList>(), //
 #endif // MTR_ENABLE_PROVISIONAL
@@ -208638,6 +208771,8 @@ void registerClusterFreshRefrigeratorController(Commands & commands)
         make_unique<ReadFreshRefrigeratorControllerClusterRevision>(), //
         make_unique<SubscribeAttributeFreshRefrigeratorControllerClusterRevision>(), //
 #endif // MTR_ENABLE_PROVISIONAL
+        make_unique<ReadEvent>(Id), //
+        make_unique<SubscribeEvent>(Id), //
     };
 
     commands.RegisterCluster(clusterName, clusterCommands);

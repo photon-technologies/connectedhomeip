@@ -17608,6 +17608,7 @@ private:
 | * FridgeDoorState                                                   | 0x000F |
 | * FreezerDoorState                                                  | 0x0010 |
 | * DefrostTemperature                                                | 0x0011 |
+| * DoorLeftOpenTime                                                  | 0x0012 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -17615,6 +17616,7 @@ private:
 | * ClusterRevision                                                   | 0xFFFD |
 |------------------------------------------------------------------------------|
 | Events:                                                             |        |
+| * DoorLeftOpen                                                      | 0x0000 |
 \*----------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------*\
@@ -31787,6 +31789,7 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<ReadAttribute>(Id, "fridge-door-state", Attributes::FridgeDoorState::Id, credsIssuerConfig),           //
         make_unique<ReadAttribute>(Id, "freezer-door-state", Attributes::FreezerDoorState::Id, credsIssuerConfig),         //
         make_unique<ReadAttribute>(Id, "defrost-temperature", Attributes::DefrostTemperature::Id, credsIssuerConfig),      //
+        make_unique<ReadAttribute>(Id, "door-left-open-time", Attributes::DoorLeftOpenTime::Id, credsIssuerConfig),        //
         make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -31833,6 +31836,8 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
                                           WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<int16_t>>(Id, "defrost-temperature", INT16_MIN, INT16_MAX, Attributes::DefrostTemperature::Id,
                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "door-left-open-time", 0, UINT32_MAX, Attributes::DoorLeftOpenTime::Id,
+                                              WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
             Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
             credsIssuerConfig), //
@@ -31867,6 +31872,7 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         make_unique<SubscribeAttribute>(Id, "fridge-door-state", Attributes::FridgeDoorState::Id, credsIssuerConfig),           //
         make_unique<SubscribeAttribute>(Id, "freezer-door-state", Attributes::FreezerDoorState::Id, credsIssuerConfig),         //
         make_unique<SubscribeAttribute>(Id, "defrost-temperature", Attributes::DefrostTemperature::Id, credsIssuerConfig),      //
+        make_unique<SubscribeAttribute>(Id, "door-left-open-time", Attributes::DoorLeftOpenTime::Id, credsIssuerConfig),        //
         make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
         make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
         make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
@@ -31875,8 +31881,10 @@ void registerClusterFreshRefrigeratorController(Commands & commands, CredentialI
         //
         // Events
         //
-        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
-        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),                                                  //
+        make_unique<ReadEvent>(Id, "door-left-open", Events::DoorLeftOpen::Id, credsIssuerConfig),      //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig),                                             //
+        make_unique<SubscribeEvent>(Id, "door-left-open", Events::DoorLeftOpen::Id, credsIssuerConfig), //
     };
 
     commands.RegisterCluster(clusterName, clusterCommands);

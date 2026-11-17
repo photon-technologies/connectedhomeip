@@ -11602,6 +11602,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@implementation MTRFreshRefrigeratorControllerClusterDoorLeftOpenEvent
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _doors = @(0);
+
+        _openDuration = @(0);
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone
+{
+    auto other = [[MTRFreshRefrigeratorControllerClusterDoorLeftOpenEvent alloc] init];
+
+    other.doors = self.doors;
+    other.openDuration = self.openDuration;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: doors:%@; openDuration:%@; >", NSStringFromClass([self class]), _doors, _openDuration];
+    return descriptionString;
+}
+
+@end
+
 @implementation MTRFreshMideaControllerClusterActiveCleanStartedEvent
 - (instancetype)init
 {

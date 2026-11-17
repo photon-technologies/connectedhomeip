@@ -68,6 +68,8 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
         return DataModel::Decode(reader, freezerDoorState);
     case Attributes::DefrostTemperature::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, defrostTemperature);
+    case Attributes::DoorLeftOpenTime::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, doorLeftOpenTime);
     case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
         return DataModel::Decode(reader, generatedCommandList);
     case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():

@@ -21290,6 +21290,17 @@ static id _Nullable DecodeAttributeValueForFreshRefrigeratorControllerCluster(At
         value = [NSNumber numberWithShort:cppValue];
         return value;
     }
+    case Attributes::DoorLeftOpenTime::Id: {
+        using TypeInfo = Attributes::DoorLeftOpenTime::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedInt:cppValue];
+        return value;
+    }
     default: {
         // Not a known FreshRefrigeratorController attribute.
         break;

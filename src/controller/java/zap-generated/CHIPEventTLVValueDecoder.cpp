@@ -9097,6 +9097,52 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         using namespace app::Clusters::FreshRefrigeratorController;
         switch (aPath.mEventId)
         {
+        case Events::DoorLeftOpen::Id: {
+            Events::DoorLeftOpen::DecodableType cppValue;
+            *aError = app::DataModel::Decode(aReader, cppValue);
+            if (*aError != CHIP_NO_ERROR)
+            {
+                return nullptr;
+            }
+            jobject value_doors;
+            std::string value_doorsClassName     = "java/lang/Integer";
+            std::string value_doorsCtorSignature = "(I)V";
+            jint jnivalue_doors                  = static_cast<jint>(cppValue.doors.Raw());
+            chip::JniReferences::GetInstance().CreateBoxedObject<jint>(
+                value_doorsClassName.c_str(), value_doorsCtorSignature.c_str(), jnivalue_doors, value_doors);
+
+            jobject value_openDuration;
+            std::string value_openDurationClassName     = "java/lang/Long";
+            std::string value_openDurationCtorSignature = "(J)V";
+            jlong jnivalue_openDuration                 = static_cast<jlong>(cppValue.openDuration);
+            chip::JniReferences::GetInstance().CreateBoxedObject<jlong>(value_openDurationClassName.c_str(),
+                                                                        value_openDurationCtorSignature.c_str(),
+                                                                        jnivalue_openDuration, value_openDuration);
+
+            jclass doorLeftOpenStructClass;
+            err = chip::JniReferences::GetInstance().GetLocalClassRef(
+                env, "chip/devicecontroller/ChipEventStructs$FreshRefrigeratorControllerClusterDoorLeftOpenEvent",
+                doorLeftOpenStructClass);
+            if (err != CHIP_NO_ERROR)
+            {
+                ChipLogError(Zcl, "Could not find class ChipEventStructs$FreshRefrigeratorControllerClusterDoorLeftOpenEvent");
+                return nullptr;
+            }
+
+            jmethodID doorLeftOpenStructCtor;
+            err = chip::JniReferences::GetInstance().FindMethod(env, doorLeftOpenStructClass, "<init>",
+                                                                "(Ljava/lang/Integer;Ljava/lang/Long;)V", &doorLeftOpenStructCtor);
+            if (err != CHIP_NO_ERROR || doorLeftOpenStructCtor == nullptr)
+            {
+                ChipLogError(Zcl,
+                             "Could not find ChipEventStructs$FreshRefrigeratorControllerClusterDoorLeftOpenEvent constructor");
+                return nullptr;
+            }
+
+            jobject value = env->NewObject(doorLeftOpenStructClass, doorLeftOpenStructCtor, value_doors, value_openDuration);
+
+            return value;
+        }
         default:
             *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
             break;

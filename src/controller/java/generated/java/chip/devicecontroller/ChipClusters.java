@@ -66439,6 +66439,7 @@ public class ChipClusters {
     private static final long FRIDGE_DOOR_STATE_ATTRIBUTE_ID = 15L;
     private static final long FREEZER_DOOR_STATE_ATTRIBUTE_ID = 16L;
     private static final long DEFROST_TEMPERATURE_ATTRIBUTE_ID = 17L;
+    private static final long DOOR_LEFT_OPEN_TIME_ATTRIBUTE_ID = 18L;
     private static final long GENERATED_COMMAND_LIST_ATTRIBUTE_ID = 65528L;
     private static final long ACCEPTED_COMMAND_LIST_ATTRIBUTE_ID = 65529L;
     private static final long ATTRIBUTE_LIST_ATTRIBUTE_ID = 65531L;
@@ -67032,6 +67033,41 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, DEFROST_TEMPERATURE_ATTRIBUTE_ID, minInterval, maxInterval);
+    }
+
+    public void readDoorLeftOpenTimeAttribute(
+        LongAttributeCallback callback) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DOOR_LEFT_OPEN_TIME_ATTRIBUTE_ID);
+
+      readAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, DOOR_LEFT_OPEN_TIME_ATTRIBUTE_ID, true);
+    }
+
+    public void writeDoorLeftOpenTimeAttribute(DefaultClusterCallback callback, Long value) {
+      writeDoorLeftOpenTimeAttribute(callback, value, 0);
+    }
+
+    public void writeDoorLeftOpenTimeAttribute(DefaultClusterCallback callback, Long value, int timedWriteTimeoutMs) {
+      BaseTLVType tlvValue = new UIntType(value);
+      writeAttribute(new WriteAttributesCallbackImpl(callback), DOOR_LEFT_OPEN_TIME_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
+    }
+
+    public void subscribeDoorLeftOpenTimeAttribute(
+        LongAttributeCallback callback, int minInterval, int maxInterval) {
+      ChipAttributePath path = ChipAttributePath.newInstance(endpointId, clusterId, DOOR_LEFT_OPEN_TIME_ATTRIBUTE_ID);
+
+      subscribeAttribute(new ReportCallbackImpl(callback, path) {
+          @Override
+          public void onSuccess(byte[] tlv) {
+            Long value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            callback.onSuccess(value);
+          }
+        }, DOOR_LEFT_OPEN_TIME_ATTRIBUTE_ID, minInterval, maxInterval);
     }
 
     public void readGeneratedCommandListAttribute(

@@ -29,7 +29,44 @@ namespace chip {
 namespace app {
 namespace Clusters {
 namespace FreshRefrigeratorController {
-namespace Events {} // namespace Events
+namespace Events {
+namespace DoorLeftOpen {
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
+{
+    TLV::TLVType outer;
+    ReturnErrorOnFailure(aWriter.StartContainer(aTag, TLV::kTLVType_Structure, outer));
+    ReturnErrorOnFailure(DataModel::Encode(aWriter, TLV::ContextTag(Fields::kDoors), doors));
+    ReturnErrorOnFailure(DataModel::Encode(aWriter, TLV::ContextTag(Fields::kOpenDuration), openDuration));
+    return aWriter.EndContainer(outer);
+}
+
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
+{
+    detail::StructDecodeIterator __iterator(reader);
+    while (true)
+    {
+        uint8_t __context_tag = 0;
+        CHIP_ERROR err        = __iterator.Next(__context_tag);
+        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
+        ReturnErrorOnFailure(err);
+
+        if (__context_tag == to_underlying(Fields::kDoors))
+        {
+            err = DataModel::Decode(reader, doors);
+        }
+        else if (__context_tag == to_underlying(Fields::kOpenDuration))
+        {
+            err = DataModel::Decode(reader, openDuration);
+        }
+        else
+        {
+        }
+
+        ReturnErrorOnFailure(err);
+    }
+}
+} // namespace DoorLeftOpen.
+} // namespace Events
 } // namespace FreshRefrigeratorController
 } // namespace Clusters
 } // namespace app
