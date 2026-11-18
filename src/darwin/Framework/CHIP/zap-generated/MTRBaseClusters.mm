@@ -108654,6 +108654,54 @@ public:
                                              queue:self.callbackQueue
                                         completion:responseHandler];
 }
+- (void)setMqttConfigWithParams:(MTRPhotonSmartClusterSetMqttConfigParams *)params completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRPhotonSmartClusterSetMqttConfigParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = PhotonSmart::Commands::SetMqttConfig::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
+- (void)setInsightsParamsWithParams:(MTRPhotonSmartClusterSetInsightsParamsParams *)params completion:(MTRStatusCompletion)completion
+{
+    if (params == nil) {
+        params = [[MTRPhotonSmartClusterSetInsightsParamsParams
+            alloc] init];
+    }
+
+    auto responseHandler = ^(id _Nullable response, NSError * _Nullable error) {
+        completion(error);
+    };
+
+    auto * timedInvokeTimeoutMs = params.timedInvokeTimeoutMs;
+
+    using RequestType = PhotonSmart::Commands::SetInsightsParams::Type;
+    [self.device _invokeKnownCommandWithEndpointID:self.endpointID
+                                         clusterID:@(RequestType::GetClusterId())
+                                         commandID:@(RequestType::GetCommandId())
+                                    commandPayload:params
+                                timedInvokeTimeout:timedInvokeTimeoutMs
+                       serverSideProcessingTimeout:params.serverSideProcessingTimeout
+                                     responseClass:nil
+                                             queue:self.callbackQueue
+                                        completion:responseHandler];
+}
 
 - (void)readAttributeDeviceIdWithCompletion:(void (^)(NSString * _Nullable value, NSError * _Nullable error))completion
 {
@@ -108736,55 +108784,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeMqttConfigWithValue:(MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeMqttConfigWithValue:(MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeMqttConfigWithValue:(MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = PhotonSmart::Attributes::MqttConfig::TypeInfo;
-        TypeInfo::Type cppValue;
-             cppValue.host = AsCharSpan(value.host);
-     cppValue.port = value.port.unsignedShortValue;
-     cppValue.transport = static_cast<std::remove_reference_t<decltype(cppValue.transport)>>(value.transport.unsignedCharValue);
-     cppValue.keepAlive = value.keepAlive.unsignedShortValue;
-     cppValue.cleanSession = value.cleanSession.boolValue;
-     cppValue.reconnectBackoffBaseMS = value.reconnectBackoffBaseMS.unsignedIntValue;
-     cppValue.timeoutMS = value.timeoutMS.unsignedIntValue;
-     cppValue.sessionExpiryIntervalS = value.sessionExpiryIntervalS.unsignedIntValue;
-     cppValue.maxPacketSize = value.maxPacketSize.unsignedIntValue;
-     cppValue.maxReceivePacketCount = value.maxReceivePacketCount.unsignedShortValue;
-     cppValue.maxTopicAlias = value.maxTopicAlias.unsignedShortValue;
-     cppValue.requestRespInfo = value.requestRespInfo.boolValue;
-     cppValue.requestProblemInfo = value.requestProblemInfo.boolValue;
-     cppValue.willDelayIntervalS = value.willDelayIntervalS.unsignedIntValue;
-     cppValue.messageExpiryIntervalS = value.messageExpiryIntervalS.unsignedIntValue;
-     cppValue.payloadFormatIndicator = value.payloadFormatIndicator.boolValue;
-     cppValue.reconnectBackoffMaxMS = value.reconnectBackoffMaxMS.unsignedIntValue;
-     cppValue.bootJitterMaxMS = value.bootJitterMaxMS.unsignedIntValue;
-     if (value.publishQos != nil) {
-       auto & definedValue_1 = cppValue.publishQos.Emplace();
-         definedValue_1 = static_cast<std::remove_reference_t<decltype(definedValue_1)>>(value.publishQos.unsignedIntValue);
-  }
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeMqttConfigWithParams:(MTRSubscribeParams * _Nonnull)params
@@ -108949,49 +108948,6 @@ public:
                                             params:nil
                                              queue:self.callbackQueue
                                         completion:completion];
-}
-
-- (void)writeAttributeInsightsParamsWithValue:(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull)value completion:(MTRStatusCompletion)completion
-{
-    [self writeAttributeInsightsParamsWithValue:(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull) value params:nil completion:completion];
-}
-- (void)writeAttributeInsightsParamsWithValue:(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion
-{
-    // Make a copy of params before we go async.
-    params = [params copy];
-    value = [value copy];
-
-    auto * bridge = new MTRDefaultSuccessCallbackBridge(self.callbackQueue, ^(id _Nullable ignored, NSError * _Nullable error) { completion(error); }, ^(ExchangeManager & exchangeManager, const SessionHandle & session, DefaultSuccessCallbackType successCb, MTRErrorCallback failureCb, MTRCallbackBridgeBase * bridge) {
-        chip::Optional<uint16_t> timedWriteTimeout;
-        if (params != nil) {
-          if (params.timedWriteTimeout != nil){
-            timedWriteTimeout.SetValue(params.timedWriteTimeout.unsignedShortValue);
-          }
-        }
-
-        ListFreer listFreer;
-        using TypeInfo = PhotonSmart::Attributes::InsightsParams::TypeInfo;
-        TypeInfo::Type cppValue;
-             cppValue.coreDumpEnabled = value.coreDumpEnabled.boolValue;
-     cppValue.minInterval = value.minInterval.unsignedIntValue;
-     cppValue.maxInterval = value.maxInterval.unsignedIntValue;
-     cppValue.dropWifiLogs = value.dropWifiLogs.boolValue;
-     cppValue.reportMetrics = value.reportMetrics.boolValue;
-     cppValue.reportHeapMetrics = value.reportHeapMetrics.boolValue;
-     cppValue.heapPollingInterval = value.heapPollingInterval.unsignedIntValue;
-     cppValue.heapPollingCount = value.heapPollingCount.unsignedCharValue;
-     cppValue.reportWifiMetrics = value.reportWifiMetrics.boolValue;
-     cppValue.wifiPollingInterval = value.wifiPollingInterval.unsignedIntValue;
-     cppValue.wifiPollingCount = value.wifiPollingCount.unsignedCharValue;
-     cppValue.usePolling = value.usePolling.boolValue;
-     cppValue.reportVariables = value.reportVariables.boolValue;
-     cppValue.reportNetworkVariables = value.reportNetworkVariables.boolValue;
-     cppValue.reportMoreNetworkVariables = value.reportMoreNetworkVariables.boolValue;
-     cppValue.reportWatermarkPercent = value.reportWatermarkPercent.unsignedCharValue;
-
-        chip::Controller::ClusterBase cppCluster(exchangeManager, session, self.endpointID.unsignedShortValue);
-        return cppCluster.WriteAttribute<TypeInfo>(cppValue, bridge, successCb, failureCb, timedWriteTimeout); });
-    std::move(*bridge).DispatchAction(self.device);
 }
 
 - (void)subscribeAttributeInsightsParamsWithParams:(MTRSubscribeParams * _Nonnull)params

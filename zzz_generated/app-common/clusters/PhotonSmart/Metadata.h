@@ -29,7 +29,7 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(ShouldReboot::Id, BitF
 } // namespace ShouldReboot
 namespace MqttConfig {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(MqttConfig::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
+                                                          Access::Privilege::kAdminister, std::nullopt);
 } // namespace MqttConfig
 namespace MqttReportEnabled {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(MqttReportEnabled::Id, BitFlags<DataModel::AttributeQualityFlags>(),
@@ -41,7 +41,7 @@ inline constexpr DataModel::AttributeEntry kMetadataEntry(InsightsEnabled::Id, B
 } // namespace InsightsEnabled
 namespace InsightsParams {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(InsightsParams::Id, BitFlags<DataModel::AttributeQualityFlags>(),
-                                                          Access::Privilege::kAdminister, Access::Privilege::kAdminister);
+                                                          Access::Privilege::kAdminister, std::nullopt);
 } // namespace InsightsParams
 namespace PublicIpv4Address {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(PublicIpv4Address::Id, BitFlags<DataModel::AttributeQualityFlags>(),
@@ -63,6 +63,14 @@ namespace FactoryReset {
 inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(FactoryReset::Id, BitFlags<DataModel::CommandQualityFlags>(),
                                                                 Access::Privilege::kAdminister);
 } // namespace FactoryReset
+namespace SetMqttConfig {
+inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(SetMqttConfig::Id, BitFlags<DataModel::CommandQualityFlags>(),
+                                                                Access::Privilege::kAdminister);
+} // namespace SetMqttConfig
+namespace SetInsightsParams {
+inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(SetInsightsParams::Id, BitFlags<DataModel::CommandQualityFlags>(),
+                                                                Access::Privilege::kAdminister);
+} // namespace SetInsightsParams
 
 } // namespace Commands
 } // namespace PhotonSmart

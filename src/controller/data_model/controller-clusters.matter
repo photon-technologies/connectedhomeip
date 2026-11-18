@@ -11383,10 +11383,10 @@ cluster PhotonSmart = 367524864 {
 
   readonly attribute access(read: administer) char_string<36> deviceId = 0;
   readonly attribute boolean shouldReboot = 1;
-  attribute access(read: administer, write: administer) PhotonMQTTStruct mqttConfig = 2;
+  readonly attribute access(read: administer) PhotonMQTTStruct mqttConfig = 2;
   attribute access(read: administer, write: administer) boolean mqttReportEnabled = 3;
   attribute access(read: administer, write: administer) boolean insightsEnabled = 4;
-  attribute access(read: administer, write: administer) PhotonInsightsParamsStruct insightsParams = 5;
+  readonly attribute access(read: administer) PhotonInsightsParamsStruct insightsParams = 5;
   readonly attribute access(read: administer) int32u publicIpv4Address = 6;
   attribute access(read: administer, write: administer) boolean publicIpv4Enabled = 7;
   readonly attribute command_id generatedCommandList[] = 65528;
@@ -11403,10 +11403,22 @@ cluster PhotonSmart = 367524864 {
     int16u resetAfter = 0;
   }
 
+  request struct SetMqttConfigRequest {
+    PhotonMQTTStruct config = 0;
+  }
+
+  request struct SetInsightsParamsRequest {
+    PhotonInsightsParamsStruct params = 0;
+  }
+
   /** This command is used to reboot the device. */
   command access(invoke: administer) Reboot(RebootRequest): DefaultSuccess = 0;
   /** This command is used to initiate factory reset the device. */
   command access(invoke: administer) FactoryReset(FactoryResetRequest): DefaultSuccess = 1;
+  /** Sets the whole MqttConfig. Answered with a status only: Success when it is applied, unchanged, or a new broker is on trial; Busy during an OTA download or a broker trial; ConstraintError for an invalid value. */
+  command access(invoke: administer) SetMqttConfig(SetMqttConfigRequest): DefaultSuccess = 2;
+  /** Sets the whole InsightsParams. Answered with a status only. */
+  command access(invoke: administer) SetInsightsParams(SetInsightsParamsRequest): DefaultSuccess = 3;
 }
 
 /** Attributes and commands for configuring the Fresh Refrigerator Errors alarm. */
@@ -11427,7 +11439,7 @@ cluster FreshRefrigeratorErrorsAlarm = 367524866 {
     kReset = 0x1;
   }
 
-  info event Notify = 0 {
+  critical event Notify = 0 {
     AlarmBitmap active = 0;
     AlarmBitmap inactive = 1;
     AlarmBitmap state = 2;
@@ -11523,7 +11535,7 @@ cluster FreshMideaController = 367524868 {
   info event ActiveCleanEnded = 1 {
   }
 
-  info event NotifyError = 2 {
+  critical event NotifyError = 2 {
     int16u code = 0;
   }
 
@@ -11600,7 +11612,7 @@ cluster FreshWaterHeaterController = 367524869 {
     boolean status = 0;
   }
 
-  info event NotifyError = 2 {
+  critical event NotifyError = 2 {
     int8u code = 0;
   }
 

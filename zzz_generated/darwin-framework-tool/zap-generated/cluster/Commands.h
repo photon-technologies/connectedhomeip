@@ -175233,6 +175233,8 @@ public:
 | Commands:                                                           |        |
 | * Reboot                                                            |   0x00 |
 | * FactoryReset                                                      |   0x01 |
+| * SetMqttConfig                                                     |   0x02 |
+| * SetInsightsParams                                                 |   0x03 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
 | * DeviceId                                                          | 0x0000 |
@@ -175355,6 +175357,155 @@ public:
 
 private:
     chip::app::Clusters::PhotonSmart::Commands::FactoryReset::Type mRequest;
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*
+ * Command SetMqttConfig
+ */
+class PhotonSmartSetMqttConfig : public ClusterCommand {
+public:
+    PhotonSmartSetMqttConfig()
+        : ClusterCommand("set-mqtt-config")
+        , mComplex_Config(&mRequest.config)
+    {
+#if MTR_ENABLE_PROVISIONAL
+        AddArgument("Config", &mComplex_Config);
+#endif // MTR_ENABLE_PROVISIONAL
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId, commandId, endpointId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterPhotonSmart alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRPhotonSmartClusterSetMqttConfigParams alloc] init];
+        params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+#if MTR_ENABLE_PROVISIONAL
+        params.config = [MTRPhotonSmartClusterPhotonMQTTStruct new];
+        params.config.host = [[NSString alloc] initWithBytes:mRequest.config.host.data() length:mRequest.config.host.size() encoding:NSUTF8StringEncoding];
+        params.config.port = [NSNumber numberWithUnsignedShort:mRequest.config.port];
+        params.config.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(mRequest.config.transport)];
+        params.config.keepAlive = [NSNumber numberWithUnsignedShort:mRequest.config.keepAlive];
+        params.config.cleanSession = [NSNumber numberWithBool:mRequest.config.cleanSession];
+        params.config.reconnectBackoffBaseMS = [NSNumber numberWithUnsignedInt:mRequest.config.reconnectBackoffBaseMS];
+        params.config.timeoutMS = [NSNumber numberWithUnsignedInt:mRequest.config.timeoutMS];
+        params.config.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:mRequest.config.sessionExpiryIntervalS];
+        params.config.maxPacketSize = [NSNumber numberWithUnsignedInt:mRequest.config.maxPacketSize];
+        params.config.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:mRequest.config.maxReceivePacketCount];
+        params.config.maxTopicAlias = [NSNumber numberWithUnsignedShort:mRequest.config.maxTopicAlias];
+        params.config.requestRespInfo = [NSNumber numberWithBool:mRequest.config.requestRespInfo];
+        params.config.requestProblemInfo = [NSNumber numberWithBool:mRequest.config.requestProblemInfo];
+        params.config.willDelayIntervalS = [NSNumber numberWithUnsignedInt:mRequest.config.willDelayIntervalS];
+        params.config.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:mRequest.config.messageExpiryIntervalS];
+        params.config.payloadFormatIndicator = [NSNumber numberWithBool:mRequest.config.payloadFormatIndicator];
+        params.config.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:mRequest.config.reconnectBackoffMaxMS];
+        params.config.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:mRequest.config.bootJitterMaxMS];
+        if (mRequest.config.publishQos.HasValue()) {
+            params.config.publishQos = [NSNumber numberWithUnsignedInt:mRequest.config.publishQos.Value().Raw()];
+        } else {
+            params.config.publishQos = nil;
+        }
+#endif // MTR_ENABLE_PROVISIONAL
+        uint16_t repeatCount = mRepeatCount.ValueOr(1);
+        uint16_t __block responsesNeeded = repeatCount;
+        while (repeatCount--) {
+            [cluster setMqttConfigWithParams:params completion:
+                    ^(NSError * _Nullable error) {
+                        responsesNeeded--;
+                        if (error != nil) {
+                            mError = error;
+                            LogNSError("Error", error);
+                            RemoteDataModelLogger::LogCommandErrorAsJSON(@(endpointId), @(clusterId), @(commandId), error);
+                        }
+                        if (responsesNeeded == 0) {
+                            SetCommandExitStatus(mError);
+                        }
+                    }];
+        }
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Type mRequest;
+    TypedComplexArgument<chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type> mComplex_Config;
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*
+ * Command SetInsightsParams
+ */
+class PhotonSmartSetInsightsParams : public ClusterCommand {
+public:
+    PhotonSmartSetInsightsParams()
+        : ClusterCommand("set-insights-params")
+        , mComplex_Params(&mRequest.params)
+    {
+#if MTR_ENABLE_PROVISIONAL
+        AddArgument("Params", &mComplex_Params);
+#endif // MTR_ENABLE_PROVISIONAL
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId, commandId, endpointId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterPhotonSmart alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRPhotonSmartClusterSetInsightsParamsParams alloc] init];
+        params.timedInvokeTimeoutMs = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+#if MTR_ENABLE_PROVISIONAL
+        params.params = [MTRPhotonSmartClusterPhotonInsightsParamsStruct new];
+        params.params.coreDumpEnabled = [NSNumber numberWithBool:mRequest.params.coreDumpEnabled];
+        params.params.minInterval = [NSNumber numberWithUnsignedInt:mRequest.params.minInterval];
+        params.params.maxInterval = [NSNumber numberWithUnsignedInt:mRequest.params.maxInterval];
+        params.params.dropWifiLogs = [NSNumber numberWithBool:mRequest.params.dropWifiLogs];
+        params.params.reportMetrics = [NSNumber numberWithBool:mRequest.params.reportMetrics];
+        params.params.reportHeapMetrics = [NSNumber numberWithBool:mRequest.params.reportHeapMetrics];
+        params.params.heapPollingInterval = [NSNumber numberWithUnsignedInt:mRequest.params.heapPollingInterval];
+        params.params.heapPollingCount = [NSNumber numberWithUnsignedChar:mRequest.params.heapPollingCount];
+        params.params.reportWifiMetrics = [NSNumber numberWithBool:mRequest.params.reportWifiMetrics];
+        params.params.wifiPollingInterval = [NSNumber numberWithUnsignedInt:mRequest.params.wifiPollingInterval];
+        params.params.wifiPollingCount = [NSNumber numberWithUnsignedChar:mRequest.params.wifiPollingCount];
+        params.params.usePolling = [NSNumber numberWithBool:mRequest.params.usePolling];
+        params.params.reportVariables = [NSNumber numberWithBool:mRequest.params.reportVariables];
+        params.params.reportNetworkVariables = [NSNumber numberWithBool:mRequest.params.reportNetworkVariables];
+        params.params.reportMoreNetworkVariables = [NSNumber numberWithBool:mRequest.params.reportMoreNetworkVariables];
+        params.params.reportWatermarkPercent = [NSNumber numberWithUnsignedChar:mRequest.params.reportWatermarkPercent];
+#endif // MTR_ENABLE_PROVISIONAL
+        uint16_t repeatCount = mRepeatCount.ValueOr(1);
+        uint16_t __block responsesNeeded = repeatCount;
+        while (repeatCount--) {
+            [cluster setInsightsParamsWithParams:params completion:
+                    ^(NSError * _Nullable error) {
+                        responsesNeeded--;
+                        if (error != nil) {
+                            mError = error;
+                            LogNSError("Error", error);
+                            RemoteDataModelLogger::LogCommandErrorAsJSON(@(endpointId), @(clusterId), @(commandId), error);
+                        }
+                        if (responsesNeeded == 0) {
+                            SetCommandExitStatus(mError);
+                        }
+                    }];
+        }
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Type mRequest;
+    TypedComplexArgument<chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type> mComplex_Params;
 };
 
 #endif // MTR_ENABLE_PROVISIONAL
@@ -175566,73 +175717,6 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
-};
-
-class WritePhotonSmartMqttConfig : public WriteAttribute {
-public:
-    WritePhotonSmartMqttConfig()
-        : WriteAttribute("mqtt-config")
-        , mComplex(&mValue)
-    {
-        AddArgument("attr-name", "mqtt-config");
-        AddArgument("attr-value", &mComplex);
-        WriteAttribute::AddArguments();
-    }
-
-    ~WritePhotonSmartMqttConfig()
-    {
-    }
-
-    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
-        constexpr chip::AttributeId attributeId = chip::app::Clusters::PhotonSmart::Attributes::MqttConfig::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
-        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
-        __auto_type * cluster = [[MTRBaseClusterPhotonSmart alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        __auto_type * params = [[MTRWriteParams alloc] init];
-        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
-        MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull value;
-        value = [MTRPhotonSmartClusterPhotonMQTTStruct new];
-        value.host = [[NSString alloc] initWithBytes:mValue.host.data() length:mValue.host.size() encoding:NSUTF8StringEncoding];
-        value.port = [NSNumber numberWithUnsignedShort:mValue.port];
-        value.transport = [NSNumber numberWithUnsignedChar:chip::to_underlying(mValue.transport)];
-        value.keepAlive = [NSNumber numberWithUnsignedShort:mValue.keepAlive];
-        value.cleanSession = [NSNumber numberWithBool:mValue.cleanSession];
-        value.reconnectBackoffBaseMS = [NSNumber numberWithUnsignedInt:mValue.reconnectBackoffBaseMS];
-        value.timeoutMS = [NSNumber numberWithUnsignedInt:mValue.timeoutMS];
-        value.sessionExpiryIntervalS = [NSNumber numberWithUnsignedInt:mValue.sessionExpiryIntervalS];
-        value.maxPacketSize = [NSNumber numberWithUnsignedInt:mValue.maxPacketSize];
-        value.maxReceivePacketCount = [NSNumber numberWithUnsignedShort:mValue.maxReceivePacketCount];
-        value.maxTopicAlias = [NSNumber numberWithUnsignedShort:mValue.maxTopicAlias];
-        value.requestRespInfo = [NSNumber numberWithBool:mValue.requestRespInfo];
-        value.requestProblemInfo = [NSNumber numberWithBool:mValue.requestProblemInfo];
-        value.willDelayIntervalS = [NSNumber numberWithUnsignedInt:mValue.willDelayIntervalS];
-        value.messageExpiryIntervalS = [NSNumber numberWithUnsignedInt:mValue.messageExpiryIntervalS];
-        value.payloadFormatIndicator = [NSNumber numberWithBool:mValue.payloadFormatIndicator];
-        value.reconnectBackoffMaxMS = [NSNumber numberWithUnsignedInt:mValue.reconnectBackoffMaxMS];
-        value.bootJitterMaxMS = [NSNumber numberWithUnsignedInt:mValue.bootJitterMaxMS];
-        if (mValue.publishQos.HasValue()) {
-            value.publishQos = [NSNumber numberWithUnsignedInt:mValue.publishQos.Value().Raw()];
-        } else {
-            value.publishQos = nil;
-        }
-
-        [cluster writeAttributeMqttConfigWithValue:value params:params completion:^(NSError * _Nullable error) {
-            if (error != nil) {
-                LogNSError("PhotonSmart MqttConfig write Error", error);
-                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
-            }
-            SetCommandExitStatus(error);
-        }];
-        return CHIP_NO_ERROR;
-    }
-
-private:
-    chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type mValue;
-    TypedComplexArgument<chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type> mComplex;
 };
 
 class SubscribeAttributePhotonSmartMqttConfig : public SubscribeAttribute {
@@ -175970,66 +176054,6 @@ public:
         }];
         return CHIP_NO_ERROR;
     }
-};
-
-class WritePhotonSmartInsightsParams : public WriteAttribute {
-public:
-    WritePhotonSmartInsightsParams()
-        : WriteAttribute("insights-params")
-        , mComplex(&mValue)
-    {
-        AddArgument("attr-name", "insights-params");
-        AddArgument("attr-value", &mComplex);
-        WriteAttribute::AddArguments();
-    }
-
-    ~WritePhotonSmartInsightsParams()
-    {
-    }
-
-    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
-    {
-        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
-        constexpr chip::AttributeId attributeId = chip::app::Clusters::PhotonSmart::Attributes::InsightsParams::Id;
-
-        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
-        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
-        __auto_type * cluster = [[MTRBaseClusterPhotonSmart alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
-        __auto_type * params = [[MTRWriteParams alloc] init];
-        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
-        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
-        MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull value;
-        value = [MTRPhotonSmartClusterPhotonInsightsParamsStruct new];
-        value.coreDumpEnabled = [NSNumber numberWithBool:mValue.coreDumpEnabled];
-        value.minInterval = [NSNumber numberWithUnsignedInt:mValue.minInterval];
-        value.maxInterval = [NSNumber numberWithUnsignedInt:mValue.maxInterval];
-        value.dropWifiLogs = [NSNumber numberWithBool:mValue.dropWifiLogs];
-        value.reportMetrics = [NSNumber numberWithBool:mValue.reportMetrics];
-        value.reportHeapMetrics = [NSNumber numberWithBool:mValue.reportHeapMetrics];
-        value.heapPollingInterval = [NSNumber numberWithUnsignedInt:mValue.heapPollingInterval];
-        value.heapPollingCount = [NSNumber numberWithUnsignedChar:mValue.heapPollingCount];
-        value.reportWifiMetrics = [NSNumber numberWithBool:mValue.reportWifiMetrics];
-        value.wifiPollingInterval = [NSNumber numberWithUnsignedInt:mValue.wifiPollingInterval];
-        value.wifiPollingCount = [NSNumber numberWithUnsignedChar:mValue.wifiPollingCount];
-        value.usePolling = [NSNumber numberWithBool:mValue.usePolling];
-        value.reportVariables = [NSNumber numberWithBool:mValue.reportVariables];
-        value.reportNetworkVariables = [NSNumber numberWithBool:mValue.reportNetworkVariables];
-        value.reportMoreNetworkVariables = [NSNumber numberWithBool:mValue.reportMoreNetworkVariables];
-        value.reportWatermarkPercent = [NSNumber numberWithUnsignedChar:mValue.reportWatermarkPercent];
-
-        [cluster writeAttributeInsightsParamsWithValue:value params:params completion:^(NSError * _Nullable error) {
-            if (error != nil) {
-                LogNSError("PhotonSmart InsightsParams write Error", error);
-                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
-            }
-            SetCommandExitStatus(error);
-        }];
-        return CHIP_NO_ERROR;
-    }
-
-private:
-    chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type mValue;
-    TypedComplexArgument<chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type> mComplex;
 };
 
 class SubscribeAttributePhotonSmartInsightsParams : public SubscribeAttribute {
@@ -208528,6 +208552,12 @@ void registerClusterPhotonSmart(Commands & commands)
 #if MTR_ENABLE_PROVISIONAL
         make_unique<PhotonSmartFactoryReset>(), //
 #endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<PhotonSmartSetMqttConfig>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<PhotonSmartSetInsightsParams>(), //
+#endif // MTR_ENABLE_PROVISIONAL
         make_unique<ReadAttribute>(Id), //
         make_unique<WriteAttribute>(Id), //
         make_unique<SubscribeAttribute>(Id), //
@@ -208541,7 +208571,6 @@ void registerClusterPhotonSmart(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadPhotonSmartMqttConfig>(), //
-        make_unique<WritePhotonSmartMqttConfig>(), //
         make_unique<SubscribeAttributePhotonSmartMqttConfig>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
@@ -208556,7 +208585,6 @@ void registerClusterPhotonSmart(Commands & commands)
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL
         make_unique<ReadPhotonSmartInsightsParams>(), //
-        make_unique<WritePhotonSmartInsightsParams>(), //
         make_unique<SubscribeAttributePhotonSmartInsightsParams>(), //
 #endif // MTR_ENABLE_PROVISIONAL
 #if MTR_ENABLE_PROVISIONAL

@@ -31975,6 +31975,36 @@ public class ClusterInfoMapping {
     );
     photonSmartClusterInteractionInfoMap.put("factoryReset", photonSmartfactoryResetInteractionInfo);
 
+    Map<String, CommandParameterInfo> photonSmartsetMqttConfigCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    InteractionInfo photonSmartsetMqttConfigInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster)
+        .setMqttConfig((DefaultClusterCallback) callback
+        , (ChipStructs.PhotonSmartClusterPhotonMQTTStruct)
+        commandArguments.get("config")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        photonSmartsetMqttConfigCommandParams
+    );
+    photonSmartClusterInteractionInfoMap.put("setMqttConfig", photonSmartsetMqttConfigInteractionInfo);
+
+    Map<String, CommandParameterInfo> photonSmartsetInsightsParamsCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    InteractionInfo photonSmartsetInsightsParamsInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonSmartCluster) cluster)
+        .setInsightsParams((DefaultClusterCallback) callback
+        , (ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct)
+        commandArguments.get("params")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        photonSmartsetInsightsParamsCommandParams
+    );
+    photonSmartClusterInteractionInfoMap.put("setInsightsParams", photonSmartsetInsightsParamsInteractionInfo);
+
     commandMap.put("photonSmart", photonSmartClusterInteractionInfoMap);
 
     Map<String, InteractionInfo> freshRefrigeratorErrorsAlarmClusterInteractionInfoMap = new LinkedHashMap<>();

@@ -100,7 +100,7 @@ public:
 };
 } // namespace ActiveCleanEnded
 namespace NotifyError {
-static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
+static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Critical;
 
 enum class Fields : uint8_t
 {

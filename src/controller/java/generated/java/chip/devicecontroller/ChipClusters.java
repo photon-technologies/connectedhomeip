@@ -65724,6 +65724,46 @@ public class ChipClusters {
         }}, commandId, commandArgs, timedInvokeTimeoutMs);
     }
 
+    public void setMqttConfig(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonMQTTStruct config) {
+      setMqttConfig(callback, config, 0);
+    }
+
+    public void setMqttConfig(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonMQTTStruct config, int timedInvokeTimeoutMs) {
+      final long commandId = 2L;
+
+      ArrayList<StructElement> elements = new ArrayList<>();
+      final long configFieldID = 0L;
+      BaseTLVType configtlvValue = config.encodeTlv();
+      elements.add(new StructElement(configFieldID, configtlvValue));
+
+      StructType commandArgs = new StructType(elements);
+      invoke(new InvokeCallbackImpl(callback) {
+          @Override
+          public void onResponse(StructType invokeStructValue) {
+          callback.onSuccess();
+        }}, commandId, commandArgs, timedInvokeTimeoutMs);
+    }
+
+    public void setInsightsParams(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct params) {
+      setInsightsParams(callback, params, 0);
+    }
+
+    public void setInsightsParams(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct params, int timedInvokeTimeoutMs) {
+      final long commandId = 3L;
+
+      ArrayList<StructElement> elements = new ArrayList<>();
+      final long paramsFieldID = 0L;
+      BaseTLVType paramstlvValue = params.encodeTlv();
+      elements.add(new StructElement(paramsFieldID, paramstlvValue));
+
+      StructType commandArgs = new StructType(elements);
+      invoke(new InvokeCallbackImpl(callback) {
+          @Override
+          public void onResponse(StructType invokeStructValue) {
+          callback.onSuccess();
+        }}, commandId, commandArgs, timedInvokeTimeoutMs);
+    }
+
     public interface MqttConfigAttributeCallback extends BaseAttributeCallback {
       void onSuccess(ChipStructs.PhotonSmartClusterPhotonMQTTStruct value);
     }
@@ -65807,15 +65847,6 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, MQTT_CONFIG_ATTRIBUTE_ID, true);
-    }
-
-    public void writeMqttConfigAttribute(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonMQTTStruct value) {
-      writeMqttConfigAttribute(callback, value, 0);
-    }
-
-    public void writeMqttConfigAttribute(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonMQTTStruct value, int timedWriteTimeoutMs) {
-      BaseTLVType tlvValue = value.encodeTlv();
-      writeAttribute(new WriteAttributesCallbackImpl(callback), MQTT_CONFIG_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeMqttConfigAttribute(
@@ -65912,15 +65943,6 @@ public class ChipClusters {
             callback.onSuccess(value);
           }
         }, INSIGHTS_PARAMS_ATTRIBUTE_ID, true);
-    }
-
-    public void writeInsightsParamsAttribute(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value) {
-      writeInsightsParamsAttribute(callback, value, 0);
-    }
-
-    public void writeInsightsParamsAttribute(DefaultClusterCallback callback, ChipStructs.PhotonSmartClusterPhotonInsightsParamsStruct value, int timedWriteTimeoutMs) {
-      BaseTLVType tlvValue = value.encodeTlv();
-      writeAttribute(new WriteAttributesCallbackImpl(callback), INSIGHTS_PARAMS_ATTRIBUTE_ID, tlvValue, timedWriteTimeoutMs);
     }
 
     public void subscribeInsightsParamsAttribute(

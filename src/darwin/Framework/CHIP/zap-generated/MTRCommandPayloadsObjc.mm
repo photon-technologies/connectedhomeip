@@ -42567,6 +42567,200 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @end
 
+@implementation MTRPhotonSmartClusterSetMqttConfigParams
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _config = [MTRPhotonSmartClusterPhotonMQTTStruct new];
+        _timedInvokeTimeoutMs = nil;
+        _serverSideProcessingTimeout = nil;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone;
+{
+    auto other = [[MTRPhotonSmartClusterSetMqttConfigParams alloc] init];
+
+    other.config = self.config;
+    other.timedInvokeTimeoutMs = self.timedInvokeTimeoutMs;
+    other.serverSideProcessingTimeout = self.serverSideProcessingTimeout;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: config:%@; >", NSStringFromClass([self class]), _config];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRPhotonSmartClusterSetMqttConfigParams (InternalMethods)
+
+- (CHIP_ERROR)_encodeToTLVReader:(chip::System::PacketBufferTLVReader &)reader
+{
+    chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Type encodableStruct;
+    ListFreer listFreer;
+    {
+        encodableStruct.config.host = AsCharSpan(self.config.host);
+        encodableStruct.config.port = self.config.port.unsignedShortValue;
+        encodableStruct.config.transport = static_cast<std::remove_reference_t<decltype(encodableStruct.config.transport)>>(self.config.transport.unsignedCharValue);
+        encodableStruct.config.keepAlive = self.config.keepAlive.unsignedShortValue;
+        encodableStruct.config.cleanSession = self.config.cleanSession.boolValue;
+        encodableStruct.config.reconnectBackoffBaseMS = self.config.reconnectBackoffBaseMS.unsignedIntValue;
+        encodableStruct.config.timeoutMS = self.config.timeoutMS.unsignedIntValue;
+        encodableStruct.config.sessionExpiryIntervalS = self.config.sessionExpiryIntervalS.unsignedIntValue;
+        encodableStruct.config.maxPacketSize = self.config.maxPacketSize.unsignedIntValue;
+        encodableStruct.config.maxReceivePacketCount = self.config.maxReceivePacketCount.unsignedShortValue;
+        encodableStruct.config.maxTopicAlias = self.config.maxTopicAlias.unsignedShortValue;
+        encodableStruct.config.requestRespInfo = self.config.requestRespInfo.boolValue;
+        encodableStruct.config.requestProblemInfo = self.config.requestProblemInfo.boolValue;
+        encodableStruct.config.willDelayIntervalS = self.config.willDelayIntervalS.unsignedIntValue;
+        encodableStruct.config.messageExpiryIntervalS = self.config.messageExpiryIntervalS.unsignedIntValue;
+        encodableStruct.config.payloadFormatIndicator = self.config.payloadFormatIndicator.boolValue;
+        encodableStruct.config.reconnectBackoffMaxMS = self.config.reconnectBackoffMaxMS.unsignedIntValue;
+        encodableStruct.config.bootJitterMaxMS = self.config.bootJitterMaxMS.unsignedIntValue;
+        if (self.config.publishQos != nil) {
+            auto & definedValue_1 = encodableStruct.config.publishQos.Emplace();
+            definedValue_1 = static_cast<std::remove_reference_t<decltype(definedValue_1)>>(self.config.publishQos.unsignedIntValue);
+        }
+    }
+
+    auto buffer = chip::System::PacketBufferHandle::New(chip::System::PacketBuffer::kMaxSizeWithoutReserve, 0);
+    if (buffer.IsNull()) {
+        return CHIP_ERROR_NO_MEMORY;
+    }
+
+    chip::System::PacketBufferTLVWriter writer;
+    // Commands never need chained buffers, since they cannot be chunked.
+    writer.Init(std::move(buffer), /* useChainedBuffers = */ false);
+
+    ReturnErrorOnFailure(chip::app::DataModel::Encode(writer, chip::TLV::AnonymousTag(), encodableStruct));
+
+    ReturnErrorOnFailure(writer.Finalize(&buffer));
+
+    reader.Init(std::move(buffer));
+    return reader.Next(chip::TLV::kTLVType_Structure, chip::TLV::AnonymousTag());
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error
+{
+    chip::System::PacketBufferTLVReader reader;
+    CHIP_ERROR err = [self _encodeToTLVReader:reader];
+    if (err != CHIP_NO_ERROR) {
+        if (error) {
+            *error = [MTRError errorForCHIPErrorCode:err];
+        }
+        return nil;
+    }
+
+    auto decodedObj = MTRDecodeDataValueDictionaryFromCHIPTLV(&reader);
+    if (decodedObj == nil) {
+        if (error) {
+            *error = [MTRError errorForCHIPErrorCode:CHIP_ERROR_INCORRECT_STATE];
+        }
+    }
+    return decodedObj;
+}
+@end
+
+@implementation MTRPhotonSmartClusterSetInsightsParamsParams
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _params = [MTRPhotonSmartClusterPhotonInsightsParamsStruct new];
+        _timedInvokeTimeoutMs = nil;
+        _serverSideProcessingTimeout = nil;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone;
+{
+    auto other = [[MTRPhotonSmartClusterSetInsightsParamsParams alloc] init];
+
+    other.params = self.params;
+    other.timedInvokeTimeoutMs = self.timedInvokeTimeoutMs;
+    other.serverSideProcessingTimeout = self.serverSideProcessingTimeout;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: params:%@; >", NSStringFromClass([self class]), _params];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRPhotonSmartClusterSetInsightsParamsParams (InternalMethods)
+
+- (CHIP_ERROR)_encodeToTLVReader:(chip::System::PacketBufferTLVReader &)reader
+{
+    chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Type encodableStruct;
+    ListFreer listFreer;
+    {
+        encodableStruct.params.coreDumpEnabled = self.params.coreDumpEnabled.boolValue;
+        encodableStruct.params.minInterval = self.params.minInterval.unsignedIntValue;
+        encodableStruct.params.maxInterval = self.params.maxInterval.unsignedIntValue;
+        encodableStruct.params.dropWifiLogs = self.params.dropWifiLogs.boolValue;
+        encodableStruct.params.reportMetrics = self.params.reportMetrics.boolValue;
+        encodableStruct.params.reportHeapMetrics = self.params.reportHeapMetrics.boolValue;
+        encodableStruct.params.heapPollingInterval = self.params.heapPollingInterval.unsignedIntValue;
+        encodableStruct.params.heapPollingCount = self.params.heapPollingCount.unsignedCharValue;
+        encodableStruct.params.reportWifiMetrics = self.params.reportWifiMetrics.boolValue;
+        encodableStruct.params.wifiPollingInterval = self.params.wifiPollingInterval.unsignedIntValue;
+        encodableStruct.params.wifiPollingCount = self.params.wifiPollingCount.unsignedCharValue;
+        encodableStruct.params.usePolling = self.params.usePolling.boolValue;
+        encodableStruct.params.reportVariables = self.params.reportVariables.boolValue;
+        encodableStruct.params.reportNetworkVariables = self.params.reportNetworkVariables.boolValue;
+        encodableStruct.params.reportMoreNetworkVariables = self.params.reportMoreNetworkVariables.boolValue;
+        encodableStruct.params.reportWatermarkPercent = self.params.reportWatermarkPercent.unsignedCharValue;
+    }
+
+    auto buffer = chip::System::PacketBufferHandle::New(chip::System::PacketBuffer::kMaxSizeWithoutReserve, 0);
+    if (buffer.IsNull()) {
+        return CHIP_ERROR_NO_MEMORY;
+    }
+
+    chip::System::PacketBufferTLVWriter writer;
+    // Commands never need chained buffers, since they cannot be chunked.
+    writer.Init(std::move(buffer), /* useChainedBuffers = */ false);
+
+    ReturnErrorOnFailure(chip::app::DataModel::Encode(writer, chip::TLV::AnonymousTag(), encodableStruct));
+
+    ReturnErrorOnFailure(writer.Finalize(&buffer));
+
+    reader.Init(std::move(buffer));
+    return reader.Next(chip::TLV::kTLVType_Structure, chip::TLV::AnonymousTag());
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error
+{
+    chip::System::PacketBufferTLVReader reader;
+    CHIP_ERROR err = [self _encodeToTLVReader:reader];
+    if (err != CHIP_NO_ERROR) {
+        if (error) {
+            *error = [MTRError errorForCHIPErrorCode:err];
+        }
+        return nil;
+    }
+
+    auto decodedObj = MTRDecodeDataValueDictionaryFromCHIPTLV(&reader);
+    if (decodedObj == nil) {
+        if (error) {
+            *error = [MTRError errorForCHIPErrorCode:CHIP_ERROR_INCORRECT_STATE];
+        }
+    }
+    return decodedObj;
+}
+@end
+
 @implementation MTRFreshRefrigeratorErrorsAlarmClusterResetParams
 - (instancetype)init
 {

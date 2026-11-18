@@ -53068,6 +53068,38 @@ class PhotonSmart(Cluster):
 
             resetAfter: uint = 0
 
+        @dataclass
+        class SetMqttConfig(ClusterCommand):
+            cluster_id: typing.ClassVar[int] = 0x15E7FC00
+            command_id: typing.ClassVar[int] = 0x00000002
+            is_client: typing.ClassVar[bool] = True
+            response_type: typing.ClassVar[typing.Optional[str]] = None
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="config", Tag=0, Type=PhotonSmart.Structs.PhotonMQTTStruct),
+                    ])
+
+            config: PhotonSmart.Structs.PhotonMQTTStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonMQTTStruct())
+
+        @dataclass
+        class SetInsightsParams(ClusterCommand):
+            cluster_id: typing.ClassVar[int] = 0x15E7FC00
+            command_id: typing.ClassVar[int] = 0x00000003
+            is_client: typing.ClassVar[bool] = True
+            response_type: typing.ClassVar[typing.Optional[str]] = None
+
+            @ChipUtility.classproperty
+            def descriptor(cls) -> ClusterObjectDescriptor:
+                return ClusterObjectDescriptor(
+                    Fields=[
+                        ClusterObjectFieldDescriptor(Label="params", Tag=0, Type=PhotonSmart.Structs.PhotonInsightsParamsStruct),
+                    ])
+
+            params: PhotonSmart.Structs.PhotonInsightsParamsStruct = field(default_factory=lambda: PhotonSmart.Structs.PhotonInsightsParamsStruct())
+
     class Attributes:
         @dataclass
         class DeviceId(ClusterAttributeDescriptor):

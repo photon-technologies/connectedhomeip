@@ -17433,6 +17433,8 @@ private:
 | Commands:                                                           |        |
 | * Reboot                                                            |   0x00 |
 | * FactoryReset                                                      |   0x01 |
+| * SetMqttConfig                                                     |   0x02 |
+| * SetInsightsParams                                                 |   0x03 |
 |------------------------------------------------------------------------------|
 | Attributes:                                                         |        |
 | * DeviceId                                                          | 0x0000 |
@@ -17524,6 +17526,84 @@ public:
 
 private:
     chip::app::Clusters::PhotonSmart::Commands::FactoryReset::Type mRequest;
+};
+
+/*
+ * Command SetMqttConfig
+ */
+class PhotonSmartSetMqttConfig : public ClusterCommand
+{
+public:
+    PhotonSmartSetMqttConfig(CredentialIssuerCommands * credsIssuerConfig) :
+        ClusterCommand("set-mqtt-config", credsIssuerConfig), mComplex_Config(&mRequest.config)
+    {
+        AddArgument("Config", &mComplex_Config);
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
+                        commandId, endpointIds.at(0));
+        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
+    }
+
+    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
+                        groupId);
+
+        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
+    }
+
+private:
+    chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Type mRequest;
+    TypedComplexArgument<chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type> mComplex_Config;
+};
+
+/*
+ * Command SetInsightsParams
+ */
+class PhotonSmartSetInsightsParams : public ClusterCommand
+{
+public:
+    PhotonSmartSetInsightsParams(CredentialIssuerCommands * credsIssuerConfig) :
+        ClusterCommand("set-insights-params", credsIssuerConfig), mComplex_Params(&mRequest.params)
+    {
+        AddArgument("Params", &mComplex_Params);
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
+                        commandId, endpointIds.at(0));
+        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
+    }
+
+    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonSmart::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
+                        groupId);
+
+        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
+    }
+
+private:
+    chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Type mRequest;
+    TypedComplexArgument<chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type> mComplex_Params;
 };
 
 /*----------------------------------------------------------------------------*\
@@ -31615,9 +31695,11 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         //
         // Commands
         //
-        make_unique<ClusterCommand>(Id, credsIssuerConfig),      //
-        make_unique<PhotonSmartReboot>(credsIssuerConfig),       //
-        make_unique<PhotonSmartFactoryReset>(credsIssuerConfig), //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig),           //
+        make_unique<PhotonSmartReboot>(credsIssuerConfig),            //
+        make_unique<PhotonSmartFactoryReset>(credsIssuerConfig),      //
+        make_unique<PhotonSmartSetMqttConfig>(credsIssuerConfig),     //
+        make_unique<PhotonSmartSetInsightsParams>(credsIssuerConfig), //
         //
         // Attributes
         //
@@ -31641,13 +31723,13 @@ void registerClusterPhotonSmart(Commands & commands, CredentialIssuerCommands * 
         make_unique<WriteAttribute<bool>>(Id, "should-reboot", 0, 1, Attributes::ShouldReboot::Id, WriteCommandType::kForceWrite,
                                           credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::Clusters::PhotonSmart::Structs::PhotonMQTTStruct::Type>>(
-            Id, "mqtt-config", Attributes::MqttConfig::Id, WriteCommandType::kWrite, credsIssuerConfig), //
+            Id, "mqtt-config", Attributes::MqttConfig::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "mqtt-report-enabled", 0, 1, Attributes::MqttReportEnabled::Id,
                                           WriteCommandType::kWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "insights-enabled", 0, 1, Attributes::InsightsEnabled::Id, WriteCommandType::kWrite,
                                           credsIssuerConfig), //
         make_unique<WriteAttributeAsComplex<chip::app::Clusters::PhotonSmart::Structs::PhotonInsightsParamsStruct::Type>>(
-            Id, "insights-params", Attributes::InsightsParams::Id, WriteCommandType::kWrite, credsIssuerConfig), //
+            Id, "insights-params", Attributes::InsightsParams::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<uint32_t>>(Id, "public-ipv4address", 0, UINT32_MAX, Attributes::PublicIpv4Address::Id,
                                               WriteCommandType::kForceWrite, credsIssuerConfig), //
         make_unique<WriteAttribute<bool>>(Id, "public-ipv4enabled", 0, 1, Attributes::PublicIpv4Enabled::Id,
