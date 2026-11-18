@@ -12695,6 +12695,14 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
             result = @"FactoryReset";
             break;
 
+        case MTRCommandIDTypeClusterPhotonSmartCommandSetMqttConfigID:
+            result = @"SetMqttConfig";
+            break;
+
+        case MTRCommandIDTypeClusterPhotonSmartCommandSetInsightsParamsID:
+            result = @"SetInsightsParams";
+            break;
+
         default:
             result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
             break;

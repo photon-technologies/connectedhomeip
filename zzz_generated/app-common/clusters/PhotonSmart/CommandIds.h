@@ -19,6 +19,14 @@ namespace FactoryReset {
 inline constexpr CommandId Id = 0x00000001;
 } // namespace FactoryReset
 
+namespace SetMqttConfig {
+inline constexpr CommandId Id = 0x00000002;
+} // namespace SetMqttConfig
+
+namespace SetInsightsParams {
+inline constexpr CommandId Id = 0x00000003;
+} // namespace SetInsightsParams
+
 } // namespace Commands
 } // namespace PhotonSmart
 } // namespace Clusters

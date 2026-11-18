@@ -14605,6 +14605,20 @@ class ChipClusters:
                     "resetAfter": "int",
                 },
             },
+            0x00000002: {
+                "commandId": 0x00000002,
+                "commandName": "SetMqttConfig",
+                "args": {
+                    "config": "PhotonMQTTStruct",
+                },
+            },
+            0x00000003: {
+                "commandId": 0x00000003,
+                "commandName": "SetInsightsParams",
+                "args": {
+                    "params": "PhotonInsightsParamsStruct",
+                },
+            },
         },
         "attributes": {
             0x00000000: {
@@ -14624,7 +14638,6 @@ class ChipClusters:
                 "attributeId": 0x00000002,
                 "type": "",
                 "reportable": True,
-                "writable": True,
             },
             0x00000003: {
                 "attributeName": "MqttReportEnabled",
@@ -14645,7 +14658,6 @@ class ChipClusters:
                 "attributeId": 0x00000005,
                 "type": "",
                 "reportable": True,
-                "writable": True,
             },
             0x00000006: {
                 "attributeName": "PublicIpv4Address",

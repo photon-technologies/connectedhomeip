@@ -12,8 +12,8 @@
        - A bit's position is permanent. Never reorder or reuse one; a removed kind's bit stays
          reserved, and a new kind takes the next free bit.
        - ErrorReply (bit 12) can never be QoS 1: it is sent from the MQTT session task, which
-         cannot wait for a QoS 1 slot. The device rejects a write that sets it.
-       - Bits 21-31 are reserved and must be 0. The device rejects a write that sets one.
+         cannot wait for a QoS 1 slot. The device rejects a SetMqttConfig that sets it.
+       - Bits 21-31 are reserved and must be 0. The device rejects a SetMqttConfig that sets one.
        - LastWill (bit 14) takes effect at the next connect; every other bit applies from the
          next message of its kind.
        - Default 0x0017E00F: FullReport, AttributeReport, EventReport, ProductReport, Presence,
@@ -109,9 +109,9 @@
       <mandatoryConform/>
     </attribute>
 
-    <attribute side="server" code="0x0002" name="MqttConfig" define="MQTT_CONFIG" type="PhotonMQTTStruct" writable="true">
+    <!-- Read-only: a struct is set by command (SetMqttConfig), not written. -->
+    <attribute side="server" code="0x0002" name="MqttConfig" define="MQTT_CONFIG" type="PhotonMQTTStruct">
       <access op="read" privilege="administer"/>
-      <access op="write" privilege="administer"/>
       <mandatoryConform/>
       <description>MqttConfig</description>
     </attribute>
@@ -130,9 +130,9 @@
       <description>InsightsEnabled</description>
     </attribute>
 
-    <attribute side="server" code="0x0005" name="InsightsParams" define="INSIGHTS_PARAMS" type="PhotonInsightsParamsStruct" writable="true">
+    <!-- Read-only: a struct is set by command (SetInsightsParams), not written. -->
+    <attribute side="server" code="0x0005" name="InsightsParams" define="INSIGHTS_PARAMS" type="PhotonInsightsParamsStruct">
       <access op="read" privilege="administer"/>
-      <access op="write" privilege="administer"/>
       <mandatoryConform/>
       <description>InsightsParams</description>
     </attribute>
@@ -161,6 +161,20 @@
     <command source="client" code="0x01" name="FactoryReset" optional="true">
       <description>This command is used to initiate factory reset the device.</description>
       <arg id="0" name="ResetAfter" type="int16u" default="0" min="0" max="65535"/>
+      <access op="invoke" privilege="administer"/>
+      <mandatoryConform/>
+    </command>
+
+    <command source="client" code="0x02" name="SetMqttConfig" optional="true">
+      <description>Sets the whole MqttConfig. Answered with a status only: Success when it is applied, unchanged, or a new broker is on trial; Busy during an OTA download or a broker trial; ConstraintError for an invalid value.</description>
+      <arg id="0" name="Config" type="PhotonMQTTStruct"/>
+      <access op="invoke" privilege="administer"/>
+      <mandatoryConform/>
+    </command>
+
+    <command source="client" code="0x03" name="SetInsightsParams" optional="true">
+      <description>Sets the whole InsightsParams. Answered with a status only.</description>
+      <arg id="0" name="Params" type="PhotonInsightsParamsStruct"/>
       <access op="invoke" privilege="administer"/>
       <mandatoryConform/>
     </command>

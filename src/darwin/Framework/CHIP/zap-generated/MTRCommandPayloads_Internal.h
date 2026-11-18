@@ -2710,6 +2710,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRPhotonSmartClusterSetMqttConfigParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRPhotonSmartClusterSetInsightsParamsParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRFreshRefrigeratorErrorsAlarmClusterResetParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;

@@ -20474,7 +20474,9 @@ public class ClusterIDMapping {
 
         public enum Command {
             Reboot(0L),
-            FactoryReset(1L),;
+            FactoryReset(1L),
+            SetMqttConfig(2L),
+            SetInsightsParams(3L),;
             private final long id;
             Command(long id) {
                 this.id = id;
@@ -20520,6 +20522,40 @@ public class ClusterIDMapping {
                     }
                     public static FactoryResetCommandField value(int id) throws NoSuchFieldError {
                         for (FactoryResetCommandField field : FactoryResetCommandField.values()) {
+                        if (field.getID() == id) {
+                            return field;
+                        }
+                        }
+                        throw new NoSuchFieldError();
+                    }
+                }public enum SetMqttConfigCommandField {Config(0),;
+                    private final int id;
+                    SetMqttConfigCommandField(int id) {
+                        this.id = id;
+                    }
+
+                    public int getID() {
+                        return id;
+                    }
+                    public static SetMqttConfigCommandField value(int id) throws NoSuchFieldError {
+                        for (SetMqttConfigCommandField field : SetMqttConfigCommandField.values()) {
+                        if (field.getID() == id) {
+                            return field;
+                        }
+                        }
+                        throw new NoSuchFieldError();
+                    }
+                }public enum SetInsightsParamsCommandField {Params(0),;
+                    private final int id;
+                    SetInsightsParamsCommandField(int id) {
+                        this.id = id;
+                    }
+
+                    public int getID() {
+                        return id;
+                    }
+                    public static SetInsightsParamsCommandField value(int id) throws NoSuchFieldError {
+                        for (SetInsightsParamsCommandField field : SetInsightsParamsCommandField.values()) {
                         if (field.getID() == id) {
                             return field;
                         }

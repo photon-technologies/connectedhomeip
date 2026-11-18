@@ -57,6 +57,16 @@ struct Type;
 struct DecodableType;
 } // namespace FactoryReset
 
+namespace SetMqttConfig {
+struct Type;
+struct DecodableType;
+} // namespace SetMqttConfig
+
+namespace SetInsightsParams {
+struct Type;
+struct DecodableType;
+} // namespace SetInsightsParams
+
 } // namespace Commands
 
 namespace Commands {
@@ -128,6 +138,74 @@ public:
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
 }; // namespace FactoryReset
+namespace SetMqttConfig {
+enum class Fields : uint8_t
+{
+    kConfig = 0,
+};
+
+struct Type
+{
+public:
+    // Use GetCommandId instead of commandId directly to avoid naming conflict with CommandIdentification in ExecutionOfACommand
+    static constexpr CommandId GetCommandId() { return Commands::SetMqttConfig::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+
+    Structs::PhotonMQTTStruct::Type config;
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+
+    using ResponseType = DataModel::NullObjectType;
+
+    static constexpr bool MustUseTimedInvoke() { return false; }
+};
+
+struct DecodableType
+{
+public:
+    static constexpr CommandId GetCommandId() { return Commands::SetMqttConfig::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    Structs::PhotonMQTTStruct::DecodableType config;
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+}; // namespace SetMqttConfig
+namespace SetInsightsParams {
+enum class Fields : uint8_t
+{
+    kParams = 0,
+};
+
+struct Type
+{
+public:
+    // Use GetCommandId instead of commandId directly to avoid naming conflict with CommandIdentification in ExecutionOfACommand
+    static constexpr CommandId GetCommandId() { return Commands::SetInsightsParams::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+
+    Structs::PhotonInsightsParamsStruct::Type params;
+
+    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+
+    using ResponseType = DataModel::NullObjectType;
+
+    static constexpr bool MustUseTimedInvoke() { return false; }
+};
+
+struct DecodableType
+{
+public:
+    static constexpr CommandId GetCommandId() { return Commands::SetInsightsParams::Id; }
+    static constexpr ClusterId GetClusterId() { return Clusters::PhotonSmart::Id; }
+    static constexpr bool kIsFabricScoped = false;
+
+    Structs::PhotonInsightsParamsStruct::DecodableType params;
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+};
+}; // namespace SetInsightsParams
 } // namespace Commands
 } // namespace PhotonSmart
 } // namespace Clusters

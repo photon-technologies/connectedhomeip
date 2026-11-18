@@ -8361,6 +8361,18 @@ bool emberAfPhotonSmartClusterFactoryResetCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::PhotonSmart::Commands::FactoryReset::DecodableType & commandData);
 /**
+ * @brief Photon Smart Cluster SetMqttConfig Command callback (from client)
+ */
+bool emberAfPhotonSmartClusterSetMqttConfigCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::DecodableType & commandData);
+/**
+ * @brief Photon Smart Cluster SetInsightsParams Command callback (from client)
+ */
+bool emberAfPhotonSmartClusterSetInsightsParamsCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::DecodableType & commandData);
+/**
  * @brief Fresh Refrigerator Errors Alarm Cluster Reset Command callback (from client)
  */
 bool emberAfFreshRefrigeratorErrorsAlarmClusterResetCallback(

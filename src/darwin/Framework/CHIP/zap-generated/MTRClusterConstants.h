@@ -7348,6 +7348,8 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     // Cluster PhotonSmart commands
     MTRCommandIDTypeClusterPhotonSmartCommandRebootID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRCommandIDTypeClusterPhotonSmartCommandFactoryResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRCommandIDTypeClusterPhotonSmartCommandSetMqttConfigID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRCommandIDTypeClusterPhotonSmartCommandSetInsightsParamsID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
 
     // Cluster FreshRefrigeratorErrorsAlarm commands
     MTRCommandIDTypeClusterFreshRefrigeratorErrorsAlarmCommandResetID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,

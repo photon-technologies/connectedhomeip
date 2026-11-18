@@ -6590,6 +6590,10 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Reboot";
         case chip::app::Clusters::PhotonSmart::Commands::FactoryReset::Id:
             return "FactoryReset";
+        case chip::app::Clusters::PhotonSmart::Commands::SetMqttConfig::Id:
+            return "SetMqttConfig";
+        case chip::app::Clusters::PhotonSmart::Commands::SetInsightsParams::Id:
+            return "SetInsightsParams";
         default:
             return "Unknown";
         }

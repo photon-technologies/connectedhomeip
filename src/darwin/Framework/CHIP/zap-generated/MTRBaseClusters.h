@@ -16530,6 +16530,18 @@ MTR_PROVISIONALLY_AVAILABLE
  * This command is used to initiate factory reset the device.
  */
 - (void)factoryResetWithParams:(MTRPhotonSmartClusterFactoryResetParams *)params completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
+/**
+ * Command SetMqttConfig
+ *
+ * Sets the whole MqttConfig. Answered with a status only: Success when it is applied, unchanged, or a new broker is on trial; Busy during an OTA download or a broker trial; ConstraintError for an invalid value.
+ */
+- (void)setMqttConfigWithParams:(MTRPhotonSmartClusterSetMqttConfigParams *)params completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
+/**
+ * Command SetInsightsParams
+ *
+ * Sets the whole InsightsParams. Answered with a status only.
+ */
+- (void)setInsightsParamsWithParams:(MTRPhotonSmartClusterSetInsightsParamsParams *)params completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
 
 - (void)readAttributeDeviceIdWithCompletion:(void (^)(NSString * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
 - (void)subscribeAttributeDeviceIdWithParams:(MTRSubscribeParams *)params
@@ -16544,8 +16556,6 @@ MTR_PROVISIONALLY_AVAILABLE
 + (void)readAttributeShouldRebootWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
 
 - (void)readAttributeMqttConfigWithCompletion:(void (^)(MTRPhotonSmartClusterPhotonMQTTStruct * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
-- (void)writeAttributeMqttConfigWithValue:(MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull)value completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
-- (void)writeAttributeMqttConfigWithValue:(MTRPhotonSmartClusterPhotonMQTTStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
 - (void)subscribeAttributeMqttConfigWithParams:(MTRSubscribeParams *)params
                        subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                  reportHandler:(void (^)(MTRPhotonSmartClusterPhotonMQTTStruct * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
@@ -16568,8 +16578,6 @@ MTR_PROVISIONALLY_AVAILABLE
 + (void)readAttributeInsightsEnabledWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void (^)(NSNumber * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
 
 - (void)readAttributeInsightsParamsWithCompletion:(void (^)(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nullable value, NSError * _Nullable error))completion MTR_PROVISIONALLY_AVAILABLE;
-- (void)writeAttributeInsightsParamsWithValue:(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull)value completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
-- (void)writeAttributeInsightsParamsWithValue:(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nonnull)value params:(MTRWriteParams * _Nullable)params completion:(MTRStatusCompletion)completion MTR_PROVISIONALLY_AVAILABLE;
 - (void)subscribeAttributeInsightsParamsWithParams:(MTRSubscribeParams *)params
                            subscriptionEstablished:(MTRSubscriptionEstablishedHandler _Nullable)subscriptionEstablished
                                      reportHandler:(void (^)(MTRPhotonSmartClusterPhotonInsightsParamsStruct * _Nullable value, NSError * _Nullable error))reportHandler MTR_PROVISIONALLY_AVAILABLE;
