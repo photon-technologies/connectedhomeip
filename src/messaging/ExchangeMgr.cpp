@@ -106,11 +106,12 @@ ExchangeContext * ExchangeManager::NewContext(const SessionHandle & session, Exc
 {
     if (!session->IsActiveSession())
     {
-#if CHIP_ERROR_LOGGING
+#if CHIP_PROGRESS_LOGGING
         const ScopedNodeId & peer = session->GetPeer();
-        ChipLogError(ExchangeManager, "NewContext failed: session %u to " ChipLogFormatScopedNodeId " is inactive",
-                     session->SessionIdForLogging(), ChipLogValueScopedNodeId(peer));
-#endif // CHIP_ERROR_LOGGING
+        // Photon: the peer's session ended, e.g. a subscriber that went away.
+        ChipLogProgress(ExchangeManager, "NewContext failed: session %u to " ChipLogFormatScopedNodeId " is inactive",
+                        session->SessionIdForLogging(), ChipLogValueScopedNodeId(peer));
+#endif // CHIP_PROGRESS_LOGGING
 
         // Disallow creating exchange on an inactive session
         return nullptr;
@@ -380,15 +381,21 @@ void ExchangeManager::OnMessageReceived(const PacketHeader & packetHeader, const
 
         if (ec->IsEncryptionRequired() != packetHeader.IsEncrypted())
         {
-            ChipLogError(ExchangeManager, "OnMessageReceived failed, err = %" CHIP_ERROR_FORMAT,
-                         CHIP_ERROR_INVALID_MESSAGE_TYPE.Format());
+            // Photon: the peer's message does not fit its exchange; it is dropped.
+            ChipLogProgress(ExchangeManager, "OnMessageReceived failed, err = %" CHIP_ERROR_FORMAT,
+                            CHIP_ERROR_INVALID_MESSAGE_TYPE.Format());
             ec->Close();
             SendStandaloneAckIfNeeded(packetHeader, payloadHeader, session, msgFlags, std::move(msgBuf));
             return;
         }
 
         err = ec->HandleMessage(packetHeader.GetMessageCounter(), payloadHeader, msgFlags, std::move(msgBuf));
-        if (err != CHIP_NO_ERROR)
+        if (err == CHIP_ERROR_INVALID_MESSAGE_TYPE)
+        {
+            // Photon: a message type the exchange does not expect is the peer's; it is dropped.
+            ChipLogProgress(ExchangeManager, "OnMessageReceived failed, err = %" CHIP_ERROR_FORMAT, err.Format());
+        }
+        else if (err != CHIP_NO_ERROR)
         {
             // Using same error message for all errors to reduce code size.
             ChipLogError(ExchangeManager, "OnMessageReceived failed, err = %" CHIP_ERROR_FORMAT, err.Format());
@@ -427,7 +434,12 @@ void ExchangeManager::SendStandaloneAckIfNeeded(const PacketHeader & packetHeade
     // No need to verify packet encryption type, the EphemeralExchange can handle both secure and insecure messages.
 
     CHIP_ERROR err = ec->HandleMessage(packetHeader.GetMessageCounter(), payloadHeader, msgFlags, std::move(msgBuf));
-    if (err != CHIP_NO_ERROR)
+    if (err == CHIP_ERROR_INVALID_MESSAGE_TYPE)
+    {
+        // Photon: a message type the exchange does not expect is the peer's; it is dropped.
+        ChipLogProgress(ExchangeManager, "OnMessageReceived failed, err = %" CHIP_ERROR_FORMAT, err.Format());
+    }
+    else if (err != CHIP_NO_ERROR)
     {
         // Using same error message for all errors to reduce code size.
         ChipLogError(ExchangeManager, "OnMessageReceived failed, err = %" CHIP_ERROR_FORMAT, err.Format());

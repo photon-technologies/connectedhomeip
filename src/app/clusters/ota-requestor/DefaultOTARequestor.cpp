@@ -256,7 +256,8 @@ void DefaultOTARequestor::OnQueryImageFailure(void * context, CHIP_ERROR error)
     DefaultOTARequestor * requestorCore = static_cast<DefaultOTARequestor *>(context);
     VerifyOrDie(requestorCore != nullptr);
 
-    ChipLogError(SoftwareUpdate, "Received QueryImage failure response: %" CHIP_ERROR_FORMAT, error.Format());
+    // Photon: the provider's answer; the requestor queries again on its schedule.
+    ChipLogProgress(SoftwareUpdate, "Received QueryImage failure response: %" CHIP_ERROR_FORMAT, error.Format());
 
     // A previously valid CASE session may have become invalid
     if (error == CHIP_ERROR_TIMEOUT)
