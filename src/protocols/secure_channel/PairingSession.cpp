@@ -304,7 +304,8 @@ void PairingSession::OnSessionReleased()
 
     mSessionManager->SystemLayer()->ScheduleWork(
         [](auto * systemLayer, auto * appState) -> void {
-            ChipLogError(Inet, "ASYNC CASE Session establishment failed");
+            // Photon: the session went away mid-pairing; reported next as CONNECTION_ABORTED.
+            ChipLogProgress(Inet, "ASYNC CASE Session establishment failed");
             auto * _this = static_cast<PairingSession *>(appState);
             _this->NotifySessionEstablishmentError(CHIP_ERROR_CONNECTION_ABORTED);
         },

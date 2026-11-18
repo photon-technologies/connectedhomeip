@@ -42,6 +42,7 @@
 #include <platform/CHIPDeviceLayer.h>
 #include <protocols/Protocols.h>
 #include <protocols/secure_channel/Constants.h>
+#include <system/SystemError.h>
 #include <tracing/macros.h>
 #include <transport/GroupPeerMessageCounter.h>
 #include <transport/GroupSession.h>
@@ -498,8 +499,13 @@ CHIP_ERROR SessionManager::SendPreparedMessage(const SessionHandle & sessionHand
             destination->ToString(addressStr);
             // Photon: ERR_MEM here is transient Wi-Fi TX-buffer exhaustion, which MRP
             // retransmits around -- upstream already treats it as transient on the
-            // ReliableMessageMgr path. Other send failures remain real errors.
-            if (err == CHIP_ERROR_NO_MEMORY)
+            // ReliableMessageMgr path. Over LwIP it arrives in the LwIP error range, not
+            // as CHIP_ERROR_NO_MEMORY. Other send failures remain real errors.
+            if (err == CHIP_ERROR_NO_MEMORY
+#if CHIP_SYSTEM_CONFIG_USE_LWIP
+                || err == System::MapErrorLwIP(ERR_MEM)
+#endif // CHIP_SYSTEM_CONFIG_USE_LWIP
+            )
             {
                 ChipLogProgress(Inet, "SendMessage() to %s failed: %" CHIP_ERROR_FORMAT, addressStr, err.Format());
             }

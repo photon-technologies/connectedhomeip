@@ -193,7 +193,15 @@ CHIP_ERROR ReliableMessageContext::SendStandaloneAckMessage()
                      err.Format(), mPendingPeerAckMessageCounter, ChipLogValueExchange(GetExchangeContext()));
         return CHIP_NO_ERROR;
     }
-    if (err != CHIP_NO_ERROR)
+    // Photon: an ack to a peer whose session is gone has no one to reach.
+    if (err == CHIP_ERROR_CONNECTION_ABORTED || err == CHIP_ERROR_MISSING_SECURE_SESSION)
+    {
+        ChipLogProgress(ExchangeManager,
+                        "Failed to send Solitary ack for MessageCounter:" ChipLogFormatMessageCounter
+                        " on exchange " ChipLogFormatExchange ":%" CHIP_ERROR_FORMAT,
+                        mPendingPeerAckMessageCounter, ChipLogValueExchange(GetExchangeContext()), err.Format());
+    }
+    else if (err != CHIP_NO_ERROR)
     {
         ChipLogError(ExchangeManager,
                      "Failed to send Solitary ack for MessageCounter:" ChipLogFormatMessageCounter

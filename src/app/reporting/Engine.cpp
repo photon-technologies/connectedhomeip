@@ -849,6 +849,12 @@ CHIP_ERROR Engine::BuildAndSendSingleReportData(ReadHandler * apReadHandler)
 
     ChipLogDetail(DataManagement, "<RE> Sending report (payload has %" PRIu32 " bytes)...", reportDataWriter.GetLengthWritten());
     err = SendReport(apReadHandler, std::move(bufHandle), hasMoreChunks);
+    if (err == CHIP_ERROR_MISSING_SECURE_SESSION || err == CHIP_ERROR_INCORRECT_STATE)
+    {
+        // Photon: the subscriber's session ended (an INCORRECT_STATE from anywhere else logs its own cause).
+        ChipLogProgress(DataManagement, "<RE> Error sending out report data with %" CHIP_ERROR_FORMAT "!", err.Format());
+        ExitNow();
+    }
     VerifyOrExit(err == CHIP_NO_ERROR,
                  ChipLogError(DataManagement, "<RE> Error sending out report data with %" CHIP_ERROR_FORMAT "!", err.Format()));
 

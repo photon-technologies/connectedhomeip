@@ -285,7 +285,8 @@ CHIP_ERROR ReadHandler::AcquireExchangeForSend()
         // We already hold mExchangeCtx from the inbound request. The underlying
         // session can be released while a send is pending (e.g. TCP teardown);
         // guard before grabbing it to avoid crashing in UseSuggestedResponseTimeout.
-        VerifyOrReturnLogError(mExchangeCtx->HasSessionHandle(), CHIP_ERROR_MISSING_SECURE_SESSION);
+        // Photon: the subscriber's session ended; the engine logs the failed report.
+        VerifyOrReturnError(mExchangeCtx->HasSessionHandle(), CHIP_ERROR_MISSING_SECURE_SESSION);
         mSessionHandle.Grab(mExchangeCtx->GetSessionHandle());
     }
     else
@@ -301,7 +302,8 @@ CHIP_ERROR ReadHandler::AcquireExchangeForSend()
         auto exchange =
             mManagementCallback.GetInteractionModelEngine()->GetExchangeManager()->NewContext(mSessionHandle.Get().Value(), this);
 #endif // CHIP_CONFIG_UNSAFE_SUBSCRIPTION_EXCHANGE_MANAGER_USE
-        VerifyOrReturnLogError(exchange != nullptr, CHIP_ERROR_INCORRECT_STATE);
+        // Photon: NewContext() logs why there is no exchange (an inactive session).
+        VerifyOrReturnError(exchange != nullptr, CHIP_ERROR_INCORRECT_STATE);
         mExchangeCtx.Grab(exchange);
     }
     return CHIP_NO_ERROR;

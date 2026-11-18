@@ -211,7 +211,8 @@ void CASEServer::OnSessionEstablishmentError(CHIP_ERROR err)
     // the controller vanished mid-handshake -- and is not a device fault. Every other
     // error at this site (KEY_NOT_FOUND, INVALID_CASE_PARAMETER, ...) is a real failure
     // and must stay at Error.
-    if (err == CHIP_ERROR_TIMEOUT)
+    // Photon: a controller that went away, rejected our Sigma2, or released the session is not a device failure.
+    if (err == CHIP_ERROR_TIMEOUT || err == CHIP_ERROR_INVALID_CASE_PARAMETER || err == CHIP_ERROR_CONNECTION_ABORTED)
     {
         ChipLogProgress(Inet, "CASE Session establishment failed: %" CHIP_ERROR_FORMAT, err.Format());
     }

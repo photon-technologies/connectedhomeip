@@ -2394,8 +2394,9 @@ CHIP_ERROR CASESession::OnFailureStatusReport(Protocols::SecureChannel::GeneralS
         break;
     };
     mState = State::kInitialized;
-    ChipLogError(SecureChannel, "Received error (protocol code %d) during pairing process: %" CHIP_ERROR_FORMAT, protocolCode,
-                 err.Format());
+    // Photon: the peer ended the pairing; CASEServer logs the outcome.
+    ChipLogProgress(SecureChannel, "Received error (protocol code %d) during pairing process: %" CHIP_ERROR_FORMAT, protocolCode,
+                    err.Format());
     return err;
 }
 
