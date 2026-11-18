@@ -104,6 +104,13 @@ CHIP_ERROR ClockImpl::SetClock_RealTime(Microseconds64 aNewCurTime)
 
 CHIP_ERROR InitClock_RealTime()
 {
+    // Keep a clock that is already valid: ESP-IDF carries the system time across a software reset,
+    // such as an OTA reboot, and the threshold would replace it with 2000-01-01 until the next SNTP sync.
+    struct timeval tv;
+    if (gettimeofday(&tv, nullptr) == 0 && tv.tv_sec >= CHIP_SYSTEM_CONFIG_VALID_REAL_TIME_THRESHOLD)
+    {
+        return CHIP_NO_ERROR;
+    }
     Clock::Microseconds64 curTime =
         Clock::Microseconds64((static_cast<uint64_t>(CHIP_SYSTEM_CONFIG_VALID_REAL_TIME_THRESHOLD) * UINT64_C(1000000)));
     // Use CHIP_SYSTEM_CONFIG_VALID_REAL_TIME_THRESHOLD as the initial value of RealTime.
