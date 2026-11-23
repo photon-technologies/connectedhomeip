@@ -20426,6 +20426,120 @@ public class ClusterReadMapping {
      
        return result;
     }
+    private static Map<String, InteractionInfo> readPhotonTimeInteractionInfo() {
+       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readPhotonTimePosixRuleCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimePosixRuleAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readPosixRuleAttribute(
+              (ChipClusters.CharStringAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedCharStringAttributeCallback(),
+          readPhotonTimePosixRuleCommandParams
+        );
+        result.put("readPosixRuleAttribute", readPhotonTimePosixRuleAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeRuleSourceCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeRuleSourceAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readRuleSourceAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readPhotonTimeRuleSourceCommandParams
+        );
+        result.put("readRuleSourceAttribute", readPhotonTimeRuleSourceAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeUTCOffsetCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeUTCOffsetAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readUTCOffsetAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readPhotonTimeUTCOffsetCommandParams
+        );
+        result.put("readUTCOffsetAttribute", readPhotonTimeUTCOffsetAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeDSTActiveCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeDSTActiveAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readDSTActiveAttribute(
+              (ChipClusters.BooleanAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedBooleanAttributeCallback(),
+          readPhotonTimeDSTActiveCommandParams
+        );
+        result.put("readDSTActiveAttribute", readPhotonTimeDSTActiveAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeZoneNameCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeZoneNameAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readZoneNameAttribute(
+              (ChipClusters.PhotonTimeCluster.ZoneNameAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedPhotonTimeClusterZoneNameAttributeCallback(),
+          readPhotonTimeZoneNameCommandParams
+        );
+        result.put("readZoneNameAttribute", readPhotonTimeZoneNameAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readGeneratedCommandListAttribute(
+              (ChipClusters.PhotonTimeCluster.GeneratedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedPhotonTimeClusterGeneratedCommandListAttributeCallback(),
+          readPhotonTimeGeneratedCommandListCommandParams
+        );
+        result.put("readGeneratedCommandListAttribute", readPhotonTimeGeneratedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeAcceptedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeAcceptedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readAcceptedCommandListAttribute(
+              (ChipClusters.PhotonTimeCluster.AcceptedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedPhotonTimeClusterAcceptedCommandListAttributeCallback(),
+          readPhotonTimeAcceptedCommandListCommandParams
+        );
+        result.put("readAcceptedCommandListAttribute", readPhotonTimeAcceptedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeAttributeListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeAttributeListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readAttributeListAttribute(
+              (ChipClusters.PhotonTimeCluster.AttributeListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedPhotonTimeClusterAttributeListAttributeCallback(),
+          readPhotonTimeAttributeListCommandParams
+        );
+        result.put("readAttributeListAttribute", readPhotonTimeAttributeListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeFeatureMapCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeFeatureMapAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readFeatureMapAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readPhotonTimeFeatureMapCommandParams
+        );
+        result.put("readFeatureMapAttribute", readPhotonTimeFeatureMapAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readPhotonTimeClusterRevisionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readPhotonTimeClusterRevisionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.PhotonTimeCluster) cluster).readClusterRevisionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readPhotonTimeClusterRevisionCommandParams
+        );
+        result.put("readClusterRevisionAttribute", readPhotonTimeClusterRevisionAttributeInteractionInfo);
+     
+       return result;
+    }
     private static Map<String, InteractionInfo> readUnitTestingInteractionInfo() {
        Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readUnitTestingBooleanCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readUnitTestingBooleanAttributeInteractionInfo = new InteractionInfo(
@@ -21695,6 +21809,7 @@ public class ClusterReadMapping {
             put("freshRefrigeratorController", readFreshRefrigeratorControllerInteractionInfo());
             put("freshMideaController", readFreshMideaControllerInteractionInfo());
             put("freshWaterHeaterController", readFreshWaterHeaterControllerInteractionInfo());
+            put("photonTime", readPhotonTimeInteractionInfo());
             put("unitTesting", readUnitTestingInteractionInfo());
             put("faultInjection", readFaultInjectionInteractionInfo());
             put("sampleMei", readSampleMeiInteractionInfo());}};

@@ -309,6 +309,8 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "FreshMideaController";
     case chip::app::Clusters::FreshWaterHeaterController::Id:
         return "FreshWaterHeaterController";
+    case chip::app::Clusters::PhotonTime::Id:
+        return "PhotonTime";
     case chip::app::Clusters::UnitTesting::Id:
         return "UnitTesting";
     case chip::app::Clusters::FaultInjection::Id:
@@ -5034,6 +5036,33 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
+    case chip::app::Clusters::PhotonTime::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::PhotonTime::Attributes::PosixRule::Id:
+            return "PosixRule";
+        case chip::app::Clusters::PhotonTime::Attributes::RuleSource::Id:
+            return "RuleSource";
+        case chip::app::Clusters::PhotonTime::Attributes::UTCOffset::Id:
+            return "UTCOffset";
+        case chip::app::Clusters::PhotonTime::Attributes::DSTActive::Id:
+            return "DSTActive";
+        case chip::app::Clusters::PhotonTime::Attributes::ZoneName::Id:
+            return "ZoneName";
+        case chip::app::Clusters::PhotonTime::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::PhotonTime::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::PhotonTime::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::PhotonTime::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::PhotonTime::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::UnitTesting::Id: {
         switch (id)
         {
@@ -6629,6 +6658,15 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "AnodeChangeRequest";
         case chip::app::Clusters::FreshWaterHeaterController::Commands::AnodeChangeConfirmed::Id:
             return "AnodeChangeConfirmed";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::PhotonTime::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::PhotonTime::Commands::SetTimeZone::Id:
+            return "SetTimeZone";
         default:
             return "Unknown";
         }

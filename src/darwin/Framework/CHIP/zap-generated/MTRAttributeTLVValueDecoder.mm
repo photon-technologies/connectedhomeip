@@ -21950,6 +21950,88 @@ static id _Nullable DecodeAttributeValueForFreshWaterHeaterControllerCluster(Att
     *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeAttributeValueForPhotonTimeCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::PhotonTime;
+    switch (aAttributeId) {
+    case Attributes::PosixRule::Id: {
+        using TypeInfo = Attributes::PosixRule::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSString * _Nonnull value;
+        value = AsString(cppValue);
+        if (value == nil) {
+            CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+            *aError = err;
+            return nil;
+        }
+        return value;
+    }
+    case Attributes::RuleSource::Id: {
+        using TypeInfo = Attributes::RuleSource::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithUnsignedChar:chip::to_underlying(cppValue)];
+        return value;
+    }
+    case Attributes::UTCOffset::Id: {
+        using TypeInfo = Attributes::UTCOffset::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithInt:cppValue];
+        return value;
+    }
+    case Attributes::DSTActive::Id: {
+        using TypeInfo = Attributes::DSTActive::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSNumber * _Nonnull value;
+        value = [NSNumber numberWithBool:cppValue];
+        return value;
+    }
+    case Attributes::ZoneName::Id: {
+        using TypeInfo = Attributes::ZoneName::TypeInfo;
+        TypeInfo::DecodableType cppValue;
+        *aError = DataModel::Decode(aReader, cppValue);
+        if (*aError != CHIP_NO_ERROR) {
+            return nil;
+        }
+        NSString * _Nullable value;
+        if (cppValue.IsNull()) {
+            value = nil;
+        } else {
+            value = AsString(cppValue.Value());
+            if (value == nil) {
+                CHIP_ERROR err = CHIP_ERROR_INVALID_ARGUMENT;
+                *aError = err;
+                return nil;
+            }
+        }
+        return value;
+    }
+    default: {
+        // Not a known PhotonTime attribute.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_ATTRIBUTE_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeAttributeValueForUnitTestingCluster(AttributeId aAttributeId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::UnitTesting;
@@ -23965,6 +24047,9 @@ id _Nullable MTRDecodeAttributeValue(const ConcreteAttributePath & aPath, TLV::T
     }
     case Clusters::FreshWaterHeaterController::Id: {
         return DecodeAttributeValueForFreshWaterHeaterControllerCluster(aPath.mAttributeId, aReader, aError);
+    }
+    case Clusters::PhotonTime::Id: {
+        return DecodeAttributeValueForPhotonTimeCluster(aPath.mAttributeId, aReader, aError);
     }
     case Clusters::UnitTesting::Id: {
         return DecodeAttributeValueForUnitTestingCluster(aPath.mAttributeId, aReader, aError);

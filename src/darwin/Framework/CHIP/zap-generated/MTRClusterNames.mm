@@ -444,6 +444,9 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeFreshWaterHeaterControllerID:
         result = @"FreshWaterHeaterController";
         break;
+    case MTRClusterIDTypePhotonTimeID:
+        result = @"PhotonTime";
+        break;
     case MTRClusterIDTypeUnitTestingID:
         result = @"UnitTesting";
         break;
@@ -9507,6 +9510,58 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypePhotonTimeID:
+
+        switch (attributeID) {
+
+            // Cluster PhotonTime attributes
+        case MTRAttributeIDTypeClusterPhotonTimeAttributePosixRuleID:
+            result = @"PosixRule";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeRuleSourceID:
+            result = @"RuleSource";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeUTCOffsetID:
+            result = @"UTCOffset";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeDSTActiveID:
+            result = @"DSTActive";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeZoneNameID:
+            result = @"ZoneName";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterPhotonTimeAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known PhotonTime attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeUnitTestingID:
 
         switch (attributeID) {
@@ -12777,6 +12832,20 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypePhotonTimeID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterPhotonTimeCommandSetTimeZoneID:
+            result = @"SetTimeZone";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeUnitTestingID:
 
         switch (commandID) {
@@ -14700,6 +14769,16 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         break;
 
     case MTRClusterIDTypeFreshWaterHeaterControllerID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypePhotonTimeID:
 
         switch (commandID) {
 
@@ -16760,6 +16839,16 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         case MTREventIDTypeClusterFreshWaterHeaterControllerEventNotifyErrorID:
             result = @"NotifyError";
             break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypePhotonTimeID:
+
+        switch (eventID) {
 
         default:
             result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];

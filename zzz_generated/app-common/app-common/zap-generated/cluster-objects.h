@@ -387,6 +387,10 @@
 #include <clusters/PhotonSmart/Commands.h>
 #include <clusters/PhotonSmart/Events.h>
 #include <clusters/PhotonSmart/Structs.h>
+#include <clusters/PhotonTime/Attributes.h>
+#include <clusters/PhotonTime/Commands.h>
+#include <clusters/PhotonTime/Events.h>
+#include <clusters/PhotonTime/Structs.h>
 #include <clusters/Pm10ConcentrationMeasurement/Attributes.h>
 #include <clusters/Pm10ConcentrationMeasurement/Commands.h>
 #include <clusters/Pm10ConcentrationMeasurement/Events.h>

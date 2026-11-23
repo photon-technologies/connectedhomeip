@@ -3324,6 +3324,14 @@
           "enabled": 1
         },
         {
+          "name": "Photon Time",
+          "code": 367524870,
+          "mfgCode": null,
+          "define": "PHOTON_TIME_CLUSTER",
+          "side": "client",
+          "enabled": 1
+        },
+        {
           "name": "Fresh Refrigerator Errors Alarm",
           "code": 367524866,
           "mfgCode": null,

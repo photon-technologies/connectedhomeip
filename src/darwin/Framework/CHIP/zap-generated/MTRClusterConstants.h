@@ -222,6 +222,7 @@ typedef NS_ENUM(uint32_t, MTRClusterIDType) {
     MTRClusterIDTypeFreshRefrigeratorControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC03,
     MTRClusterIDTypeFreshMideaControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC04,
     MTRClusterIDTypeFreshWaterHeaterControllerID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC05,
+    MTRClusterIDTypePhotonTimeID MTR_PROVISIONALLY_AVAILABLE = 0x15E7FC06,
     MTRClusterIDTypeUnitTestingID MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4)) = 0xFFF1FC05,
     MTRClusterIDTypeSampleMEIID MTR_PROVISIONALLY_AVAILABLE = 0xFFF1FC20,
 
@@ -5032,6 +5033,18 @@ typedef NS_ENUM(uint32_t, MTRAttributeIDType) {
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
     MTRAttributeIDTypeClusterFreshWaterHeaterControllerAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
 
+    // Cluster PhotonTime attributes
+    MTRAttributeIDTypeClusterPhotonTimeAttributePosixRuleID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeRuleSourceID MTR_PROVISIONALLY_AVAILABLE = 0x00000002,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeUTCOffsetID MTR_PROVISIONALLY_AVAILABLE = 0x00000003,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeDSTActiveID MTR_PROVISIONALLY_AVAILABLE = 0x00000004,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeZoneNameID MTR_PROVISIONALLY_AVAILABLE = 0x00000005,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeGeneratedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeGeneratedCommandListID,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeAcceptedCommandListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAcceptedCommandListID,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeAttributeListID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeAttributeListID,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeFeatureMapID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeFeatureMapID,
+    MTRAttributeIDTypeClusterPhotonTimeAttributeClusterRevisionID MTR_PROVISIONALLY_AVAILABLE = MTRAttributeIDTypeGlobalAttributeClusterRevisionID,
+
     // Cluster TestCluster deprecated attribute names
     MTRClusterTestClusterAttributeBooleanID
         MTR_DEPRECATED("Please use MTRAttributeIDTypeClusterUnitTestingAttributeBooleanID", ios(16.1, 16.4), macos(13.0, 13.3), watchos(9.1, 9.4), tvos(16.1, 16.4))
@@ -7363,6 +7376,9 @@ typedef NS_ENUM(uint32_t, MTRCommandIDType) {
     // Cluster FreshWaterHeaterController commands
     MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeRequestID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
     MTRCommandIDTypeClusterFreshWaterHeaterControllerCommandAnodeChangeConfirmedID MTR_PROVISIONALLY_AVAILABLE = 0x00000001,
+
+    // Cluster PhotonTime commands
+    MTRCommandIDTypeClusterPhotonTimeCommandSetTimeZoneID MTR_PROVISIONALLY_AVAILABLE = 0x00000000,
 
     // Cluster TestCluster deprecated command id names
     MTRClusterTestClusterCommandTestID

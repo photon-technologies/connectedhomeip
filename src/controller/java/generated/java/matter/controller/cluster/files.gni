@@ -422,6 +422,7 @@ matter_clusters_sources = [
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/OvenModeCluster.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/OzoneConcentrationMeasurementCluster.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/PhotonSmartCluster.kt",
+  "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/PhotonTimeCluster.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/Pm10ConcentrationMeasurementCluster.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/Pm1ConcentrationMeasurementCluster.kt",
   "${chip_root}/src/controller/java/generated/java/matter/controller/cluster/clusters/Pm25ConcentrationMeasurementCluster.kt",

@@ -1355,6 +1355,15 @@ static BOOL CommandNeedsTimedInvokeInFreshWaterHeaterControllerCluster(Attribute
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInPhotonTimeCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::PhotonTime;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInUnitTestingCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::UnitTesting;
@@ -1802,6 +1811,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::FreshWaterHeaterController::Id: {
         return CommandNeedsTimedInvokeInFreshWaterHeaterControllerCluster(commandID);
+    }
+    case Clusters::PhotonTime::Id: {
+        return CommandNeedsTimedInvokeInPhotonTimeCluster(commandID);
     }
     case Clusters::UnitTesting::Id: {
         return CommandNeedsTimedInvokeInUnitTestingCluster(commandID);

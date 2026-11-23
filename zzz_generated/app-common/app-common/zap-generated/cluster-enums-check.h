@@ -113,6 +113,7 @@
 #include <clusters/OvenMode/EnumsCheck.h>
 #include <clusters/OzoneConcentrationMeasurement/EnumsCheck.h>
 #include <clusters/PhotonSmart/EnumsCheck.h>
+#include <clusters/PhotonTime/EnumsCheck.h>
 #include <clusters/Pm10ConcentrationMeasurement/EnumsCheck.h>
 #include <clusters/Pm1ConcentrationMeasurement/EnumsCheck.h>
 #include <clusters/Pm25ConcentrationMeasurement/EnumsCheck.h>
