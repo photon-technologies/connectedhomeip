@@ -111,6 +111,7 @@
 #include <clusters/OvenMode/AttributeIds.h>
 #include <clusters/OzoneConcentrationMeasurement/AttributeIds.h>
 #include <clusters/PhotonSmart/AttributeIds.h>
+#include <clusters/PhotonTime/AttributeIds.h>
 #include <clusters/Pm10ConcentrationMeasurement/AttributeIds.h>
 #include <clusters/Pm1ConcentrationMeasurement/AttributeIds.h>
 #include <clusters/Pm25ConcentrationMeasurement/AttributeIds.h>

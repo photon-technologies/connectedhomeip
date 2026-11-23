@@ -5349,6 +5349,19 @@ static id _Nullable DecodeEventPayloadForFreshWaterHeaterControllerCluster(Event
     *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeEventPayloadForPhotonTimeCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::PhotonTime;
+    switch (aEventId) {
+    default: {
+        // Not a known PhotonTime event.
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeEventPayloadForUnitTestingCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::UnitTesting;
@@ -5959,6 +5972,9 @@ id _Nullable MTRDecodeEventPayload(const ConcreteEventPath & aPath, TLV::TLVRead
     }
     case Clusters::FreshWaterHeaterController::Id: {
         return DecodeEventPayloadForFreshWaterHeaterControllerCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::PhotonTime::Id: {
+        return DecodeEventPayloadForPhotonTimeCluster(aPath.mEventId, aReader, aError);
     }
     case Clusters::UnitTesting::Id: {
         return DecodeEventPayloadForUnitTestingCluster(aPath.mEventId, aReader, aError);

@@ -6942,6 +6942,46 @@ static BOOL AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(AttributeId 
     }
     }
 }
+static BOOL AttributeIsSpecifiedInPhotonTimeCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::PhotonTime;
+    switch (aAttributeId) {
+    case Attributes::PosixRule::Id: {
+        return YES;
+    }
+    case Attributes::RuleSource::Id: {
+        return YES;
+    }
+    case Attributes::UTCOffset::Id: {
+        return YES;
+    }
+    case Attributes::DSTActive::Id: {
+        return YES;
+    }
+    case Attributes::ZoneName::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known PhotonTime attribute.
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInUnitTestingCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::UnitTesting;
@@ -7682,6 +7722,9 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::FreshWaterHeaterController::Id: {
         return AttributeIsSpecifiedInFreshWaterHeaterControllerCluster(aAttributeId);
+    }
+    case Clusters::PhotonTime::Id: {
+        return AttributeIsSpecifiedInPhotonTimeCluster(aAttributeId);
     }
     case Clusters::UnitTesting::Id: {
         return AttributeIsSpecifiedInUnitTestingCluster(aAttributeId);

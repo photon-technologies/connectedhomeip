@@ -177,6 +177,7 @@
 | FreshRefrigeratorController                                         | 0x15E7FC03|
 | FreshMideaController                                                | 0x15E7FC04|
 | FreshWaterHeaterController                                          | 0x15E7FC05|
+| PhotonTime                                                          | 0x15E7FC06|
 | UnitTesting                                                         | 0xFFF1FC05|
 | FaultInjection                                                      | 0xFFF1FC06|
 | SampleMei                                                           | 0xFFF1FC20|
@@ -18013,6 +18014,65 @@ private:
 };
 
 /*----------------------------------------------------------------------------*\
+| Cluster PhotonTime                                                  | 0x15E7FC06 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+| * SetTimeZone                                                       |   0x00 |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * PosixRule                                                         | 0x0001 |
+| * RuleSource                                                        | 0x0002 |
+| * UTCOffset                                                         | 0x0003 |
+| * DSTActive                                                         | 0x0004 |
+| * ZoneName                                                          | 0x0005 |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+/*
+ * Command SetTimeZone
+ */
+class PhotonTimeSetTimeZone : public ClusterCommand
+{
+public:
+    PhotonTimeSetTimeZone(CredentialIssuerCommands * credsIssuerConfig) : ClusterCommand("set-time-zone", credsIssuerConfig)
+    {
+        AddArgument("PosixRule", &mRequest.posixRule);
+        AddArgument("ZoneName", &mRequest.zoneName);
+        ClusterCommand::AddArguments();
+    }
+
+    CHIP_ERROR SendCommand(chip::DeviceProxy * device, std::vector<chip::EndpointId> endpointIds) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonTime::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonTime::Commands::SetTimeZone::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on endpoint %u", clusterId,
+                        commandId, endpointIds.at(0));
+        return ClusterCommand::SendCommand(device, endpointIds.at(0), clusterId, commandId, mRequest);
+    }
+
+    CHIP_ERROR SendGroupCommand(chip::GroupId groupId, chip::FabricIndex fabricIndex) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::PhotonTime::Id;
+        constexpr chip::CommandId commandId = chip::app::Clusters::PhotonTime::Commands::SetTimeZone::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") command (0x%08" PRIX32 ") on Group %u", clusterId, commandId,
+                        groupId);
+
+        return ClusterCommand::SendGroupCommand(groupId, fabricIndex, clusterId, commandId, mRequest);
+    }
+
+private:
+    chip::app::Clusters::PhotonTime::Commands::SetTimeZone::Type mRequest;
+};
+
+/*----------------------------------------------------------------------------*\
 | Cluster UnitTesting                                                 | 0xFFF1FC05 |
 |------------------------------------------------------------------------------|
 | Commands:                                                           |        |
@@ -32308,6 +32368,74 @@ void registerClusterFreshWaterHeaterController(Commands & commands, CredentialIs
 
     commands.RegisterCluster(clusterName, clusterCommands);
 }
+void registerClusterPhotonTime(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
+{
+    using namespace chip::app::Clusters::PhotonTime;
+
+    const char * clusterName = "PhotonTime";
+
+    commands_list clusterCommands = {
+        //
+        // Commands
+        //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig),    //
+        make_unique<PhotonTimeSetTimeZone>(credsIssuerConfig), //
+        //
+        // Attributes
+        //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig),                                                                 //
+        make_unique<ReadAttribute>(Id, "posix-rule", Attributes::PosixRule::Id, credsIssuerConfig),                        //
+        make_unique<ReadAttribute>(Id, "rule-source", Attributes::RuleSource::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "utcoffset", Attributes::UTCOffset::Id, credsIssuerConfig),                         //
+        make_unique<ReadAttribute>(Id, "dstactive", Attributes::DSTActive::Id, credsIssuerConfig),                         //
+        make_unique<ReadAttribute>(Id, "zone-name", Attributes::ZoneName::Id, credsIssuerConfig),                          //
+        make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
+        make_unique<WriteAttribute<chip::CharSpan>>(Id, "posix-rule", Attributes::PosixRule::Id, WriteCommandType::kForceWrite,
+                                                    credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::Clusters::PhotonTime::RuleSourceEnum>>(
+            Id, "rule-source", 0, UINT8_MAX, Attributes::RuleSource::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int32_t>>(Id, "utcoffset", INT32_MIN, INT32_MAX, Attributes::UTCOffset::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<bool>>(Id, "dstactive", 0, 1, Attributes::DSTActive::Id, WriteCommandType::kForceWrite,
+                                          credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::DataModel::Nullable<chip::CharSpan>>>(
+            Id, "zone-name", Attributes::ZoneName::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::AttributeId>>>(
+            Id, "attribute-list", Attributes::AttributeList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig),                                //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                                                 //
+        make_unique<SubscribeAttribute>(Id, "posix-rule", Attributes::PosixRule::Id, credsIssuerConfig),                        //
+        make_unique<SubscribeAttribute>(Id, "rule-source", Attributes::RuleSource::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "utcoffset", Attributes::UTCOffset::Id, credsIssuerConfig),                         //
+        make_unique<SubscribeAttribute>(Id, "dstactive", Attributes::DSTActive::Id, credsIssuerConfig),                         //
+        make_unique<SubscribeAttribute>(Id, "zone-name", Attributes::ZoneName::Id, credsIssuerConfig),                          //
+        make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<SubscribeAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        //
+        // Events
+        //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+}
 void registerClusterUnitTesting(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
 {
     using namespace chip::app::Clusters::UnitTesting;
@@ -33060,6 +33188,7 @@ void registerClusters(Commands & commands, CredentialIssuerCommands * credsIssue
     registerClusterFreshRefrigeratorController(commands, credsIssuerConfig);
     registerClusterFreshMideaController(commands, credsIssuerConfig);
     registerClusterFreshWaterHeaterController(commands, credsIssuerConfig);
+    registerClusterPhotonTime(commands, credsIssuerConfig);
     registerClusterUnitTesting(commands, credsIssuerConfig);
     registerClusterFaultInjection(commands, credsIssuerConfig);
     registerClusterSampleMei(commands, credsIssuerConfig);

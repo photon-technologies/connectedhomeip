@@ -387,6 +387,10 @@
 #include <clusters/PhotonSmart/Commands.ipp>
 #include <clusters/PhotonSmart/Events.ipp>
 #include <clusters/PhotonSmart/Structs.ipp>
+#include <clusters/PhotonTime/Attributes.ipp>
+#include <clusters/PhotonTime/Commands.ipp>
+#include <clusters/PhotonTime/Events.ipp>
+#include <clusters/PhotonTime/Structs.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Attributes.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Commands.ipp>
 #include <clusters/Pm10ConcentrationMeasurement/Events.ipp>
@@ -1453,6 +1457,13 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
         }
     }
     case Clusters::FreshWaterHeaterController::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::PhotonTime::Id: {
         switch (aCommand)
         {
         default:

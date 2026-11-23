@@ -4,10 +4,10 @@
 
   SOURCE OF TRUTH for the time zone cluster the Photon agent serves on every product.
 
-  Not listed in zcl.json or zcl-with-test-extensions.json, so ZAP does not load it and
-  nothing is generated from it: the cluster is in no product's Matter data model. The agent
-  serves it over MQTT as photon/agent1.0, the agent's documents, addressed by the same
-  (endpoint, cluster, attribute) and (endpoint, cluster, command) as Matter.
+  Served two ways by the same agent code: as a Matter cluster on endpoint 0, so a local
+  controller can read and set the zone, and over MQTT as photon/agent1.0, the agent's
+  documents, addressed by the same (endpoint, cluster, attribute) and (endpoint, cluster,
+  command). Every attribute is external (zcl.json attributeAccessInterfaceAttributes).
 
   The rule and the zone name are one value, as the name and offset are in the Time
   Synchronization cluster's TimeZoneStruct: every attribute is read only, and SetTimeZone
@@ -31,7 +31,7 @@
   <cluster>
     <name>Photon Time</name>
     <domain>PHOTON</domain>
-    <description>The time zone in effect on the device, and the command that sets it. Served over MQTT as photon/agent1.0, outside the Matter data model.</description>
+    <description>The time zone in effect on the device, and the command that sets it.</description>
     <code>0x15E7FC06</code>
     <define>PHOTON_TIME_CLUSTER</define>
     <client tick="false" init="false">true</client>

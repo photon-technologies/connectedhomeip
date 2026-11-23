@@ -151,6 +151,7 @@
         "fresh-refrigerator-errors.xml",
         "fresh-midea-controller-cluster.xml",
         "photon-smart-cluster.xml",
+        "photon-time-cluster.xml",
         "fresh-water-heater-controller-cluster.xml"
     ],
     "manufacturersXml": "./data-model/manufacturers.xml",
@@ -808,6 +809,13 @@
             "InsightsParams",
             "MqttReportEnabled",
             "PublicIpv4Enabled"
+        ],
+        "Photon Time": [
+            "PosixRule",
+            "RuleSource",
+            "UTCOffset",
+            "DSTActive",
+            "ZoneName"
         ],
         "Fresh Water Heater Controller": [
             "DefaultBoostModeSetpoint",

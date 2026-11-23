@@ -21383,6 +21383,90 @@ public class ClusterInfoMapping {
     }
   }
 
+  public static class DelegatedPhotonTimeClusterZoneNameAttributeCallback implements ChipClusters.PhotonTimeCluster.ZoneNameAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(@Nullable String value) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("value", "String");
+      responseValues.put(commandResponseInfo, value);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonTimeClusterGeneratedCommandListAttributeCallback implements ChipClusters.PhotonTimeCluster.GeneratedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonTimeClusterAcceptedCommandListAttributeCallback implements ChipClusters.PhotonTimeCluster.AcceptedCommandListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
+  public static class DelegatedPhotonTimeClusterAttributeListAttributeCallback implements ChipClusters.PhotonTimeCluster.AttributeListAttributeCallback, DelegatedClusterCallback {
+    private ClusterCommandCallback callback;
+    @Override
+    public void setCallbackDelegate(ClusterCommandCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    public void onSuccess(List<Long> valueList) {
+      Map<CommandResponseInfo, Object> responseValues = new LinkedHashMap<>();
+      CommandResponseInfo commandResponseInfo = new CommandResponseInfo("valueList", "List<Long>");
+      responseValues.put(commandResponseInfo, valueList);
+      callback.onSuccess(responseValues);
+    }
+
+    @Override
+    public void onError(Exception ex) {
+      callback.onFailure(ex);
+    }
+  }
+
 
   public static class DelegatedUnitTestingClusterTestSpecificResponseCallback implements ChipClusters.UnitTestingCluster.TestSpecificResponseCallback, DelegatedClusterCallback {
     private ClusterCommandCallback callback;
@@ -23516,6 +23600,10 @@ public class ClusterInfoMapping {
       (ptr, endpointId) -> new ChipClusters.FreshWaterHeaterControllerCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("freshWaterHeaterController", freshWaterHeaterControllerClusterInfo);
 
+    ClusterInfo photonTimeClusterInfo = new ClusterInfo(
+      (ptr, endpointId) -> new ChipClusters.PhotonTimeCluster(ptr, endpointId), new HashMap<>());
+    clusterMap.put("photonTime", photonTimeClusterInfo);
+
     ClusterInfo unitTestingClusterInfo = new ClusterInfo(
       (ptr, endpointId) -> new ChipClusters.UnitTestingCluster(ptr, endpointId), new HashMap<>());
     clusterMap.put("unitTesting", unitTestingClusterInfo);
@@ -23674,6 +23762,7 @@ public class ClusterInfoMapping {
     destination.get("freshRefrigeratorController").combineCommands(source.get("freshRefrigeratorController"));
     destination.get("freshMideaController").combineCommands(source.get("freshMideaController"));
     destination.get("freshWaterHeaterController").combineCommands(source.get("freshWaterHeaterController"));
+    destination.get("photonTime").combineCommands(source.get("photonTime"));
     destination.get("unitTesting").combineCommands(source.get("unitTesting"));
     destination.get("faultInjection").combineCommands(source.get("faultInjection"));
     destination.get("sampleMei").combineCommands(source.get("sampleMei"));
@@ -32126,6 +32215,32 @@ public class ClusterInfoMapping {
     freshWaterHeaterControllerClusterInteractionInfoMap.put("anodeChangeConfirmed", freshWaterHeaterControlleranodeChangeConfirmedInteractionInfo);
 
     commandMap.put("freshWaterHeaterController", freshWaterHeaterControllerClusterInteractionInfoMap);
+
+    Map<String, InteractionInfo> photonTimeClusterInteractionInfoMap = new LinkedHashMap<>();
+
+    Map<String, CommandParameterInfo> photonTimesetTimeZoneCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+
+    CommandParameterInfo photonTimesetTimeZoneposixRuleCommandParameterInfo = new CommandParameterInfo("posixRule", String.class, String.class);
+    photonTimesetTimeZoneCommandParams.put("posixRule",photonTimesetTimeZoneposixRuleCommandParameterInfo);
+
+    CommandParameterInfo photonTimesetTimeZonezoneNameCommandParameterInfo = new CommandParameterInfo("zoneName", Optional.class, String.class);
+    photonTimesetTimeZoneCommandParams.put("zoneName",photonTimesetTimeZonezoneNameCommandParameterInfo);
+    InteractionInfo photonTimesetTimeZoneInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.PhotonTimeCluster) cluster)
+        .setTimeZone((DefaultClusterCallback) callback
+        , (String)
+        commandArguments.get("posixRule")
+        , (Optional<String>)
+        commandArguments.get("zoneName")
+        );
+      },
+      () -> new DelegatedDefaultClusterCallback(),
+        photonTimesetTimeZoneCommandParams
+    );
+    photonTimeClusterInteractionInfoMap.put("setTimeZone", photonTimesetTimeZoneInteractionInfo);
+
+    commandMap.put("photonTime", photonTimeClusterInteractionInfoMap);
 
     Map<String, InteractionInfo> unitTestingClusterInteractionInfoMap = new LinkedHashMap<>();
 

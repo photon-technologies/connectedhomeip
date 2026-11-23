@@ -43296,6 +43296,99 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @end
 
+@implementation MTRPhotonTimeClusterSetTimeZoneParams
+- (instancetype)init
+{
+    if (self = [super init]) {
+
+        _posixRule = @"";
+
+        _zoneName = nil;
+        _timedInvokeTimeoutMs = nil;
+        _serverSideProcessingTimeout = nil;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone * _Nullable)zone;
+{
+    auto other = [[MTRPhotonTimeClusterSetTimeZoneParams alloc] init];
+
+    other.posixRule = self.posixRule;
+    other.zoneName = self.zoneName;
+    other.timedInvokeTimeoutMs = self.timedInvokeTimeoutMs;
+    other.serverSideProcessingTimeout = self.serverSideProcessingTimeout;
+
+    return other;
+}
+
+- (NSString *)description
+{
+    NSString * descriptionString = [NSString stringWithFormat:@"<%@: posixRule:%@; zoneName:%@; >", NSStringFromClass([self class]), _posixRule, _zoneName];
+    return descriptionString;
+}
+
+@end
+
+@implementation MTRPhotonTimeClusterSetTimeZoneParams (InternalMethods)
+
+- (CHIP_ERROR)_encodeToTLVReader:(chip::System::PacketBufferTLVReader &)reader
+{
+    chip::app::Clusters::PhotonTime::Commands::SetTimeZone::Type encodableStruct;
+    ListFreer listFreer;
+    {
+        encodableStruct.posixRule = AsCharSpan(self.posixRule);
+    }
+    {
+        if (self.zoneName != nil) {
+            auto & definedValue_0 = encodableStruct.zoneName.Emplace();
+            if (self.zoneName == nil) {
+                definedValue_0.SetNull();
+            } else {
+                auto & nonNullValue_1 = definedValue_0.SetNonNull();
+                nonNullValue_1 = AsCharSpan(self.zoneName);
+            }
+        }
+    }
+
+    auto buffer = chip::System::PacketBufferHandle::New(chip::System::PacketBuffer::kMaxSizeWithoutReserve, 0);
+    if (buffer.IsNull()) {
+        return CHIP_ERROR_NO_MEMORY;
+    }
+
+    chip::System::PacketBufferTLVWriter writer;
+    // Commands never need chained buffers, since they cannot be chunked.
+    writer.Init(std::move(buffer), /* useChainedBuffers = */ false);
+
+    ReturnErrorOnFailure(chip::app::DataModel::Encode(writer, chip::TLV::AnonymousTag(), encodableStruct));
+
+    ReturnErrorOnFailure(writer.Finalize(&buffer));
+
+    reader.Init(std::move(buffer));
+    return reader.Next(chip::TLV::kTLVType_Structure, chip::TLV::AnonymousTag());
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error
+{
+    chip::System::PacketBufferTLVReader reader;
+    CHIP_ERROR err = [self _encodeToTLVReader:reader];
+    if (err != CHIP_NO_ERROR) {
+        if (error) {
+            *error = [MTRError errorForCHIPErrorCode:err];
+        }
+        return nil;
+    }
+
+    auto decodedObj = MTRDecodeDataValueDictionaryFromCHIPTLV(&reader);
+    if (decodedObj == nil) {
+        if (error) {
+            *error = [MTRError errorForCHIPErrorCode:CHIP_ERROR_INCORRECT_STATE];
+        }
+    }
+    return decodedObj;
+}
+@end
+
 @implementation MTRUnitTestingClusterTestParams
 - (instancetype)init
 {
